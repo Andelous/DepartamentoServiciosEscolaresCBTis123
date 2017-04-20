@@ -27,9 +27,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
             switch (inicioDeSesion)
             {
-                case ResultadoOperacion.Error:
-                    MessageBox.Show("Error desconocido. Póngase en contacto con el administrador del sistema.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
                 case ResultadoOperacion.Correcto:
                     txtUsuario.Focus();
                     txtContrasena.Text = "";
@@ -37,19 +34,9 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     Hide();
                     (new FrmPrincipal(controladorSesion)).Show();
                     break;
-                case ResultadoOperacion.ErrorAplicacion:
-                    MessageBox.Show("Error de la aplicación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case ResultadoOperacion.ErrorConexionServidor:
-                    MessageBox.Show("Error al intentar conectar al servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case ResultadoOperacion.ErrorDatosIncorrectos:
-                    MessageBox.Show("Usuario y/o contraseña incorrectos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-                case ResultadoOperacion.ErrorSintaxisSQL:
-                    MessageBox.Show("Error de SQL. Póngase en contacto con el administrador del sistema.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
+
                 default:
+                    ControladorVisual.mostrarMensaje(inicioDeSesion);
                     break;
             }
         }

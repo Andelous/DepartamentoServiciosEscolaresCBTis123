@@ -1,6 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using MySql.Data.MySqlClient;
+using MySqlUtilerias.Exception;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -50,21 +51,30 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             {
                 usuarioActivo = 
                     daoUsuarios.
-                    seleccionarUsuarioPorUsuarioContrasena(
+                    seleccionarUsuarioPorUsuarioContrasena
+                    (
                         usuario,
                         contrasena
                     );
             }
             catch (MySqlException e)
             {
-                switch (e.Number)
+                TipoError te = MySqlExceptionHandler.obtenerTipoError(e);
+
+                switch (te)
                 {
-                    case 1042:
+                    case TipoError.ErrorConexionServidor:
                         return ResultadoOperacion.ErrorConexionServidor;
-                    case 1105:
-                        return ResultadoOperacion.Error;
+                    case TipoError.ErrorDesconocido:
+                        return ResultadoOperacion.ErrorDesconocido;
+                    case TipoError.ErrorEnServidor:
+                        return ResultadoOperacion.ErrorEnServidor;
+                    case TipoError.ErrorAcceso_SintaxisSQL:
+                        return ResultadoOperacion.ErrorAcceso_SintaxisSQL;
+                    case TipoError.ErrorAjenoMySql:
+                        return ResultadoOperacion.ErrorAplicacion;
                     default:
-                        return ResultadoOperacion.ErrorSintaxisSQL;
+                        return ResultadoOperacion.Error;
                 }
             }
             catch (Exception)
@@ -75,7 +85,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return 
                 usuarioActivo != null ? 
                 ResultadoOperacion.Correcto : 
-                ResultadoOperacion.ErrorDatosIncorrectos;
+                ResultadoOperacion.ErrorCredencialesIncorrectas;
         }
 
         public void cerrarSesion()

@@ -1,4 +1,5 @@
 ﻿using MySqlDataSource;
+using MySqlUtilerias.DataSource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 {
     public abstract class DAO
     {
-        public MySqlDataSourceLocal dataSource { get; set; }
+        public IMySqlDataSource dataSource { get; set; }
 
         public DAO()
         {

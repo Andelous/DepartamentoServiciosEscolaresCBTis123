@@ -4,42 +4,6 @@
         <name>MySqlDataSource</name>
     </assembly>
     <members>
-        <member name="T:MySqlDataSource.IMySqlDataSource">
-            <summary>
-            Interfaz que determina las funciones de un MySqlDataSource.
-            </summary>
-        </member>
-        <member name="P:MySqlDataSource.IMySqlDataSource.ultimoIDInsertado">
-            <summary>
-            Devolvera el ID del ultimo registro insertado por este MySqlDataSource.
-            </summary>
-        </member>
-        <member name="M:MySqlDataSource.IMySqlDataSource.abrirConexion">
-            <summary>
-            Abre la conexion de este MySqlDataSource.
-            </summary>
-            <exception cref="T:MySql.Data.MySqlClient.MySqlException"></exception>
-            <exception cref="T:System.InvalidOperationException"></exception>
-        </member>
-        <member name="M:MySqlDataSource.IMySqlDataSource.cerrarConexion">
-            <summary>
-            Cierra la conexion de este MySqlDataSource
-            </summary>
-        </member>
-        <member name="M:MySqlDataSource.IMySqlDataSource.ejecutarConsulta(System.String)">
-            <summary>
-            Ejecuta la consulta a la base de datos y devuelve un MySqlDataReader.
-            </summary>
-            <param name="query">Consulta que se ejecutara.</param>
-            <returns>Devuelve un MySqlDataReader vinculado a los resultados de la consulta.</returns>
-        </member>
-        <member name="M:MySqlDataSource.IMySqlDataSource.ejecutarActualizacion(System.String)">
-            <summary>
-            Ejecuta la consulta a la base de datos predeterminada y devuelve el numero de filas afectadas.
-            </summary>
-            <param name="query">Actualización que se ejecutara.</param>
-            <returns>Numero de filas afectadas.</returns>
-        </member>
         <member name="T:MySqlDataSource.MySqlDataSourceLocal">
             <summary>
             Crea una instancia de MySqlDataSource para mi entorno local.

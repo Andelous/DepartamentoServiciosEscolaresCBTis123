@@ -9,6 +9,93 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public class ControladorVisual
     {
+        public static DialogResult mostrarMensaje(ResultadoOperacion ro)
+        {
+            switch (ro.estadoOperacion)
+            {
+                case ResultadoOperacion.Correcto:
+                    return MessageBox.Show(
+                        "Operación realizada con éxito.\n" + parentesis + corchetes, 
+                        "Éxito", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Information
+                    );
+
+                case ResultadoOperacion.ErrorCredencialesIncorrectas:
+                    return MessageBox.Show(
+                        "Credenciales incorrectas.\n" + parentesis + corchetes, 
+                        "Aviso", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Warning
+                    );
+
+                case ResultadoOperacion.ErrorDatosIncorrectos:
+                    return MessageBox.Show(
+                        "Datos incorrectos.\n" + parentesis + corchetes, 
+                        "Aviso", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Warning
+                    );
+
+                case ResultadoOperacion.ErrorDependenciaDeDatos:
+                    return MessageBox.Show(
+                        "Error, existen datos que dependen \ndel elemento que trata de manipular.\n" + parentesis + corchetes, 
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                    );
+
+                case ResultadoOperacion.ErrorDesconocido:
+                    return MessageBox.Show(
+                        "Error desconocido.\n" + parentesis + corchetes, 
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                    );
+
+                case ResultadoOperacion.ErrorAplicacion:
+                    return MessageBox.Show(
+                        "Error de la aplicación. Póngase en\ncontacto con el administrador del sistema.\n" + parentesis + corchetes, 
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                    );
+
+                    /*
+                case ResultadoOperacion.ErrorConexionServidor:
+                    return MessageBox.Show(
+                        "Error al intentar establecer conexión con el servidor.\n" + parentesis + corchetes, 
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                    );*/
+
+                case ResultadoOperacion.ErrorAcceso_SintaxisSQL:
+                    return MessageBox.Show(
+                        "Error de acceso o sintaxis SQL. Póngase en\ncontacto con el administrador del sistema.\n" + parentesis + corchetes, 
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                    );
+                    
+                case ResultadoOperacion.ErrorEnServidor:
+                    return MessageBox.Show(
+                        "Error en el servidor, pruebe nuevamente.\nSi el problema persiste, póngase en contacto con el administrador del sistema.\n" + parentesis + corchetes, 
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                    );
+
+                default:
+                    return MessageBox.Show(
+                        "Resultado no reconocido _" + ro.ToString() + "_.\n" + parentesis + corchetes, 
+                        "Aviso", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Warning
+                    );
+            }
+        }
+
         public static ComboBox clonarCombo(ComboBox comboOriginal)
         {
             ComboBox comboNuevo = new ComboBox();
