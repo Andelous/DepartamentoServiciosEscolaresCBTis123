@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,11 +22,22 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         public List<Semestre> seleccionarSemestres()
         {
-            return daoSemestres.seleccionarSemestres();
+            List<Semestre> listaSemestres = new List<Semestre>();
+
+            try
+            { listaSemestres = daoSemestres.seleccionarSemestres(); }
+            catch (MySqlException e)
+            { throw; }
+
+            return listaSemestres;
         }
 
-        public ResultadoOperacion registrarSemestre(string nombre, string nombreCorto, string nombreCorto2, string nombreCorto3)
-        {
+        public ResultadoOperacion registrarSemestre(
+            string nombre, 
+            string nombreCorto, 
+            string nombreCorto2, 
+            string nombreCorto3
+        ) {
             Semestre s = 
                 daoSemestres.
                 crearSemestre(
@@ -38,11 +50,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             int registrado = daoSemestres.registrarSemestre(s);
 
-            return registrado == 1 ? ResultadoOperacion.RegistroCorrecto : ResultadoOperacion.ErrorAlRegistrar;
+            return registrado == 1 ? ResultadoOperacion.Correcto : ResultadoOperacion.Error;
         }
 
-        public ResultadoOperacion modificarSemestre(int idSemestre, string nombre, string nombreCorto, string nombreCorto2, string nombreCorto3)
-        {
+        public ResultadoOperacion modificarSemestre(
+            int idSemestre, 
+            string nombre, 
+            string nombreCorto, 
+            string nombreCorto2, 
+            string nombreCorto3
+        ) {
             Semestre s =
                 daoSemestres.
                 crearSemestre(
@@ -53,15 +70,30 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     nombreCorto3
                 );
 
-            int modificado = daoSemestres.modificarSemestre(s);
+            int modificado = 0;
 
-            return modificado == 1 ? ResultadoOperacion.ModificacionCorrecta : ResultadoOperacion.ErrorAlModificar;
+            try
+            { daoSemestres.modificarSemestre(s); }
+            catch (MySqlException)
+            { throw; }
+            catch (Exception)
+            { throw; }
+
+            return modificado == 1 ? ResultadoOperacion.Correcto: ResultadoOperacion.Error;
         }
 
         public ResultadoOperacion eliminarSemestre(Semestre s)
         {
-            int eliminado = daoSemestres.eliminarSemestre(s);
-            return eliminado == 1 ? ResultadoOperacion.EliminacionCorrecta : ResultadoOperacion.ErrorAlEliminar;
+            int eliminado = 0;
+
+            try
+            { eliminado = daoSemestres.eliminarSemestre(s); }
+            catch (MySqlException)
+            { throw; }
+            catch (Exception)
+            { throw; }
+
+            return eliminado == 1 ? ResultadoOperacion.Correcto : ResultadoOperacion.Error;
         }
     }
 }

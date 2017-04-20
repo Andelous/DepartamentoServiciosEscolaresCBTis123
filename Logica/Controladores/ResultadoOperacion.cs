@@ -8,11 +8,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public enum ResultadoOperacion
     {
-        ErrorAlEliminar,
-        ErrorAlRegistrar,
-        ErrorAlModificar,
-        EliminacionCorrecta,
-        RegistroCorrecto,
-        ModificacionCorrecta
+        Error,
+        Correcto,
+        ErrorAplicacion,
+        ErrorConexionServidor,
+        ErrorDatosIncorrectos,
+        ErrorDependenciaDeDatos,
+        ErrorSintaxisSQL
     }
 }

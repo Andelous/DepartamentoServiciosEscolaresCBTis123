@@ -22,6 +22,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         public DAOMaterias daoMaterias { get; set; }
         public DAOCatedras daoCatedras { get; set; }
         public DAODocentes daoDocentes { get; set; }
+
+        public bool isSesionIniciada {
+            get
+            {
+                return usuarioActivo != null;
+            }
+        }
         
 
         public ControladorSesion()
@@ -37,7 +44,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             
         }
 
-        public EstadoSesion iniciarSesion(string usuario, string contrasena)
+        public ResultadoOperacion iniciarSesion(string usuario, string contrasena)
         {
             try
             {
@@ -48,19 +55,27 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         contrasena
                     );
             }
-            catch (MySqlException)
+            catch (MySqlException e)
             {
-                return EstadoSesion.ErrorDelServidor;
+                switch (e.Number)
+                {
+                    case 1042:
+                        return ResultadoOperacion.ErrorConexionServidor;
+                    case 1105:
+                        return ResultadoOperacion.Error;
+                    default:
+                        return ResultadoOperacion.ErrorSintaxisSQL;
+                }
             }
             catch (Exception)
             {
-                return EstadoSesion.ErrorDesconocido;
+                return ResultadoOperacion.ErrorAplicacion;
             }
 
             return 
                 usuarioActivo != null ? 
-                EstadoSesion.SesionIniciadaConExito : 
-                EstadoSesion.CredencialesIncorrectas;
+                ResultadoOperacion.Correcto : 
+                ResultadoOperacion.ErrorDatosIncorrectos;
         }
 
         public void cerrarSesion()

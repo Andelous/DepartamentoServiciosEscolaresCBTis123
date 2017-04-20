@@ -23,25 +23,31 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdIngresar_Click(object sender, EventArgs e)
         {
-            EstadoSesion inicioDeSesion = controladorSesion.iniciarSesion(txtUsuario.Text, txtContrasena.Text);
+            ResultadoOperacion inicioDeSesion = controladorSesion.iniciarSesion(txtUsuario.Text, txtContrasena.Text);
 
             switch (inicioDeSesion)
             {
-                case EstadoSesion.ErrorDesconocido:
-                    MessageBox.Show("Error de la aplicación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                case ResultadoOperacion.Error:
+                    MessageBox.Show("Error desconocido. Póngase en contacto con el administrador del sistema.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
-                case EstadoSesion.ErrorDelServidor:
-                    MessageBox.Show("Error del servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case EstadoSesion.CredencialesIncorrectas:
-                    MessageBox.Show("Usuario y/o contraseña incorrectos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-                case EstadoSesion.SesionIniciadaConExito:
+                case ResultadoOperacion.Correcto:
                     txtUsuario.Focus();
                     txtContrasena.Text = "";
 
                     Hide();
                     (new FrmPrincipal(controladorSesion)).Show();
+                    break;
+                case ResultadoOperacion.ErrorAplicacion:
+                    MessageBox.Show("Error de la aplicación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case ResultadoOperacion.ErrorConexionServidor:
+                    MessageBox.Show("Error al intentar conectar al servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    break;
+                case ResultadoOperacion.ErrorDatosIncorrectos:
+                    MessageBox.Show("Usuario y/o contraseña incorrectos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+                case ResultadoOperacion.ErrorSintaxisSQL:
+                    MessageBox.Show("Error de SQL. Póngase en contacto con el administrador del sistema.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
                     break;
                 default:
                     break;

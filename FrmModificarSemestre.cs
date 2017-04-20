@@ -50,7 +50,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                         txtNombreCorto2.Text,
                         txtNombreCorto3.Text
                     );
-                if (ro == ResultadoOperacion.ModificacionCorrecta)
+                if (ro == ResultadoOperacion.Correcto)
                 {
                     MessageBox.Show("Semestre modificado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();

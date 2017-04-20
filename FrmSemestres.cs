@@ -58,7 +58,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     controladorSemestres.
                     eliminarSemestre(semestreSeleccionado);
 
-                if (ro == ResultadoOperacion.EliminacionCorrecta)
+                if (ro == ResultadoOperacion.Correcto)
                 {
                     MessageBox.Show("Semestre eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     configurarDGVSemestres();
