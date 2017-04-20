@@ -1,0 +1,74 @@
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
+namespace DepartamentoServiciosEscolaresCBTis123
+{
+    public partial class FrmModificarSemestre : Form
+    {
+        private ControladorSesion controladorSesion { get; set; }
+        private ControladorSemestres controladorSemestres { get; set; }
+        private Semestre semestre { get; set; }
+
+        public FrmModificarSemestre(ControladorSesion controladorSesion, ControladorSemestres controladorSemestres, Semestre semestre)
+        {
+            InitializeComponent();
+
+            this.controladorSesion = controladorSesion;
+            this.controladorSemestres = controladorSemestres;
+            this.semestre = semestre;
+        }
+
+        private void FrmModificarSemestre_Load(object sender, EventArgs e)
+        {
+            txtNombre.Text = semestre.nombre;
+            txtNombreCorto.Text = semestre.nombreCorto;
+            txtNombreCorto2.Text = semestre.nombreCorto2;
+            txtNombreCorto3.Text = semestre.nombreCorto3;
+        }
+
+        private void cmdModificar_Click(object sender, EventArgs e)
+        {
+            if (txtNombre.Text != "" &&
+                txtNombreCorto.Text != "" &&
+                txtNombreCorto2.Text != "")
+            {
+                ResultadoOperacion ro = 
+                    controladorSemestres.
+                    modificarSemestre(
+                        semestre.idSemestre,
+                        txtNombre.Text,
+                        txtNombreCorto.Text,
+                        txtNombreCorto2.Text,
+                        txtNombreCorto3.Text
+                    );
+                if (ro == ResultadoOperacion.ModificacionCorrecta)
+                {
+                    MessageBox.Show("Semestre modificado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    Close();
+                }
+                else
+                {
+                    MessageBox.Show("Error al modificar el semestre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+            else
+            {
+                MessageBox.Show("Rellene los campos de forma correcta", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+        }
+
+        private void cmdCancelar_Click(object sender, EventArgs e)
+        {
+            Close();
+        }
+    }
+}

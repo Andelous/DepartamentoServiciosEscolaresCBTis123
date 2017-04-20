@@ -1,0 +1,254 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{CA8E7B7B-AE3F-473C-9395-94B7AABA9AF0}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>DepartamentoServiciosEscolaresCBTis123</RootNamespace>
+    <AssemblyName>DepartamentoServiciosEscolaresCBTis123</AssemblyName>
+    <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
+    <Reference Include="MySqlDataSource">
+      <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2015\Projects\MySqlDataSource\MySqlDataSource\bin\Debug\MySqlDataSource.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Deployment" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="FrmAsignacionDeDocentes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmAsignacionDeDocentes.Designer.cs">
+      <DependentUpon>FrmAsignacionDeDocentes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmDocentes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmDocentes.Designer.cs">
+      <DependentUpon>FrmDocentes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmEstudiantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmEstudiantes.Designer.cs">
+      <DependentUpon>FrmEstudiantes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmGrupos.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmGrupos.Designer.cs">
+      <DependentUpon>FrmGrupos.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmImportarEstudiantes.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmImportarEstudiantes.Designer.cs">
+      <DependentUpon>FrmImportarEstudiantes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmModificarDocente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmModificarDocente.Designer.cs">
+      <DependentUpon>FrmModificarDocente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmModificarEstudiante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmModificarEstudiante.Designer.cs">
+      <DependentUpon>FrmModificarEstudiante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmModificarGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmModificarGrupo.Designer.cs">
+      <DependentUpon>FrmModificarGrupo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmModificarSemestre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmModificarSemestre.Designer.cs">
+      <DependentUpon>FrmModificarSemestre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmLogin.Designer.cs">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNuevoDocente.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNuevoDocente.Designer.cs">
+      <DependentUpon>FrmNuevoDocente.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNuevoEstudiante.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNuevoEstudiante.Designer.cs">
+      <DependentUpon>FrmNuevoEstudiante.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNuevoGrupo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNuevoGrupo.Designer.cs">
+      <DependentUpon>FrmNuevoGrupo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmNuevoSemestre.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmNuevoSemestre.Designer.cs">
+      <DependentUpon>FrmNuevoSemestre.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmPrincipal.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPrincipal.Designer.cs">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </Compile>
+    <Compile Include="FrmSemestres.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmSemestres.Designer.cs">
+      <DependentUpon>FrmSemestres.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Logica\Controladores\ControladorSemestres.cs" />
+    <Compile Include="Logica\Controladores\ControladorSesion.cs" />
+    <Compile Include="Logica\Controladores\ControladorVisual.cs" />
+    <Compile Include="Logica\Controladores\EstadoSesion.cs" />
+    <Compile Include="Logica\Controladores\ResultadoOperacion.cs" />
+    <Compile Include="Logica\DAOs\DAO.cs" />
+    <Compile Include="Logica\DAOs\DAOCarreras.cs" />
+    <Compile Include="Logica\DAOs\DAOCatedras.cs" />
+    <Compile Include="Logica\DAOs\DAODocentes.cs" />
+    <Compile Include="Logica\DAOs\DAOEstudiantes.cs" />
+    <Compile Include="Logica\DAOs\DAOGrupos.cs" />
+    <Compile Include="Logica\DAOs\DAOMaterias.cs" />
+    <Compile Include="Logica\DAOs\DAOSemestres.cs" />
+    <Compile Include="Logica\DAOs\DAOUsuarios.cs" />
+    <Compile Include="Logica\Modelos\Carrera.cs" />
+    <Compile Include="Logica\Modelos\Catedra.cs" />
+    <Compile Include="Logica\Modelos\Docente.cs" />
+    <Compile Include="Logica\Modelos\Especialidad.cs" />
+    <Compile Include="Logica\Modelos\Estudiante.cs" />
+    <Compile Include="Logica\Modelos\Grupo.cs" />
+    <Compile Include="Logica\Modelos\Materia.cs" />
+    <Compile Include="Logica\Modelos\Semestre.cs" />
+    <Compile Include="Logica\Modelos\TipoUsuario.cs" />
+    <Compile Include="Logica\Modelos\Usuario.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="FrmAsignacionDeDocentes.resx">
+      <DependentUpon>FrmAsignacionDeDocentes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmDocentes.resx">
+      <DependentUpon>FrmDocentes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmEstudiantes.resx">
+      <DependentUpon>FrmEstudiantes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmGrupos.resx">
+      <DependentUpon>FrmGrupos.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmImportarEstudiantes.resx">
+      <DependentUpon>FrmImportarEstudiantes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmModificarDocente.resx">
+      <DependentUpon>FrmModificarDocente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmModificarEstudiante.resx">
+      <DependentUpon>FrmModificarEstudiante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmModificarGrupo.resx">
+      <DependentUpon>FrmModificarGrupo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmModificarSemestre.resx">
+      <DependentUpon>FrmModificarSemestre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmLogin.resx">
+      <DependentUpon>FrmLogin.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNuevoDocente.resx">
+      <DependentUpon>FrmNuevoDocente.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNuevoEstudiante.resx">
+      <DependentUpon>FrmNuevoEstudiante.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNuevoGrupo.resx">
+      <DependentUpon>FrmNuevoGrupo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmNuevoSemestre.resx">
+      <DependentUpon>FrmNuevoSemestre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmPrincipal.resx">
+      <DependentUpon>FrmPrincipal.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmSemestres.resx">
+      <DependentUpon>FrmSemestres.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup />
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

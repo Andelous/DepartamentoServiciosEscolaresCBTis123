@@ -1,0 +1,89 @@
+FrmSemestres
+wh 648, 481
+xy 0, 0
+
+	dgvSemestres
+wh	608, 321
+xy	12, 69
+
+	cmdNuevoSemestre
+xy	452, 29
+	
+	cmdEditarSemestre
+xy	12, 396
+
+	cmdAgregarGrupo
+xy	186, 396
+
+	cmdEliminarSemestre
+xy	452, 396
+
+
+FrmGrupos
+wh 648, 481
+xy 0,0
+
+	dgvGrupos
+	wh 608, 321
+
+	comboSemestres
+	xy 162, 31
+
+	cmdNuevoGrupo
+	xy 452, 29
+
+	cmdEditarGrupo
+	xy 12, 396
+
+	cmdEliminarGrupo
+	xy 452, 396
+
+	cmdAsginarDocentes
+	xy 186, 396
+
+
+FrmEstudiantes
+wh 842, 571
+xy 0, 0
+
+	lblSemestre
+	xy 442, 15
+
+	lblGrupo
+	xy 465, 51
+
+	comboSemestres
+	xy 530, 12
+
+	comboGrupos
+	xy 530, 48
+
+	dgvEstudiantes
+	wh 802, 261
+
+	cmdNuevoEstudiante
+	xy 646, 179
+
+	cmdEditarEstudiante
+	xy 12, 486
+
+	cmdEliminarEstudiante
+	xy 646, 486
+
+
+
+FrmDocentes
+wh 648, 481
+xy 0, 0
+
+	cmdNuevoDocente
+	xy 452, 29
+
+	dgvDocentes
+	wh 608, 321
+	
+	cmdEditarDocente
+	xy 12, 396
+
+	cmdEliminarDocente
+	xy 452, 396
