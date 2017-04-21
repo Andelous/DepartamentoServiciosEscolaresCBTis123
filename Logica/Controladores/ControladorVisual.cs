@@ -28,21 +28,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     );
 
                 case EstadoOperacion.NingunResultado:
-                    return MessageBox.Show(
-                        crearMensajeEstadoUsuario(resultadoOperacion),
-                        "Aviso",
-                        MessageBoxButtons.OK,
-                        MessageBoxIcon.Warning
-                    );
-
                 case EstadoOperacion.ErrorCredencialesIncorrectas:
-                    return MessageBox.Show(
-                        crearMensajeEstadoUsuario(resultadoOperacion),
-                        "Aviso", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Warning
-                    );
-
                 case EstadoOperacion.ErrorDatosIncorrectos:
                     return MessageBox.Show(
                         crearMensajeEstadoUsuario(resultadoOperacion),
@@ -63,38 +49,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
                     // Estados no dependientes del usuario
                 case EstadoOperacion.ErrorDesconocido:
-                    return MessageBox.Show(
-                        crearMensajeEstadoNoUsuario(resultadoOperacion),
-                        "Error", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error
-                    );
-
                 case EstadoOperacion.ErrorAplicacion:
-                    return MessageBox.Show(
-                        crearMensajeEstadoNoUsuario(resultadoOperacion),
-                        "Error", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error
-                    );
-
-                
                 case EstadoOperacion.ErrorConexionServidor:
-                    return MessageBox.Show(
-                        crearMensajeEstadoNoUsuario(resultadoOperacion),
-                        "Error", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error
-                    );
-
                 case EstadoOperacion.ErrorAcceso_SintaxisSQL:
-                    return MessageBox.Show(
-                        crearMensajeEstadoNoUsuario(resultadoOperacion),
-                        "Error", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error
-                    );
-                    
                 case EstadoOperacion.ErrorEnServidor:
                     return MessageBox.Show(
                         crearMensajeEstadoNoUsuario(resultadoOperacion),
