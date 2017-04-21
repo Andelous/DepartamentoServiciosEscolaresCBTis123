@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -37,32 +38,21 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdModificar_Click(object sender, EventArgs e)
         {
-            if (txtNombre.Text != "" &&
-                txtNombreCorto.Text != "" &&
-                txtNombreCorto2.Text != "")
+            ResultadoOperacion resultadoOperacion = 
+                controladorSemestres.
+                modificarSemestre(
+                    semestre.idSemestre,
+                    txtNombre.Text,
+                    txtNombreCorto.Text,
+                    txtNombreCorto2.Text,
+                    txtNombreCorto3.Text
+                );
+
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
+
+            if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
             {
-                ResultadoOperacion ro = 
-                    controladorSemestres.
-                    modificarSemestre(
-                        semestre.idSemestre,
-                        txtNombre.Text,
-                        txtNombreCorto.Text,
-                        txtNombreCorto2.Text,
-                        txtNombreCorto3.Text
-                    );
-                if (ro == ResultadoOperacion.ModificacionCorrecta)
-                {
-                    MessageBox.Show("Semestre modificado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Error al modificar el semestre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
-            {
-                MessageBox.Show("Rellene los campos de forma correcta", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Close();
             }
         }
 

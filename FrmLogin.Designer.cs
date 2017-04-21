@@ -55,7 +55,7 @@
             this.txtContrasena.PasswordChar = '●';
             this.txtContrasena.Size = new System.Drawing.Size(148, 29);
             this.txtContrasena.TabIndex = 16;
-            this.txtContrasena.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtContrasena_KeyPress);
+            this.txtContrasena.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enterTxt);
             // 
             // txtUsuario
             // 
@@ -65,7 +65,7 @@
             this.txtUsuario.Name = "txtUsuario";
             this.txtUsuario.Size = new System.Drawing.Size(148, 29);
             this.txtUsuario.TabIndex = 15;
-            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtUsuario_KeyPress);
+            this.txtUsuario.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.enterTxt);
             // 
             // label1
             // 

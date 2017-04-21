@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,31 +27,19 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdRegistrar_Click(object sender, EventArgs e)
         {
-            if (txtNombre.Text != "" && 
-                txtNombreCorto.Text != "" && 
-                txtNombreCorto2.Text != "")
-            {
-                ResultadoOperacion ro =
-                    controladorSemestres.
-                    registrarSemestre(
-                        txtNombre.Text,
-                        txtNombreCorto.Text,
-                        txtNombreCorto2.Text,
-                        txtNombreCorto3.Text
-                    );
+            ResultadoOperacion resultadoOperacion =
+                controladorSemestres.
+                registrarSemestre(
+                    txtNombre.Text,
+                    txtNombreCorto.Text,
+                    txtNombreCorto2.Text,
+                    txtNombreCorto3.Text);
 
-                if (ro == ResultadoOperacion.RegistroCorrecto) {
-                    MessageBox.Show("Semestre registrado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Close();
-                }
-                else
-                {
-                    MessageBox.Show("Error al registrar el semestre.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
+
+            if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
             {
-                MessageBox.Show("Rellene los campos de forma correcta", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Close();
             }
         }
 

@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -23,40 +24,25 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdIngresar_Click(object sender, EventArgs e)
         {
-            EstadoSesion inicioDeSesion = controladorSesion.iniciarSesion(txtUsuario.Text, txtContrasena.Text);
+            ResultadoOperacion inicioDeSesion = controladorSesion.iniciarSesion(txtUsuario.Text, txtContrasena.Text);
 
-            switch (inicioDeSesion)
+            switch (inicioDeSesion.estadoOperacion)
             {
-                case EstadoSesion.ErrorDesconocido:
-                    MessageBox.Show("Error de la aplicación.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case EstadoSesion.ErrorDelServidor:
-                    MessageBox.Show("Error del servidor.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    break;
-                case EstadoSesion.CredencialesIncorrectas:
-                    MessageBox.Show("Usuario y/o contraseña incorrectos.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                    break;
-                case EstadoSesion.SesionIniciadaConExito:
+                case EstadoOperacion.Correcto:
                     txtUsuario.Focus();
                     txtContrasena.Text = "";
 
                     Hide();
                     (new FrmPrincipal(controladorSesion)).Show();
                     break;
+
                 default:
+                    ControladorVisual.mostrarMensaje(inicioDeSesion);
                     break;
             }
         }
 
-        private void txtContrasena_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                cmdIngresar_Click(sender, e);
-            }
-        }
-
-        private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        private void enterTxt(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
             {

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -9,6 +10,91 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public class ControladorVisual
     {
+        private static string mensajeAdmStma {
+            get
+            { return "Si el problema persiste, póngase en contacto con el administrador del sistema."; }
+        }
+
+        public static DialogResult mostrarMensaje(ResultadoOperacion resultadoOperacion)
+        {
+            switch (resultadoOperacion.estadoOperacion)
+            {
+                // Estados dependientes del usuario
+                case EstadoOperacion.Correcto:
+                    return MessageBox.Show(
+                        crearMensajeEstadoUsuario(resultadoOperacion),
+                        "Éxito", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Information
+                    );
+
+                case EstadoOperacion.NingunResultado:
+                case EstadoOperacion.ErrorCredencialesIncorrectas:
+                case EstadoOperacion.ErrorDatosIncorrectos:
+                    return MessageBox.Show(
+                        crearMensajeEstadoUsuario(resultadoOperacion),
+                        "Aviso", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Warning
+                    );
+
+                case EstadoOperacion.ErrorDependenciaDeDatos:
+                    return MessageBox.Show(
+                        crearMensajeEstadoUsuario(resultadoOperacion),
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                    );
+                
+
+
+                    // Estados no dependientes del usuario
+                case EstadoOperacion.ErrorDesconocido:
+                case EstadoOperacion.ErrorAplicacion:
+                case EstadoOperacion.ErrorConexionServidor:
+                case EstadoOperacion.ErrorAcceso_SintaxisSQL:
+                case EstadoOperacion.ErrorEnServidor:
+                    return MessageBox.Show(
+                        crearMensajeEstadoNoUsuario(resultadoOperacion),
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                    );
+
+                default:
+                    return MessageBox.Show(
+                        crearMensajeEstadoNoUsuario(resultadoOperacion),
+                        "Aviso", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Warning
+                    );
+            }
+        }
+
+        private static string crearMensajeEstadoNoUsuario(ResultadoOperacion resultadoOperacion)
+        {
+            return 
+                resultadoOperacion.
+                estadoOperacion.
+                mensajePredeterminado() + 
+                " " + 
+                mensajeAdmStma + 
+                "\n\nDetalle:\n" + 
+                resultadoOperacion.ToString();
+        }
+
+        private static string crearMensajeEstadoUsuario(ResultadoOperacion resultadoOperacion)
+        {
+            return 
+                resultadoOperacion.
+                estadoOperacion.
+                mensajePredeterminado() + 
+                "\n(" + 
+                resultadoOperacion.
+                descripcion + 
+                ")";
+        }
+
         public static ComboBox clonarCombo(ComboBox comboOriginal)
         {
             ComboBox comboNuevo = new ComboBox();
