@@ -12,6 +12,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
     {
         public IMySqlDataSource dataSource { get; set; }
 
+        public DAO(IMySqlDataSource dataSource)
+        {
+            this.dataSource = dataSource;
+        }
+
         public DAO()
         {
             dataSource = new MySqlDataSourceLocal();

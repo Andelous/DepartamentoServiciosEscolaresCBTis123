@@ -30,7 +30,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 return usuarioActivo != null;
             }
         }
-        
 
         public ControladorSesion()
         {
@@ -47,6 +46,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         public ResultadoOperacion iniciarSesion(string usuario, string contrasena)
         {
+            // Si hay algún error durante la ejecución de la operación
+            // se devolverá el respectivo resultado de operación.
             try
             {
                 usuarioActivo = 
@@ -57,54 +58,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
             catch (MySqlException e)
             {
-                TipoError te = MySqlExceptionHandler.obtenerTipoError(e);
-
-                switch (te)
-                {
-                    case TipoError.ErrorConexionServidor:
-                        return 
-                            new ResultadoOperacion(
-                                EstadoOperacion.ErrorConexionServidor, 
-                                "MySqlException", 
-                                e.Number.ToString());
-
-                    case TipoError.ErrorDesconocido:
-                        return
-                            new ResultadoOperacion(
-                                EstadoOperacion.ErrorDesconocido,
-                                "MySqlException",
-                                e.Number.ToString());
-
-                    case TipoError.ErrorEnServidor:
-                        return
-                            new ResultadoOperacion(
-                                EstadoOperacion.ErrorEnServidor,
-                                "MySqlException",
-                                e.Number.ToString());
-
-                    case TipoError.ErrorAcceso_SintaxisSQL:
-                        return
-                            new ResultadoOperacion(
-                                EstadoOperacion.ErrorAcceso_SintaxisSQL,
-                                "MySqlException",
-                                e.Number.ToString());
-
-                    case TipoError.ErrorAjenoMySql:
-                        return
-                            new ResultadoOperacion(
-                                EstadoOperacion.ErrorAplicacion,
-                                "MySqlException/Aplicación - " + e.Message,
-                                e.Number.ToString());
-                }
+                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
             }
             catch (Exception e)
             {
-                return
-                    new ResultadoOperacion(
-                        EstadoOperacion.ErrorAplicacion,
-                        e.Message
-                    );
+                return ControladorExcepciones.crearResultadoOperacionException(e);
             }
+
 
             return
                 usuarioActivo != null ?

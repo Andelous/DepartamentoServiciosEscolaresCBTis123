@@ -20,17 +20,31 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             daoGrupos = new DAOGrupos();
         }
 
+
+
         public List<Semestre> seleccionarSemestres()
         {
             List<Semestre> listaSemestres = new List<Semestre>();
 
+            // Si hay algún error durante la ejecución de la operación
+            // se mostrará el respectivo resultado de operación.
             try
-            { listaSemestres = daoSemestres.seleccionarSemestres(); }
+            {
+                listaSemestres = daoSemestres.seleccionarSemestres();
+            }
             catch (MySqlException e)
-            { throw; }
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
 
             return listaSemestres;
         }
+
+
 
         public ResultadoOperacion registrarSemestre(
             string nombre, 
@@ -38,6 +52,20 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             string nombreCorto2, 
             string nombreCorto3
         ) {
+            // Verificamos que los datos introducidos
+            // sean válidos para la base de datos.
+            if (
+                !ValidadorDeTexto.esValido(nombre) ||
+                !ValidadorDeTexto.esValido(nombreCorto) ||
+                !ValidadorDeTexto.esValido(nombreCorto2) ||
+                !ValidadorDeTexto.esValido(nombreCorto3)
+            ) {
+                // Devolvemos un error si es que no son válidos.
+                return new ResultadoOperacion(
+                    EstadoOperacion.ErrorDatosIncorrectos,
+                    "No utilice caracteres especiales o inválidos");
+            }
+
             Semestre s = 
                 daoSemestres.
                 crearSemestre(
@@ -48,17 +76,42 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     nombreCorto3
                 );
 
-            int registrado = daoSemestres.registrarSemestre(s);
+            int registrado = 0;
 
-            return registrado == 1 ?
+            // Si hay algún error durante la ejecución de la operación
+            // se devolverá el respectivo resultado de operación.
+            try
+            {
+                registrado = daoSemestres.registrarSemestre(s);
+            }
+            catch (MySqlException e)
+            {
+                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+            }
+            catch (Exception e)
+            {
+                return ControladorExcepciones.crearResultadoOperacionException(e);
+            }
+
+            // Si no hubo problema, se devolverá el resultado correspondiente.
+            return 
+                registrado == 1 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
                     "Semestre registrado")
+                :
+                registrado > 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Se han registrado dos o más semestres",
+                    "SemReg " + registrado.ToString())
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
                     "Semestre no registrado");
         }
+
+
 
         public ResultadoOperacion modificarSemestre(
             int idSemestre, 
@@ -67,6 +120,20 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             string nombreCorto2, 
             string nombreCorto3
         ) {
+            // Verificamos que los datos introducidos
+            // sean válidos para la base de datos.
+            if (
+                !ValidadorDeTexto.esValido(nombre) ||
+                !ValidadorDeTexto.esValido(nombreCorto) ||
+                !ValidadorDeTexto.esValido(nombreCorto2) ||
+                !ValidadorDeTexto.esValido(nombreCorto3)
+            ) {
+                // Devolvemos un error si es que no son válidos.
+                return new ResultadoOperacion(
+                    EstadoOperacion.ErrorDatosIncorrectos,
+                    "No utilice caracteres especiales o inválidos");
+            }
+
             Semestre s =
                 daoSemestres.
                 crearSemestre(
@@ -79,42 +146,92 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             int modificado = 0;
 
+            // Si hay algún error durante la ejecución de la operación
+            // se devolverá el respectivo resultado de operación.
             try
-            { daoSemestres.modificarSemestre(s); }
-            catch (MySqlException)
-            { throw; }
-            catch (Exception)
-            { throw; }
+            {
+                modificado = daoSemestres.modificarSemestre(s);
+            }
+            catch (MySqlException e)
+            {
+                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+            }
+            catch (Exception e)
+            {
+                return ControladorExcepciones.crearResultadoOperacionException(e);
+            }
 
-            return modificado == 1 ?
+            // Si no hubo problema, se devolverá el resultado correspondiente.
+            return 
+                modificado == 1 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
                     "Semestre modificado")
+                :
+                modificado > 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Se han modificado dos o más semestres",
+                    "SemMod " + modificado.ToString())
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
                     "Semestre no modificado");
         }
 
+
+
         public ResultadoOperacion eliminarSemestre(Semestre s)
         {
+            // Validamos que no tenga grupos dependientes
+            if (daoGrupos.seleccionarGruposPorSemestre(s.idSemestre).Count > 0)
+            {
+                return
+                    new ResultadoOperacion(
+                        EstadoOperacion.ErrorDependenciaDeDatos,
+                        "El semestre contiene grupos");
+            }
+
             int eliminado = 0;
-
+            
+            // Si hay algún error durante la ejecución de la operación
+            // se devolverá el respectivo resultado de operación.
             try
-            { eliminado = daoSemestres.eliminarSemestre(s); }
-            catch (MySqlException)
-            { throw; }
-            catch (Exception)
-            { throw; }
+            {
+                eliminado = daoSemestres.eliminarSemestre(s);
+            }
+            catch (MySqlException e)
+            {
+                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+            }
+            catch (Exception e)
+            {
+                return ControladorExcepciones.crearResultadoOperacionException(e);
+            }
 
-            return eliminado == 1 ?
+            // Si no hubo problema, se devolverá el resultado correspondiente.
+            return
+                eliminado == 1 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
                     "Semestre eliminado")
                 :
+                eliminado > 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Se han eliminado dos o más semestres",
+                    "SemElim " + eliminado.ToString())
+                :
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
                     "Semestre no eliminado");
+        }
+
+
+        // MISC
+        public bool validarSemestre(Semestre s)
+        {
+            throw new NotImplementedException();
         }
     }
 }
