@@ -25,9 +25,9 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             ResultadoOperacion inicioDeSesion = controladorSesion.iniciarSesion(txtUsuario.Text, txtContrasena.Text);
 
-            switch (inicioDeSesion)
+            switch (inicioDeSesion.estadoOperacion)
             {
-                case ResultadoOperacion.Correcto:
+                case EstadoOperacion.Correcto:
                     txtUsuario.Focus();
                     txtContrasena.Text = "";
 
@@ -41,15 +41,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        private void txtContrasena_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                cmdIngresar_Click(sender, e);
-            }
-        }
-
-        private void txtUsuario_KeyPress(object sender, KeyPressEventArgs e)
+        private void enterTxt(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
             {

@@ -50,7 +50,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             int registrado = daoSemestres.registrarSemestre(s);
 
-            return registrado == 1 ? ResultadoOperacion.Correcto : ResultadoOperacion.NingunResultado;
+            return registrado == 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Semestre registrado")
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.NingunResultado,
+                    "Semestre no registrado");
         }
 
         public ResultadoOperacion modificarSemestre(
@@ -79,7 +86,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             catch (Exception)
             { throw; }
 
-            return modificado == 1 ? ResultadoOperacion.Correcto: ResultadoOperacion.NingunResultado;
+            return modificado == 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Semestre modificado")
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.NingunResultado,
+                    "Semestre no modificado");
         }
 
         public ResultadoOperacion eliminarSemestre(Semestre s)
@@ -93,7 +107,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             catch (Exception)
             { throw; }
 
-            return eliminado == 1 ? ResultadoOperacion.Correcto : ResultadoOperacion.NingunResultado;
+            return eliminado == 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Semestre eliminado")
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.NingunResultado,
+                    "Semestre no eliminado");
         }
     }
 }

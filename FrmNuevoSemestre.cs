@@ -39,7 +39,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                         txtNombreCorto3.Text
                     );
 
-                if (ro == ResultadoOperacion.Correcto) {
+                if (ro.estadoOperacion == EstadoOperacion.Correcto) {
                     MessageBox.Show("Semestre registrado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
                     Close();
                 }

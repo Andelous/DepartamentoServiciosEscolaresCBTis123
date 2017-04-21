@@ -9,78 +9,95 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public class ControladorVisual
     {
-        public static DialogResult mostrarMensaje(ResultadoOperacion ro)
+        private static string mensajeAdmStma {
+            get
+            { return "Si el problema persiste, póngase en contacto con el administrador del sistema."; }
+        }
+
+        public static DialogResult mostrarMensaje(ResultadoOperacion resultadoOperacion)
         {
-            switch (ro.estadoOperacion)
+            switch (resultadoOperacion.estadoOperacion)
             {
-                case ResultadoOperacion.Correcto:
+                // Estados dependientes del usuario
+                case EstadoOperacion.Correcto:
                     return MessageBox.Show(
-                        "Operación realizada con éxito.\n" + parentesis + corchetes, 
+                        crearMensajeEstadoUsuario(resultadoOperacion),
                         "Éxito", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Information
                     );
 
-                case ResultadoOperacion.ErrorCredencialesIncorrectas:
+                case EstadoOperacion.NingunResultado:
                     return MessageBox.Show(
-                        "Credenciales incorrectas.\n" + parentesis + corchetes, 
+                        crearMensajeEstadoUsuario(resultadoOperacion),
+                        "Aviso",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Warning
+                    );
+
+                case EstadoOperacion.ErrorCredencialesIncorrectas:
+                    return MessageBox.Show(
+                        crearMensajeEstadoUsuario(resultadoOperacion),
                         "Aviso", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Warning
                     );
 
-                case ResultadoOperacion.ErrorDatosIncorrectos:
+                case EstadoOperacion.ErrorDatosIncorrectos:
                     return MessageBox.Show(
-                        "Datos incorrectos.\n" + parentesis + corchetes, 
+                        crearMensajeEstadoUsuario(resultadoOperacion),
                         "Aviso", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Warning
                     );
 
-                case ResultadoOperacion.ErrorDependenciaDeDatos:
+                case EstadoOperacion.ErrorDependenciaDeDatos:
                     return MessageBox.Show(
-                        "Error, existen datos que dependen \ndel elemento que trata de manipular.\n" + parentesis + corchetes, 
+                        crearMensajeEstadoUsuario(resultadoOperacion),
+                        "Error", 
+                        MessageBoxButtons.OK, 
+                        MessageBoxIcon.Error
+                    );
+                
+
+
+                    // Estados no dependientes del usuario
+                case EstadoOperacion.ErrorDesconocido:
+                    return MessageBox.Show(
+                        crearMensajeEstadoNoUsuario(resultadoOperacion),
                         "Error", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Error
                     );
 
-                case ResultadoOperacion.ErrorDesconocido:
+                case EstadoOperacion.ErrorAplicacion:
                     return MessageBox.Show(
-                        "Error desconocido.\n" + parentesis + corchetes, 
+                        crearMensajeEstadoNoUsuario(resultadoOperacion),
                         "Error", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Error
                     );
 
-                case ResultadoOperacion.ErrorAplicacion:
+                
+                case EstadoOperacion.ErrorConexionServidor:
                     return MessageBox.Show(
-                        "Error de la aplicación. Póngase en\ncontacto con el administrador del sistema.\n" + parentesis + corchetes, 
+                        crearMensajeEstadoNoUsuario(resultadoOperacion),
                         "Error", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Error
                     );
 
-                    /*
-                case ResultadoOperacion.ErrorConexionServidor:
+                case EstadoOperacion.ErrorAcceso_SintaxisSQL:
                     return MessageBox.Show(
-                        "Error al intentar establecer conexión con el servidor.\n" + parentesis + corchetes, 
-                        "Error", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error
-                    );*/
-
-                case ResultadoOperacion.ErrorAcceso_SintaxisSQL:
-                    return MessageBox.Show(
-                        "Error de acceso o sintaxis SQL. Póngase en\ncontacto con el administrador del sistema.\n" + parentesis + corchetes, 
+                        crearMensajeEstadoNoUsuario(resultadoOperacion),
                         "Error", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Error
                     );
                     
-                case ResultadoOperacion.ErrorEnServidor:
+                case EstadoOperacion.ErrorEnServidor:
                     return MessageBox.Show(
-                        "Error en el servidor, pruebe nuevamente.\nSi el problema persiste, póngase en contacto con el administrador del sistema.\n" + parentesis + corchetes, 
+                        crearMensajeEstadoNoUsuario(resultadoOperacion),
                         "Error", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Error
@@ -88,12 +105,36 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
                 default:
                     return MessageBox.Show(
-                        "Resultado no reconocido _" + ro.ToString() + "_.\n" + parentesis + corchetes, 
+                        crearMensajeEstadoNoUsuario(resultadoOperacion),
                         "Aviso", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Warning
                     );
             }
+        }
+
+        private static string crearMensajeEstadoNoUsuario(ResultadoOperacion resultadoOperacion)
+        {
+            return 
+                resultadoOperacion.
+                estadoOperacion.
+                mensajePredeterminado() + 
+                " " + 
+                mensajeAdmStma + 
+                "\n\nDetalle:\n" + 
+                resultadoOperacion.ToString();
+        }
+
+        private static string crearMensajeEstadoUsuario(ResultadoOperacion resultadoOperacion)
+        {
+            return 
+                resultadoOperacion.
+                estadoOperacion.
+                mensajePredeterminado() + 
+                "\n(" + 
+                resultadoOperacion.
+                descripcion + 
+                ")";
         }
 
         public static ComboBox clonarCombo(ComboBox comboOriginal)

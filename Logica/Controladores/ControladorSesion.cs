@@ -51,11 +51,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             {
                 usuarioActivo = 
                     daoUsuarios.
-                    seleccionarUsuarioPorUsuarioContrasena
-                    (
+                    seleccionarUsuarioPorUsuarioContrasena(
                         usuario,
-                        contrasena
-                    );
+                        contrasena);
             }
             catch (MySqlException e)
             {
@@ -64,28 +62,59 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 switch (te)
                 {
                     case TipoError.ErrorConexionServidor:
-                        return ResultadoOperacion.ErrorConexionServidor;
+                        return 
+                            new ResultadoOperacion(
+                                EstadoOperacion.ErrorConexionServidor, 
+                                "MySqlException", 
+                                e.Number.ToString());
+
                     case TipoError.ErrorDesconocido:
-                        return ResultadoOperacion.ErrorDesconocido;
+                        return
+                            new ResultadoOperacion(
+                                EstadoOperacion.ErrorDesconocido,
+                                "MySqlException",
+                                e.Number.ToString());
+
                     case TipoError.ErrorEnServidor:
-                        return ResultadoOperacion.ErrorEnServidor;
+                        return
+                            new ResultadoOperacion(
+                                EstadoOperacion.ErrorEnServidor,
+                                "MySqlException",
+                                e.Number.ToString());
+
                     case TipoError.ErrorAcceso_SintaxisSQL:
-                        return ResultadoOperacion.ErrorAcceso_SintaxisSQL;
+                        return
+                            new ResultadoOperacion(
+                                EstadoOperacion.ErrorAcceso_SintaxisSQL,
+                                "MySqlException",
+                                e.Number.ToString());
+
                     case TipoError.ErrorAjenoMySql:
-                        return ResultadoOperacion.ErrorAplicacion;
-                    default:
-                        return ResultadoOperacion.Error;
+                        return
+                            new ResultadoOperacion(
+                                EstadoOperacion.ErrorAplicacion,
+                                "MySqlException/Aplicación - " + e.Message,
+                                e.Number.ToString());
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                return ResultadoOperacion.ErrorAplicacion;
+                return
+                    new ResultadoOperacion(
+                        EstadoOperacion.ErrorAplicacion,
+                        e.Message
+                    );
             }
 
-            return 
-                usuarioActivo != null ? 
-                ResultadoOperacion.Correcto : 
-                ResultadoOperacion.ErrorCredencialesIncorrectas;
+            return
+                usuarioActivo != null ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Login")
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorCredencialesIncorrectas,
+                    "Login");
         }
 
         public void cerrarSesion()
