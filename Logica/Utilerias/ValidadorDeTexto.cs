@@ -5,7 +5,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 
-namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
+namespace DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias
 {
     public class ValidadorDeTexto
     {

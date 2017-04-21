@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
+namespace DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias
 {
     public class ResultadoOperacion
     {

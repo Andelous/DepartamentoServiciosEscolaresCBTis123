@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;

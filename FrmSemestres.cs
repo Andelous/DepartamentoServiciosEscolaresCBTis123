@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;

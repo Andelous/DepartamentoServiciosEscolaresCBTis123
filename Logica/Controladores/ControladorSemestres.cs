@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using MySql.Data.MySqlClient;
 using System;
 using System.Collections.Generic;

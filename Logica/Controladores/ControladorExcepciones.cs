@@ -1,4 +1,5 @@
-﻿using MySql.Data.MySqlClient;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
+using MySql.Data.MySqlClient;
 using MySqlUtilerias.Exception;
 using System;
 using System.Collections.Generic;
