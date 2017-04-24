@@ -1,6 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,19 +16,72 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmNuevoGrupo : Form
     {
-        private ControladorSesion controladorSesion;
+        private ControladorSesion controladorSesion { get; set; }
+        private ControladorGrupos controladorGrupos { get; set; }
 
-        public FrmNuevoGrupo(ControladorSesion controladorSesion)
+        private Semestre semestreDefault { get; set; }
+
+        private Semestre semestreSeleccionado
+        {
+            set
+            {
+                comboSemestres.SelectedItem = value;
+            }
+            get
+            {
+                return (Semestre)comboSemestres.SelectedItem;
+            }
+        }
+        private Carrera especialidadSeleccionada
+        {
+            set
+            {
+                comboEspecialidad.SelectedItem = value;
+            }
+            get
+            {
+                return (Carrera)comboEspecialidad.SelectedItem;
+            }
+        }
+        private int gradoSeleccionado
+        {
+            set
+            {
+                comboGrado.SelectedIndex = value - 1;
+            }
+            get
+            {
+                return comboGrado.SelectedIndex + 1;
+            }
+        }
+        private string turnoSeleccionado
+        {
+            set
+            {
+                comboTurno.SelectedItem = value;
+            }
+            get
+            {
+                return comboTurno.SelectedItem.ToString();
+            }
+        }
+
+        public FrmNuevoGrupo(ControladorSesion controladorSesion, ControladorGrupos controladorGrupos, Semestre semestreDefault)
         {
             InitializeComponent();
 
             this.controladorSesion = controladorSesion;
+            this.controladorGrupos = controladorGrupos;
+
+            this.semestreDefault = semestreDefault;
         }
 
         private void FrmNuevoGrupo_Load(object sender, EventArgs e)
         {
-            comboSemestres.DataSource = controladorSesion.daoSemestres.seleccionarSemestres();
-            comboEspecialidad.DataSource = controladorSesion.daoCarreras.seleccionarCarrerasPorAcuerdo("653");
+            comboSemestres.DataSource = controladorGrupos.seleccionarSemestres();
+            comboEspecialidad.DataSource = controladorGrupos.seleccionarCarreras();
+
+            semestreSeleccionado = semestreDefault;
 
             comboEspecialidad.SelectedIndex = 0;
             comboGrado.SelectedIndex = 0;
@@ -36,60 +90,26 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdRegistrar_Click(object sender, EventArgs e)
         {
-            if (txtLetra.Text.Length > 0)
+            ResultadoOperacion resultadoOperacion = controladorGrupos.registrarGrupo(
+                semestreSeleccionado.idSemestre,
+                gradoSeleccionado,
+                txtLetra.Text,
+                turnoSeleccionado,
+                especialidadSeleccionada.abreviatura,
+                semestreSeleccionado,
+                especialidadSeleccionada);
+
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
+
+            if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
             {
-                char letra = txtLetra.Text.ToUpper()[0];
-
-                if (letra >= 65 && letra <= 90)
-                {
-                    Semestre s = (Semestre)comboSemestres.SelectedItem;
-
-                    if (controladorSesion.
-                        daoGrupos.
-                        insertarGrupo(
-                            s.idSemestre,
-                            comboGrado.SelectedIndex + 1,
-                            letra.ToString(),
-                            comboTurno.Text[0].ToString(),
-                            ((Carrera)comboEspecialidad.SelectedItem).abreviatura
-                        ) == 1)
-                    {
-                        // HACER INSERCION DE CATEDRAS
-                        Grupo g = DAOGrupos.crearGrupo(
-                            (int)controladorSesion.daoGrupos.dataSource.ultimoIDInsertado,
-                            s.idSemestre,
-                            comboGrado.SelectedIndex + 1,
-                            letra.ToString(),
-                            comboTurno.Text[0].ToString(),
-                            ((Carrera)comboEspecialidad.SelectedItem).abreviatura,
-                            (Semestre)comboSemestres.SelectedItem,
-                            (Carrera)comboEspecialidad.SelectedItem
-                        );
-
-                        List<Materia> listaMaterias = controladorSesion.daoMaterias.seleccionarMateriasSegunGrupo(g);
-
-                        if (controladorSesion.daoCatedras.insertarCatedrasGrupoMaterias(g, listaMaterias) == 0)
-                        {
-                            MessageBox.Show("Error al registrar las materias del grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                        }
-
-                        MessageBox.Show("Grupo registrado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error al registrar el grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Rellene los campos de forma correcta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
+                Close();
             }
-            else
-            {
-                MessageBox.Show("Rellene los campos de forma correcta.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-            }
+        }
+
+        private void cmdCancelar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

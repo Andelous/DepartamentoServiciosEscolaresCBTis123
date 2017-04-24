@@ -49,7 +49,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         // INSERTS
 
-        public int registrarSemestre(Semestre s)
+        public int insertarSemestre(Semestre s)
         {
             string query = 
                 "INSERT INTO semestres " +
@@ -90,7 +90,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         // MISC
 
-        public Semestre crearSemestre(
+        public static Semestre crearSemestre(
             int idSemestre, 
             string nombre, 
             string nombrecorto, 
@@ -108,7 +108,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             return s;
         }
 
-        public List<Semestre> crearListaSemestresMySqlDataReader(MySqlDataReader dr)
+        public static List<Semestre> crearListaSemestresMySqlDataReader(MySqlDataReader dr)
         {
             List<Semestre> listaSemestres = new List<Semestre>();
 

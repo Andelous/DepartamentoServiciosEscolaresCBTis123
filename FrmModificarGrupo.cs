@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,72 +15,104 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmModificarGrupo : Form
     {
-        private ControladorSesion controladorSesion;
-        private Grupo grupo;
+        private ControladorSesion controladorSesion { get; set; }
+        private ControladorGrupos controladorGrupos { get; set; }
 
-        public FrmModificarGrupo(ControladorSesion controladorSesion, Grupo grupo)
+        private Grupo grupo { get; set; }
+        private Semestre semestreDefault { get; set; }
+
+        private Semestre semestreSeleccionado
+        {
+            set
+            {
+                comboSemestres.SelectedItem = value;
+            }
+            get
+            {
+                return (Semestre)comboSemestres.SelectedItem;
+            }
+        }
+        private Carrera especialidadSeleccionada
+        {
+            set
+            {
+                comboEspecialidad.SelectedItem = value;
+            }
+            get
+            {
+                return (Carrera)comboEspecialidad.SelectedItem;
+            }
+        }
+        private int gradoSeleccionado
+        {
+            set
+            {
+                comboGrado.SelectedIndex = value - 1;
+            }
+            get
+            {
+                return comboGrado.SelectedIndex + 1;
+            }
+        }
+        private string turnoSeleccionado
+        {
+            set
+            {
+                comboTurno.SelectedItem = value;
+            }
+            get
+            {
+                return comboTurno.SelectedItem.ToString();
+            }
+        }
+
+        public FrmModificarGrupo(ControladorSesion controladorSesion, ControladorGrupos controladorGrupos, Grupo grupo, Semestre semestreDefault)
         {
             InitializeComponent();
 
             this.controladorSesion = controladorSesion;
+            this.controladorGrupos = controladorGrupos;
+
             this.grupo = grupo;
+            this.semestreDefault = semestreDefault;
         }
 
         private void FrmModificarGrupo_Load(object sender, EventArgs e)
         {
-            comboSemestres.DataSource = controladorSesion.daoSemestres.seleccionarSemestres();
-            comboEspecialidad.DataSource = controladorSesion.daoCarreras.seleccionarCarrerasPorAcuerdo("653");
+            comboSemestres.DataSource = controladorGrupos.seleccionarSemestres();
+            comboEspecialidad.DataSource = controladorGrupos.seleccionarCarreras();
 
-            comboSemestres.SelectedItem = grupo.semestreObj;
-            comboGrado.SelectedIndex = grupo.semestre - 1;
+            semestreSeleccionado = grupo.semestreObj;
+            especialidadSeleccionada = grupo.especialidadObj;
+            gradoSeleccionado = grupo.semestre;
+            turnoSeleccionado = grupo.turno;
+
             txtLetra.Text = grupo.letra;
-            comboTurno.SelectedItem = grupo.turno;
-            comboEspecialidad.SelectedItem = grupo.especialidadObj;
-        }
-
-        private void cmdCancelar_Click(object sender, EventArgs e)
-        {
-            Hide();
         }
 
         private void cmdModificar_Click(object sender, EventArgs e)
         {
-            if (txtLetra.Text.Length > 0)
-            {
-                char letra = txtLetra.Text.ToUpper()[0];
+            ResultadoOperacion resultadoOperacion = controladorGrupos.modificarGrupo(
+                grupo.idGrupo,
+                semestreSeleccionado.idSemestre,
+                gradoSeleccionado,
+                txtLetra.Text,
+                turnoSeleccionado,
+                especialidadSeleccionada.abreviatura,
+                semestreSeleccionado,
+                especialidadSeleccionada);
 
-                if (letra >= 65 && letra <= 90)
-                {
-                    Semestre s = (Semestre)comboSemestres.SelectedItem;
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
 
-                    if (controladorSesion.
-                        daoGrupos.
-                        modificarGrupo(
-                            grupo.idGrupo,
-                            s.idSemestre,
-                            comboGrado.SelectedIndex + 1,
-                            letra.ToString(),
-                            comboTurno.Text[0].ToString(),
-                            ((Carrera)comboEspecialidad.SelectedItem).abreviatura
-                        ) == 1)
-                    {
-                        MessageBox.Show("Grupo modificado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                        Hide();
-                    }
-                    else
-                    {
-                        MessageBox.Show("Error al modificar el grupo.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                    }
-                }
-                else
-                {
-                    MessageBox.Show("Rellene los campos de forma correcta", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-                }
-            }
-            else
+            if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
             {
-                MessageBox.Show("Rellene los campos de forma correcta", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Close();
             }
+        }
+
+        private void cmdCancelar_Click(object sender, EventArgs e)
+        {
+            Close();
         }
     }
 }

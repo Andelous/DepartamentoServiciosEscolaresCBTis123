@@ -24,11 +24,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             return crearListaGruposMySqlDataReader(dr);
         }
 
-        public List<Grupo> seleccionarGruposPorSemestre(int idSemestre)
+        public List<Grupo> seleccionarGruposPorSemestre(Semestre s)
         {
             List<Grupo> listaGrupos = new List<Grupo>();
             string query = "SELECT * FROM grupos G, semestres S, carreras C " +
-                "WHERE G.idSemestre = " + idSemestre + " AND " +
+                "WHERE G.idSemestre = " + s.idSemestre + " AND " +
                 "G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
                 "ORDER BY semestre, turno, especialidad, letra;";
 
@@ -39,22 +39,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         // INSERTS
 
-        public int insertarGrupo(
-            int idSemestre,
-            int semestre,
-            string letra,
-            string turno,
-            string especialidad
-            )
+        public int insertarGrupo(Grupo g)
         {
             string query = "INSERT INTO grupos " + 
                 "(idSemestre, semestre, letra, turno, especialidad) " +
                 "VALUES " + 
-                "(" + idSemestre + 
-                ", " + semestre + 
-                ", '" + letra + 
-                "', '" + turno + 
-                "', '" + especialidad + 
+                "(" + g.idSemestre + 
+                ", " + g.semestre + 
+                ", '" + g.letra + 
+                "', '" + g.turno[0] + 
+                "', '" + g.especialidad + 
                 "');";
 
             return dataSource.ejecutarActualizacion(query);
@@ -63,11 +57,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         // DELETES
 
-        public int eliminarGrupo(int idGrupo)
+        public int eliminarGrupo(Grupo g)
         {
             string query =
                 "DELETE FROM grupos " +
-                "WHERE idGrupo = " + idGrupo;
+                "WHERE idGrupo = " + g.idGrupo;
 
             return dataSource.ejecutarActualizacion(query);
         }
@@ -75,23 +69,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         // UPDATES
 
-        public int modificarGrupo(
-            int idGrupo,
-            int idSemestre,
-            int semestre,
-            string letra,
-            string turno,
-            string especialidad
-            )
+        public int modificarGrupo(Grupo g)
         {
             string query = "UPDATE grupos " + 
                 "SET " +
-                "idSemestre = " + idSemestre + ", " +
-                "semestre = " + semestre + ", " +
-                "letra = '" + letra + "', " +
-                "turno = '" + turno + "', " +
-                "especialidad = '" + especialidad + "' " +
-                "WHERE idGrupo = " + idGrupo;
+                "idSemestre = " + g.idSemestre + ", " +
+                "semestre = " + g.semestre + ", " +
+                "letra = '" + g.letra + "', " +
+                "turno = '" + g.turno[0] + "', " +
+                "especialidad = '" + g.especialidad + "' " +
+                "WHERE idGrupo = " + g.idGrupo;
 
             return dataSource.ejecutarActualizacion(query);
         }
@@ -123,23 +110,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
             return g;
         }
-
-        public static Grupo crearGrupoDataGridViewCellCollection(System.Windows.Forms.DataGridViewCellCollection cells)
-        {
-            Grupo g = crearGrupo(
-                Convert.ToInt32(cells["idGrupo"].Value),
-                Convert.ToInt32(cells["idSemestre"].Value),
-                Convert.ToInt32(cells["semestre"].Value),
-                cells["letra"].Value.ToString(),
-                cells["turno"].Value.ToString(),
-                cells["especialidad"].Value.ToString(),
-                (Semestre)cells["semestreObj"].Value,
-                (Carrera)cells["especialidadObj"].Value
-            );
-
-            return g;
-        }
-
+        
         public static List<Grupo> crearListaGruposMySqlDataReader(MySqlDataReader dr)
         {
             List<Grupo> listaGrupos = new List<Grupo>();

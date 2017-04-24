@@ -13,15 +13,18 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
     public class ControladorSemestres
     {
         private DAOSemestres daoSemestres { get; set; }
-        private DAOGrupos daoGrupos { get; set; }
+        private ControladorGrupos controladorGrupos { get; set; }
 
-        public ControladorSemestres()
+        public ControladorSemestres(ControladorGrupos controladorGrupos = null)
         {
             daoSemestres = new DAOSemestres();
-            daoGrupos = new DAOGrupos();
+            this.controladorGrupos =
+                controladorGrupos != null
+                ?
+                controladorGrupos
+                :
+                new ControladorGrupos(this);
         }
-
-
 
         public List<Semestre> seleccionarSemestres()
         {
@@ -68,7 +71,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
 
             Semestre s = 
-                daoSemestres.
+                DAOSemestres.
                 crearSemestre(
                     -1,
                     nombre,
@@ -83,7 +86,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             // se devolverá el respectivo resultado de operación.
             try
             {
-                registrado = daoSemestres.registrarSemestre(s);
+                registrado = daoSemestres.insertarSemestre(s);
             }
             catch (MySqlException e)
             {
@@ -136,7 +139,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
 
             Semestre s =
-                daoSemestres.
+                DAOSemestres.
                 crearSemestre(
                     idSemestre,
                     nombre,
@@ -185,7 +188,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         public ResultadoOperacion eliminarSemestre(Semestre s)
         {
             // Validamos que no tenga grupos dependientes
-            if (daoGrupos.seleccionarGruposPorSemestre(s.idSemestre).Count > 0)
+            if (controladorGrupos.seleccionarGrupos(s).Count > 0)
             {
                 return
                     new ResultadoOperacion(

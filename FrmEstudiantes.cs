@@ -38,13 +38,15 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void comboSemestres_SelectedIndexChanged(object sender, EventArgs e)
         {
+            /*
             comboGrupos.DataSource =
                 controladorSesion.
                 daoGrupos.
                 seleccionarGruposPorSemestre(
                     ((Semestre)comboSemestres.SelectedItem).idSemestre
                 );
-
+            */
+            
             //comboGrupos.SelectedIndex = 0;
         }
 

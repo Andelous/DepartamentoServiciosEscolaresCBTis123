@@ -101,7 +101,7 @@
             this.comboSemestres.Name = "comboSemestres";
             this.comboSemestres.Size = new System.Drawing.Size(284, 30);
             this.comboSemestres.TabIndex = 12;
-            this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.comboSemestres_SelectedIndexChanged);
+            this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.iniciarTemporizador);
             // 
             // cmdAsignarDocentes
             // 

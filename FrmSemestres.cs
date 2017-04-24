@@ -18,8 +18,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private ControladorSesion controladorSesion { get; set; }
         private ControladorSemestres controladorSemestres { get; set; }
 
-        private Semestre semestreSeleccionado {
-            get {
+        private Semestre semestreSeleccionado
+        {
+            get
+            {
                 return (Semestre)dgvSemestres.SelectedRows[0].DataBoundItem;
             }
         }
@@ -50,16 +52,15 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     "¿Está seguro que desea eliminar el semestre " +
                     semestreSeleccionado.ToString() + "?",
                     "Aviso",
-                    MessageBoxButtons.OKCancel,
+                    MessageBoxButtons.YesNo,
                     MessageBoxIcon.Warning);
 
-            if (dr == DialogResult.OK)
+            if (dr == DialogResult.Yes)
             {
                 ResultadoOperacion resultadoOperacion = controladorSemestres.eliminarSemestre(semestreSeleccionado);
                 ControladorVisual.mostrarMensaje(resultadoOperacion);
 
-                if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
-                    configurarDGVSemestres();
+                configurarDGVSemestres();
             }
         }
 
