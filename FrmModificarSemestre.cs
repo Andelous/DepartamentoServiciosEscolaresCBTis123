@@ -17,6 +17,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
     {
         private ControladorSesion controladorSesion { get; set; }
         private ControladorSemestres controladorSemestres { get; set; }
+
         private Semestre semestre { get; set; }
 
         public FrmModificarSemestre(ControladorSesion controladorSesion, ControladorSemestres controladorSemestres, Semestre semestre)

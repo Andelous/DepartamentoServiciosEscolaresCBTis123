@@ -37,7 +37,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-
         // Métodos de iniciación
         public FrmGrupos(ControladorSesion controladorSesion)
         {
@@ -75,6 +74,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             List<Grupo> listaGrupos = controladorGrupos.seleccionarGrupos(semestreSeleccionado);
             configurarDGVGrupos(listaGrupos);
+            MessageBox.Show(temporizador.Enabled.ToString());
         }
 
         
@@ -112,7 +112,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdAsignarDocentes_Click(object sender, EventArgs e)
         {
-            new FrmAsignacionDeDocentes(controladorSesion, grupoSeleccionado).ShowDialog();
+            new FrmAsignacionDeDocentes(controladorSesion, controladorGrupos, grupoSeleccionado).ShowDialog();
         }
 
         private void cmdImportarEstudiantes_Click(object sender, EventArgs e)

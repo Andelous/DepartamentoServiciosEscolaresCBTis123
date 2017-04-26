@@ -191,6 +191,7 @@
             this.comboDocentes.Size = new System.Drawing.Size(199, 26);
             this.comboDocentes.TabIndex = 6;
             this.comboDocentes.SelectedIndexChanged += new System.EventHandler(this.comboDocentes_SelectedIndexChanged);
+            this.comboDocentes.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.evitarScroll);
             // 
             // label4
             // 

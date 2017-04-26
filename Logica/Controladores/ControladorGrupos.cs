@@ -12,16 +12,26 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public class ControladorGrupos
     {
+        // Propiedades
+        // DAOs
         private DAOGrupos daoGrupos { get; set; }
         private DAOCarreras daoCarreras { get; set; }
-        private DAOEstudiantes daoEstudiantes { get; set; }
+        private DAOCatedras daoCatedras { get; set; }
 
+        // Controladores
+        private DAODocentes daoDocentes { get; set; }
+        private DAOEstudiantes daoEstudiantes { get; set; }
         private ControladorSemestres controladorSemestres { get; set; }
 
+        // Métodos de iniciación
         public ControladorGrupos(ControladorSemestres controladorSemestres = null)
         {
             daoGrupos = new DAOGrupos();
             daoCarreras = new DAOCarreras();
+            daoCatedras = new DAOCatedras();
+
+            // Futuros controladores
+            daoDocentes = new DAODocentes();
             daoEstudiantes = new DAOEstudiantes();
 
             this.controladorSemestres = 
@@ -31,7 +41,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 : 
                 new ControladorSemestres(this);
         }
-
+        
+        // Métodos de manipulación del modelo
+        // Selección    
         public List<Semestre> seleccionarSemestres()
         {
             // Creamos una lista vacía en caso de que
@@ -100,6 +112,71 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaGrupos;
         }
 
+        public List<Carrera> seleccionarCarreras(string acuerdo = "653")
+        {
+            // Creamos lista vacía en caso de Excepcion
+            List<Carrera> listaCarreras = new List<Carrera>();
+
+            // Intentamos realizar la operación. Si hubo algún error,
+            // el controlador visual mostrará el mensaje correspondiente.
+            try
+            {
+                listaCarreras = daoCarreras.seleccionarCarrerasPorAcuerdo(acuerdo);
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            return listaCarreras;
+        }
+
+        public List<Docente> seleccionarDocentes()
+        {
+            List<Docente> listaDocentes = new List<Docente>();
+
+            // Realizamos la operación, y damos manejo a las excepciones
+            try
+            {
+                listaDocentes = daoDocentes.seleccionarDocentes();
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            return listaDocentes;
+        }
+
+        public List<Catedra> seleccionarCatedrasPorGrupo(Grupo g)
+        {
+            List<Catedra> listaCatedras = new List<Catedra>();
+
+            try
+            {
+                listaCatedras = daoCatedras.seleccionarCatedrasPorGrupo(g);
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            return listaCatedras;
+        }
+
+        // Registro
         public ResultadoOperacion registrarGrupo(
             int idSemestre,
             int semestre,
@@ -168,6 +245,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "Grupo no registrado");
         }
 
+        public ResultadoOperacion registrarCatedrasGrupoMaterias(Grupo g, List<Materia> listaMaterias)
+        {
+
+        }
+
+        // Modificación
         public ResultadoOperacion modificarGrupo(
             int idGrupo,
             int idSemestre,
@@ -237,6 +320,45 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "Grupo no modificado");
         }
 
+        public ResultadoOperacion modificarListaDeCatedras(List<Catedra> listaCatedras)
+        {
+
+            int modificadas = 0;
+
+            try
+            {
+                modificadas = daoCatedras.modificarListaDeCatedras(listaCatedras);
+            }
+            catch (MySqlException e)
+            {
+                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+            }
+            catch (Exception e)
+            {
+                return ControladorExcepciones.crearResultadoOperacionException(e);
+            }
+
+            return
+                modificadas == listaCatedras.Count
+                ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Catedras guardadas")
+                :
+                modificadas > listaCatedras.Count
+                ?
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Se han modificado " + (listaCatedras.Count + 1) + " o más cátedras",
+                    "CatMod " + modificadas)
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Error al modificar una o todas las cátedras",
+                    "CatMod " + modificadas);
+        }
+
+        // Eliminación
         public ResultadoOperacion eliminarGrupo(Grupo g)
         {
             // Validamos que no tenga alumnos dependientes
@@ -281,29 +403,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
                     "Grupo no eliminado");
-        }
-
-        public List<Carrera> seleccionarCarreras(string acuerdo = "653")
-        {
-            // Creamos lista vacía en caso de Excepcion
-            List<Carrera> listaCarreras = new List<Carrera>();
-
-            // Intentamos realizar la operación. Si hubo algún error,
-            // el controlador visual mostrará el mensaje correspondiente.
-            try
-            {
-                listaCarreras = daoCarreras.seleccionarCarrerasPorAcuerdo(acuerdo);
-            }
-            catch (MySqlException e)
-            {
-                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
-            }
-            catch (Exception e)
-            {
-                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
-            }
-
-            return listaCarreras;
         }
     }
 }

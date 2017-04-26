@@ -20,9 +20,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         public DAOSemestres daoSemestres { get; set; }
         public DAOGrupos daoGrupos { get; set; }
         public DAOEstudiantes daoEstudiantes { get; set; }
-        public DAOCarreras daoCarreras { get; set; }
         public DAOMaterias daoMaterias { get; set; }
-        public DAOCatedras daoCatedras { get; set; }
         public DAODocentes daoDocentes { get; set; }
 
         public bool isSesionIniciada {
@@ -38,9 +36,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             
             daoGrupos = new DAOGrupos();
             daoEstudiantes = new DAOEstudiantes();
-            daoCarreras = new DAOCarreras();
             daoMaterias = new DAOMaterias();
-            daoCatedras = new DAOCatedras();
             daoDocentes = new DAODocentes();
             
         }

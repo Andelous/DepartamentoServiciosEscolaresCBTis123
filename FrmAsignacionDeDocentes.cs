@@ -1,6 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,17 +16,25 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmAsignacionDeDocentes : Form
     {
-        private ControladorSesion controladorSesion;
-        private Grupo grupo;
-        private List<Catedra> catedras;
-        private List<TextBox> txtsCatedras;
-        private List<ComboBox> combosDocentes;
+        // Propiedades
+        // Controladores
+        private ControladorSesion controladorSesion { get; set; }
+        private ControladorGrupos controladorGrupos { get; set; }
+        
+        // Elementos lógicos
+        private Grupo grupo { get; set; }
+        private List<Catedra> catedras { get; set; }
+        private List<TextBox> txtsCatedras { get; set; }
+        private List<ComboBox> combosDocentes { get; set; }
 
-        public FrmAsignacionDeDocentes(ControladorSesion controladorSesion, Grupo grupo)
+        // Métodos de inicialización
+        public FrmAsignacionDeDocentes(ControladorSesion controladorSesion, ControladorGrupos controladorGrupos, Grupo grupo)
         {
             InitializeComponent();
 
             this.controladorSesion = controladorSesion;
+            this.controladorGrupos = controladorGrupos;
+
             this.grupo = grupo;
         }
 
@@ -40,10 +49,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
             txtGrado.Text = grupo.semestre.ToString() + "° Semestre | Turno: " + grupo.turno;
 
             // Agregamos el DataSource del comboDocente MODELO
-            comboDocentes.DataSource = controladorSesion.daoDocentes.seleccionarDocentes();
+            comboDocentes.DataSource = controladorGrupos.seleccionarDocentes();
 
             // Agregamos las cátedras que se mostrarán
-            catedras = controladorSesion.daoCatedras.seleccionarCatedrasPorGrupo(grupo);
+            catedras = controladorGrupos.seleccionarCatedrasPorGrupo(grupo);
 
             // Creamos la lista de Txts y Combos de las cátedras.
             txtsCatedras = new List<TextBox>();
@@ -68,6 +77,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     );
                 // Creamos el combo de la cátedra.
                 ComboBox comboNuevo = ControladorVisual.clonarCombo(comboDocentes);
+                comboNuevo.MouseWheel += new MouseEventHandler(evitarScroll);
 
                 // ESTO TAMBIEN ES FUNCIONAL, PERO LO CAMBIE POR EL
                 // OPERADOR TERNARIO DE ARRIBA
@@ -123,6 +133,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
+        // Eventos de controles
         private void comboDocentes_SelectedIndexChanged(object sender, EventArgs e)
         {
             try
@@ -137,7 +148,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
             catch (Exception)
             {
-
+                //throw;
             }
         }
 
@@ -149,16 +160,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 catedras[i].idDocente = catedras[i].docenteObj.idDocente;
             }
 
-            int modificadas = controladorSesion.daoCatedras.modificarListaDeCatedras(catedras);
+            ResultadoOperacion resultadoOperacion = controladorGrupos.modificarListaDeCatedras(catedras);
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
+        }
 
-            if (modificadas == catedras.Count)
-            {
-                MessageBox.Show("Todas las cátedras modificadas con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-            }
-            else
-            {
-                MessageBox.Show("Error al modificar una o varias cátedras (" + modificadas + " correctas).", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
+        private void evitarScroll(object sender, MouseEventArgs e)
+        {
+            ((HandledMouseEventArgs)e).Handled = true;
         }
     }
 }

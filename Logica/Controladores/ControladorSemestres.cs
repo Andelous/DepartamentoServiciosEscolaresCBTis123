@@ -12,9 +12,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public class ControladorSemestres
     {
+        // Propiedades
         private DAOSemestres daoSemestres { get; set; }
         private ControladorGrupos controladorGrupos { get; set; }
 
+        // Inicialización
         public ControladorSemestres(ControladorGrupos controladorGrupos = null)
         {
             daoSemestres = new DAOSemestres();
@@ -26,6 +28,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ControladorGrupos(this);
         }
 
+
+        // Métodos de manipulación del modelo.
+        // Selección
         public List<Semestre> seleccionarSemestres()
         {
             List<Semestre> listaSemestres = new List<Semestre>();
@@ -48,8 +53,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaSemestres;
         }
 
-
-
+        // Registro
         public ResultadoOperacion registrarSemestre(
             string nombre, 
             string nombreCorto, 
@@ -115,8 +119,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "Semestre no registrado");
         }
 
-
-
+        // Modificación
         public ResultadoOperacion modificarSemestre(
             int idSemestre, 
             string nombre, 
@@ -183,8 +186,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "Semestre no modificado");
         }
 
-
-
+        // Eliminación
         public ResultadoOperacion eliminarSemestre(Semestre s)
         {
             // Validamos que no tenga grupos dependientes
@@ -232,7 +234,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         }
 
 
-        // MISC
+        // Métodos misceláneos
         public bool validarSemestre(Semestre s)
         {
             throw new NotImplementedException();
