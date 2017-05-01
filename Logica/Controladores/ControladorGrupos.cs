@@ -176,6 +176,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaCatedras;
         }
 
+        public List<Materia> seleccionarMateriasPorGrupo(Grupo g)
+        {
+            List<Materia> listaMaterias = new List<Materia>();
+
+            return listaMaterias;
+        }
+
         // Registro
         public ResultadoOperacion registrarGrupo(
             int idSemestre,
@@ -185,14 +192,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             string especialidad,
             Semestre semestreObj,
             Carrera especialidadObj
-        ) {
+        )
+        {
             // Verificamos que los datos introducidos
             // sean válidos para la base de datos.
             if (
                 !ValidadorDeTexto.esValido(letra) ||
                 !ValidadorDeTexto.esValido(turno) ||
                 !ValidadorDeTexto.esValido(especialidad)
-            ) {
+            )
+            {
                 // Devolvemos un error si es que no son válidos.
                 return new ResultadoOperacion(
                     EstadoOperacion.ErrorDatosIncorrectos,
@@ -245,9 +254,45 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "Grupo no registrado");
         }
 
-        public ResultadoOperacion registrarCatedrasGrupoMaterias(Grupo g, List<Materia> listaMaterias)
+        public ResultadoOperacion registrarCatedras(List<Catedra> listaCatedras)
         {
 
+            int registradas = 0;
+
+            // Si hay algún error durante la ejecución, se mostrará
+            // resultado de la operación.
+            try
+            {
+                foreach (Catedra c in listaCatedras)
+                {
+                    registradas += daoCatedras.insertarCatedra(c);
+                }
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            // Se devolverá el estado de las materias insertadas.
+            return
+                registradas == 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Grupo registrado")
+                :
+                registradas > 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Se han registrado dos o más grupos",
+                    "GroupReg " + registradas.ToString())
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Grupo no registrado");
         }
 
         // Modificación

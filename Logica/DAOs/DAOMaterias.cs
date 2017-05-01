@@ -10,7 +10,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 {
     public class DAOMaterias : DAO
     {
-        public List<Materia> seleccionarMateriasSegunGrupo(Grupo g)
+        public List<Materia> seleccionarMateriasPorGrupo(Grupo g)
         {
             string query = "SELECT * FROM materias WHERE " +
                 "semestre = " + g.semestre + " AND " +

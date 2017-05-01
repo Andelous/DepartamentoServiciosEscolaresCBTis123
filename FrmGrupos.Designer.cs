@@ -143,6 +143,7 @@
             this.Name = "FrmGrupos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Grupos - Control Escolar CBTis 123";
+            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmGrupos_FormClosed);
             this.Load += new System.EventHandler(this.FrmGrupos_Load);
             this.Resize += new System.EventHandler(this.FrmGrupos_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrupos)).EndInit();

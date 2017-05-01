@@ -8,6 +8,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias
 {
     public class ResultadoOperacion
     {
+        public ResultadoOperacion resultadoOperacionInterno { get; set; }
+
         public EstadoOperacion estadoOperacion { get; }
         public string descripcion { get; }
         public string errCode { get; }

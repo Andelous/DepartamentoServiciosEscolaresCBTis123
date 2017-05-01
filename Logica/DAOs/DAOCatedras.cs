@@ -26,28 +26,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         }
 
         // INSERTS
-
-        public int insertarCatedrasGrupoMaterias(Grupo g, List<Materia> listaMaterias)
+        public int insertarCatedra(Catedra c)
         {
-            string query = "";
-            int acumulador = 0;
-
-            foreach (Materia m in listaMaterias)
-            {
-                if (m.idMateria == 58 || m.idMateria == 61)
-                    continue;
-
-                query = "INSERT INTO catedras " +
+            string query = "INSERT INTO catedras " +
                     "(idDocente, idMateria, idGrupo) " +
                     "VALUES (" +
-                    "100, " + 
-                    m.idMateria + ", " +
-                    g.idGrupo + ");";
+                    c.idDocente + ", " +
+                    c.idMateria + ", " +
+                    c.idGrupo + ");";
 
-                acumulador += dataSource.ejecutarActualizacion(query);
-            }
-
-            return acumulador;
+            return dataSource.ejecutarActualizacion(query);
         }
 
         

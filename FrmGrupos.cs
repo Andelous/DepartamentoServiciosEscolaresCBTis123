@@ -74,7 +74,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             List<Grupo> listaGrupos = controladorGrupos.seleccionarGrupos(semestreSeleccionado);
             configurarDGVGrupos(listaGrupos);
-            MessageBox.Show(temporizador.Enabled.ToString());
         }
 
         
@@ -191,6 +190,11 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvGrupos.Columns["letra"].DisplayIndex = 8;
 
             lblGrupos.Text = "Grupos (" + listaGrupos.Count + " resultados)";
+        }
+
+        private void FrmGrupos_FormClosed(object sender, FormClosedEventArgs e)
+        {
+            detenerTemporizador(sender, e);
         }
     }
 }
