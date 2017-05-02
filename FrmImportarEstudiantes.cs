@@ -14,13 +14,16 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmImportarEstudiantes : Form
     {
-        private ControladorSesion controladorSesion;
+        private ControladorSesion controladorSesion { get; set; }
+        private ControladorGrupos controladorGrupos { get; set; }
 
-        private Grupo grupo;
-        private BindingList<Estudiante> estudiantesActuales;
-        private List<Estudiante> estudiantesNuevos;
+        private Grupo grupo { get; set; }
+        private BindingList<Estudiante> estudiantesActuales { get; set; }
+        // Este es el bueno...
+        // private List<Estudiante> estudiantesOriginales { get; set; }
+        private List<Estudiante> estudiantesNuevos { get; set; }
 
-        public FrmImportarEstudiantes(ControladorSesion controladorSesion, Grupo grupo)
+        public FrmImportarEstudiantes(ControladorSesion controladorSesion, ControladorGrupos controladorGrupos, Grupo grupo)
         {
             InitializeComponent();
 
