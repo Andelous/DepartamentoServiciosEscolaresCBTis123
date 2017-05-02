@@ -8,17 +8,19 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias
 {
     public class ResultadoOperacion
     {
-        public ResultadoOperacion resultadoOperacionInterno { get; set; }
-
         public EstadoOperacion estadoOperacion { get; }
         public string descripcion { get; }
         public string errCode { get; }
 
-        public ResultadoOperacion(EstadoOperacion estadoOperacion, string descripcion = null, string errCode = null)
+        public ResultadoOperacion resultadoOperacionInterno { get; set; }
+
+        public ResultadoOperacion(EstadoOperacion estadoOperacion, string descripcion = null, string errCode = null, ResultadoOperacion resultadoOperacionInterno = null)
         {
             this.estadoOperacion = estadoOperacion;
             this.descripcion = descripcion;
             this.errCode = errCode;
+
+            this.resultadoOperacionInterno = resultadoOperacionInterno;
         }
 
         public override string ToString()
@@ -26,8 +28,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias
             string estadoOperacion = "_" + this.estadoOperacion.ToString() + "_\n";
             string parentesis = descripcion != null ? "(" + descripcion + ")\n" : "";
             string corchetes = errCode != null ? "[ErrCode: " + errCode + "]" : "";
+            string resultadoOperacionInterno =
+                this.resultadoOperacionInterno != null ?
+                "\n\n+-------InnerOperation------+\n" +
+                this.resultadoOperacionInterno.ToString()
+                :
+                "";
 
-            return estadoOperacion + parentesis + corchetes;
+            return estadoOperacion + parentesis + corchetes + resultadoOperacionInterno;
         }
     }
 

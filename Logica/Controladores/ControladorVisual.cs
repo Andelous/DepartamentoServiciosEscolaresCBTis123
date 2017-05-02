@@ -17,11 +17,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         public static DialogResult mostrarMensaje(ResultadoOperacion resultadoOperacion)
         {
-            if (resultadoOperacion.resultadoOperacionInterno != null)
-            {
-                mostrarMensaje(resultadoOperacion.resultadoOperacionInterno);
-            }
-
             switch (resultadoOperacion.estadoOperacion)
             {
                 // Estados dependientes del usuario
