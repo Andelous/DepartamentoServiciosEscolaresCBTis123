@@ -17,6 +17,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         private DAOGrupos daoGrupos { get; set; }
         private DAOCarreras daoCarreras { get; set; }
         private DAOCatedras daoCatedras { get; set; }
+        private DAOMaterias daoMaterias { get; set; }
 
         // Controladores
         private DAODocentes daoDocentes { get; set; }
@@ -29,6 +30,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             daoGrupos = new DAOGrupos();
             daoCarreras = new DAOCarreras();
             daoCatedras = new DAOCatedras();
+            daoMaterias = new DAOMaterias();
 
             // Futuros controladores
             daoDocentes = new DAODocentes();
@@ -43,11 +45,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         }
         
         // Métodos de manipulación del modelo
-        // Selección    
+        // Selección
         public List<Semestre> seleccionarSemestres()
         {
-            // Creamos una lista vacía en caso de que
-            // se devuelva una excepción...
+            // Creamos una lista vacía
             List<Semestre> listaSemestres = new List<Semestre>();
 
             // Creamos el semestre de ningún semestre
@@ -56,24 +57,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             s.nombre = "Ningún semestre";
             s.nombreCorto2 = "-";
 
-            // Se intenta realizar la operación con el DAO.
-            // Si hay alguna excepción, se manejará.
-            try
-            {
-                listaSemestres = controladorSemestres.seleccionarSemestres();
+            listaSemestres = controladorSemestres.seleccionarSemestres();
                 
+            if (listaSemestres.Count > 0)
+            {
                 s = new Semestre();
                 s.idSemestre = 0;
                 s.nombre = "Todos";
                 s.nombreCorto2 = "*";
-            }
-            catch (MySqlException e)
-            {
-                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
-            }
-            catch (Exception e)
-            {
-                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
             }
 
             // Agregamos el semestre comodín
@@ -109,6 +100,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
             }
 
+            // Devolvemos resultado
             return listaGrupos;
         }
 
@@ -176,6 +168,26 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaCatedras;
         }
 
+        private List<Materia> seleccionarMateriasPorGrupo(Grupo g)
+        {
+            List<Materia> listaMaterias = new List<Materia>();
+
+            try
+            {
+                listaMaterias = daoMaterias.seleccionarMateriasPorGrupo(g);
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            return listaMaterias;
+        }
+
         // Registro
         public ResultadoOperacion registrarGrupo(
             int idSemestre,
@@ -199,6 +211,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "No utilice caracteres especiales o inválidos");
             }
 
+            ResultadoOperacion innerRO = null;
+
             Grupo g =
                 DAOGrupos.crearGrupo(
                     -1,
@@ -220,11 +234,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
             catch (MySqlException e)
             {
-                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
             }
             catch (Exception e)
             {
-                return ControladorExcepciones.crearResultadoOperacionException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
             }
 
             // Si no hubo problema, se devolverá el resultado correspondiente.
@@ -238,16 +252,58 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "Se han registrado dos o más grupos",
-                    "GroupReg " + registrado.ToString())
+                    "GroupReg " + registrado.ToString(),
+                    innerRO)
                 :
                 new ResultadoOperacion(
-                    EstadoOperacion.NingunResultado,
-                    "Grupo no registrado");
+                    EstadoOperacion.ErrorAplicacion,
+                    "Grupo no registrado",
+                    null,
+                    innerRO);
         }
 
-        public ResultadoOperacion registrarCatedrasGrupoMaterias(Grupo g, List<Materia> listaMaterias)
+        public ResultadoOperacion registrarCatedras(List<Catedra> listaCatedras)
         {
+            ResultadoOperacion innerRO = null;
+            int registradas = 0;
 
+            // Si hay algún error durante la ejecución, se mostrará
+            // resultado de la operación.
+            try
+            {
+                foreach (Catedra c in listaCatedras)
+                {
+                    registradas += daoCatedras.insertarCatedra(c);
+                }
+            }
+            catch (MySqlException e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+            }
+            catch (Exception e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
+            }
+
+            // Se devolverá el estado de las materias insertadas.
+            return
+                registradas == listaCatedras.Count ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Clases registradas")
+                :
+                registradas > listaCatedras.Count ?
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Se han registrado " + (listaCatedras.Count + 1) + " o más clases",
+                    "CateReg " + registradas.ToString(),
+                    innerRO)
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Error al registrar una o más cátedras", 
+                    "CateReg " + registradas.ToString(),
+                    innerRO);
         }
 
         // Modificación
@@ -274,6 +330,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "No utilice caracteres especiales o inválidos");
             }
 
+            ResultadoOperacion innerRO = null;
+
             Grupo g =
                 DAOGrupos.crearGrupo(
                     idGrupo,
@@ -295,11 +353,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
             catch (MySqlException e)
             {
-                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
             }
             catch (Exception e)
             {
-                return ControladorExcepciones.crearResultadoOperacionException(e);
+                innerRO =  ControladorExcepciones.crearResultadoOperacionException(e);
             }
 
             // Si no hubo problema, se devolverá el resultado correspondiente.
@@ -313,31 +371,36 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "Se han modificado dos o más grupos",
-                    "GroupReg " + modificado.ToString())
+                    "GroupReg " + modificado.ToString(),
+                    innerRO)
                 :
                 new ResultadoOperacion(
-                    EstadoOperacion.NingunResultado,
-                    "Grupo no modificado");
+                    EstadoOperacion.ErrorAplicacion,
+                    "Grupo no modificado",
+                    null,
+                    innerRO);
         }
 
         public ResultadoOperacion modificarListaDeCatedras(List<Catedra> listaCatedras)
         {
-
+            ResultadoOperacion innerRO = null;
             int modificadas = 0;
 
+            // Realizamos la operación, y si hay algún error, se mostrará al usuario.
             try
             {
                 modificadas = daoCatedras.modificarListaDeCatedras(listaCatedras);
             }
             catch (MySqlException e)
             {
-                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
             }
             catch (Exception e)
             {
-                return ControladorExcepciones.crearResultadoOperacionException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
             }
 
+            // Devolvemos los resultados.
             return
                 modificadas == listaCatedras.Count
                 ?
@@ -350,12 +413,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "Se han modificado " + (listaCatedras.Count + 1) + " o más cátedras",
-                    "CatMod " + modificadas)
+                    "CatMod " + modificadas,
+                    innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "Error al modificar una o todas las cátedras",
-                    "CatMod " + modificadas);
+                    "CatMod " + modificadas,
+                    innerRO);
         }
 
         // Eliminación
@@ -370,6 +435,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         "El grupo contiene estudiantes");
             }
 
+            ResultadoOperacion innerRO = null;
+
             int eliminado = 0;
 
             // Si hay algún error durante la ejecución de la operación
@@ -380,11 +447,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
             catch (MySqlException e)
             {
-                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
             }
             catch (Exception e)
             {
-                return ControladorExcepciones.crearResultadoOperacionException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
             }
 
             // Si no hubo problema, se devolverá el resultado correspondiente.
@@ -398,11 +465,54 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "Se han eliminado dos o más grupos",
-                    "GrupElim " + eliminado.ToString())
+                    "GrupElim " + eliminado.ToString(),
+                    innerRO)
                 :
                 new ResultadoOperacion(
-                    EstadoOperacion.NingunResultado,
-                    "Grupo no eliminado");
+                    EstadoOperacion.ErrorAplicacion,
+                    "Grupo no eliminado",  
+                    null,
+                    innerRO);
+        }
+
+        // Métodos misceláneos
+        public List<Catedra> crearListaCatedrasGrupo(Grupo g)
+        {
+            List<Catedra> listaCatedras = new List<Catedra>();
+
+            // Intentamos llevar a cabo la operación.
+            // Si algo sale mal, se le notificará al usuario.
+            try
+            {
+                List<Materia> listaMaterias = daoMaterias.seleccionarMateriasPorGrupo(g);
+
+                foreach (Materia m in listaMaterias)
+                {
+                    Catedra c = 
+                        DAOCatedras.
+                        crearCatedra(
+                            -1,
+                            100, 
+                            m.idMateria, 
+                            g.idGrupo, 
+                            null, 
+                            m, 
+                            g);
+
+                    listaCatedras.Add(c);
+                }
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            // Devolvemos resultados
+            return listaCatedras;
         }
     }
 }

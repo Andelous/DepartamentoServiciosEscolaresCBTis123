@@ -12,20 +12,57 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias
         public string descripcion { get; }
         public string errCode { get; }
 
-        public ResultadoOperacion(EstadoOperacion estadoOperacion, string descripcion = null, string errCode = null)
+        public ResultadoOperacion resultadoOperacionInterno { get; set; }
+
+        public ResultadoOperacion(EstadoOperacion estadoOperacion, string descripcion = null, string errCode = null, ResultadoOperacion resultadoOperacionInterno = null)
         {
             this.estadoOperacion = estadoOperacion;
             this.descripcion = descripcion;
             this.errCode = errCode;
+
+            this.resultadoOperacionInterno = resultadoOperacionInterno;
         }
 
         public override string ToString()
         {
-            string estadoOperacion = "_" + this.estadoOperacion.ToString() + "_\n";
-            string parentesis = descripcion != null ? "(" + descripcion + ")\n" : "";
-            string corchetes = errCode != null ? "[ErrCode: " + errCode + "]" : "";
+            string mensajePredeterminado = this.estadoOperacion.mensajePredeterminado() + "\n\n";
 
-            return estadoOperacion + parentesis + corchetes;
+            string detalle = "";
+            string estadoOperacion = "";
+            string parentesis = descripcion != null ? "(" + descripcion + ")\n" : "";
+            string corchetes = "";
+
+            switch (this.estadoOperacion)
+            {
+                case EstadoOperacion.Correcto:
+                case EstadoOperacion.NingunResultado:
+                case EstadoOperacion.ErrorCredencialesIncorrectas:
+                case EstadoOperacion.ErrorDatosIncorrectos:
+                case EstadoOperacion.ErrorDependenciaDeDatos:
+                    break;
+
+                case EstadoOperacion.ErrorDesconocido:
+                case EstadoOperacion.ErrorAplicacion:
+                case EstadoOperacion.ErrorConexionServidor:
+                case EstadoOperacion.ErrorAcceso_SintaxisSQL:
+                case EstadoOperacion.ErrorEnServidor:
+                default:
+
+                    detalle = "Detalle: \n";
+                    estadoOperacion = "_" + this.estadoOperacion.ToString() + "_\n";
+                    corchetes = errCode != null ? "[ErrCode: " + errCode + "]\n" : "";
+
+                    break;
+            }
+
+            string resultadoOperacionInterno =
+                this.resultadoOperacionInterno != null ?
+                "\n+-------InnerOperation------+\n" +
+                this.resultadoOperacionInterno.ToString()
+                :
+                "";
+
+            return mensajePredeterminado + detalle + estadoOperacion + parentesis + corchetes + resultadoOperacionInterno;
         }
     }
 

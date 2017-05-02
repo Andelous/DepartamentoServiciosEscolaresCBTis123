@@ -74,6 +74,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "No utilice caracteres especiales o inválidos");
             }
 
+            ResultadoOperacion innerRO = null;
+
             Semestre s = 
                 DAOSemestres.
                 crearSemestre(
@@ -94,11 +96,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
             catch (MySqlException e)
             {
-                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
             }
             catch (Exception e)
             {
-                return ControladorExcepciones.crearResultadoOperacionException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
             }
 
             // Si no hubo problema, se devolverá el resultado correspondiente.
@@ -112,11 +114,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "Se han registrado dos o más semestres",
-                    "SemReg " + registrado.ToString())
+                    "SemReg " + registrado.ToString(),
+                    innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
-                    "Semestre no registrado");
+                    "Semestre no registrado",
+                    null,
+                    innerRO);
         }
 
         // Modificación
@@ -141,6 +146,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "No utilice caracteres especiales o inválidos");
             }
 
+            ResultadoOperacion innerRO = null;
+
             Semestre s =
                 DAOSemestres.
                 crearSemestre(
@@ -161,11 +168,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
             catch (MySqlException e)
             {
-                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
             }
             catch (Exception e)
             {
-                return ControladorExcepciones.crearResultadoOperacionException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
             }
 
             // Si no hubo problema, se devolverá el resultado correspondiente.
@@ -179,11 +186,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "Se han modificado dos o más semestres",
-                    "SemMod " + modificado.ToString())
+                    "SemMod " + modificado.ToString(),
+                    innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
-                    "Semestre no modificado");
+                    "Semestre no modificado",
+                    null,
+                    innerRO);
         }
 
         // Eliminación
@@ -198,6 +208,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         "El semestre contiene grupos");
             }
 
+            ResultadoOperacion innerRO = null;
+
             int eliminado = 0;
             
             // Si hay algún error durante la ejecución de la operación
@@ -208,11 +220,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
             catch (MySqlException e)
             {
-                return ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
             }
             catch (Exception e)
             {
-                return ControladorExcepciones.crearResultadoOperacionException(e);
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
             }
 
             // Si no hubo problema, se devolverá el resultado correspondiente.
@@ -226,11 +238,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "Se han eliminado dos o más semestres",
-                    "SemElim " + eliminado.ToString())
+                    "SemElim " + eliminado.ToString(),
+                    innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
-                    "Semestre no eliminado");
+                    "Semestre no eliminado",
+                    null,
+                    innerRO);
         }
 
 

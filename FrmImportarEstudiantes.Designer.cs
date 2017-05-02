@@ -183,7 +183,7 @@
             this.txtGrado.BackColor = System.Drawing.SystemColors.Control;
             this.txtGrado.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtGrado.Enabled = false;
-            this.txtGrado.Location = new System.Drawing.Point(473, 200);
+            this.txtGrado.Location = new System.Drawing.Point(519, 194);
             this.txtGrado.Name = "txtGrado";
             this.txtGrado.Size = new System.Drawing.Size(242, 22);
             this.txtGrado.TabIndex = 46;
@@ -195,7 +195,7 @@
             this.txtEspecialidad.BackColor = System.Drawing.SystemColors.Control;
             this.txtEspecialidad.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtEspecialidad.Enabled = false;
-            this.txtEspecialidad.Location = new System.Drawing.Point(473, 176);
+            this.txtEspecialidad.Location = new System.Drawing.Point(519, 170);
             this.txtEspecialidad.Name = "txtEspecialidad";
             this.txtEspecialidad.Size = new System.Drawing.Size(242, 22);
             this.txtEspecialidad.TabIndex = 45;
@@ -207,7 +207,7 @@
             this.txtSemestre.BackColor = System.Drawing.SystemColors.Control;
             this.txtSemestre.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSemestre.Enabled = false;
-            this.txtSemestre.Location = new System.Drawing.Point(473, 152);
+            this.txtSemestre.Location = new System.Drawing.Point(519, 146);
             this.txtSemestre.Name = "txtSemestre";
             this.txtSemestre.Size = new System.Drawing.Size(242, 22);
             this.txtSemestre.TabIndex = 44;
@@ -218,7 +218,7 @@
             this.label2.AutoSize = true;
             this.label2.Font = new System.Drawing.Font("Open Sans", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.label2.Location = new System.Drawing.Point(467, 116);
+            this.label2.Location = new System.Drawing.Point(513, 110);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(89, 33);
             this.label2.TabIndex = 43;

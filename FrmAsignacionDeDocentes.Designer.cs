@@ -1,4 +1,6 @@
-﻿namespace DepartamentoServiciosEscolaresCBTis123
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+
+namespace DepartamentoServiciosEscolaresCBTis123
 {
     partial class FrmAsignacionDeDocentes
     {
@@ -50,13 +52,13 @@
             // txtBasicoM
             // 
             this.txtBasicoM.BackColor = System.Drawing.Color.NavajoWhite;
-            this.txtBasicoM.Location = new System.Drawing.Point(504, 363);
+            this.txtBasicoM.Location = new System.Drawing.Point(676, 462);
             this.txtBasicoM.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtBasicoM.Multiline = true;
             this.txtBasicoM.Name = "txtBasicoM";
             this.txtBasicoM.ReadOnly = true;
             this.txtBasicoM.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtBasicoM.Size = new System.Drawing.Size(208, 61);
+            this.txtBasicoM.Size = new System.Drawing.Size(286, 42);
             this.txtBasicoM.TabIndex = 0;
             this.txtBasicoM.Text = "Ensambla equipo de cómputo de acuerdo con las características técnicas de compone" +
     "ntes y dispositivos periféricos\r\n";
@@ -65,13 +67,13 @@
             // txtPropedeuticoM
             // 
             this.txtPropedeuticoM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(255)))), ((int)(((byte)(128)))));
-            this.txtPropedeuticoM.Location = new System.Drawing.Point(504, 430);
+            this.txtPropedeuticoM.Location = new System.Drawing.Point(676, 510);
             this.txtPropedeuticoM.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtPropedeuticoM.Multiline = true;
             this.txtPropedeuticoM.Name = "txtPropedeuticoM";
             this.txtPropedeuticoM.ReadOnly = true;
             this.txtPropedeuticoM.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtPropedeuticoM.Size = new System.Drawing.Size(208, 61);
+            this.txtPropedeuticoM.Size = new System.Drawing.Size(286, 42);
             this.txtPropedeuticoM.TabIndex = 1;
             this.txtPropedeuticoM.Text = "Ensambla equipo de cómputo de acuerdo con las características técnicas de compone" +
     "ntes y dispositivos periféricos\r\n";
@@ -80,13 +82,13 @@
             // txtEspecialidadM
             // 
             this.txtEspecialidadM.BackColor = System.Drawing.Color.DarkSeaGreen;
-            this.txtEspecialidadM.Location = new System.Drawing.Point(504, 497);
+            this.txtEspecialidadM.Location = new System.Drawing.Point(676, 558);
             this.txtEspecialidadM.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtEspecialidadM.Multiline = true;
             this.txtEspecialidadM.Name = "txtEspecialidadM";
             this.txtEspecialidadM.ReadOnly = true;
             this.txtEspecialidadM.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtEspecialidadM.Size = new System.Drawing.Size(208, 61);
+            this.txtEspecialidadM.Size = new System.Drawing.Size(286, 42);
             this.txtEspecialidadM.TabIndex = 2;
             this.txtEspecialidadM.Text = "Ensambla equipo de cómputo de acuerdo con las características técnicas de compone" +
     "ntes y dispositivos periféricos\r\n";
@@ -96,7 +98,7 @@
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(72, 98);
+            this.label1.Location = new System.Drawing.Point(110, 98);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 22);
             this.label1.TabIndex = 4;
@@ -133,7 +135,7 @@
             this.panel1.Controls.Add(this.label2);
             this.panel1.Location = new System.Drawing.Point(0, 0);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(452, 93);
+            this.panel1.Size = new System.Drawing.Size(600, 93);
             this.panel1.TabIndex = 3;
             // 
             // txtGrado
@@ -142,7 +144,7 @@
             this.txtGrado.BackColor = System.Drawing.SystemColors.Control;
             this.txtGrado.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtGrado.Enabled = false;
-            this.txtGrado.Location = new System.Drawing.Point(208, 61);
+            this.txtGrado.Location = new System.Drawing.Point(360, 60);
             this.txtGrado.Name = "txtGrado";
             this.txtGrado.Size = new System.Drawing.Size(228, 18);
             this.txtGrado.TabIndex = 9;
@@ -154,7 +156,7 @@
             this.txtEspecialidad.BackColor = System.Drawing.SystemColors.Control;
             this.txtEspecialidad.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtEspecialidad.Enabled = false;
-            this.txtEspecialidad.Location = new System.Drawing.Point(208, 37);
+            this.txtEspecialidad.Location = new System.Drawing.Point(360, 36);
             this.txtEspecialidad.Name = "txtEspecialidad";
             this.txtEspecialidad.Size = new System.Drawing.Size(228, 18);
             this.txtEspecialidad.TabIndex = 8;
@@ -166,7 +168,7 @@
             this.txtSemestre.BackColor = System.Drawing.SystemColors.Control;
             this.txtSemestre.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.txtSemestre.Enabled = false;
-            this.txtSemestre.Location = new System.Drawing.Point(208, 13);
+            this.txtSemestre.Location = new System.Drawing.Point(360, 12);
             this.txtSemestre.Name = "txtSemestre";
             this.txtSemestre.Size = new System.Drawing.Size(228, 18);
             this.txtSemestre.TabIndex = 7;
@@ -176,7 +178,7 @@
             // 
             this.label3.AutoSize = true;
             this.label3.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label3.Location = new System.Drawing.Point(307, 98);
+            this.label3.Location = new System.Drawing.Point(409, 98);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 22);
             this.label3.TabIndex = 5;
@@ -186,17 +188,17 @@
             // 
             this.comboDocentes.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboDocentes.FormattingEnabled = true;
-            this.comboDocentes.Location = new System.Drawing.Point(734, 380);
+            this.comboDocentes.Location = new System.Drawing.Point(676, 412);
             this.comboDocentes.Name = "comboDocentes";
-            this.comboDocentes.Size = new System.Drawing.Size(199, 26);
+            this.comboDocentes.Size = new System.Drawing.Size(286, 26);
             this.comboDocentes.TabIndex = 6;
             this.comboDocentes.SelectedIndexChanged += new System.EventHandler(this.comboDocentes_SelectedIndexChanged);
-            this.comboDocentes.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.evitarScroll);
+            this.comboDocentes.MouseWheel += new System.Windows.Forms.MouseEventHandler(ControladorVisual.evitarScroll);
             // 
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(584, 36);
+            this.label4.Location = new System.Drawing.Point(699, 25);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(341, 306);
             this.label4.TabIndex = 9;
@@ -205,9 +207,9 @@
             // cmdGuardar
             // 
             this.cmdGuardar.Font = new System.Drawing.Font("Open Sans Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.cmdGuardar.Location = new System.Drawing.Point(98, 123);
+            this.cmdGuardar.Location = new System.Drawing.Point(76, 130);
             this.cmdGuardar.Name = "cmdGuardar";
-            this.cmdGuardar.Size = new System.Drawing.Size(252, 30);
+            this.cmdGuardar.Size = new System.Drawing.Size(446, 30);
             this.cmdGuardar.TabIndex = 10;
             this.cmdGuardar.Text = "Guardar todo";
             this.cmdGuardar.UseVisualStyleBackColor = true;
@@ -216,13 +218,13 @@
             // txtComplementarioM
             // 
             this.txtComplementarioM.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
-            this.txtComplementarioM.Location = new System.Drawing.Point(734, 421);
+            this.txtComplementarioM.Location = new System.Drawing.Point(966, 462);
             this.txtComplementarioM.Margin = new System.Windows.Forms.Padding(2, 3, 2, 3);
             this.txtComplementarioM.Multiline = true;
             this.txtComplementarioM.Name = "txtComplementarioM";
             this.txtComplementarioM.ReadOnly = true;
             this.txtComplementarioM.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.txtComplementarioM.Size = new System.Drawing.Size(208, 61);
+            this.txtComplementarioM.Size = new System.Drawing.Size(286, 42);
             this.txtComplementarioM.TabIndex = 11;
             this.txtComplementarioM.Text = "Ensambla equipo de cómputo de acuerdo con las características técnicas de compone" +
     "ntes y dispositivos periféricos\r\n";
@@ -233,7 +235,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 18F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(452, 165);
+            this.ClientSize = new System.Drawing.Size(600, 176);
             this.Controls.Add(this.txtComplementarioM);
             this.Controls.Add(this.cmdGuardar);
             this.Controls.Add(this.label4);

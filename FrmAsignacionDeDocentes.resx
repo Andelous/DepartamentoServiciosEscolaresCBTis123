@@ -121,19 +121,19 @@
     <value>El punto inicial para el primer cuadro de texto es 11, 129.
 
 Los cuadros de texto están separados por
-67 unidades en Y unicamente
+48 unidades en Y unicamente
 
 Los combos están distanciados de los cuadros de texto 
-un total de 18 unidades sobre Y, y un total de
-230 unidades sobre X.
+un total de 7 unidades sobre Y, y un total de
+291 unidades sobre X.
 
-Posición inicial combos : 241, 146
+Posición inicial combos : 302, 136
 
 El botón cambiará únicamente su posición en Y, con
 81 unidades menos que el alto de la ventana
 
 Y el Alto de la ventana será 179 unidades más que el
 punto Y del último cuadro de texto. Y de ancho será
-de 468 unidades</value>
+de 616 unidades</value>
   </data>
 </root>

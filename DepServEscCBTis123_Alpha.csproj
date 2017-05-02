@@ -34,9 +34,9 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data, Version=6.9.9.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL" />
-    <Reference Include="MySqlDataSource, Version=1.0.3.1, Culture=neutral, processorArchitecture=MSIL">
+    <Reference Include="MySqlDataSource, Version=1.0.6320.2789, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2015\Projects\MySqlDataSource\MySqlDataSource\bin\Release\MySqlDataSource.dll</HintPath>
+      <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2017\Projects\MySqlDataSource\MySqlDataSource\bin\Release\MySqlDataSource.dll</HintPath>
     </Reference>
     <Reference Include="MySqlUtilerias, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
       <SpecificVersion>False</SpecificVersion>
@@ -151,6 +151,7 @@
     <Compile Include="FrmSemestres.Designer.cs">
       <DependentUpon>FrmSemestres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logica\Controladores\ControladorEstudiantes.cs" />
     <Compile Include="Logica\Controladores\ControladorExcepciones.cs" />
     <Compile Include="Logica\Controladores\ControladorGrupos.cs" />
     <Compile Include="Logica\Controladores\ControladorSemestres.cs" />
