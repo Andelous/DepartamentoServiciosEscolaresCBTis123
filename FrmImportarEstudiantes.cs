@@ -84,7 +84,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             estudiantesActuales = new BindingList<Estudiante>(
                 controladorSesion.
                 daoEstudiantes.
-                seleccionarEstudiantesPorGrupo(grupo.idGrupo)
+                seleccionarEstudiantesPorGrupo(grupo)
             );
 
             dgvEstudiantesImportados.DataSource = estudiantesActuales;
@@ -118,7 +118,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     controladorSesion.
                     daoEstudiantes.
                     seleccionarEstudiantesPorGrupo(
-                        ((Grupo)comboGrupos.SelectedItem).idGrupo
+                        ((Grupo)comboGrupos.SelectedItem)
                     );
 
             configurarDGVEstudiantes(estudiantes, dgvEstudiantesImportar, lblResultados);
@@ -141,7 +141,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 controladorSesion.
                 daoEstudiantes.
                 seleccionarEstudiantesPorGrupo(
-                    ((Grupo)comboGrupos.SelectedItem).idGrupo
+                    ((Grupo)comboGrupos.SelectedItem)
                 );
 
             configurarDGVEstudiantes(estudiantes, dgvEstudiantesImportar, lblResultados);
@@ -181,8 +181,9 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     controladorSesion.
                     daoEstudiantes.
                     seleccionarEstudiantesCondicional(
-                        false, 
                         false,
+                        false,
+                        true,
                         true,
                         true,
                         true,
@@ -196,13 +197,14 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     controladorSesion.
                     daoEstudiantes.
                     seleccionarEstudiantesPorGrupoCondicional(
-                        ((Grupo)comboGrupos.SelectedItem).idGrupo,
+                        ((Grupo)comboGrupos.SelectedItem),
                         false, 
                         false,
                         true, 
                         true,
                         true,
                         true, 
+                        true,
                         txtBusqueda.Text);
             }
 
@@ -219,6 +221,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdAgregarSeleccion_Click(object sender, EventArgs e)
         {
+            /*
             if (dgvEstudiantesImportar.SelectedRows.Count > 0)
             {
                 List<Estudiante> estudiantesSeleccionados =
@@ -229,6 +232,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 MessageBox.Show("Se filtró la lista... contiene " + estudiantesSeleccionados.Count);
                 agregarEstudiantes(estudiantesSeleccionados);
             }
+            */
         }
 
         private void cmdAgregarTodos_Click(object sender, EventArgs e)
@@ -270,6 +274,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdEliminarSeleccion_Click(object sender, EventArgs e)
         {
+            /*
             if (dgvEstudiantesImportados.SelectedRows.Count > 0)
             {
                 List<Estudiante> estudiantesSeleccionados =
@@ -285,16 +290,19 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     estudiantesNuevos.Remove(est);
                 }
             }
+            */
         }
 
         private void cmdGuardar_Click(object sender, EventArgs e)
         {
+            /*
             int resultado =
                 controladorSesion.
                 daoEstudiantes.
                 insertarEstudiantesEnGrupo(estudiantesNuevos, grupo);
 
             MessageBox.Show("Se guardaron: " + resultado + " nuevo(s) estudiante(s)");
+            */
         }
     }
 }

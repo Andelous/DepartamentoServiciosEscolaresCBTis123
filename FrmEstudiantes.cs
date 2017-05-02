@@ -14,14 +14,43 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmEstudiantes : Form
     {
-        private ControladorSesion controladorSesion;
-        private bool ultimoCambioBusqueda;
+        // Propiedades
+        // Controladores
+        private ControladorSesion controladorSesion { get; set; }
+        private ControladorEstudiantes controladorEstudiantes { get; set; }
 
+        // Lógicas
+        private bool ultimoCambioBusqueda { get; set; }
+
+        private Estudiante estudianteSeleccionado
+        {
+            get
+            {
+                return (Estudiante)dgvEstudiantes.SelectedRows[0].DataBoundItem;
+            }
+        }
+        private Semestre semestreSeleccionado
+        {
+            get
+            {
+                return (Semestre)comboSemestres.SelectedItem;
+            }
+        }
+        private Grupo grupoSeleccionado
+        {
+            get
+            {
+                return (Grupo)comboGrupos.SelectedItem;
+            }
+        }
+
+        // Métodos de inicialización
         public FrmEstudiantes(ControladorSesion controladorSesion)
         {
             InitializeComponent();
 
             this.controladorSesion = controladorSesion;
+            this.controladorEstudiantes = new ControladorEstudiantes();
 
             ultimoCambioBusqueda = false;
         }
@@ -29,94 +58,50 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void FrmEstudiantes_Load(object sender, EventArgs e)
         {
             comboSemestres.DataSource = 
-                controladorSesion.
-                daoSemestres.
+                controladorEstudiantes.
                 seleccionarSemestres();
-
-            comboSemestres.SelectedIndex = 0;
         }
 
-        private void comboSemestres_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /*
-            comboGrupos.DataSource =
-                controladorSesion.
-                daoGrupos.
-                seleccionarGruposPorSemestre(
-                    ((Semestre)comboSemestres.SelectedItem).idSemestre
-                );
-            */
-            
-            //comboGrupos.SelectedIndex = 0;
-        }
 
-        private void comboGrupos_SelectedIndexChanged(object sender, EventArgs e)
+        // Funciones lógicas
+        private void mostrarGrupos(object sender, EventArgs e)
         {
-            if (ultimoCambioBusqueda)
-            {
-
-            }
-            else
-            {
-                configurarDGVEstudiantes(
-                    controladorSesion.
-                    daoEstudiantes.
-                    seleccionarEstudiantesPorGrupo(
-                        ((Grupo)comboGrupos.SelectedItem).idGrupo
-                    )
-                );
-            }
-        }
-
-        private void radioTodos_CheckedChanged(object sender, EventArgs e)
-        {
-            configurarVentana();
-            configurarBusqueda();
-        }
-
-        private void radioGrupoSemestre_CheckedChanged(object sender, EventArgs e)
-        {
-            configurarVentana();
-            configurarBusqueda();
-        }
-
-        private void configurarVentana()
-        {
-            if (radioTodos.Checked)
+            if (comboSemestres.Text.Contains("Todos"))
             {
                 comboGrupos.Enabled = false;
-                comboSemestres.Enabled = false;
-            }
-            else if (radioGrupoSemestre.Checked)
-            {
-                comboGrupos.Enabled = true;
-                comboSemestres.Enabled = true;
-            }
-        }
-
-        private void configurarBusqueda()
-        {
-            if (ultimoCambioBusqueda)
-            {
-                cmdBuscar_Click(null, null);
+                comboGrupos.DataSource = null;
+                comboGrupos.Text = comboSemestres.Text;
             }
             else
             {
-                if (radioTodos.Checked)
-                {
-                    configurarDGVEstudiantes(
-                        controladorSesion.
-                        daoEstudiantes.
-                        seleccionarEstudiantes()
-                    );
-                }
-                else if (radioGrupoSemestre.Checked)
-                {
-                    comboGrupos_SelectedIndexChanged(null, null);
-                }
+                comboGrupos.Enabled = true;
+                comboGrupos.DataSource =
+                    controladorEstudiantes.
+                    seleccionarGrupos(semestreSeleccionado);
             }
         }
 
+        private void mostrarEstudiantes(object sender, EventArgs e)
+        {
+            
+        }
+
+        // Métodos de evento de controles
+        private void cmdBuscar_Click(object sender, EventArgs e)
+        {
+            mostrarEstudiantes(sender, e);
+        }
+
+        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                cmdBuscar_Click(sender, e);
+            }
+        }
+
+
+        // Métodos visuales
         private void configurarDGVEstudiantes(List<Estudiante> listaEstudiantes)
         {
             lblEstudiantes.Text = "Estudiantes - (" + listaEstudiantes.Count + " resultados)";
@@ -182,8 +167,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void cmdNuevoEstudiante_Click(object sender, EventArgs e)
         {
             (new FrmNuevoEstudiante(controladorSesion)).ShowDialog();
-
-            configurarVentana();
+            mostrarEstudiantes(sender, e);
         }
 
         private void cmdEliminarEstudiante_Click(object sender, EventArgs e)
@@ -199,19 +183,14 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 ) == DialogResult.OK
                 )
             {
-                int idEstudiante = Convert.ToInt32(dgvEstudiantes.SelectedRows[0].Cells["idEstudiante"].Value);
-
                 // LISTA GRUPOS A LOS QUE PERTENECE
 
                 if (// FALTA CONDICIÓN DE LOS GRUPOS A LOS QUE PERTENECE
                     controladorSesion.
                     daoEstudiantes.
-                    eliminarEstudiante(
-                        idEstudiante
-                    ) == 1)
+                    eliminarEstudiante(estudianteSeleccionado) == 1)
                 {
                     MessageBox.Show("Estudiante eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    configurarVentana();
                 }
                 else
                 {
@@ -235,73 +214,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
             estudiante.nombres = cells["nombres"].Value.ToString();
 
             (new FrmModificarEstudiante(controladorSesion, estudiante)).ShowDialog();
-            configurarVentana();
-        }
-
-        private void cmdBuscar_Click(object sender, EventArgs e)
-        {
-            if (
-                chkApellidoMaterno.Checked ||
-                chkApellidoPaterno.Checked ||
-                chkCurp.Checked ||
-                chkNcontrol.Checked ||
-                chkNombreCompleto.Checked ||
-                chkNombres.Checked
-                )
-            {
-                if (radioGrupoSemestre.Checked)
-                {
-                    configurarDGVEstudiantes(
-                        controladorSesion.
-                        daoEstudiantes.
-                        seleccionarEstudiantesPorGrupoCondicional(
-                            ((Grupo)comboGrupos.SelectedItem).idGrupo,
-                            chkNcontrol.Checked,
-                            chkCurp.Checked,
-                            chkNombreCompleto.Checked,
-                            chkNombres.Checked,
-                            chkApellidoPaterno.Checked,
-                            chkApellidoMaterno.Checked,
-                            txtBusqueda.Text
-                        )
-                    );
-                }
-                else if (radioTodos.Checked)
-                {
-                    configurarDGVEstudiantes(
-                        controladorSesion.
-                        daoEstudiantes.
-                        seleccionarEstudiantesCondicional(
-                            chkNcontrol.Checked,
-                            chkCurp.Checked,
-                            chkNombreCompleto.Checked,
-                            chkNombres.Checked,
-                            chkApellidoPaterno.Checked,
-                            chkApellidoMaterno.Checked,
-                            txtBusqueda.Text
-                        )
-                    );
-                }
-
-                ultimoCambioBusqueda = true;
-                lblAdvertencia.Visible = false;
-            }
-            else
-            {
-                MessageBox.Show(
-                    "Seleccione por lo menos un campo de búsqueda.", 
-                    "Aviso", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Warning);
-            }
-        }
-
-        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                cmdBuscar_Click(sender, e);
-            }
         }
 
         private void cambioDeCriterio(object sender, EventArgs e)

@@ -35,6 +35,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdRegistrar_Click(object sender, EventArgs e)
         {
+            /*
             if (txtNombres.Text != "" &&
                 txtApellidoMaterno.Text != "" &&
                 txtApellidoPaterno.Text != "" &&
@@ -76,6 +77,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             {
                 MessageBox.Show("Rellene los campos de forma correcta", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
+            */
         }
     }
 }

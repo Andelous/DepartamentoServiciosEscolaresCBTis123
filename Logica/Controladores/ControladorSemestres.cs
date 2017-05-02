@@ -13,8 +13,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
     public class ControladorSemestres
     {
         // Propiedades
+        // DAOs
         private DAOSemestres daoSemestres { get; set; }
-        private ControladorGrupos controladorGrupos { get; set; }
+
+        // Controladores necesarios
+        public ControladorGrupos controladorGrupos { get; set; }
 
         // Inicialización
         public ControladorSemestres(ControladorGrupos controladorGrupos = null)
@@ -27,7 +30,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 :
                 new ControladorGrupos(this);
         }
-
 
         // Métodos de manipulación del modelo.
         // Selección
@@ -49,6 +51,45 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             {
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
             }
+
+            return listaSemestres;
+        }
+
+        public List<Semestre> seleccionarSemestresLista()
+        {
+            List<Semestre> listaSemestres = new List<Semestre>();
+
+            // Creamos el semestre de ningún semestre
+            Semestre s = new Semestre();
+            s.idSemestre = -1;
+            s.nombre = "Ningún semestre";
+            s.nombreCorto2 = "-";
+
+            // Si hay algún error durante la ejecución de la operación
+            // se mostrará el respectivo resultado de operación.
+            try
+            {
+                listaSemestres = daoSemestres.seleccionarSemestres();
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            if (listaSemestres.Count > 0)
+            {
+                s = new Semestre();
+                s.idSemestre = 0;
+                s.nombre = "Todos";
+                s.nombreCorto2 = "*";
+            }
+
+            // Agregamos el semestre comodín
+            listaSemestres.Add(s);
 
             return listaSemestres;
         }

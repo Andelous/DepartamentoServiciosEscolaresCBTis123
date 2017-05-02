@@ -51,18 +51,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
             return dataSource.ejecutarActualizacion(query);
         }
-        
-        public int modificarListaDeCatedras(List<Catedra> listaCatedras)
-        {
-            int acum = 0;
-
-            foreach (Catedra c in listaCatedras)
-            {
-                acum += modificarCatedra(c);
-            }
-
-            return acum;
-        }
 
         // MISC
         public static Catedra crearCatedra(

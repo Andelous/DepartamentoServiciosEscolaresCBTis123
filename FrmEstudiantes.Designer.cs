@@ -40,9 +40,6 @@
             this.txtBusqueda = new System.Windows.Forms.TextBox();
             this.cmdBuscar = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.radioTodos = new System.Windows.Forms.RadioButton();
-            this.radioGrupoSemestre = new System.Windows.Forms.RadioButton();
             this.chkNcontrol = new System.Windows.Forms.CheckBox();
             this.chkCurp = new System.Windows.Forms.CheckBox();
             this.chkNombres = new System.Windows.Forms.CheckBox();
@@ -50,6 +47,7 @@
             this.chkApellidoMaterno = new System.Windows.Forms.CheckBox();
             this.chkApellidoPaterno = new System.Windows.Forms.CheckBox();
             this.lblAdvertencia = new System.Windows.Forms.Label();
+            this.chkNss = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.dgvEstudiantes)).BeginInit();
             this.SuspendLayout();
             // 
@@ -61,7 +59,7 @@
             this.comboSemestres.Name = "comboSemestres";
             this.comboSemestres.Size = new System.Drawing.Size(284, 30);
             this.comboSemestres.TabIndex = 18;
-            this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.comboSemestres_SelectedIndexChanged);
+            this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.mostrarGrupos);
             // 
             // lblEstudiantes
             // 
@@ -74,7 +72,7 @@
             // 
             // cmdNuevoEstudiante
             // 
-            this.cmdNuevoEstudiante.Location = new System.Drawing.Point(646, 179);
+            this.cmdNuevoEstudiante.Location = new System.Drawing.Point(646, 146);
             this.cmdNuevoEstudiante.Name = "cmdNuevoEstudiante";
             this.cmdNuevoEstudiante.Size = new System.Drawing.Size(168, 34);
             this.cmdNuevoEstudiante.TabIndex = 16;
@@ -109,12 +107,12 @@
             this.dgvEstudiantes.AllowUserToResizeRows = false;
             this.dgvEstudiantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
             this.dgvEstudiantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEstudiantes.Location = new System.Drawing.Point(12, 219);
+            this.dgvEstudiantes.Location = new System.Drawing.Point(12, 186);
             this.dgvEstudiantes.MultiSelect = false;
             this.dgvEstudiantes.Name = "dgvEstudiantes";
             this.dgvEstudiantes.ReadOnly = true;
             this.dgvEstudiantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEstudiantes.Size = new System.Drawing.Size(802, 261);
+            this.dgvEstudiantes.Size = new System.Drawing.Size(802, 294);
             this.dgvEstudiantes.TabIndex = 13;
             // 
             // comboGrupos
@@ -125,7 +123,6 @@
             this.comboGrupos.Name = "comboGrupos";
             this.comboGrupos.Size = new System.Drawing.Size(284, 30);
             this.comboGrupos.TabIndex = 19;
-            this.comboGrupos.SelectedIndexChanged += new System.EventHandler(this.comboGrupos_SelectedIndexChanged);
             // 
             // lblSemestre
             // 
@@ -166,49 +163,16 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(12, 98);
+            this.label4.Location = new System.Drawing.Point(12, 81);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(178, 22);
             this.label4.TabIndex = 24;
             this.label4.Text = "Criterios de búsqueda";
             // 
-            // label5
-            // 
-            this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(413, 111);
-            this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(162, 22);
-            this.label5.TabIndex = 25;
-            this.label5.Text = "Grupo de búsqueda";
-            // 
-            // radioTodos
-            // 
-            this.radioTodos.AutoSize = true;
-            this.radioTodos.Location = new System.Drawing.Point(403, 172);
-            this.radioTodos.Name = "radioTodos";
-            this.radioTodos.Size = new System.Drawing.Size(171, 26);
-            this.radioTodos.TabIndex = 27;
-            this.radioTodos.Text = "Todos los alumnos";
-            this.radioTodos.UseVisualStyleBackColor = true;
-            this.radioTodos.CheckedChanged += new System.EventHandler(this.radioTodos_CheckedChanged);
-            // 
-            // radioGrupoSemestre
-            // 
-            this.radioGrupoSemestre.AutoSize = true;
-            this.radioGrupoSemestre.Checked = true;
-            this.radioGrupoSemestre.Location = new System.Drawing.Point(403, 140);
-            this.radioGrupoSemestre.Name = "radioGrupoSemestre";
-            this.radioGrupoSemestre.Size = new System.Drawing.Size(192, 26);
-            this.radioGrupoSemestre.TabIndex = 28;
-            this.radioGrupoSemestre.TabStop = true;
-            this.radioGrupoSemestre.Text = "Por grupo y semestre";
-            this.radioGrupoSemestre.UseVisualStyleBackColor = true;
-            this.radioGrupoSemestre.CheckedChanged += new System.EventHandler(this.radioGrupoSemestre_CheckedChanged);
-            // 
             // chkNcontrol
             // 
             this.chkNcontrol.AutoSize = true;
-            this.chkNcontrol.Location = new System.Drawing.Point(12, 123);
+            this.chkNcontrol.Location = new System.Drawing.Point(12, 154);
             this.chkNcontrol.Name = "chkNcontrol";
             this.chkNcontrol.Size = new System.Drawing.Size(152, 26);
             this.chkNcontrol.TabIndex = 29;
@@ -219,7 +183,7 @@
             // chkCurp
             // 
             this.chkCurp.AutoSize = true;
-            this.chkCurp.Location = new System.Drawing.Point(186, 125);
+            this.chkCurp.Location = new System.Drawing.Point(186, 154);
             this.chkCurp.Name = "chkCurp";
             this.chkCurp.Size = new System.Drawing.Size(71, 26);
             this.chkCurp.TabIndex = 30;
@@ -230,7 +194,7 @@
             // chkNombres
             // 
             this.chkNombres.AutoSize = true;
-            this.chkNombres.Location = new System.Drawing.Point(186, 155);
+            this.chkNombres.Location = new System.Drawing.Point(186, 106);
             this.chkNombres.Name = "chkNombres";
             this.chkNombres.Size = new System.Drawing.Size(100, 26);
             this.chkNombres.TabIndex = 32;
@@ -241,7 +205,7 @@
             // chkNombreCompleto
             // 
             this.chkNombreCompleto.AutoSize = true;
-            this.chkNombreCompleto.Location = new System.Drawing.Point(12, 155);
+            this.chkNombreCompleto.Location = new System.Drawing.Point(12, 106);
             this.chkNombreCompleto.Name = "chkNombreCompleto";
             this.chkNombreCompleto.Size = new System.Drawing.Size(168, 26);
             this.chkNombreCompleto.TabIndex = 31;
@@ -252,7 +216,7 @@
             // chkApellidoMaterno
             // 
             this.chkApellidoMaterno.AutoSize = true;
-            this.chkApellidoMaterno.Location = new System.Drawing.Point(186, 187);
+            this.chkApellidoMaterno.Location = new System.Drawing.Point(186, 130);
             this.chkApellidoMaterno.Name = "chkApellidoMaterno";
             this.chkApellidoMaterno.Size = new System.Drawing.Size(160, 26);
             this.chkApellidoMaterno.TabIndex = 34;
@@ -263,7 +227,7 @@
             // chkApellidoPaterno
             // 
             this.chkApellidoPaterno.AutoSize = true;
-            this.chkApellidoPaterno.Location = new System.Drawing.Point(12, 187);
+            this.chkApellidoPaterno.Location = new System.Drawing.Point(12, 130);
             this.chkApellidoPaterno.Name = "chkApellidoPaterno";
             this.chkApellidoPaterno.Size = new System.Drawing.Size(155, 26);
             this.chkApellidoPaterno.TabIndex = 33;
@@ -276,13 +240,23 @@
             this.lblAdvertencia.AutoSize = true;
             this.lblAdvertencia.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAdvertencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblAdvertencia.Location = new System.Drawing.Point(117, 1);
+            this.lblAdvertencia.Location = new System.Drawing.Point(136, 12);
             this.lblAdvertencia.Name = "lblAdvertencia";
-            this.lblAdvertencia.Size = new System.Drawing.Size(211, 36);
+            this.lblAdvertencia.Size = new System.Drawing.Size(210, 18);
             this.lblAdvertencia.TabIndex = 35;
-            this.lblAdvertencia.Text = "Criterios cambiados. \r\nHaga clic en buscar para actualizar";
+            this.lblAdvertencia.Text = "Criterios de búsqueda cambiados.";
             this.lblAdvertencia.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
             this.lblAdvertencia.Visible = false;
+            // 
+            // chkNss
+            // 
+            this.chkNss.AutoSize = true;
+            this.chkNss.Location = new System.Drawing.Point(263, 154);
+            this.chkNss.Name = "chkNss";
+            this.chkNss.Size = new System.Drawing.Size(59, 26);
+            this.chkNss.TabIndex = 36;
+            this.chkNss.Text = "NSS";
+            this.chkNss.UseVisualStyleBackColor = true;
             // 
             // FrmEstudiantes
             // 
@@ -290,6 +264,7 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(826, 532);
+            this.Controls.Add(this.chkNss);
             this.Controls.Add(this.lblAdvertencia);
             this.Controls.Add(this.chkApellidoMaterno);
             this.Controls.Add(this.chkApellidoPaterno);
@@ -297,9 +272,6 @@
             this.Controls.Add(this.chkNombreCompleto);
             this.Controls.Add(this.chkCurp);
             this.Controls.Add(this.chkNcontrol);
-            this.Controls.Add(this.radioGrupoSemestre);
-            this.Controls.Add(this.radioTodos);
-            this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.cmdBuscar);
             this.Controls.Add(this.txtBusqueda);
@@ -340,9 +312,6 @@
         private System.Windows.Forms.TextBox txtBusqueda;
         private System.Windows.Forms.Button cmdBuscar;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.RadioButton radioTodos;
-        private System.Windows.Forms.RadioButton radioGrupoSemestre;
         private System.Windows.Forms.CheckBox chkNcontrol;
         private System.Windows.Forms.CheckBox chkCurp;
         private System.Windows.Forms.CheckBox chkNombres;
@@ -350,5 +319,6 @@
         private System.Windows.Forms.CheckBox chkApellidoMaterno;
         private System.Windows.Forms.CheckBox chkApellidoPaterno;
         private System.Windows.Forms.Label lblAdvertencia;
+        private System.Windows.Forms.CheckBox chkNss;
     }
 }

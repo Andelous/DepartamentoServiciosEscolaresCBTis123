@@ -22,7 +22,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         // Controladores
         private DAODocentes daoDocentes { get; set; }
         private DAOEstudiantes daoEstudiantes { get; set; }
-        private ControladorSemestres controladorSemestres { get; set; }
+        public ControladorSemestres controladorSemestres { get; set; }
 
         // Métodos de iniciación
         public ControladorGrupos(ControladorSemestres controladorSemestres = null)
@@ -48,29 +48,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         // Selección
         public List<Semestre> seleccionarSemestres()
         {
-            // Creamos una lista vacía
-            List<Semestre> listaSemestres = new List<Semestre>();
-
-            // Creamos el semestre de ningún semestre
-            Semestre s = new Semestre();
-            s.idSemestre = -1;
-            s.nombre = "Ningún semestre";
-            s.nombreCorto2 = "-";
-
-            listaSemestres = controladorSemestres.seleccionarSemestres();
-                
-            if (listaSemestres.Count > 0)
-            {
-                s = new Semestre();
-                s.idSemestre = 0;
-                s.nombre = "Todos";
-                s.nombreCorto2 = "*";
-            }
-
-            // Agregamos el semestre comodín
-            listaSemestres.Add(s);
-
-            return listaSemestres;
+            return controladorSemestres.seleccionarSemestresLista();
         }
 
         public List<Grupo> seleccionarGrupos(Semestre s)
@@ -389,7 +367,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             // Realizamos la operación, y si hay algún error, se mostrará al usuario.
             try
             {
-                modificadas = daoCatedras.modificarListaDeCatedras(listaCatedras);
+                foreach (Catedra c in listaCatedras)
+                {
+                    modificadas += daoCatedras.modificarCatedra(c);
+                }
             }
             catch (MySqlException e)
             {
@@ -427,7 +408,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         public ResultadoOperacion eliminarGrupo(Grupo g)
         {
             // Validamos que no tenga alumnos dependientes
-            if (daoEstudiantes.seleccionarEstudiantesPorGrupo(g.idGrupo).Count > 0)
+            if (daoEstudiantes.seleccionarEstudiantesPorGrupo(g).Count > 0)
             {
                 return
                     new ResultadoOperacion(

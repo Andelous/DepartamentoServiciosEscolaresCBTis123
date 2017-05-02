@@ -57,5 +57,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             (new FrmDocentes(controladorSesion)).ShowDialog();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new FrmPruebas().Show();
+        }
     }
 }
