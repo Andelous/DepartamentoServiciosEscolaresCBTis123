@@ -40,6 +40,34 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmAsignacionDeDocentes_Load(object sender, EventArgs e)
         {
+            // Antes que nada, agregamos las cátedras que se mostrarán
+            catedras = controladorGrupos.seleccionarCatedrasPorGrupo(grupo);
+
+            // Si las catedras no existen, se le preguntará al usuario para que
+            // se creen en ese momento
+            if (catedras.Count == 0)
+            {
+                DialogResult dr =
+                    MessageBox.Show(
+                        "Las clases de este grupo no se han registrado aún. ¿Desea registrarlas ahora?",
+                        "Aviso",
+                        MessageBoxButtons.YesNo,
+                        MessageBoxIcon.Information);
+
+                if (dr == DialogResult.Yes)
+                {
+                    ResultadoOperacion resultadoOperacion = 
+                        controladorGrupos.
+                        registrarCatedras(
+                            controladorGrupos.
+                            crearListaCatedrasGrupo(grupo));
+
+                    ControladorVisual.mostrarMensaje(resultadoOperacion);
+
+                    catedras = controladorGrupos.seleccionarCatedrasPorGrupo(grupo);
+                }
+            }
+
             // Mostramos el nombre del grupo en el Label rojo
             lblGrupo.Text = grupo.ToString();
 
@@ -50,9 +78,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
             // Agregamos el DataSource del comboDocente MODELO
             comboDocentes.DataSource = controladorGrupos.seleccionarDocentes();
-
-            // Agregamos las cátedras que se mostrarán
-            catedras = controladorGrupos.seleccionarCatedrasPorGrupo(grupo);
 
             // Creamos la lista de Txts y Combos de las cátedras.
             txtsCatedras = new List<TextBox>();
@@ -96,8 +121,8 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
                 // Calculamos la posición en la pantalla que tendrán los componentes.
                 // VER EL LABEL OCULTO DEL FORMULARIO FrmAsignacionDeDocentes.cs
-                txtNuevo.Location = new Point(11, 129 + i * 67);
-                comboNuevo.Location = new Point(241, 146 + i * 67);
+                txtNuevo.Location = new Point(11, 129 + i * 48);
+                comboNuevo.Location = new Point(302, 136 + i * 48);
 
                 // Mostramos el nombre de la materia en el TextBox correspondiente.
                 txtNuevo.Text = catedras[i].materiaObj.ToString();
@@ -114,7 +139,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
 
             // Se calcula el nuevo tamaño de la ventana y la posición del botón
-            Height = 129 + (catedras.Count - 1) * 67 + 150;
+            Height = 129 + (catedras.Count) * 48 + 87;
 
             Point p1 = new Point(
                 cmdGuardar.Location.X,

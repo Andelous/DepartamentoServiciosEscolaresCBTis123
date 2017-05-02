@@ -21,7 +21,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                     "(idCarrera = 16 AND propedeutica LIKE '" + g.especialidadObj.bachilleratoCiencias.Substring(0, 5) + "%')" +
                     "OR " +
                     "componenteF = 'Complementaria'" +
-                ");";
+                ") AND idMateria != 58 AND idMateria != 61;";
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);
 
