@@ -1,4 +1,6 @@
-﻿namespace DepartamentoServiciosEscolaresCBTis123
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+
+namespace DepartamentoServiciosEscolaresCBTis123
 {
     partial class FrmAsignacionDeDocentes
     {
@@ -191,7 +193,7 @@
             this.comboDocentes.Size = new System.Drawing.Size(286, 26);
             this.comboDocentes.TabIndex = 6;
             this.comboDocentes.SelectedIndexChanged += new System.EventHandler(this.comboDocentes_SelectedIndexChanged);
-            this.comboDocentes.MouseWheel += new System.Windows.Forms.MouseEventHandler(this.evitarScroll);
+            this.comboDocentes.MouseWheel += new System.Windows.Forms.MouseEventHandler(ControladorVisual.evitarScroll);
             // 
             // label4
             // 

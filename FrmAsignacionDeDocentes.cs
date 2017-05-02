@@ -102,7 +102,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     );
                 // Creamos el combo de la cátedra.
                 ComboBox comboNuevo = ControladorVisual.clonarCombo(comboDocentes);
-                comboNuevo.MouseWheel += new MouseEventHandler(evitarScroll);
+                comboNuevo.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
 
                 // ESTO TAMBIEN ES FUNCIONAL, PERO LO CAMBIE POR EL
                 // OPERADOR TERNARIO DE ARRIBA
@@ -187,11 +187,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
             ResultadoOperacion resultadoOperacion = controladorGrupos.modificarListaDeCatedras(catedras);
             ControladorVisual.mostrarMensaje(resultadoOperacion);
-        }
-
-        private void evitarScroll(object sender, MouseEventArgs e)
-        {
-            ((HandledMouseEventArgs)e).Handled = true;
         }
     }
 }

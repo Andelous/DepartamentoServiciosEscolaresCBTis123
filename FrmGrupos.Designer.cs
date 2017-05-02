@@ -101,7 +101,7 @@
             this.comboSemestres.Name = "comboSemestres";
             this.comboSemestres.Size = new System.Drawing.Size(284, 30);
             this.comboSemestres.TabIndex = 12;
-            this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.iniciarTemporizador);
+            this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.mostrarGrupos);
             // 
             // cmdAsignarDocentes
             // 
@@ -143,7 +143,6 @@
             this.Name = "FrmGrupos";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Grupos - Control Escolar CBTis 123";
-            this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmGrupos_FormClosed);
             this.Load += new System.EventHandler(this.FrmGrupos_Load);
             this.Resize += new System.EventHandler(this.FrmGrupos_Resize);
             ((System.ComponentModel.ISupportInitialize)(this.dgvGrupos)).EndInit();

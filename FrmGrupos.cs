@@ -20,8 +20,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private ControladorSesion controladorSesion { get; set; }
         private ControladorGrupos controladorGrupos { get; set; }
 
-        private Timer temporizador { get; set; }
-
         private Semestre semestreSeleccionado
         {
             get
@@ -44,39 +42,23 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
             this.controladorSesion = controladorSesion;
             this.controladorGrupos = new ControladorGrupos();
-
-            temporizador = new Timer();
-
-            temporizador.Interval = 1000;
-            temporizador.Tick += detenerTemporizador;
-            temporizador.Tick += mostrarGrupos;
         }
 
         private void FrmGrupos_Load(object sender, EventArgs e)
         {
             List<Semestre> listaSemestres = controladorGrupos.seleccionarSemestres();
             comboSemestres.DataSource = listaSemestres;
+
+            comboSemestres.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
         }
 
         // Métodos lógicos
-        private void iniciarTemporizador(object sender, EventArgs e)
-        {
-            temporizador.Stop();
-            temporizador.Start();
-        }
-
-        private void detenerTemporizador(object sender, EventArgs e)
-        {
-            temporizador.Stop();
-        }
-
         private void mostrarGrupos(object sender, EventArgs e)
         {
             List<Grupo> listaGrupos = controladorGrupos.seleccionarGrupos(semestreSeleccionado);
             configurarDGVGrupos(listaGrupos);
         }
 
-        
         // Eventos de los controles
         private void cmdNuevoGrupo_Click(object sender, EventArgs e)
         {
@@ -190,11 +172,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvGrupos.Columns["letra"].DisplayIndex = 8;
 
             lblGrupos.Text = "Grupos (" + listaGrupos.Count + " resultados)";
-        }
-
-        private void FrmGrupos_FormClosed(object sender, FormClosedEventArgs e)
-        {
-            detenerTemporizador(sender, e);
         }
     }
 }

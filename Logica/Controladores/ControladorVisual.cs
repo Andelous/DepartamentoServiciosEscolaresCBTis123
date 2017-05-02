@@ -22,7 +22,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 // Estados dependientes del usuario
                 case EstadoOperacion.Correcto:
                     return MessageBox.Show(
-                        crearMensajeEstadoUsuario(resultadoOperacion),
+                        resultadoOperacion.ToString(),
                         "Éxito", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Information
@@ -31,68 +31,25 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 case EstadoOperacion.NingunResultado:
                 case EstadoOperacion.ErrorCredencialesIncorrectas:
                 case EstadoOperacion.ErrorDatosIncorrectos:
+                case EstadoOperacion.ErrorDependenciaDeDatos:
                     return MessageBox.Show(
-                        crearMensajeEstadoUsuario(resultadoOperacion),
+                        resultadoOperacion.ToString(),
                         "Aviso", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Warning
-                    );
-
-                case EstadoOperacion.ErrorDependenciaDeDatos:
-                    return MessageBox.Show(
-                        crearMensajeEstadoUsuario(resultadoOperacion),
-                        "Error", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Error
                     );
                 
 
 
                     // Estados no dependientes del usuario
-                case EstadoOperacion.ErrorDesconocido:
-                case EstadoOperacion.ErrorAplicacion:
-                case EstadoOperacion.ErrorConexionServidor:
-                case EstadoOperacion.ErrorAcceso_SintaxisSQL:
-                case EstadoOperacion.ErrorEnServidor:
+                default:
                     return MessageBox.Show(
-                        crearMensajeEstadoNoUsuario(resultadoOperacion),
+                        resultadoOperacion.ToString() + "\n" + mensajeAdmStma,
                         "Error", 
                         MessageBoxButtons.OK, 
                         MessageBoxIcon.Error
                     );
-
-                default:
-                    return MessageBox.Show(
-                        crearMensajeEstadoNoUsuario(resultadoOperacion),
-                        "Aviso", 
-                        MessageBoxButtons.OK, 
-                        MessageBoxIcon.Warning
-                    );
             }
-        }
-
-        private static string crearMensajeEstadoNoUsuario(ResultadoOperacion resultadoOperacion)
-        {
-            return 
-                resultadoOperacion.
-                estadoOperacion.
-                mensajePredeterminado() + 
-                " " + 
-                mensajeAdmStma + 
-                "\n\nDetalle:\n" + 
-                resultadoOperacion.ToString();
-        }
-
-        private static string crearMensajeEstadoUsuario(ResultadoOperacion resultadoOperacion)
-        {
-            return 
-                resultadoOperacion.
-                estadoOperacion.
-                mensajePredeterminado() + 
-                "\n(" + 
-                resultadoOperacion.
-                descripcion + 
-                ")";
         }
 
         public static ComboBox clonarCombo(ComboBox comboOriginal)
@@ -300,6 +257,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             /*txtNuevo.WordWrap = txtOriginal.WordWrap;*/
 
             return txtNuevo;
+        }
+
+        // Métodos misceláneos
+        // Evento
+        public static void evitarScroll(object sender, MouseEventArgs e)
+        {
+            ((HandledMouseEventArgs)e).Handled = true;
         }
     }
 }

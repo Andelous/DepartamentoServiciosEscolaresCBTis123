@@ -25,17 +25,44 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias
 
         public override string ToString()
         {
-            string estadoOperacion = "_" + this.estadoOperacion.ToString() + "_\n";
+            string mensajePredeterminado = this.estadoOperacion.mensajePredeterminado() + "\n\n";
+
+            string detalle = "";
+            string estadoOperacion = "";
             string parentesis = descripcion != null ? "(" + descripcion + ")\n" : "";
-            string corchetes = errCode != null ? "[ErrCode: " + errCode + "]" : "";
+            string corchetes = "";
+
+            switch (this.estadoOperacion)
+            {
+                case EstadoOperacion.Correcto:
+                case EstadoOperacion.NingunResultado:
+                case EstadoOperacion.ErrorCredencialesIncorrectas:
+                case EstadoOperacion.ErrorDatosIncorrectos:
+                case EstadoOperacion.ErrorDependenciaDeDatos:
+                    break;
+
+                case EstadoOperacion.ErrorDesconocido:
+                case EstadoOperacion.ErrorAplicacion:
+                case EstadoOperacion.ErrorConexionServidor:
+                case EstadoOperacion.ErrorAcceso_SintaxisSQL:
+                case EstadoOperacion.ErrorEnServidor:
+                default:
+
+                    detalle = "Detalle: \n";
+                    estadoOperacion = "_" + this.estadoOperacion.ToString() + "_\n";
+                    corchetes = errCode != null ? "[ErrCode: " + errCode + "]\n" : "";
+
+                    break;
+            }
+
             string resultadoOperacionInterno =
                 this.resultadoOperacionInterno != null ?
-                "\n\n+-------InnerOperation------+\n" +
+                "\n+-------InnerOperation------+\n" +
                 this.resultadoOperacionInterno.ToString()
                 :
                 "";
 
-            return estadoOperacion + parentesis + corchetes + resultadoOperacionInterno;
+            return mensajePredeterminado + detalle + estadoOperacion + parentesis + corchetes + resultadoOperacionInterno;
         }
     }
 
