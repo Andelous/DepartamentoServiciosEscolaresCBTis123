@@ -8,7 +8,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 {
     public class DAOSingleton
     {
-        private static DAOCarreras _daoCarreras;
+        private static DAOCarreras _daoCarreras = new DAOCarreras();
         public static DAOCarreras daoCarreras
         {
             get
@@ -17,7 +17,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             }
         }
 
-        private static DAOCatedras _daoCatedras;
+        private static DAOCatedras _daoCatedras = new DAOCatedras();
         public static DAOCatedras daoCatedras
         {
             get
@@ -26,7 +26,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             }
         }
 
-        private static DAODocentes _daoDocentes;
+        private static DAODocentes _daoDocentes = new DAODocentes();
         public static DAODocentes daoDocentes
         {
             get
@@ -35,7 +35,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             }
         }
 
-        private static DAOEstudiantes _daoEstudiantes;
+        private static DAOEstudiantes _daoEstudiantes = new DAOEstudiantes();
         public static DAOEstudiantes daoEstudiantes
         {
             get
@@ -44,7 +44,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             }
         }
 
-        private static DAOGrupo_Estudiante _daoGrupo_Estudiante;
+        private static DAOGrupo_Estudiante _daoGrupo_Estudiante = new DAOGrupo_Estudiante();
         public static DAOGrupo_Estudiante daoGrupo_Estudiante
         {
             get
@@ -53,7 +53,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             }
         }
 
-        private static DAOGrupos _daoGrupos;
+        private static DAOGrupos _daoGrupos = new DAOGrupos();
         public static DAOGrupos daoGrupos
         {
             get
@@ -62,7 +62,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             }
         }
 
-        private static DAOMaterias _daoMaterias;
+        private static DAOMaterias _daoMaterias = new DAOMaterias();
         public static DAOMaterias daoMaterias
         {
             get
@@ -71,7 +71,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             }
         }
 
-        private static DAOSemestres _daoSemestres;
+        private static DAOSemestres _daoSemestres = new DAOSemestres();
         public static DAOSemestres daoSemestres
         {
             get
@@ -80,7 +80,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             }
         }
 
-        private static DAOUsuarios _daoUsuarios;
+        private static DAOUsuarios _daoUsuarios = new DAOUsuarios();
         public static DAOUsuarios daoUsuarios
         {
             get
