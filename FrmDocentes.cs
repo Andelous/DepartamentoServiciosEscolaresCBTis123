@@ -15,13 +15,17 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmDocentes : Form
     {
-        private ControladorSesion controladorSesion;
+        private ControladorSesion controladorSesion
+        {
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
 
-        public FrmDocentes(ControladorSesion controladorSesion)
+        public FrmDocentes()
         {
             InitializeComponent();
-
-            this.controladorSesion = controladorSesion;
         }
 
         private void FrmDocentes_Load(object sender, EventArgs e)

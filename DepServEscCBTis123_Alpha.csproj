@@ -157,6 +157,7 @@
     <Compile Include="FrmSemestres.Designer.cs">
       <DependentUpon>FrmSemestres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logica\Controladores\ControladorDocentes.cs" />
     <Compile Include="Logica\Controladores\ControladorEstudiantes.cs" />
     <Compile Include="Logica\Controladores\ControladorExcepciones.cs" />
     <Compile Include="Logica\Controladores\ControladorGrupos.cs" />
