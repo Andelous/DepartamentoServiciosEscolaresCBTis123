@@ -40,7 +40,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdSemestres_Click(object sender, EventArgs e)
         {
-            (new FrmSemestres(controladorSesion)).ShowDialog();
+            (new FrmSemestres()).ShowDialog();
         }
 
         private void cmdGrupos_Click(object sender, EventArgs e)

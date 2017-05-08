@@ -201,6 +201,17 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvEstudiantes.Columns["nombres"].HeaderText = "Nombre(s)";
             dgvEstudiantes.Columns["apellido1"].HeaderText = "Apellido p.";
             dgvEstudiantes.Columns["apellido2"].HeaderText = "Apellido m.";
+
+            if (dgvEstudiantes.SelectedRows.Count < 1)
+            {
+                cmdEditarEstudiante.Enabled = false;
+                cmdEliminarEstudiante.Enabled = false;
+            }
+            else
+            {
+                cmdEditarEstudiante.Enabled = true;
+                cmdEliminarEstudiante.Enabled = true;
+            }
         }
 
         private void FrmEstudiantes_Resize(object sender, EventArgs e)

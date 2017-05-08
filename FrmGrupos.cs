@@ -172,6 +172,21 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvGrupos.Columns["letra"].DisplayIndex = 8;
 
             lblGrupos.Text = "Grupos (" + listaGrupos.Count + " resultados)";
+
+            if (dgvGrupos.SelectedRows.Count < 1)
+            {
+                cmdEditarGrupo.Enabled = false;
+                cmdEliminarGrupo.Enabled = false;
+                cmdAsignarDocentes.Enabled = false;
+                cmdImportarEstudiantes.Enabled = false;
+            }
+            else
+            {
+                cmdEditarGrupo.Enabled = true;
+                cmdEliminarGrupo.Enabled = true;
+                cmdAsignarDocentes.Enabled = true;
+                cmdImportarEstudiantes.Enabled = true;
+            }
         }
     }
 }
