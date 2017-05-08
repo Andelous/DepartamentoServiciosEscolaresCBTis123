@@ -62,7 +62,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 seleccionarSemestres();
         }
 
-
         // Funciones lógicas
         private void mostrarGrupos(object sender, EventArgs e)
         {
@@ -70,7 +69,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             {
                 comboGrupos.Enabled = false;
                 comboGrupos.DataSource = null;
-                comboGrupos.Text = comboSemestres.Text;
+                //comboGrupos.Text = "Ninguno.";
             }
             else
             {
@@ -83,7 +82,18 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void mostrarEstudiantes(object sender, EventArgs e)
         {
-            
+            if (sender.Equals(comboGrupos) && comboGrupos.Enabled)
+            {
+                configurarDGVEstudiantes(controladorEstudiantes.seleccionarEstudiantesPorGrupo(grupoSeleccionado));
+            }
+            else if (sender.Equals(comboGrupos))
+            {
+                configurarDGVEstudiantes(controladorEstudiantes.seleccionarEstudiantes());
+            }
+            else
+            {
+
+            }
         }
 
         // Métodos de evento de controles
@@ -100,6 +110,51 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
+        private void cmdNuevoEstudiante_Click(object sender, EventArgs e)
+        {
+            new FrmNuevoEstudiante(controladorSesion).ShowDialog();
+            mostrarEstudiantes(sender, e);
+        }
+
+        private void cmdEliminarEstudiante_Click(object sender, EventArgs e)
+        {
+            if (
+                MessageBox.Show(
+                    "¿Está seguro que desea eliminar el estudiante " +
+                    dgvEstudiantes.SelectedRows[0].Cells["nombrecompleto"].Value.ToString() +
+                    "?",
+                    "Aviso",
+                    MessageBoxButtons.OKCancel,
+                    MessageBoxIcon.Warning
+                ) == DialogResult.OK
+                )
+            {
+                // LISTA GRUPOS A LOS QUE PERTENECE
+
+                if (// FALTA CONDICIÓN DE LOS GRUPOS A LOS QUE PERTENECE
+                    controladorSesion.
+                    daoEstudiantes.
+                    eliminarEstudiante(estudianteSeleccionado) == 1)
+                {
+                    MessageBox.Show("Estudiante eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                else
+                {
+                    MessageBox.Show("Error al eliminar el estudiante.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+            }
+        }
+
+        private void cmdEditarEstudiante_Click(object sender, EventArgs e)
+        {
+            new FrmModificarEstudiante(controladorSesion, estudianteSeleccionado).ShowDialog();
+            mostrarEstudiantes(sender, e);
+        }
+
+        private void cambioDeCriterio(object sender, EventArgs e)
+        {
+            lblAdvertencia.Visible = true;
+        }
 
         // Métodos visuales
         private void configurarDGVEstudiantes(List<Estudiante> listaEstudiantes)
@@ -110,6 +165,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvEstudiantes.Columns["idEstudiante"].Visible = false;
             dgvEstudiantes.Columns["ncontrol"].HeaderText = "No. de control";
             dgvEstudiantes.Columns["curp"].HeaderText = "CURP";
+            dgvEstudiantes.Columns["nss"].HeaderText = "NSS";
             dgvEstudiantes.Columns["nombrecompleto"].Visible = false;
             dgvEstudiantes.Columns["nombres"].HeaderText = "Nombre(s)";
             dgvEstudiantes.Columns["apellido1"].HeaderText = "Apellido p.";
@@ -162,63 +218,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 Height - 85
             );
             cmdEliminarEstudiante.Location = pCmdEliminarEstudiante;
-        }
-
-        private void cmdNuevoEstudiante_Click(object sender, EventArgs e)
-        {
-            (new FrmNuevoEstudiante(controladorSesion)).ShowDialog();
-            mostrarEstudiantes(sender, e);
-        }
-
-        private void cmdEliminarEstudiante_Click(object sender, EventArgs e)
-        {
-            if (
-                MessageBox.Show(
-                    "¿Está seguro que desea eliminar el estudiante " +
-                    dgvEstudiantes.SelectedRows[0].Cells["nombrecompleto"].Value.ToString() +
-                    "?",
-                    "Aviso",
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Warning
-                ) == DialogResult.OK
-                )
-            {
-                // LISTA GRUPOS A LOS QUE PERTENECE
-
-                if (// FALTA CONDICIÓN DE LOS GRUPOS A LOS QUE PERTENECE
-                    controladorSesion.
-                    daoEstudiantes.
-                    eliminarEstudiante(estudianteSeleccionado) == 1)
-                {
-                    MessageBox.Show("Estudiante eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Error al eliminar el estudiante.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void cmdEditarEstudiante_Click(object sender, EventArgs e)
-        {
-            Estudiante estudiante = new Estudiante();
-
-            DataGridViewCellCollection cells = dgvEstudiantes.SelectedRows[0].Cells;
-
-            estudiante.idEstudiante = Convert.ToInt32(cells["idEstudiante"].Value);
-            estudiante.apellido1 = cells["apellido1"].Value.ToString();
-            estudiante.apellido2 = cells["apellido2"].Value.ToString();
-            estudiante.curp = cells["curp"].Value.ToString();
-            estudiante.ncontrol = cells["ncontrol"].Value.ToString();
-            estudiante.nombreCompleto = cells["nombrecompleto"].Value.ToString();
-            estudiante.nombres = cells["nombres"].Value.ToString();
-
-            (new FrmModificarEstudiante(controladorSesion, estudiante)).ShowDialog();
-        }
-
-        private void cambioDeCriterio(object sender, EventArgs e)
-        {
-            lblAdvertencia.Visible = true;
         }
     }
 }

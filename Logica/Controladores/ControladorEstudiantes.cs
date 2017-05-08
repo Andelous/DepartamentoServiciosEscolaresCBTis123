@@ -75,6 +75,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             {
                 listaEstudiantes = daoEstudiantes.seleccionarEstudiantesPorGrupo(g);
             }
+            
             catch (MySqlException e)
             {
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
@@ -83,6 +84,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             {
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
             }
+            
 
             return listaEstudiantes;
         }
@@ -92,6 +94,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         // Modificación
 
         // Eliminación
+
+        // Misceláneons
     }
 }
  

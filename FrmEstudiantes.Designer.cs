@@ -1,4 +1,6 @@
-﻿namespace DepartamentoServiciosEscolaresCBTis123
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+
+namespace DepartamentoServiciosEscolaresCBTis123
 {
     partial class FrmEstudiantes
     {
@@ -60,6 +62,7 @@
             this.comboSemestres.Size = new System.Drawing.Size(284, 30);
             this.comboSemestres.TabIndex = 18;
             this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.mostrarGrupos);
+            this.comboSemestres.MouseWheel += new System.Windows.Forms.MouseEventHandler(ControladorVisual.evitarScroll);
             // 
             // lblEstudiantes
             // 
@@ -123,6 +126,8 @@
             this.comboGrupos.Name = "comboGrupos";
             this.comboGrupos.Size = new System.Drawing.Size(284, 30);
             this.comboGrupos.TabIndex = 19;
+            this.comboGrupos.SelectedIndexChanged += new System.EventHandler(this.mostrarEstudiantes);
+            this.comboGrupos.MouseWheel += new System.Windows.Forms.MouseEventHandler(ControladorVisual.evitarScroll);
             // 
             // lblSemestre
             // 
@@ -148,6 +153,7 @@
             this.txtBusqueda.Name = "txtBusqueda";
             this.txtBusqueda.Size = new System.Drawing.Size(251, 29);
             this.txtBusqueda.TabIndex = 22;
+            this.txtBusqueda.TextChanged += new System.EventHandler(this.cambioDeCriterio);
             this.txtBusqueda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBusqueda_KeyPress);
             // 
             // cmdBuscar
@@ -257,6 +263,7 @@
             this.chkNss.TabIndex = 36;
             this.chkNss.Text = "NSS";
             this.chkNss.UseVisualStyleBackColor = true;
+            this.chkNss.CheckedChanged += new System.EventHandler(this.cambioDeCriterio);
             // 
             // FrmEstudiantes
             // 
