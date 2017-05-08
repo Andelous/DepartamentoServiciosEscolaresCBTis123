@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,14 +15,27 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmModificarEstudiante : Form
     {
-        private ControladorSesion controladorSesion;
-        private Estudiante estudiante;
+        private ControladorSesion controladorSesion
+        {
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
+        private ControladorEstudiantes controladorEstudiantes
+        {
+            get
+            {
+                return ControladorSingleton.controladorEstudiantes;
+            }
+        }
 
-        public FrmModificarEstudiante(ControladorSesion controladorSesion, Estudiante estudiante)
+        private Estudiante estudiante { get; set; }
+
+        public FrmModificarEstudiante(Estudiante estudiante)
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
             this.estudiante = estudiante;
         }
 
@@ -37,54 +51,28 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdModificar_Click(object sender, EventArgs e)
         {
-            /*
-            if (txtNombres.Text != "" &&
-                txtApellidoMaterno.Text != "" &&
-                txtApellidoPaterno.Text != "" &&
-                txtNumeroDeControl.Text != "" &&
-                txtCurp.Text != "")
-            {
-                string nombres = txtNombres.Text.ToUpper().Trim();
-                string apellidoPaterno = txtApellidoPaterno.Text.ToUpper().Trim();
-                string apellidoMaterno = txtApellidoMaterno.Text.ToUpper().Trim();
+            ResultadoOperacion resultadoOperacion =
+                controladorEstudiantes.
+                modificarEstudiante(
+                    estudiante.idEstudiante,
+                    txtNombres.Text,
+                    txtApellidoPaterno.Text,
+                    txtApellidoMaterno.Text,
+                    txtCurp.Text,
+                    txtNumeroDeControl.Text,
+                    "Not implem");
 
-                string nombreCompleto =
-                    nombres + " " +
-                    apellidoPaterno + " " +
-                    apellidoMaterno;
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
 
-                if (
-                    controladorSesion.
-                    daoEstudiantes.
-                    modificarEstudiante(
-                        estudiante.idEstudiante,
-                        txtNumeroDeControl.Text,
-                        txtCurp.Text,
-                        nombreCompleto,
-                        nombres,
-                        apellidoPaterno,
-                        apellidoMaterno
-                    ) == 1
-                    )
-                {
-                    MessageBox.Show("Estudiante modificado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Error al modificar el estudiante.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
             {
-                MessageBox.Show("Rellene los campos de forma correcta", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Close();
             }
-            */
         }
 
         private void cmdCancelar_Click(object sender, EventArgs e)
         {
-            Hide();
+            Close();
         }
     }
 }

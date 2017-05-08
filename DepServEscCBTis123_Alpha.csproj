@@ -166,6 +166,7 @@
     <Compile Include="Logica\Controladores\ControladorVisual.cs" />
     <Compile Include="Logica\DAOs\DAOGrupo_Estudiante.cs" />
     <Compile Include="Logica\DAOs\DAOSingleton.cs" />
+    <Compile Include="Logica\Modelos\Grupo_Estudiante.cs" />
     <Compile Include="Logica\Utilerias\ResultadoOperacion.cs" />
     <Compile Include="Logica\Utilerias\ValidadorDeTexto.cs" />
     <Compile Include="Logica\DAOs\DAO.cs" />

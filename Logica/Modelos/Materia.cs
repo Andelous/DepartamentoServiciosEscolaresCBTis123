@@ -32,13 +32,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() == typeof(Materia))
+            if (obj != null)
             {
-                Materia m = (Materia)obj;
-
-                if (m.idMateria == idMateria)
+                if (obj.GetType() == typeof(Materia))
                 {
-                    return true;
+                    Materia m = (Materia)obj;
+
+                    if (m.idMateria == idMateria)
+                    {
+                        return true;
+                    }
                 }
             }
 

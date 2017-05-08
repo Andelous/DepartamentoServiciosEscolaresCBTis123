@@ -6,31 +6,29 @@ using System.Threading.Tasks;
 
 namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 {
-    public class Estudiante
+    public class Grupo_Estudiante
     {
+        public int idGrupo_Estudiante { get; set; }
+        public int idGrupo { get; set; }
         public int idEstudiante { get; set; }
-        public string ncontrol { get; set; }
-        public string curp { get; set; }
-        public string nombreCompleto { get; set; }
-        public string nombres { get; set; }
-        public string apellido1 { get; set; }
-        public string apellido2 { get; set; }
-        public string nss { get; set; }
+        
+        public Grupo grupoObj { get; set; }
+        public Estudiante estudianteObj { get; set; }
 
         public override string ToString()
         {
-            return nombreCompleto;
+            return estudianteObj.ToString() + " pertenece a " + grupoObj.ToString();
         }
 
         public override bool Equals(object obj)
         {
             if (obj != null)
             {
-                if (obj.GetType() == typeof(Estudiante))
+                if (obj.GetType() == typeof(Grupo_Estudiante))
                 {
-                    Estudiante estudiante = (Estudiante)obj;
+                    Grupo_Estudiante ge = (Grupo_Estudiante)obj;
 
-                    if (estudiante.idEstudiante == idEstudiante)
+                    if (ge.idGrupo_Estudiante == idGrupo_Estudiante)
                     {
                         return true;
                     }

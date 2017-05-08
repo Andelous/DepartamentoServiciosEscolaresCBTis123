@@ -24,13 +24,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() == typeof(Catedra))
+            if (obj != null)
             {
-                Catedra c = (Catedra)obj;
-
-                if (c.idCatedra == idCatedra)
+                if (obj.GetType() == typeof(Catedra))
                 {
-                    return true;
+                    Catedra c = (Catedra)obj;
+
+                    if (c.idCatedra == idCatedra)
+                    {
+                        return true;
+                    }
                 }
             }
 

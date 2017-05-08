@@ -21,13 +21,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() == typeof(Carrera))
+            if (obj != null)
             {
-                Carrera carrera = (Carrera)obj;
-
-                if (carrera.idCarrera == idCarrera)
+                if (obj.GetType() == typeof(Carrera))
                 {
-                    return true;
+                    Carrera carrera = (Carrera)obj;
+
+                    if (carrera.idCarrera == idCarrera)
+                    {
+                        return true;
+                    }
                 }
             }
 

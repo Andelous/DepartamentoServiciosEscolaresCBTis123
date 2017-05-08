@@ -21,13 +21,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() == typeof(Semestre))
+            if (obj != null)
             {
-                Semestre s = (Semestre)obj;
-
-                if (s.idSemestre == idSemestre)
+                if (obj.GetType() == typeof(Semestre))
                 {
-                    return true;
+                    Semestre s = (Semestre)obj;
+
+                    if (s.idSemestre == idSemestre)
+                    {
+                        return true;
+                    }
                 }
             }
 

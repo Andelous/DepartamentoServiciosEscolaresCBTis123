@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -127,42 +128,34 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdNuevoEstudiante_Click(object sender, EventArgs e)
         {
-            new FrmNuevoEstudiante(controladorSesion).ShowDialog();
+            new FrmNuevoEstudiante().ShowDialog();
             mostrarEstudiantes(sender, e);
         }
 
         private void cmdEliminarEstudiante_Click(object sender, EventArgs e)
         {
-            if (
+            DialogResult dr = 
                 MessageBox.Show(
-                    "¿Está seguro que desea eliminar el estudiante " +
-                    dgvEstudiantes.SelectedRows[0].Cells["nombrecompleto"].Value.ToString() +
-                    "?",
+                    "¿Está seguro que desea eliminar el estudiante " + 
+                    estudianteSeleccionado.ToString() + "?",
                     "Aviso",
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Warning
-                ) == DialogResult.OK
-                )
-            {
-                // LISTA GRUPOS A LOS QUE PERTENECE
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
 
-                if (// FALTA CONDICIÓN DE LOS GRUPOS A LOS QUE PERTENECE
-                    controladorSesion.
-                    daoEstudiantes.
-                    eliminarEstudiante(estudianteSeleccionado) == 1)
-                {
-                    MessageBox.Show("Estudiante eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-                else
-                {
-                    MessageBox.Show("Error al eliminar el estudiante.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+            if (dr == DialogResult.Yes)
+            {
+                ResultadoOperacion resultadoOperacion = 
+                    controladorEstudiantes.
+                    eliminarEstudiante(estudianteSeleccionado);
+
+                ControladorVisual.mostrarMensaje(resultadoOperacion);
+                mostrarEstudiantes(sender, e);
             }
         }
 
         private void cmdEditarEstudiante_Click(object sender, EventArgs e)
         {
-            new FrmModificarEstudiante(controladorSesion, estudianteSeleccionado).ShowDialog();
+            new FrmModificarEstudiante(estudianteSeleccionado).ShowDialog();
             mostrarEstudiantes(sender, e);
         }
 

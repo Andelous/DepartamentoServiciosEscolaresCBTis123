@@ -46,13 +46,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() == typeof(Grupo))
+            if (obj != null)
             {
-                Grupo g = (Grupo)obj;
-
-                if (g.idGrupo == idGrupo)
+                if (obj.GetType() == typeof(Grupo))
                 {
-                    return true;
+                    Grupo g = (Grupo)obj;
+
+                    if (g.idGrupo == idGrupo)
+                    {
+                        return true;
+                    }
                 }
             }
 

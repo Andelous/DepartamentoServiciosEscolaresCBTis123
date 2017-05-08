@@ -14,7 +14,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         public List<Semestre> seleccionarSemestres()
         {
-            List<Semestre> listaSemestres = new List<Semestre>();
             string query = "SELECT * FROM semestres ORDER BY nombrecorto2 DESC";
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);
@@ -25,6 +24,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         public Semestre seleccionarSemestrePorID(int idSemestre)
         {
             Semestre s = null;
+
             string query = 
                 "SELECT * FROM semestres WHERE " + 
                 "idSemestre = " + idSemestre + " ORDER BY nombrecorto2 DESC";
