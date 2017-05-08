@@ -17,12 +17,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private ControladorSesion controladorSesion { get; set; }
         private ControladorSemestres controladorSemestres { get; set; }
 
-        public FrmNuevoSemestre(ControladorSesion controladorSesion, ControladorSemestres controladorSemestres)
+        public FrmNuevoSemestre()
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
-            this.controladorSemestres = controladorSemestres;
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorSemestres = ControladorSingleton.controladorSemestres;
         }
 
         private void cmdRegistrar_Click(object sender, EventArgs e)

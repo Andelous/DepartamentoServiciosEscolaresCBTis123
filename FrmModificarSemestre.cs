@@ -20,12 +20,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private Semestre semestre { get; set; }
 
-        public FrmModificarSemestre(ControladorSesion controladorSesion, ControladorSemestres controladorSemestres, Semestre semestre)
+        public FrmModificarSemestre(Semestre semestre)
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
-            this.controladorSemestres = controladorSemestres;
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorSemestres = ControladorSingleton.controladorSemestres;
+
             this.semestre = semestre;
         }
 

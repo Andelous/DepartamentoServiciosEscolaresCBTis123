@@ -26,12 +26,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        public FrmSemestres(ControladorSesion controladorSesion)
+        public FrmSemestres()
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
-            this.controladorSemestres = new ControladorSemestres();
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorSemestres = ControladorSingleton.controladorSemestres;
         }
 
         private void FrmSemestres_Load(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdNuevoSemestre_Click(object sender, EventArgs e)
         {
-            new FrmNuevoSemestre(controladorSesion, controladorSemestres).ShowDialog();
+            new FrmNuevoSemestre().ShowDialog();
             configurarDGVSemestres();
         }
 

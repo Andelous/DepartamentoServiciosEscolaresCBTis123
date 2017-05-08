@@ -45,8 +45,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         ) {
             string query = "SELECT * FROM estudiantes WHERE ";
 
-            query = agregarCondiciones(
-                query,
+            query += crearCondiciones(
                 ncontrol,
                 curp,
                 nombrecompleto,
@@ -77,8 +76,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                 "E.idEstudiante = G.idEstudiante AND " +
                 "G.idGrupo = " + g.idGrupo + " AND ";
 
-            query = agregarCondiciones(
-                query,
+            query += crearCondiciones(
                 ncontrol,
                 curp,
                 nombrecompleto,
@@ -141,8 +139,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         
         // MISC
 
-        private static string agregarCondiciones(
-            string query,
+        private static string crearCondiciones(
             bool ncontrol,
             bool curp,
             bool nombrecompleto,
@@ -153,7 +150,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             string parametro
         ) {
             bool primero = true;
-            query += "(";
+            string query = "(";
 
             // Debe ser así la estructura de la consulta
             //string query = "SELECT * FROM estudiantes " +
@@ -259,7 +256,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
             query += ")";
 
-            return query;
+            return query.Equals("()") ? "FALSE" : query;
         }
 
         public static Estudiante crearEstudiante(

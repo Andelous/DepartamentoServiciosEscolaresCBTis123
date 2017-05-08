@@ -21,11 +21,23 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         // Controladores
         private DAODocentes daoDocentes { get; set; }
-        private DAOEstudiantes daoEstudiantes { get; set; }
-        public ControladorSemestres controladorSemestres { get; set; }
+        private ControladorEstudiantes controladorEstudiantes
+        {
+            get
+            {
+                return ControladorSingleton.controladorEstudiantes;
+            }
+        }
+        private ControladorSemestres controladorSemestres
+        {
+            get
+            {
+                return ControladorSingleton.controladorSemestres;
+            }
+        }
 
         // Métodos de iniciación
-        public ControladorGrupos(ControladorSemestres controladorSemestres = null)
+        public ControladorGrupos()
         {
             daoGrupos = new DAOGrupos();
             daoCarreras = new DAOCarreras();
@@ -34,14 +46,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             // Futuros controladores
             daoDocentes = new DAODocentes();
-            daoEstudiantes = new DAOEstudiantes();
-
-            this.controladorSemestres = 
-                controladorSemestres != null 
-                ? 
-                controladorSemestres 
-                : 
-                new ControladorSemestres(this);
         }
         
         // Métodos de manipulación del modelo
@@ -408,7 +412,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         public ResultadoOperacion eliminarGrupo(Grupo g)
         {
             // Validamos que no tenga alumnos dependientes
-            if (daoEstudiantes.seleccionarEstudiantesPorGrupo(g).Count > 0)
+            if (controladorEstudiantes.seleccionarEstudiantesPorGrupo(g).Count > 0)
             {
                 return
                     new ResultadoOperacion(

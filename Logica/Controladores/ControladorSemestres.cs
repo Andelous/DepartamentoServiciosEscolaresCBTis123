@@ -14,22 +14,26 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
     {
         // Propiedades
         // DAOs
-        private DAOSemestres daoSemestres { get; set; }
+        private DAOSemestres daoSemestres
+        {
+            get
+            {
+                return DAOSingleton.daoSemestres;
+            }
+        }
 
         // Controladores necesarios
-        public ControladorGrupos controladorGrupos { get; set; }
+        private ControladorGrupos controladorGrupos
+        {
+            get
+            {
+                return ControladorSingleton.controladorGrupos;
+            }
+        }
 
         // Inicialización
-        public ControladorSemestres(ControladorGrupos controladorGrupos = null)
-        {
-            daoSemestres = new DAOSemestres();
-            this.controladorGrupos =
-                controladorGrupos != null
-                ?
-                controladorGrupos
-                :
-                new ControladorGrupos(this);
-        }
+        public ControladorSemestres()
+        { }
 
         // Métodos de manipulación del modelo.
         // Selección

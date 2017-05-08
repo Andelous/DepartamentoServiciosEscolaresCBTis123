@@ -62,7 +62,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
             this.comboSemestres.Size = new System.Drawing.Size(284, 30);
             this.comboSemestres.TabIndex = 18;
             this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.mostrarGrupos);
-            this.comboSemestres.MouseWheel += new System.Windows.Forms.MouseEventHandler(ControladorVisual.evitarScroll);
             // 
             // lblEstudiantes
             // 
@@ -127,7 +126,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
             this.comboGrupos.Size = new System.Drawing.Size(284, 30);
             this.comboGrupos.TabIndex = 19;
             this.comboGrupos.SelectedIndexChanged += new System.EventHandler(this.mostrarEstudiantes);
-            this.comboGrupos.MouseWheel += new System.Windows.Forms.MouseEventHandler(ControladorVisual.evitarScroll);
             // 
             // lblSemestre
             // 
@@ -164,7 +162,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             this.cmdBuscar.TabIndex = 23;
             this.cmdBuscar.Text = "Buscar";
             this.cmdBuscar.UseVisualStyleBackColor = true;
-            this.cmdBuscar.Click += new System.EventHandler(this.cmdBuscar_Click);
+            this.cmdBuscar.Click += new System.EventHandler(this.mostrarEstudiantes);
             // 
             // label4
             // 
@@ -211,6 +209,9 @@ namespace DepartamentoServiciosEscolaresCBTis123
             // chkNombreCompleto
             // 
             this.chkNombreCompleto.AutoSize = true;
+            this.chkNombreCompleto.Checked = true;
+            this.chkNombreCompleto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNombreCompleto.Enabled = false;
             this.chkNombreCompleto.Location = new System.Drawing.Point(12, 106);
             this.chkNombreCompleto.Name = "chkNombreCompleto";
             this.chkNombreCompleto.Size = new System.Drawing.Size(168, 26);

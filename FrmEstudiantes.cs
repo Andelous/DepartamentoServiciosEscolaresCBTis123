@@ -45,12 +45,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
         }
 
         // Métodos de inicialización
-        public FrmEstudiantes(ControladorSesion controladorSesion)
+        public FrmEstudiantes()
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
-            this.controladorEstudiantes = new ControladorEstudiantes();
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorEstudiantes = ControladorSingleton.controladorEstudiantes;
 
             ultimoCambioBusqueda = false;
         }
@@ -82,31 +82,46 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void mostrarEstudiantes(object sender, EventArgs e)
         {
+            // Se decide si el evento proviene del combo, además de comprobar
+            // si el combo tiene grupos...
             if (sender.Equals(comboGrupos) && comboGrupos.Enabled)
             {
                 configurarDGVEstudiantes(controladorEstudiantes.seleccionarEstudiantesPorGrupo(grupoSeleccionado));
             }
+            // Si el evento proviene del combo, sabemos que no tiene grupos,
+            // Ya que hubiera entrado en el apartado anterior.
             else if (sender.Equals(comboGrupos))
             {
                 configurarDGVEstudiantes(controladorEstudiantes.seleccionarEstudiantes());
             }
+            // Si proviene de otro control, sabemos
+            // que fue click de búsqueda o enter en 
+            // el txtBusqueda
             else
             {
+                configurarDGVEstudiantes(
+                    controladorEstudiantes.
+                    seleccionarEstudiantesParametros(
+                        txtBusqueda.Text,
+                        chkNombreCompleto.Checked,
+                        chkNombres.Checked,
+                        chkApellidoPaterno.Checked,
+                        chkApellidoMaterno.Checked,
+                        chkCurp.Checked,
+                        chkNss.Checked,
+                        chkNcontrol.Checked,
+                        grupoSeleccionado));
 
+                lblAdvertencia.Visible = false;
             }
         }
 
         // Métodos de evento de controles
-        private void cmdBuscar_Click(object sender, EventArgs e)
-        {
-            mostrarEstudiantes(sender, e);
-        }
-
         private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
             {
-                cmdBuscar_Click(sender, e);
+                mostrarEstudiantes(sender, e);
             }
         }
 
@@ -154,6 +169,22 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void cambioDeCriterio(object sender, EventArgs e)
         {
             lblAdvertencia.Visible = true;
+
+            if (
+                chkApellidoMaterno.Checked || 
+                chkApellidoPaterno.Checked || 
+                chkCurp.Checked ||
+                chkNcontrol.Checked ||
+                chkNombres.Checked ||
+                chkNss.Checked)
+            {
+                chkNombreCompleto.Enabled = true;
+            }
+            else
+            {
+                chkNombreCompleto.Enabled = false;
+                chkNombreCompleto.Checked = true;
+            }
         }
 
         // Métodos visuales

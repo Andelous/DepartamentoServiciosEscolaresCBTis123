@@ -16,21 +16,25 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         private DAOEstudiantes daoEstudiantes { get; set; }
 
         // Controladores adicionales.
-        public ControladorSemestres controladorSemestres { get; set; }
-        public ControladorGrupos controladorGrupos { get; set; }
+        public ControladorSemestres controladorSemestres
+        {
+            get
+            {
+                return ControladorSingleton.controladorSemestres;
+            }
+        }
+        public ControladorGrupos controladorGrupos
+        {
+            get
+            {
+                return ControladorSingleton.controladorGrupos;
+            }
+        }
 
         // Métodos de inicialización
-        public ControladorEstudiantes(ControladorSemestres controladorSemestres = null)
+        public ControladorEstudiantes()
         {
             this.daoEstudiantes = new DAOEstudiantes();
-
-            this.controladorSemestres =
-                controladorSemestres == null ?
-                new ControladorSemestres()
-                :
-                controladorSemestres;
-
-            this.controladorGrupos = this.controladorSemestres.controladorGrupos;
         }
 
         // Métodos de manipulación de los modelos
@@ -75,7 +79,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             {
                 listaEstudiantes = daoEstudiantes.seleccionarEstudiantesPorGrupo(g);
             }
-            
             catch (MySqlException e)
             {
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
@@ -85,6 +88,61 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
             }
             
+
+            return listaEstudiantes;
+        }
+
+        public List<Estudiante> seleccionarEstudiantesParametros(
+            string coincidencia,
+            bool nombrecompleto,
+            bool nombres,
+            bool apellidoPaterno,
+            bool apellidoMaterno,
+            bool curp,
+            bool nss,
+            bool numeroDeControl,
+            Grupo g
+        ) {
+            List<Estudiante> listaEstudiantes = new List<Estudiante>();
+
+            try
+            {
+                if (g == null)
+                    listaEstudiantes = 
+                        daoEstudiantes.
+                        seleccionarEstudiantesCondicional(
+                            numeroDeControl,
+                            curp,
+                            nombrecompleto,
+                            nombres,
+                            apellidoPaterno,
+                            apellidoMaterno,
+                            nss,
+                            coincidencia);
+                else
+                    listaEstudiantes = 
+                        daoEstudiantes.
+                        seleccionarEstudiantesPorGrupoCondicional(
+                            g,
+                            numeroDeControl,
+                            curp,
+                            nombrecompleto,
+                            nombres,
+                            apellidoPaterno,
+                            apellidoMaterno,
+                            nss,
+                            coincidencia);
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+                throw;
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+                throw;
+            }
 
             return listaEstudiantes;
         }

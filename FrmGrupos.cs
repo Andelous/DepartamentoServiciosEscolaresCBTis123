@@ -36,12 +36,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
         }
 
         // Métodos de iniciación
-        public FrmGrupos(ControladorSesion controladorSesion)
+        public FrmGrupos()
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
-            this.controladorGrupos = new ControladorGrupos();
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorGrupos = ControladorSingleton.controladorGrupos;
         }
 
         private void FrmGrupos_Load(object sender, EventArgs e)
@@ -62,7 +62,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
         // Eventos de los controles
         private void cmdNuevoGrupo_Click(object sender, EventArgs e)
         {
-            new FrmNuevoGrupo(controladorSesion, controladorGrupos, semestreSeleccionado).ShowDialog();
+            new FrmNuevoGrupo(semestreSeleccionado).ShowDialog();
             mostrarGrupos(sender, e);
         }
 
@@ -87,18 +87,18 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdEditarGrupo_Click(object sender, EventArgs e)
         {
-            new FrmModificarGrupo(controladorSesion, controladorGrupos, grupoSeleccionado, semestreSeleccionado).ShowDialog();
+            new FrmModificarGrupo(grupoSeleccionado, semestreSeleccionado).ShowDialog();
             mostrarGrupos(sender, e);
         }
 
         private void cmdAsignarDocentes_Click(object sender, EventArgs e)
         {
-            new FrmAsignacionDeDocentes(controladorSesion, controladorGrupos, grupoSeleccionado).ShowDialog();
+            new FrmAsignacionDeDocentes(grupoSeleccionado).ShowDialog();
         }
 
         private void cmdImportarEstudiantes_Click(object sender, EventArgs e)
         {
-            new FrmImportarEstudiantes(controladorSesion, controladorGrupos, grupoSeleccionado).ShowDialog();
+            new FrmImportarEstudiantes(grupoSeleccionado).ShowDialog();
         }
 
         // Métodos para controlar algo visual

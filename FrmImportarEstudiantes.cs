@@ -14,6 +14,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmImportarEstudiantes : Form
     {
+        // Controladores
         private ControladorSesion controladorSesion { get; set; }
         private ControladorGrupos controladorGrupos { get; set; }
 
@@ -23,11 +24,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
         // private List<Estudiante> estudiantesOriginales { get; set; }
         private List<Estudiante> estudiantesNuevos { get; set; }
 
-        public FrmImportarEstudiantes(ControladorSesion controladorSesion, ControladorGrupos controladorGrupos, Grupo grupo)
+        public FrmImportarEstudiantes(Grupo grupo)
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorGrupos = ControladorSingleton.controladorGrupos;
+
             this.grupo = grupo;
 
             estudiantesNuevos = new List<Estudiante>();
