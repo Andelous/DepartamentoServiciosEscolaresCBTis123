@@ -21,11 +21,23 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         // Controladores
         private DAODocentes daoDocentes { get; set; }
-        private DAOEstudiantes daoEstudiantes { get; set; }
-        private ControladorSemestres controladorSemestres { get; set; }
+        private ControladorEstudiantes controladorEstudiantes
+        {
+            get
+            {
+                return ControladorSingleton.controladorEstudiantes;
+            }
+        }
+        private ControladorSemestres controladorSemestres
+        {
+            get
+            {
+                return ControladorSingleton.controladorSemestres;
+            }
+        }
 
         // Métodos de iniciación
-        public ControladorGrupos(ControladorSemestres controladorSemestres = null)
+        public ControladorGrupos()
         {
             daoGrupos = new DAOGrupos();
             daoCarreras = new DAOCarreras();
@@ -34,43 +46,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             // Futuros controladores
             daoDocentes = new DAODocentes();
-            daoEstudiantes = new DAOEstudiantes();
-
-            this.controladorSemestres = 
-                controladorSemestres != null 
-                ? 
-                controladorSemestres 
-                : 
-                new ControladorSemestres(this);
         }
         
         // Métodos de manipulación del modelo
         // Selección
         public List<Semestre> seleccionarSemestres()
         {
-            // Creamos una lista vacía
-            List<Semestre> listaSemestres = new List<Semestre>();
-
-            // Creamos el semestre de ningún semestre
-            Semestre s = new Semestre();
-            s.idSemestre = -1;
-            s.nombre = "Ningún semestre";
-            s.nombreCorto2 = "-";
-
-            listaSemestres = controladorSemestres.seleccionarSemestres();
-                
-            if (listaSemestres.Count > 0)
-            {
-                s = new Semestre();
-                s.idSemestre = 0;
-                s.nombre = "Todos";
-                s.nombreCorto2 = "*";
-            }
-
-            // Agregamos el semestre comodín
-            listaSemestres.Add(s);
-
-            return listaSemestres;
+            return controladorSemestres.seleccionarSemestresLista();
         }
 
         public List<Grupo> seleccionarGrupos(Semestre s)
@@ -389,7 +371,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             // Realizamos la operación, y si hay algún error, se mostrará al usuario.
             try
             {
-                modificadas = daoCatedras.modificarListaDeCatedras(listaCatedras);
+                foreach (Catedra c in listaCatedras)
+                {
+                    modificadas += daoCatedras.modificarCatedra(c);
+                }
             }
             catch (MySqlException e)
             {
@@ -427,7 +412,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         public ResultadoOperacion eliminarGrupo(Grupo g)
         {
             // Validamos que no tenga alumnos dependientes
-            if (daoEstudiantes.seleccionarEstudiantesPorGrupo(g.idGrupo).Count > 0)
+            if (controladorEstudiantes.seleccionarEstudiantesPorGrupo(g).Count > 0)
             {
                 return
                     new ResultadoOperacion(

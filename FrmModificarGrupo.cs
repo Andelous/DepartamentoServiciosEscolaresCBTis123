@@ -66,12 +66,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        public FrmModificarGrupo(ControladorSesion controladorSesion, ControladorGrupos controladorGrupos, Grupo grupo, Semestre semestreDefault)
+        public FrmModificarGrupo(Grupo grupo, Semestre semestreDefault)
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
-            this.controladorGrupos = controladorGrupos;
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorGrupos = ControladorSingleton.controladorGrupos;
 
             this.grupo = grupo;
             this.semestreDefault = semestreDefault;

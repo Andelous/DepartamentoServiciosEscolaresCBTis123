@@ -145,6 +145,12 @@
     <Compile Include="FrmPrincipal.Designer.cs">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmPruebas.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmPruebas.Designer.cs">
+      <DependentUpon>FrmPruebas.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmSemestres.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -156,7 +162,11 @@
     <Compile Include="Logica\Controladores\ControladorGrupos.cs" />
     <Compile Include="Logica\Controladores\ControladorSemestres.cs" />
     <Compile Include="Logica\Controladores\ControladorSesion.cs" />
+    <Compile Include="Logica\Controladores\ControladorSingleton.cs" />
     <Compile Include="Logica\Controladores\ControladorVisual.cs" />
+    <Compile Include="Logica\DAOs\DAOGrupo_Estudiante.cs" />
+    <Compile Include="Logica\DAOs\DAOSingleton.cs" />
+    <Compile Include="Logica\Modelos\Grupo_Estudiante.cs" />
     <Compile Include="Logica\Utilerias\ResultadoOperacion.cs" />
     <Compile Include="Logica\Utilerias\ValidadorDeTexto.cs" />
     <Compile Include="Logica\DAOs\DAO.cs" />

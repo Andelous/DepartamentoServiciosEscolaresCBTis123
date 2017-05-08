@@ -19,7 +19,8 @@ namespace DepartamentoServiciosEscolaresCBTis123
         public FrmLogin()
         {
             InitializeComponent();
-            controladorSesion = new ControladorSesion();
+
+            this.controladorSesion = ControladorSingleton.controladorSesion;
         }
 
         private void cmdIngresar_Click(object sender, EventArgs e)
@@ -33,7 +34,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     txtContrasena.Text = "";
 
                     Hide();
-                    (new FrmPrincipal(controladorSesion)).Show();
+                    new FrmPrincipal().Show();
                     break;
 
                 default:

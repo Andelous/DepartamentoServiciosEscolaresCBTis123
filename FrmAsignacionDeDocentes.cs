@@ -28,12 +28,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private List<ComboBox> combosDocentes { get; set; }
 
         // Métodos de inicialización
-        public FrmAsignacionDeDocentes(ControladorSesion controladorSesion, ControladorGrupos controladorGrupos, Grupo grupo)
+        public FrmAsignacionDeDocentes(Grupo grupo)
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
-            this.controladorGrupos = controladorGrupos;
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorGrupos = ControladorSingleton.controladorGrupos;
 
             this.grupo = grupo;
         }

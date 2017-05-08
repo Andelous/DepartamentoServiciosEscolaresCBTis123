@@ -21,12 +21,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             return crearListaEstudiantesMySqlDataReader(dr);
         }
 
-        public List<Estudiante> seleccionarEstudiantesPorGrupo(int idGrupo)
+        public List<Estudiante> seleccionarEstudiantesPorGrupo(Grupo g)
         {
             string query = "SELECT E.* FROM " + 
                 "estudiantes E, grupos_estudiantes G WHERE " + 
                 "E.idEstudiante = G.idEstudiante AND " + 
-                "G.idGrupo = " + idGrupo;
+                "G.idGrupo = " + g.idGrupo;
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);
 
@@ -40,18 +40,19 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             bool nombres,
             bool apellido1,
             bool apellido2,
-            string parametro)
-        {
-            string query = "SELECT * FROM estudiantes WHERE (";
+            bool nss,
+            string parametro
+        ) {
+            string query = "SELECT * FROM estudiantes WHERE ";
 
-            query = agregarCondiciones(
-                query,
+            query += crearCondiciones(
                 ncontrol,
                 curp,
                 nombrecompleto,
                 nombres,
                 apellido1,
                 apellido2,
+                nss,
                 parametro);
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);
@@ -60,28 +61,29 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         }
 
         public List<Estudiante> seleccionarEstudiantesPorGrupoCondicional(
-            int idGrupo,
+            Grupo g,
             bool ncontrol,
             bool curp,
             bool nombrecompleto,
             bool nombres,
             bool apellido1,
             bool apellido2,
-            string parametro)
-        {
+            bool nss,
+            string parametro
+        ) {
             string query = "SELECT E.* FROM " +
                 "estudiantes E, grupos_estudiantes G WHERE " +
                 "E.idEstudiante = G.idEstudiante AND " +
-                "G.idGrupo = " + idGrupo + " AND (";
+                "G.idGrupo = " + g.idGrupo + " AND ";
 
-            query = agregarCondiciones(
-                query,
+            query += crearCondiciones(
                 ncontrol,
                 curp,
                 nombrecompleto,
                 nombres,
                 apellido1,
                 apellido2,
+                nss,
                 parametro);
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);
@@ -89,112 +91,70 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             return crearListaEstudiantesMySqlDataReader(dr);
         }
 
-
         // INSERTS
 
-        public int insertarEstudiante(
-            string ncontrol,
-            string curp,
-            string nombrecompleto,
-            string nombres,
-            string apellido1,
-            string apellido2,
-            string nss
-            )
+        public int insertarEstudiante(Estudiante e)
         {
             string query = "INSERT INTO estudiantes " +
                 "(ncontrol, curp, nombrecompleto, nombres, apellido1, apellido2, nss) " + 
                 "VALUES (" + 
-                "'" + ncontrol + "', " +
-                "'" + curp + "', " +
-                "'" + nombrecompleto + "', " +
-                "'" + nombres + "', " +
-                "'" + apellido1 + "', " +
-                "'" + apellido2 + "', " +
-                "'" + nss + "');";
+                "'" + e.ncontrol + "', " +
+                "'" + e.curp + "', " +
+                "'" + e.nombreCompleto + "', " +
+                "'" + e.nombres + "', " +
+                "'" + e.apellido1 + "', " +
+                "'" + e.apellido2 + "', " +
+                "'" + e.nss + "');";
 
             return dataSource.ejecutarActualizacion(query);
         }
-
-        public int insertarEstudianteEnGrupo(Estudiante e, Grupo g)
-        {
-            string query =
-                "INSERT INTO grupos_estudiantes " +
-                "(idGrupo, idEstudiante) " +
-                "VALUES " +
-                "(" + g.idGrupo + ", " + e.idEstudiante +");";
-
-            return dataSource.ejecutarActualizacion(query);
-        }
-
-        public int insertarEstudiantesEnGrupo(List<Estudiante> estudiantes, Grupo g)
-        {
-            int acum = 0;
-
-            foreach (Estudiante e in estudiantes)
-            {
-                acum += insertarEstudianteEnGrupo(e, g);
-            }
-
-            return acum;
-        }
-
 
         // DELETES
 
-        public int eliminarEstudiante(int idEstudiante)
+        public int eliminarEstudiante(Estudiante e)
         {
             string query = "DELETE FROM estudiantes " + 
-                "WHERE idEstudiante = " + idEstudiante + ";";
+                "WHERE idEstudiante = " + e.idEstudiante + ";";
 
             return dataSource.ejecutarActualizacion(query);
         }
-
 
         // UPDATES
 
-        public int modificarEstudiante(
-            int idEstudiante,
-            string ncontrol,
-            string curp,
-            string nombrecompleto,
-            string nombres,
-            string apellido1,
-            string apellido2
-            )
+        public int modificarEstudiante(Estudiante e)
         {
             string query = "UPDATE estudiantes " +
                 "SET " +
-                "ncontrol = '" + ncontrol + "', " +
-                "curp = '" + curp + "', " +
-                "nombrecompleto = '" + nombrecompleto + "', " +
-                "nombres = '" + nombres + "', " +
-                "apellido1 = '" + apellido1 + "', " +
-                "apellido2 = '" + apellido2 + "' " +
-                "WHERE idEstudiante = " + idEstudiante;
+                "ncontrol = '" + e.ncontrol + "', " +
+                "curp = '" + e.curp + "', " +
+                "nombrecompleto = '" + e.nombreCompleto + "', " +
+                "nombres = '" + e.nombres + "', " +
+                "apellido1 = '" + e.apellido1 + "', " +
+                "apellido2 = '" + e.apellido2 + "', " +
+                "nss = '" + e.nss + "' " +
+                "WHERE idEstudiante = " + e.idEstudiante;
 
             return dataSource.ejecutarActualizacion(query);
         }
-
-
+        
         // MISC
 
-        private static string agregarCondiciones(
-            string query,
+        private static string crearCondiciones(
             bool ncontrol,
             bool curp,
             bool nombrecompleto,
             bool nombres,
             bool apellido1,
             bool apellido2,
+            bool nss,
             string parametro
-            )
-        {
+        ) {
             bool primero = true;
+            string query = "(";
 
             // Debe ser así la estructura de la consulta
             //string query = "SELECT * FROM estudiantes " +
-                //"WHERE (";
+            //"WHERE ";
 
             if (ncontrol)
             {
@@ -280,9 +240,23 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                 query += "apellido2 LIKE '%" + parametro + "%' ";
             }
 
+            if (nss)
+            {
+                if (primero)
+                {
+                    primero = !primero;
+                }
+                else
+                {
+                    query += "OR ";
+                }
+
+                query += "nss LIKE '%" + parametro + "%' ";
+            }
+
             query += ")";
 
-            return query;
+            return query.Equals("()") ? "FALSE" : query;
         }
 
         public static Estudiante crearEstudiante(
@@ -292,9 +266,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             string nombrecompleto,
             string nombres,
             string apellido1,
-            string apellido2
-            )
-        {
+            string apellido2,
+            string nss
+        ) {
             Estudiante e = new Estudiante();
 
             e.apellido1 = apellido1;
@@ -304,21 +278,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             e.ncontrol = ncontrol;
             e.nombreCompleto = nombrecompleto;
             e.nombres = nombres;
-
-            return e;
-        }
-
-        public Estudiante crearEstudianteDataGridViewCellCollection(System.Windows.Forms.DataGridViewCellCollection cells)
-        {
-            Estudiante e = crearEstudiante(
-                Convert.ToInt32(cells["idEstudiante"].Value),
-                cells["ncontrol"].Value.ToString(),
-                cells["curp"].Value.ToString(),
-                cells["nombrecompleto"].Value.ToString(),
-                cells["nombres"].Value.ToString(),
-                cells["apellido1"].Value.ToString(),
-                cells["apellido2"].Value.ToString()
-            );
+            e.nss = nss;
 
             return e;
         }
@@ -336,39 +296,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                     dr["nombrecompleto"].ToString(),
                     dr["nombres"].ToString(),
                     dr["apellido1"].ToString(),
-                    dr["apellido2"].ToString()
+                    dr["apellido2"].ToString(),
+                    dr["nss"].ToString()
                 );
 
                 listaEstudiantes.Add(e);
             }
 
             dr.Close();
-
-            return listaEstudiantes;
-        }
-
-        public List<Estudiante> crearListaEstudiantesDataGridViewRowCollection(System.Windows.Forms.DataGridViewRowCollection dgvSRC)
-        {
-            List<Estudiante> listaEstudiantes = new List<Estudiante>();
-
-            foreach (System.Windows.Forms.DataGridViewRow row in dgvSRC)
-            {
-                Estudiante e = crearEstudianteDataGridViewCellCollection(row.Cells);
-                listaEstudiantes.Add(e);
-            }
-
-            return listaEstudiantes;
-        }
-
-        public List<Estudiante> crearListaEstudiantesDataGridViewSelectedRowCollection(System.Windows.Forms.DataGridViewSelectedRowCollection dgvSRC)
-        {
-            List<Estudiante> listaEstudiantes = new List<Estudiante>();
-
-            foreach (System.Windows.Forms.DataGridViewRow row in dgvSRC)
-            {
-                Estudiante e = crearEstudianteDataGridViewCellCollection(row.Cells);
-                listaEstudiantes.Add(e);
-            }
 
             return listaEstudiantes;
         }

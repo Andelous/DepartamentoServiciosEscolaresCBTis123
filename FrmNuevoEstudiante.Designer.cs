@@ -186,7 +186,6 @@
             this.Name = "FrmNuevoEstudiante";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Nuevo estudiante - Control Escolar CBTis 123";
-            this.Load += new System.EventHandler(this.FrmNuevoEstudiante_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

@@ -66,13 +66,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 
         public override bool Equals(object obj)
         {
-            if (obj.GetType() == typeof(Docente))
+            if (obj != null)
             {
-                Docente d = (Docente)obj;
-
-                if (d.idDocente == idDocente)
+                if (obj.GetType() == typeof(Docente))
                 {
-                    return true;
+                    Docente d = (Docente)obj;
+
+                    if (d.idDocente == idDocente)
+                    {
+                        return true;
+                    }
                 }
             }
 

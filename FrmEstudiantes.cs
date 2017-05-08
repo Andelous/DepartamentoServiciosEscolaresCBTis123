@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,14 +15,43 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmEstudiantes : Form
     {
-        private ControladorSesion controladorSesion;
-        private bool ultimoCambioBusqueda;
+        // Propiedades
+        // Controladores
+        private ControladorSesion controladorSesion { get; set; }
+        private ControladorEstudiantes controladorEstudiantes { get; set; }
 
-        public FrmEstudiantes(ControladorSesion controladorSesion)
+        // Lógicas
+        private bool ultimoCambioBusqueda { get; set; }
+
+        private Estudiante estudianteSeleccionado
+        {
+            get
+            {
+                return (Estudiante)dgvEstudiantes.SelectedRows[0].DataBoundItem;
+            }
+        }
+        private Semestre semestreSeleccionado
+        {
+            get
+            {
+                return (Semestre)comboSemestres.SelectedItem;
+            }
+        }
+        private Grupo grupoSeleccionado
+        {
+            get
+            {
+                return (Grupo)comboGrupos.SelectedItem;
+            }
+        }
+
+        // Métodos de inicialización
+        public FrmEstudiantes()
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorEstudiantes = ControladorSingleton.controladorEstudiantes;
 
             ultimoCambioBusqueda = false;
         }
@@ -29,94 +59,128 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void FrmEstudiantes_Load(object sender, EventArgs e)
         {
             comboSemestres.DataSource = 
-                controladorSesion.
-                daoSemestres.
+                controladorEstudiantes.
                 seleccionarSemestres();
-
-            comboSemestres.SelectedIndex = 0;
         }
 
-        private void comboSemestres_SelectedIndexChanged(object sender, EventArgs e)
+        // Funciones lógicas
+        private void mostrarGrupos(object sender, EventArgs e)
         {
-            /*
-            comboGrupos.DataSource =
-                controladorSesion.
-                daoGrupos.
-                seleccionarGruposPorSemestre(
-                    ((Semestre)comboSemestres.SelectedItem).idSemestre
-                );
-            */
-            
-            //comboGrupos.SelectedIndex = 0;
-        }
-
-        private void comboGrupos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            if (ultimoCambioBusqueda)
+            if (comboSemestres.Text.Contains("Todos"))
             {
-
+                comboGrupos.Enabled = false;
+                comboGrupos.DataSource = null;
+                //comboGrupos.Text = "Ninguno.";
             }
+            else
+            {
+                comboGrupos.Enabled = true;
+                comboGrupos.DataSource =
+                    controladorEstudiantes.
+                    seleccionarGrupos(semestreSeleccionado);
+            }
+        }
+
+        private void mostrarEstudiantes(object sender, EventArgs e)
+        {
+            // Se decide si el evento proviene del combo, además de comprobar
+            // si el combo tiene grupos...
+            if (sender.Equals(comboGrupos) && comboGrupos.Enabled)
+            {
+                configurarDGVEstudiantes(controladorEstudiantes.seleccionarEstudiantesPorGrupo(grupoSeleccionado));
+            }
+            // Si el evento proviene del combo, sabemos que no tiene grupos,
+            // Ya que hubiera entrado en el apartado anterior.
+            else if (sender.Equals(comboGrupos))
+            {
+                configurarDGVEstudiantes(controladorEstudiantes.seleccionarEstudiantes());
+            }
+            // Si proviene de otro control, sabemos
+            // que fue click de búsqueda o enter en 
+            // el txtBusqueda
             else
             {
                 configurarDGVEstudiantes(
-                    controladorSesion.
-                    daoEstudiantes.
-                    seleccionarEstudiantesPorGrupo(
-                        ((Grupo)comboGrupos.SelectedItem).idGrupo
-                    )
-                );
+                    controladorEstudiantes.
+                    seleccionarEstudiantesParametros(
+                        txtBusqueda.Text,
+                        chkNombreCompleto.Checked,
+                        chkNombres.Checked,
+                        chkApellidoPaterno.Checked,
+                        chkApellidoMaterno.Checked,
+                        chkCurp.Checked,
+                        chkNss.Checked,
+                        chkNcontrol.Checked,
+                        grupoSeleccionado));
+
+                lblAdvertencia.Visible = false;
             }
         }
 
-        private void radioTodos_CheckedChanged(object sender, EventArgs e)
+        // Métodos de evento de controles
+        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
         {
-            configurarVentana();
-            configurarBusqueda();
-        }
-
-        private void radioGrupoSemestre_CheckedChanged(object sender, EventArgs e)
-        {
-            configurarVentana();
-            configurarBusqueda();
-        }
-
-        private void configurarVentana()
-        {
-            if (radioTodos.Checked)
+            if (e.KeyChar == 13)
             {
-                comboGrupos.Enabled = false;
-                comboSemestres.Enabled = false;
-            }
-            else if (radioGrupoSemestre.Checked)
-            {
-                comboGrupos.Enabled = true;
-                comboSemestres.Enabled = true;
+                mostrarEstudiantes(sender, e);
             }
         }
 
-        private void configurarBusqueda()
+        private void cmdNuevoEstudiante_Click(object sender, EventArgs e)
         {
-            if (ultimoCambioBusqueda)
+            new FrmNuevoEstudiante().ShowDialog();
+            mostrarEstudiantes(sender, e);
+        }
+
+        private void cmdEliminarEstudiante_Click(object sender, EventArgs e)
+        {
+            DialogResult dr = 
+                MessageBox.Show(
+                    "¿Está seguro que desea eliminar el estudiante " + 
+                    estudianteSeleccionado.ToString() + "?",
+                    "Aviso",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+            if (dr == DialogResult.Yes)
             {
-                cmdBuscar_Click(null, null);
+                ResultadoOperacion resultadoOperacion = 
+                    controladorEstudiantes.
+                    eliminarEstudiante(estudianteSeleccionado);
+
+                ControladorVisual.mostrarMensaje(resultadoOperacion);
+                mostrarEstudiantes(sender, e);
+            }
+        }
+
+        private void cmdEditarEstudiante_Click(object sender, EventArgs e)
+        {
+            new FrmModificarEstudiante(estudianteSeleccionado).ShowDialog();
+            mostrarEstudiantes(sender, e);
+        }
+
+        private void cambioDeCriterio(object sender, EventArgs e)
+        {
+            lblAdvertencia.Visible = true;
+
+            if (
+                chkApellidoMaterno.Checked || 
+                chkApellidoPaterno.Checked || 
+                chkCurp.Checked ||
+                chkNcontrol.Checked ||
+                chkNombres.Checked ||
+                chkNss.Checked)
+            {
+                chkNombreCompleto.Enabled = true;
             }
             else
             {
-                if (radioTodos.Checked)
-                {
-                    configurarDGVEstudiantes(
-                        controladorSesion.
-                        daoEstudiantes.
-                        seleccionarEstudiantes()
-                    );
-                }
-                else if (radioGrupoSemestre.Checked)
-                {
-                    comboGrupos_SelectedIndexChanged(null, null);
-                }
+                chkNombreCompleto.Enabled = false;
+                chkNombreCompleto.Checked = true;
             }
         }
 
+        // Métodos visuales
         private void configurarDGVEstudiantes(List<Estudiante> listaEstudiantes)
         {
             lblEstudiantes.Text = "Estudiantes - (" + listaEstudiantes.Count + " resultados)";
@@ -125,10 +189,22 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvEstudiantes.Columns["idEstudiante"].Visible = false;
             dgvEstudiantes.Columns["ncontrol"].HeaderText = "No. de control";
             dgvEstudiantes.Columns["curp"].HeaderText = "CURP";
+            dgvEstudiantes.Columns["nss"].HeaderText = "NSS";
             dgvEstudiantes.Columns["nombrecompleto"].Visible = false;
             dgvEstudiantes.Columns["nombres"].HeaderText = "Nombre(s)";
             dgvEstudiantes.Columns["apellido1"].HeaderText = "Apellido p.";
             dgvEstudiantes.Columns["apellido2"].HeaderText = "Apellido m.";
+
+            if (dgvEstudiantes.SelectedRows.Count < 1)
+            {
+                cmdEditarEstudiante.Enabled = false;
+                cmdEliminarEstudiante.Enabled = false;
+            }
+            else
+            {
+                cmdEditarEstudiante.Enabled = true;
+                cmdEliminarEstudiante.Enabled = true;
+            }
         }
 
         private void FrmEstudiantes_Resize(object sender, EventArgs e)
@@ -177,136 +253,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 Height - 85
             );
             cmdEliminarEstudiante.Location = pCmdEliminarEstudiante;
-        }
-
-        private void cmdNuevoEstudiante_Click(object sender, EventArgs e)
-        {
-            (new FrmNuevoEstudiante(controladorSesion)).ShowDialog();
-
-            configurarVentana();
-        }
-
-        private void cmdEliminarEstudiante_Click(object sender, EventArgs e)
-        {
-            if (
-                MessageBox.Show(
-                    "¿Está seguro que desea eliminar el estudiante " +
-                    dgvEstudiantes.SelectedRows[0].Cells["nombrecompleto"].Value.ToString() +
-                    "?",
-                    "Aviso",
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Warning
-                ) == DialogResult.OK
-                )
-            {
-                int idEstudiante = Convert.ToInt32(dgvEstudiantes.SelectedRows[0].Cells["idEstudiante"].Value);
-
-                // LISTA GRUPOS A LOS QUE PERTENECE
-
-                if (// FALTA CONDICIÓN DE LOS GRUPOS A LOS QUE PERTENECE
-                    controladorSesion.
-                    daoEstudiantes.
-                    eliminarEstudiante(
-                        idEstudiante
-                    ) == 1)
-                {
-                    MessageBox.Show("Estudiante eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    configurarVentana();
-                }
-                else
-                {
-                    MessageBox.Show("Error al eliminar el estudiante.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-        }
-
-        private void cmdEditarEstudiante_Click(object sender, EventArgs e)
-        {
-            Estudiante estudiante = new Estudiante();
-
-            DataGridViewCellCollection cells = dgvEstudiantes.SelectedRows[0].Cells;
-
-            estudiante.idEstudiante = Convert.ToInt32(cells["idEstudiante"].Value);
-            estudiante.apellido1 = cells["apellido1"].Value.ToString();
-            estudiante.apellido2 = cells["apellido2"].Value.ToString();
-            estudiante.curp = cells["curp"].Value.ToString();
-            estudiante.ncontrol = cells["ncontrol"].Value.ToString();
-            estudiante.nombreCompleto = cells["nombrecompleto"].Value.ToString();
-            estudiante.nombres = cells["nombres"].Value.ToString();
-
-            (new FrmModificarEstudiante(controladorSesion, estudiante)).ShowDialog();
-            configurarVentana();
-        }
-
-        private void cmdBuscar_Click(object sender, EventArgs e)
-        {
-            if (
-                chkApellidoMaterno.Checked ||
-                chkApellidoPaterno.Checked ||
-                chkCurp.Checked ||
-                chkNcontrol.Checked ||
-                chkNombreCompleto.Checked ||
-                chkNombres.Checked
-                )
-            {
-                if (radioGrupoSemestre.Checked)
-                {
-                    configurarDGVEstudiantes(
-                        controladorSesion.
-                        daoEstudiantes.
-                        seleccionarEstudiantesPorGrupoCondicional(
-                            ((Grupo)comboGrupos.SelectedItem).idGrupo,
-                            chkNcontrol.Checked,
-                            chkCurp.Checked,
-                            chkNombreCompleto.Checked,
-                            chkNombres.Checked,
-                            chkApellidoPaterno.Checked,
-                            chkApellidoMaterno.Checked,
-                            txtBusqueda.Text
-                        )
-                    );
-                }
-                else if (radioTodos.Checked)
-                {
-                    configurarDGVEstudiantes(
-                        controladorSesion.
-                        daoEstudiantes.
-                        seleccionarEstudiantesCondicional(
-                            chkNcontrol.Checked,
-                            chkCurp.Checked,
-                            chkNombreCompleto.Checked,
-                            chkNombres.Checked,
-                            chkApellidoPaterno.Checked,
-                            chkApellidoMaterno.Checked,
-                            txtBusqueda.Text
-                        )
-                    );
-                }
-
-                ultimoCambioBusqueda = true;
-                lblAdvertencia.Visible = false;
-            }
-            else
-            {
-                MessageBox.Show(
-                    "Seleccione por lo menos un campo de búsqueda.", 
-                    "Aviso", 
-                    MessageBoxButtons.OK, 
-                    MessageBoxIcon.Warning);
-            }
-        }
-
-        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                cmdBuscar_Click(sender, e);
-            }
-        }
-
-        private void cambioDeCriterio(object sender, EventArgs e)
-        {
-            lblAdvertencia.Visible = true;
         }
     }
 }

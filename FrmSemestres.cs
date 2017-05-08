@@ -26,12 +26,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        public FrmSemestres(ControladorSesion controladorSesion)
+        public FrmSemestres()
         {
             InitializeComponent();
 
-            this.controladorSesion = controladorSesion;
-            this.controladorSemestres = new ControladorSemestres();
+            this.controladorSesion = ControladorSingleton.controladorSesion;
+            this.controladorSemestres = ControladorSingleton.controladorSemestres;
         }
 
         private void FrmSemestres_Load(object sender, EventArgs e)
@@ -41,7 +41,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdNuevoSemestre_Click(object sender, EventArgs e)
         {
-            new FrmNuevoSemestre(controladorSesion, controladorSemestres).ShowDialog();
+            new FrmNuevoSemestre().ShowDialog();
             configurarDGVSemestres();
         }
 
@@ -66,7 +66,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdEditarSemestre_Click(object sender, EventArgs e)
         {
-            new FrmModificarSemestre(controladorSesion, controladorSemestres, semestreSeleccionado).ShowDialog();
+            new FrmModificarSemestre(semestreSeleccionado).ShowDialog();
             configurarDGVSemestres();
         }
 
@@ -109,6 +109,17 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvSemestres.Columns["nombrecorto"].HeaderText = "Nombre corto";
             dgvSemestres.Columns["nombrecorto2"].HeaderText = "Nombre corto (2)";
             dgvSemestres.Columns["nombrecorto3"].HeaderText = "Nombre corto (3)";
+
+            if (dgvSemestres.SelectedRows.Count < 1)
+            {
+                cmdEditarSemestre.Enabled = false;
+                cmdEliminarSemestre.Enabled = false;
+            }
+            else
+            {
+                cmdEditarSemestre.Enabled = true;
+                cmdEliminarSemestre.Enabled = true;
+            }
         }
     }
 }

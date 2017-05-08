@@ -14,7 +14,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         public List<Grupo> seleccionarGrupos()
         {
-            List<Grupo> listaGrupos = new List<Grupo>();
             string query = "SELECT * FROM grupos G, semestres S, carreras C " +
                 "WHERE G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
                 "ORDER BY semestre, turno, especialidad, letra;";
@@ -26,7 +25,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         public List<Grupo> seleccionarGruposPorSemestre(Semestre s)
         {
-            List<Grupo> listaGrupos = new List<Grupo>();
             string query = "SELECT * FROM grupos G, semestres S, carreras C " +
                 "WHERE G.idSemestre = " + s.idSemestre + " AND " +
                 "G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
@@ -95,8 +93,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             string especialidad,
             Semestre semestreObj,
             Carrera especialidadObj
-            )
-        {
+        ) {
             Grupo g = new Grupo();
 
             g.idGrupo = idGrupo;
@@ -117,21 +114,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
             while (dr.Read())
             {
-                Semestre s = new Semestre();
-                Carrera c = new Carrera();
+                Semestre s = 
+                    DAOSemestres.crearSemestre(
+                        Convert.ToInt32(dr["idSemestre"]),
+                        dr["nombre"].ToString(),
+                        dr["nombrecorto"].ToString(),
+                        dr["nombrecorto2"].ToString(),
+                        dr["nombrecorto3"].ToString());
 
-                s.idSemestre = Convert.ToInt32(dr["idSemestre"]);
-                s.nombre = dr["nombre"].ToString();
-                s.nombreCorto = dr["nombrecorto"].ToString();
-                s.nombreCorto2 = dr["nombrecorto2"].ToString();
-
-                c = DAOCarreras.crearCarrera(
-                    Convert.ToInt32(dr["idCarrera"]),
-                    dr[11].ToString(),
-                    dr["abreviatura"].ToString(),
-                    dr["acuerdo"].ToString(),
-                    dr["bachilleratociencias"].ToString()
-                );
+                Carrera c = 
+                    DAOCarreras.crearCarrera(
+                        Convert.ToInt32(dr["idCarrera"]),
+                        dr[11].ToString(),
+                        dr["abreviatura"].ToString(),
+                        dr["acuerdo"].ToString(),
+                        dr["bachilleratociencias"].ToString());
 
                 Grupo g = crearGrupo(
                     Convert.ToInt32(dr["idGrupo"]),
@@ -141,8 +138,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                     dr["turno"].ToString(),
                     dr["especialidad"].ToString(),
                     s,
-                    c
-                );
+                    c);
 
                 listaGrupos.Add(g);
             }
