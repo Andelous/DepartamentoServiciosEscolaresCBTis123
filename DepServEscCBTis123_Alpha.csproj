@@ -42,6 +42,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2015\Projects\MySqlDataSource\MySqlUtilerias\bin\Release\MySqlUtilerias.dll</HintPath>
     </Reference>
+    <Reference Include="ResultadosOperacion">
+      <HintPath>..\..\..\..\..\..\..\Documents\Visual Studio 2017\Projects\UtileriasWindowsForms_AndelousSoftware\ResultadosOperacion\bin\Release\ResultadosOperacion.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -168,7 +171,6 @@
     <Compile Include="Logica\DAOs\DAOGrupo_Estudiante.cs" />
     <Compile Include="Logica\DAOs\DAOSingleton.cs" />
     <Compile Include="Logica\Modelos\Grupo_Estudiante.cs" />
-    <Compile Include="Logica\Utilerias\ResultadoOperacion.cs" />
     <Compile Include="Logica\Utilerias\ValidadorDeTexto.cs" />
     <Compile Include="Logica\DAOs\DAO.cs" />
     <Compile Include="Logica\DAOs\DAOCarreras.cs" />

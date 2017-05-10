@@ -2,6 +2,7 @@
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using MySql.Data.MySqlClient;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
