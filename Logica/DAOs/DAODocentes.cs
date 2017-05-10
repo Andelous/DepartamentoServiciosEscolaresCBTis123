@@ -155,9 +155,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
 
         // DELETES
-        public int eliminarDocente(int idDocente)
+        public int eliminarDocente(Docente d)
         {
-            string query = "DELETE FROM docentes WHERE idDocente = " + idDocente.ToString();
+            string query = "DELETE FROM docentes WHERE idDocente = " + d.idDocente.ToString();
 
             return dataSource.ejecutarActualizacion(query);
         }

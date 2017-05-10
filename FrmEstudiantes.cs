@@ -1,6 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
-using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +17,20 @@ namespace DepartamentoServiciosEscolaresCBTis123
     {
         // Propiedades
         // Controladores
-        private ControladorSesion controladorSesion { get; set; }
-        private ControladorEstudiantes controladorEstudiantes { get; set; }
+        private ControladorSesion controladorSesion
+        {
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
+        private ControladorEstudiantes controladorEstudiantes
+        {
+            get
+            {
+                return ControladorSingleton.controladorEstudiantes;
+            }
+        }
 
         // Lógicas
         private bool ultimoCambioBusqueda { get; set; }
@@ -49,9 +61,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
         public FrmEstudiantes()
         {
             InitializeComponent();
-
-            this.controladorSesion = ControladorSingleton.controladorSesion;
-            this.controladorEstudiantes = ControladorSingleton.controladorEstudiantes;
 
             ultimoCambioBusqueda = false;
         }

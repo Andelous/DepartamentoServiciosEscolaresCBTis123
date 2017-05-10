@@ -13,13 +13,17 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmPrincipal : Form
     {
-        private ControladorSesion controladorSesion { get; set; }
+        private ControladorSesion controladorSesion
+        {
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
 
         public FrmPrincipal()
         {
             InitializeComponent();
-
-            this.controladorSesion = ControladorSingleton.controladorSesion;
         }
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -55,7 +59,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdDocentes_Click(object sender, EventArgs e)
         {
-            (new FrmDocentes(controladorSesion)).ShowDialog();
+            (new FrmDocentes()).ShowDialog();
         }
 
         private void button1_Click(object sender, EventArgs e)

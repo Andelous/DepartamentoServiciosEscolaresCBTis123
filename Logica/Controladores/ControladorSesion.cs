@@ -18,12 +18,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         public DAOUsuarios daoUsuarios { get; set; }
 
-        public DAOSemestres daoSemestres { get; set; }
-        public DAOGrupos daoGrupos { get; set; }
-        public DAOEstudiantes daoEstudiantes { get; set; }
-        public DAOMaterias daoMaterias { get; set; }
-        public DAODocentes daoDocentes { get; set; }
-
         public bool isSesionIniciada {
             get
             {
@@ -34,12 +28,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         public ControladorSesion()
         {
             daoUsuarios = new DAOUsuarios();
-            
-            daoGrupos = new DAOGrupos();
-            daoEstudiantes = new DAOEstudiantes();
-            daoMaterias = new DAOMaterias();
-            daoDocentes = new DAODocentes();
-            
         }
 
         public ResultadoOperacion iniciarSesion(string usuario, string contrasena)

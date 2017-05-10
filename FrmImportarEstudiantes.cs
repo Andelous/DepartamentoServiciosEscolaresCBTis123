@@ -15,8 +15,20 @@ namespace DepartamentoServiciosEscolaresCBTis123
     public partial class FrmImportarEstudiantes : Form
     {
         // Controladores
-        private ControladorSesion controladorSesion { get; set; }
-        private ControladorGrupos controladorGrupos { get; set; }
+        private ControladorSesion controladorSesion
+        {
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
+        private ControladorGrupos controladorGrupos
+        {
+            get
+            {
+                return ControladorSingleton.controladorGrupos;
+            }
+        }
 
         private Grupo grupo { get; set; }
         private BindingList<Estudiante> estudiantesActuales { get; set; }
@@ -28,9 +40,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             InitializeComponent();
 
-            this.controladorSesion = ControladorSingleton.controladorSesion;
-            this.controladorGrupos = ControladorSingleton.controladorGrupos;
-
             this.grupo = grupo;
 
             estudiantesNuevos = new List<Estudiante>();
@@ -38,6 +47,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmImportarEstudiantes_Load(object sender, EventArgs e)
         {
+            /*
             comboSemestres.DataSource = 
                 controladorSesion.
                 daoSemestres.
@@ -93,6 +103,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvEstudiantesImportados.DataSource = estudiantesActuales;
 
             configurarDGVEstudiantesVisualmente(dgvEstudiantesImportados);
+            */
         }
 
         private void UpdateFont(DataGridView dgv)
@@ -106,6 +117,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void chkTodosLosEstudiantes_CheckedChanged(object sender, EventArgs e)
         {
+            /*
             List<Estudiante> estudiantes = new List<Estudiante>();
 
             comboGrupos.Enabled = !chkTodosLosEstudiantes.Checked;
@@ -125,6 +137,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     );
 
             configurarDGVEstudiantes(estudiantes, dgvEstudiantesImportar, lblResultados);
+            */
         }
 
         private void comboSemestres_SelectedIndexChanged(object sender, EventArgs e)
@@ -140,6 +153,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void comboGrupos_SelectedIndexChanged(object sender, EventArgs e)
         {
+            /*
             List<Estudiante> estudiantes =
                 controladorSesion.
                 daoEstudiantes.
@@ -148,6 +162,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 );
 
             configurarDGVEstudiantes(estudiantes, dgvEstudiantesImportar, lblResultados);
+            */
         }
 
         private void configurarDGVEstudiantes(List<Estudiante> estudiantes, DataGridView dgv, Label lbl)
@@ -176,6 +191,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdBuscar_Click(object sender, EventArgs e)
         {
+            /*
             List<Estudiante> estudiantesResultado = new List<Estudiante>();
 
             if (chkTodosLosEstudiantes.Checked)
@@ -212,6 +228,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
 
             configurarDGVEstudiantes(estudiantesResultado, dgvEstudiantesImportar, lblResultados);
+            */
         }
 
         private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)

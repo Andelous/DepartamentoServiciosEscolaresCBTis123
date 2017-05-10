@@ -1,5 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
-using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,13 +14,17 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmLogin : Form
     {
-        public ControladorSesion controladorSesion { get; set; }
+        private ControladorSesion controladorSesion
+        {
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
 
         public FrmLogin()
         {
             InitializeComponent();
-
-            this.controladorSesion = ControladorSingleton.controladorSesion;
         }
 
         private void cmdIngresar_Click(object sender, EventArgs e)

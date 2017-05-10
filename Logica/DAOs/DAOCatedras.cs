@@ -22,7 +22,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);
 
-            return crearListaCatedrasMySqlDataReader(dr, g);
+            return crearListaCatedrasMySqlDataReader(dr);
+        }
+
+        public List<Catedra> seleccionarCatedrasPorDocente(Docente d)
+        {
+            string query = "SELECT C.*, M.*, D.*, G.* FROM " +
+                "catedras C, materias M, docentes D, grupos G WHERE " +
+                "C.idDocente = " + d.idDocente + " AND " +
+                "C.idDocente = D.idDocente AND " +
+                "C.idGrupo = G.idGrupo AND " +
+                "C.idMateria = M.idMateria;";
+
+            MySqlDataReader dr = dataSource.ejecutarConsulta(query);
+
+            return crearListaCatedrasMySqlDataReader(dr);
         }
 
         // INSERTS
@@ -76,7 +90,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             return c;
         }
 
-        public static List<Catedra> crearListaCatedrasMySqlDataReader(MySqlDataReader dr, Grupo grupoObj)
+        public static List<Catedra> crearListaCatedrasMySqlDataReader(MySqlDataReader dr)
         {
             List<Catedra> listaCatedras = new List<Catedra>();
 
@@ -142,6 +156,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                     Convert.ToInt32(dr["hrsSemana"]),
                     Convert.ToInt32(dr["hrsSemestre"])
                 );
+
+                Grupo grupoObj = DAOGrupos.crearGrupo(
+                    Convert.ToInt32(dr["idGrupo"]),
+                    Convert.ToInt32(dr["idSemestre"]),
+                    Convert.ToInt32(dr["semestre"]),
+                    dr["letra"].ToString(),
+                    dr["turno"].ToString(),
+                    dr["especialidad"].ToString(),
+                    null,
+                    null);
 
                 Catedra c = crearCatedra(
                     Convert.ToInt32(dr["idCatedra"]),
