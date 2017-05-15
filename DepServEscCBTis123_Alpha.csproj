@@ -170,6 +170,7 @@
     </Compile>
     <Compile Include="Logica\ADOs\ADO.cs" />
     <Compile Include="Logica\ADOs\ADOCarreras.cs" />
+    <Compile Include="Logica\ADOs\ADOCatedras.cs" />
     <Compile Include="Logica\ADOs\ADOSingleton.cs" />
     <Compile Include="Logica\Controladores\ControladorDocentes.cs" />
     <Compile Include="Logica\Controladores\ControladorEstudiantes.cs" />
