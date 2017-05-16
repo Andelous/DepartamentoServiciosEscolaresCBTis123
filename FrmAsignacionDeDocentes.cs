@@ -1,7 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
-using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -18,8 +18,20 @@ namespace DepartamentoServiciosEscolaresCBTis123
     {
         // Propiedades
         // Controladores
-        private ControladorSesion controladorSesion { get; set; }
-        private ControladorGrupos controladorGrupos { get; set; }
+        private ControladorSesion controladorSesion
+        {
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
+        private ControladorGrupos controladorGrupos
+        {
+            get
+            {
+                return ControladorSingleton.controladorGrupos;
+            }
+        }
         
         // Elementos lógicos
         private Grupo grupo { get; set; }
@@ -31,9 +43,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
         public FrmAsignacionDeDocentes(Grupo grupo)
         {
             InitializeComponent();
-
-            this.controladorSesion = ControladorSingleton.controladorSesion;
-            this.controladorGrupos = ControladorSingleton.controladorGrupos;
 
             this.grupo = grupo;
         }

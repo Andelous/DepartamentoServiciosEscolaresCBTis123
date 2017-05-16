@@ -14,7 +14,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         // SELECTS
         public List<Docente> seleccionarDocentes()
         {
-            string query = "SELECT * FROM docentes WHERE genero != '' ORDER BY apellidop, apellidom, nombres;";
+            string query = "SELECT * FROM docentes WHERE genero != '' AND idDocente != 100 ORDER BY apellidop, apellidom, nombres;";
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);
 
@@ -24,7 +24,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         public List<Docente> seleccionarDocentesPorCoincidencia(string criterio)
         {
             string query = "SELECT * FROM docentes WHERE " + 
-                "genero != '' AND (" + 
+                "genero != '' AND idDocente != 100 AND (" + 
                 "nombres LIKE '%" + criterio + "%' OR " +
                 "apellidop LIKE '%" + criterio + "%' OR " +
                 "apellidom LIKE '%" + criterio + "%'" +
@@ -155,9 +155,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
 
         // DELETES
-        public int eliminarDocente(int idDocente)
+        public int eliminarDocente(Docente d)
         {
-            string query = "DELETE FROM docentes WHERE idDocente = " + idDocente.ToString();
+            string query = "DELETE FROM docentes WHERE idDocente = " + d.idDocente.ToString();
 
             return dataSource.ejecutarActualizacion(query);
         }

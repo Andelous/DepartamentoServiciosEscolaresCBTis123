@@ -43,5 +43,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 return _controladorSesion;
             }
         }
+
+        private static ControladorDocentes _controladorDocentes = new ControladorDocentes();
+        public static ControladorDocentes controladorDocentes
+        {
+            get
+            {
+                return _controladorDocentes;
+            }
+        }
     }
 }

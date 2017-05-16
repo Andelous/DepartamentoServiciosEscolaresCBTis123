@@ -1,4 +1,4 @@
-﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
+﻿using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;

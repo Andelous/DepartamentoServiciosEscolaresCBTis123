@@ -1,0 +1,1478 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="CBTis123Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="academias">
+          <Key>
+            <PropertyRef Name="idAcademia" />
+          </Key>
+          <Property Name="idAcademia" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="90" Nullable="false" />
+          <Property Name="Acuerdo" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="Tipo" Type="varchar" MaxLength="90" Nullable="false" />
+        </EntityType>
+        <EntityType Name="areascampos">
+          <Key>
+            <PropertyRef Name="idAreacampo" />
+          </Key>
+          <Property Name="idAreacampo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="128" Nullable="false" />
+          <Property Name="acuerdo" Type="varchar" MaxLength="10" Nullable="false" />
+        </EntityType>
+        <EntityType Name="carreras">
+          <Key>
+            <PropertyRef Name="idCarrera" />
+          </Key>
+          <Property Name="idCarrera" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="abreviatura" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="acuerdo" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="bachilleratociencias" Type="varchar" MaxLength="40" Nullable="false" />
+        </EntityType>
+        <EntityType Name="catedras">
+          <Key>
+            <PropertyRef Name="idCatedra" />
+          </Key>
+          <Property Name="idCatedra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idDocente" Type="int" />
+          <Property Name="idMateria" Type="int" Nullable="false" />
+          <Property Name="idGrupo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="docentes">
+          <Key>
+            <PropertyRef Name="idDocente" />
+          </Key>
+          <Property Name="idDocente" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="genero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="tarjeta" Type="smallint" Nullable="false" />
+          <Property Name="curp" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="rfc" Type="varchar" MaxLength="13" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="64" Nullable="false" />
+          <Property Name="apellidop" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="apellidom" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="estado" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="correoi" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="correop" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="nivelmedioTit" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="nivelmedio" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dnivelmedio" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="tecnicosuperiorTit" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="tecnicosuperior" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dtecnicosuperior" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="licenciatura1Tit" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="licenciatura1" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dlicenciatura1" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="licenciatura2Tit" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="licenciatura2" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dlicenciatura2" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="especialidad1" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="despecialidad1" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="especialidad2" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="despecialidad2" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="maestria1Tit" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="maestria1" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dmaestria1" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="maestria2Tit" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="maestria2" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="dmaestria2" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="doctoradoTit" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="doctorado" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="ddoctorado" Type="varchar" MaxLength="80" Nullable="false" />
+          <Property Name="telefonoCelular" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="paisNacimiento" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="estadoNacimiento" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="date" Nullable="false" />
+          <Property Name="auxRevision" Type="varchar" MaxLength="34" Nullable="false" />
+        </EntityType>
+        <EntityType Name="estudiantes">
+          <Key>
+            <PropertyRef Name="idEstudiante" />
+          </Key>
+          <Property Name="idEstudiante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncontrol" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="curp" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="nombrecompleto" Type="varchar" MaxLength="60" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellido1" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellido2" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nss" Type="varchar" MaxLength="11" Nullable="false" />
+        </EntityType>
+        <EntityType Name="fichas">
+          <Key>
+            <PropertyRef Name="idFicha" />
+          </Key>
+          <Property Name="idFicha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="preficha" Type="int" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellidop" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellidom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fechanac" Type="date" Nullable="false" />
+          <Property Name="curp" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="estadoc" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="genero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="estadonac" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="municipionac" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="localidad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="colonia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="calle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="codigop" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ladalocal" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="numlocal" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="celulare" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="celularr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="correoe" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="secundaria" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="clavesecundaria" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="modalidad" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="primera" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="segunda" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="tercera" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="aula" Type="int" Nullable="false" />
+          <Property Name="especialidad" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="grupos">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+          </Key>
+          <Property Name="idGrupo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idSemestre" Type="int" Nullable="false" />
+          <Property Name="semestre" Type="int" Nullable="false" />
+          <Property Name="letra" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="turno" Type="varchar" MaxLength="1" Nullable="false" />
+          <Property Name="especialidad" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="grupos_estudiantes">
+          <Key>
+            <PropertyRef Name="idGrupo_Estudiante" />
+          </Key>
+          <Property Name="idGrupo_Estudiante" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idGrupo" Type="int" Nullable="false" />
+          <Property Name="idEstudiante" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="localidades">
+          <Key>
+            <PropertyRef Name="idLocalidad" />
+          </Key>
+          <Property Name="idLocalidad" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="claveMunicipio" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="claveLocalidad" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="materias">
+          <Key>
+            <PropertyRef Name="idMateria" />
+          </Key>
+          <Property Name="idMateria" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idAreacampo" Type="int" />
+          <Property Name="idAcademia" Type="int" Nullable="false" />
+          <Property Name="idCarrera" Type="int" />
+          <Property Name="idModulo" Type="int" />
+          <Property Name="subModulo" Type="smallint" Nullable="false" />
+          <Property Name="semestre" Type="smallint" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="256" Nullable="false" />
+          <Property Name="abreviatura" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="componenteF" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="propedeutica" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="hrsSemana" Type="smallint" Nullable="false" />
+          <Property Name="hrsSemestre" Type="smallint" Nullable="false" />
+        </EntityType>
+        <EntityType Name="modulos">
+          <Key>
+            <PropertyRef Name="idModulo" />
+          </Key>
+          <Property Name="idModulo" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCarrera" Type="int" />
+          <Property Name="numero" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="200" Nullable="false" />
+        </EntityType>
+        <EntityType Name="municipios">
+          <Key>
+            <PropertyRef Name="idMunicipio" />
+          </Key>
+          <Property Name="idMunicipio" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="claveEntidad" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="claveMunicipio" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="100" Nullable="false" />
+        </EntityType>
+        <EntityType Name="planea_d16_2017">
+          <Key>
+            <PropertyRef Name="idPlanea_d16_2017" />
+          </Key>
+          <Property Name="idPlanea_d16_2017" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncontrol" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="apellido1" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellido2" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="grupo" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="periodo" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="respuestas" Type="varchar" MaxLength="140" Nullable="false" />
+        </EntityType>
+        <EntityType Name="planea_mate16_d1_2017">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ncontrol" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="70" Nullable="false" />
+          <Property Name="grupo" Type="varchar" MaxLength="9" Nullable="false" />
+          <Property Name="respuestas" Type="varchar" MaxLength="54" Nullable="false" />
+          <Property Name="aplicado" Type="bool" Nullable="false" />
+          <Property Name="aciertos" Type="int" Nullable="false" />
+          <Property Name="porcentaje" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prefichas">
+          <Key>
+            <PropertyRef Name="idPreficha" />
+          </Key>
+          <Property Name="idPreficha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellidop" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellidom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fechanac" Type="date" Nullable="false" />
+          <Property Name="curp" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="estadoc" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="genero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="estadonac" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="municipionac" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="localidad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="colonia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="calle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="codigop" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ladalocal" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="numlocal" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="celulare" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="celularr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="correoe" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="secundaria" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="clavesecundaria" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="modalidad" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="primera" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="segunda" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="tercera" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prefichas2016">
+          <Key>
+            <PropertyRef Name="idPreficha" />
+          </Key>
+          <Property Name="idPreficha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellidop" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellidom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fechanac" Type="date" Nullable="false" />
+          <Property Name="curp" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="estadoc" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="genero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="estadonac" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="municipionac" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="localidad" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="colonia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="calle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="codigop" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ladalocal" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="numlocal" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="celulare" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="celularr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="correoe" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="secundaria" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="clavesecundaria" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="modalidad" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="primera" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="segunda" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="tercera" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prefichas2017">
+          <Key>
+            <PropertyRef Name="idPreficha" />
+          </Key>
+          <Property Name="idPreficha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellidop" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellidom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fechanac" Type="date" Nullable="false" />
+          <Property Name="curp" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="estadoc" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="genero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="estadonac" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="municipionac" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="estadovive" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="municipiovive" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="localidad" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="colonia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="calle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="codigop" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ladalocal" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="numlocal" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="celulare" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="celularr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="correoe" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="secundaria" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="clavesecundaria" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="modalidad" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="primera" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="segunda" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="tercera" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="aula" Type="int" Nullable="false" />
+          <Property Name="especialidad" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
+        <EntityType Name="semestres">
+          <Key>
+            <PropertyRef Name="idSemestre" />
+          </Key>
+          <Property Name="idSemestre" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="24" Nullable="false" />
+          <Property Name="nombrecorto" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="nombrecorto2" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="nombrecorto3" Type="varchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="usuario" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="contrasena" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="tipoUsuario" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="catedras_ibfk_1">
+          <End Role="docentes" Type="Self.docentes" Multiplicity="0..1" />
+          <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="docentes">
+              <PropertyRef Name="idDocente" />
+            </Principal>
+            <Dependent Role="catedras">
+              <PropertyRef Name="idDocente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="catedras_ibfk_2">
+          <End Role="materias" Type="Self.materias" Multiplicity="1" />
+          <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materias">
+              <PropertyRef Name="idMateria" />
+            </Principal>
+            <Dependent Role="catedras">
+              <PropertyRef Name="idMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="catedras_ibfk_3">
+          <End Role="grupos" Type="Self.grupos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grupos">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="catedras">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="grupos_estudiantes_ibfk_1">
+          <End Role="grupos" Type="Self.grupos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="grupos_estudiantes" Type="Self.grupos_estudiantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grupos">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="grupos_estudiantes">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="grupos_estudiantes_ibfk_2">
+          <End Role="estudiantes" Type="Self.estudiantes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="grupos_estudiantes" Type="Self.grupos_estudiantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estudiantes">
+              <PropertyRef Name="idEstudiante" />
+            </Principal>
+            <Dependent Role="grupos_estudiantes">
+              <PropertyRef Name="idEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="grupos_ibfk_1">
+          <End Role="semestres" Type="Self.semestres" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="grupos" Type="Self.grupos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semestres">
+              <PropertyRef Name="idSemestre" />
+            </Principal>
+            <Dependent Role="grupos">
+              <PropertyRef Name="idSemestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="materias_ibfk_2">
+          <End Role="areascampos" Type="Self.areascampos" Multiplicity="0..1" />
+          <End Role="materias" Type="Self.materias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="areascampos">
+              <PropertyRef Name="idAreacampo" />
+            </Principal>
+            <Dependent Role="materias">
+              <PropertyRef Name="idAreacampo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="materias_ibfk_3">
+          <End Role="carreras" Type="Self.carreras" Multiplicity="0..1" />
+          <End Role="materias" Type="Self.materias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carreras">
+              <PropertyRef Name="idCarrera" />
+            </Principal>
+            <Dependent Role="materias">
+              <PropertyRef Name="idCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="materias_ibfk_4">
+          <End Role="modulos" Type="Self.modulos" Multiplicity="0..1" />
+          <End Role="materias" Type="Self.materias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modulos">
+              <PropertyRef Name="idModulo" />
+            </Principal>
+            <Dependent Role="materias">
+              <PropertyRef Name="idModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="modulos_ibfk_1">
+          <End Role="carreras" Type="Self.carreras" Multiplicity="0..1" />
+          <End Role="modulos" Type="Self.modulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carreras">
+              <PropertyRef Name="idCarrera" />
+            </Principal>
+            <Dependent Role="modulos">
+              <PropertyRef Name="idCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="CBTis123ModelStoreContainer">
+          <EntitySet Name="academias" EntityType="Self.academias" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="areascampos" EntityType="Self.areascampos" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="carreras" EntityType="Self.carreras" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="catedras" EntityType="Self.catedras" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="docentes" EntityType="Self.docentes" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="estudiantes" EntityType="Self.estudiantes" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="fichas" EntityType="Self.fichas" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="grupos" EntityType="Self.grupos" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="grupos_estudiantes" EntityType="Self.grupos_estudiantes" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="localidades" EntityType="Self.localidades" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="materias" EntityType="Self.materias" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="modulos" EntityType="Self.modulos" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="municipios" EntityType="Self.municipios" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="planea_d16_2017" EntityType="Self.planea_d16_2017" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="planea_mate16_d1_2017" EntityType="Self.planea_mate16_d1_2017" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="prefichas" EntityType="Self.prefichas" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="prefichas2016" EntityType="Self.prefichas2016" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="prefichas2017" EntityType="Self.prefichas2017" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="semestres" EntityType="Self.semestres" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="cbtislocal" store:Type="Tables" />
+          <AssociationSet Name="catedras_ibfk_1" Association="Self.catedras_ibfk_1">
+            <End Role="docentes" EntitySet="docentes" />
+            <End Role="catedras" EntitySet="catedras" />
+          </AssociationSet>
+          <AssociationSet Name="catedras_ibfk_2" Association="Self.catedras_ibfk_2">
+            <End Role="materias" EntitySet="materias" />
+            <End Role="catedras" EntitySet="catedras" />
+          </AssociationSet>
+          <AssociationSet Name="catedras_ibfk_3" Association="Self.catedras_ibfk_3">
+            <End Role="grupos" EntitySet="grupos" />
+            <End Role="catedras" EntitySet="catedras" />
+          </AssociationSet>
+          <AssociationSet Name="grupos_estudiantes_ibfk_1" Association="Self.grupos_estudiantes_ibfk_1">
+            <End Role="grupos" EntitySet="grupos" />
+            <End Role="grupos_estudiantes" EntitySet="grupos_estudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="grupos_estudiantes_ibfk_2" Association="Self.grupos_estudiantes_ibfk_2">
+            <End Role="estudiantes" EntitySet="estudiantes" />
+            <End Role="grupos_estudiantes" EntitySet="grupos_estudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="grupos_ibfk_1" Association="Self.grupos_ibfk_1">
+            <End Role="semestres" EntitySet="semestres" />
+            <End Role="grupos" EntitySet="grupos" />
+          </AssociationSet>
+          <AssociationSet Name="materias_ibfk_2" Association="Self.materias_ibfk_2">
+            <End Role="areascampos" EntitySet="areascampos" />
+            <End Role="materias" EntitySet="materias" />
+          </AssociationSet>
+          <AssociationSet Name="materias_ibfk_3" Association="Self.materias_ibfk_3">
+            <End Role="carreras" EntitySet="carreras" />
+            <End Role="materias" EntitySet="materias" />
+          </AssociationSet>
+          <AssociationSet Name="materias_ibfk_4" Association="Self.materias_ibfk_4">
+            <End Role="modulos" EntitySet="modulos" />
+            <End Role="materias" EntitySet="materias" />
+          </AssociationSet>
+          <AssociationSet Name="modulos_ibfk_1" Association="Self.modulos_ibfk_1">
+            <End Role="carreras" EntitySet="carreras" />
+            <End Role="modulos" EntitySet="modulos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="CBTis123Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="academias">
+          <Key>
+            <PropertyRef Name="idAcademia" />
+          </Key>
+          <Property Name="idAcademia" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Acuerdo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Tipo" Type="String" MaxLength="90" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="areascampos">
+          <Key>
+            <PropertyRef Name="idAreacampo" />
+          </Key>
+          <Property Name="idAreacampo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="acuerdo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="materias" Relationship="Self.materias_ibfk_2" FromRole="areascampos" ToRole="materias" />
+        </EntityType>
+        <EntityType Name="carreras">
+          <Key>
+            <PropertyRef Name="idCarrera" />
+          </Key>
+          <Property Name="idCarrera" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="abreviatura" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="acuerdo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bachilleratociencias" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="materias" Relationship="Self.materias_ibfk_3" FromRole="carreras" ToRole="materias" />
+          <NavigationProperty Name="modulos" Relationship="Self.modulos_ibfk_1" FromRole="carreras" ToRole="modulos" />
+        </EntityType>
+        <EntityType Name="catedras">
+          <Key>
+            <PropertyRef Name="idCatedra" />
+          </Key>
+          <Property Name="idCatedra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idDocente" Type="Int32" />
+          <Property Name="idMateria" Type="Int32" Nullable="false" />
+          <Property Name="idGrupo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="docentes" Relationship="Self.catedras_ibfk_1" FromRole="catedras" ToRole="docentes" />
+          <NavigationProperty Name="materias" Relationship="Self.catedras_ibfk_2" FromRole="catedras" ToRole="materias" />
+          <NavigationProperty Name="grupos" Relationship="Self.catedras_ibfk_3" FromRole="catedras" ToRole="grupos" />
+        </EntityType>
+        <EntityType Name="docentes">
+          <Key>
+            <PropertyRef Name="idDocente" />
+          </Key>
+          <Property Name="idDocente" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="genero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tarjeta" Type="Int16" Nullable="false" />
+          <Property Name="curp" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="rfc" Type="String" MaxLength="13" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombres" Type="String" MaxLength="64" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidop" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidom" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correoi" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correop" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nivelmedioTit" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nivelmedio" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dnivelmedio" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tecnicosuperiorTit" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tecnicosuperior" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dtecnicosuperior" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="licenciatura1Tit" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="licenciatura1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dlicenciatura1" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="licenciatura2Tit" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="licenciatura2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dlicenciatura2" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="especialidad1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="despecialidad1" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="especialidad2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="despecialidad2" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maestria1Tit" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maestria1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dmaestria1" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maestria2Tit" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="maestria2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="dmaestria2" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="doctoradoTit" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="doctorado" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ddoctorado" Type="String" MaxLength="80" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefonoCelular" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="telefono" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="paisNacimiento" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadoNacimiento" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechaNacimiento" Type="DateTime" Nullable="false" />
+          <Property Name="auxRevision" Type="String" MaxLength="34" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="catedras" Relationship="Self.catedras_ibfk_1" FromRole="docentes" ToRole="catedras" />
+        </EntityType>
+        <EntityType Name="estudiantes">
+          <Key>
+            <PropertyRef Name="idEstudiante" />
+          </Key>
+          <Property Name="idEstudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncontrol" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="curp" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombrecompleto" Type="String" MaxLength="60" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nss" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="grupos_estudiantes" Relationship="Self.grupos_estudiantes_ibfk_2" FromRole="estudiantes" ToRole="grupos_estudiantes" />
+        </EntityType>
+        <EntityType Name="fichas">
+          <Key>
+            <PropertyRef Name="idFicha" />
+          </Key>
+          <Property Name="idFicha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="preficha" Type="Int32" Nullable="false" />
+          <Property Name="nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechanac" Type="DateTime" Nullable="false" />
+          <Property Name="curp" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadoc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="genero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadonac" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="municipionac" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="colonia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="calle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigop" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ladalocal" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numlocal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celulare" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celularr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correoe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="secundaria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clavesecundaria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modalidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segunda" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tercera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="aula" Type="Int32" Nullable="false" />
+          <Property Name="especialidad" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="grupos">
+          <Key>
+            <PropertyRef Name="idGrupo" />
+          </Key>
+          <Property Name="idGrupo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idSemestre" Type="Int32" Nullable="false" />
+          <Property Name="semestre" Type="Int32" Nullable="false" />
+          <Property Name="letra" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="turno" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="especialidad" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="catedras" Relationship="Self.catedras_ibfk_3" FromRole="grupos" ToRole="catedras" />
+          <NavigationProperty Name="grupos_estudiantes" Relationship="Self.grupos_estudiantes_ibfk_1" FromRole="grupos" ToRole="grupos_estudiantes" />
+          <NavigationProperty Name="semestres" Relationship="Self.grupos_ibfk_1" FromRole="grupos" ToRole="semestres" />
+        </EntityType>
+        <EntityType Name="grupos_estudiantes">
+          <Key>
+            <PropertyRef Name="idGrupo_Estudiante" />
+          </Key>
+          <Property Name="idGrupo_Estudiante" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idGrupo" Type="Int32" Nullable="false" />
+          <Property Name="idEstudiante" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="estudiantes" Relationship="Self.grupos_estudiantes_ibfk_2" FromRole="grupos_estudiantes" ToRole="estudiantes" />
+          <NavigationProperty Name="grupos" Relationship="Self.grupos_estudiantes_ibfk_1" FromRole="grupos_estudiantes" ToRole="grupos" />
+        </EntityType>
+        <EntityType Name="materias">
+          <Key>
+            <PropertyRef Name="idMateria" />
+          </Key>
+          <Property Name="idMateria" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idAreacampo" Type="Int32" />
+          <Property Name="idAcademia" Type="Int32" Nullable="false" />
+          <Property Name="idCarrera" Type="Int32" />
+          <Property Name="idModulo" Type="Int32" />
+          <Property Name="subModulo" Type="Int16" Nullable="false" />
+          <Property Name="semestre" Type="Int16" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="256" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="abreviatura" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="componenteF" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="propedeutica" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="hrsSemana" Type="Int16" Nullable="false" />
+          <Property Name="hrsSemestre" Type="Int16" Nullable="false" />
+          <NavigationProperty Name="areascampos" Relationship="Self.materias_ibfk_2" FromRole="materias" ToRole="areascampos" />
+          <NavigationProperty Name="carreras" Relationship="Self.materias_ibfk_3" FromRole="materias" ToRole="carreras" />
+          <NavigationProperty Name="catedras" Relationship="Self.catedras_ibfk_2" FromRole="materias" ToRole="catedras" />
+          <NavigationProperty Name="modulos" Relationship="Self.materias_ibfk_4" FromRole="materias" ToRole="modulos" />
+        </EntityType>
+        <EntityType Name="modulos">
+          <Key>
+            <PropertyRef Name="idModulo" />
+          </Key>
+          <Property Name="idModulo" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCarrera" Type="Int32" />
+          <Property Name="numero" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="carreras" Relationship="Self.modulos_ibfk_1" FromRole="modulos" ToRole="carreras" />
+          <NavigationProperty Name="materias" Relationship="Self.materias_ibfk_4" FromRole="modulos" ToRole="materias" />
+        </EntityType>
+        <EntityType Name="planea_d16_2017">
+          <Key>
+            <PropertyRef Name="idPlanea_d16_2017" />
+          </Key>
+          <Property Name="idPlanea_d16_2017" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncontrol" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellido2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="grupo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="periodo" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="respuestas" Type="String" MaxLength="140" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="planea_mate16_d1_2017">
+          <Key>
+            <PropertyRef Name="id" />
+          </Key>
+          <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ncontrol" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="70" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="grupo" Type="String" MaxLength="9" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="respuestas" Type="String" MaxLength="54" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="aplicado" Type="Boolean" Nullable="false" />
+          <Property Name="aciertos" Type="Int32" Nullable="false" />
+          <Property Name="porcentaje" Type="Int32" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prefichas">
+          <Key>
+            <PropertyRef Name="idPreficha" />
+          </Key>
+          <Property Name="idPreficha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechanac" Type="DateTime" Nullable="false" />
+          <Property Name="curp" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadoc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="genero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadonac" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="municipionac" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="colonia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="calle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigop" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ladalocal" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numlocal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celulare" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celularr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correoe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="secundaria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clavesecundaria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modalidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segunda" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tercera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prefichas2016">
+          <Key>
+            <PropertyRef Name="idPreficha" />
+          </Key>
+          <Property Name="idPreficha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechanac" Type="DateTime" Nullable="false" />
+          <Property Name="curp" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadoc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="genero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadonac" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="municipionac" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="localidad" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="colonia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="calle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigop" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ladalocal" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numlocal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celulare" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celularr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correoe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="secundaria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clavesecundaria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modalidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segunda" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tercera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
+        <EntityType Name="prefichas2017">
+          <Key>
+            <PropertyRef Name="idPreficha" />
+          </Key>
+          <Property Name="idPreficha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechanac" Type="DateTime" Nullable="false" />
+          <Property Name="curp" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadoc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="genero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadonac" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="municipionac" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadovive" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="municipiovive" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="localidad" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="colonia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="calle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigop" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ladalocal" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numlocal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celulare" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celularr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correoe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="secundaria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clavesecundaria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modalidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segunda" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tercera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="aula" Type="Int32" Nullable="false" />
+          <Property Name="especialidad" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="semestres">
+          <Key>
+            <PropertyRef Name="idSemestre" />
+          </Key>
+          <Property Name="idSemestre" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="24" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombrecorto" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombrecorto2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombrecorto3" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="grupos" Relationship="Self.grupos_ibfk_1" FromRole="semestres" ToRole="grupos" />
+        </EntityType>
+        <EntityType Name="usuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="usuario" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="contrasena" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidoPaterno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidoMaterno" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tipoUsuario" Type="Int32" Nullable="false" />
+        </EntityType>
+        <Association Name="materias_ibfk_2">
+          <End Role="areascampos" Type="Self.areascampos" Multiplicity="0..1" />
+          <End Role="materias" Type="Self.materias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="areascampos">
+              <PropertyRef Name="idAreacampo" />
+            </Principal>
+            <Dependent Role="materias">
+              <PropertyRef Name="idAreacampo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="materias_ibfk_3">
+          <End Role="carreras" Type="Self.carreras" Multiplicity="0..1" />
+          <End Role="materias" Type="Self.materias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carreras">
+              <PropertyRef Name="idCarrera" />
+            </Principal>
+            <Dependent Role="materias">
+              <PropertyRef Name="idCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="modulos_ibfk_1">
+          <End Role="carreras" Type="Self.carreras" Multiplicity="0..1" />
+          <End Role="modulos" Type="Self.modulos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carreras">
+              <PropertyRef Name="idCarrera" />
+            </Principal>
+            <Dependent Role="modulos">
+              <PropertyRef Name="idCarrera" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="catedras_ibfk_1">
+          <End Role="docentes" Type="Self.docentes" Multiplicity="0..1" />
+          <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="docentes">
+              <PropertyRef Name="idDocente" />
+            </Principal>
+            <Dependent Role="catedras">
+              <PropertyRef Name="idDocente" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="catedras_ibfk_2">
+          <End Role="materias" Type="Self.materias" Multiplicity="1" />
+          <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="materias">
+              <PropertyRef Name="idMateria" />
+            </Principal>
+            <Dependent Role="catedras">
+              <PropertyRef Name="idMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="catedras_ibfk_3">
+          <End Role="grupos" Type="Self.grupos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grupos">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="catedras">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="grupos_estudiantes_ibfk_2">
+          <End Role="estudiantes" Type="Self.estudiantes" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="grupos_estudiantes" Type="Self.grupos_estudiantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estudiantes">
+              <PropertyRef Name="idEstudiante" />
+            </Principal>
+            <Dependent Role="grupos_estudiantes">
+              <PropertyRef Name="idEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="grupos_estudiantes_ibfk_1">
+          <End Role="grupos" Type="Self.grupos" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="grupos_estudiantes" Type="Self.grupos_estudiantes" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="grupos">
+              <PropertyRef Name="idGrupo" />
+            </Principal>
+            <Dependent Role="grupos_estudiantes">
+              <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="grupos_ibfk_1">
+          <End Role="semestres" Type="Self.semestres" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Role="grupos" Type="Self.grupos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="semestres">
+              <PropertyRef Name="idSemestre" />
+            </Principal>
+            <Dependent Role="grupos">
+              <PropertyRef Name="idSemestre" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="materias_ibfk_4">
+          <End Role="modulos" Type="Self.modulos" Multiplicity="0..1" />
+          <End Role="materias" Type="Self.materias" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="modulos">
+              <PropertyRef Name="idModulo" />
+            </Principal>
+            <Dependent Role="materias">
+              <PropertyRef Name="idModulo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="cbtislocalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="academias" EntityType="Self.academias" />
+          <EntitySet Name="areascampos" EntityType="Self.areascampos" />
+          <EntitySet Name="carreras" EntityType="Self.carreras" />
+          <EntitySet Name="catedras" EntityType="Self.catedras" />
+          <EntitySet Name="docentes" EntityType="Self.docentes" />
+          <EntitySet Name="estudiantes" EntityType="Self.estudiantes" />
+          <EntitySet Name="fichas" EntityType="Self.fichas" />
+          <EntitySet Name="grupos" EntityType="Self.grupos" />
+          <EntitySet Name="grupos_estudiantes" EntityType="Self.grupos_estudiantes" />
+          <EntitySet Name="materias" EntityType="Self.materias" />
+          <EntitySet Name="modulos" EntityType="Self.modulos" />
+          <EntitySet Name="planea_d16_2017" EntityType="Self.planea_d16_2017" />
+          <EntitySet Name="planea_mate16_d1_2017" EntityType="Self.planea_mate16_d1_2017" />
+          <EntitySet Name="prefichas" EntityType="Self.prefichas" />
+          <EntitySet Name="prefichas2016" EntityType="Self.prefichas2016" />
+          <EntitySet Name="prefichas2017" EntityType="Self.prefichas2017" />
+          <EntitySet Name="semestres" EntityType="Self.semestres" />
+          <EntitySet Name="usuarios" EntityType="Self.usuarios" />
+          <AssociationSet Name="materias_ibfk_2" Association="Self.materias_ibfk_2">
+            <End Role="areascampos" EntitySet="areascampos" />
+            <End Role="materias" EntitySet="materias" />
+          </AssociationSet>
+          <AssociationSet Name="materias_ibfk_3" Association="Self.materias_ibfk_3">
+            <End Role="carreras" EntitySet="carreras" />
+            <End Role="materias" EntitySet="materias" />
+          </AssociationSet>
+          <AssociationSet Name="modulos_ibfk_1" Association="Self.modulos_ibfk_1">
+            <End Role="carreras" EntitySet="carreras" />
+            <End Role="modulos" EntitySet="modulos" />
+          </AssociationSet>
+          <AssociationSet Name="catedras_ibfk_1" Association="Self.catedras_ibfk_1">
+            <End Role="docentes" EntitySet="docentes" />
+            <End Role="catedras" EntitySet="catedras" />
+          </AssociationSet>
+          <AssociationSet Name="catedras_ibfk_2" Association="Self.catedras_ibfk_2">
+            <End Role="materias" EntitySet="materias" />
+            <End Role="catedras" EntitySet="catedras" />
+          </AssociationSet>
+          <AssociationSet Name="catedras_ibfk_3" Association="Self.catedras_ibfk_3">
+            <End Role="grupos" EntitySet="grupos" />
+            <End Role="catedras" EntitySet="catedras" />
+          </AssociationSet>
+          <AssociationSet Name="grupos_estudiantes_ibfk_2" Association="Self.grupos_estudiantes_ibfk_2">
+            <End Role="estudiantes" EntitySet="estudiantes" />
+            <End Role="grupos_estudiantes" EntitySet="grupos_estudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="grupos_estudiantes_ibfk_1" Association="Self.grupos_estudiantes_ibfk_1">
+            <End Role="grupos" EntitySet="grupos" />
+            <End Role="grupos_estudiantes" EntitySet="grupos_estudiantes" />
+          </AssociationSet>
+          <AssociationSet Name="grupos_ibfk_1" Association="Self.grupos_ibfk_1">
+            <End Role="semestres" EntitySet="semestres" />
+            <End Role="grupos" EntitySet="grupos" />
+          </AssociationSet>
+          <AssociationSet Name="materias_ibfk_4" Association="Self.materias_ibfk_4">
+            <End Role="modulos" EntitySet="modulos" />
+            <End Role="materias" EntitySet="materias" />
+          </AssociationSet>
+          <EntitySet Name="localidades" EntityType="CBTis123Model.localidades" />
+          <EntitySet Name="municipios" EntityType="CBTis123Model.municipios" />
+        </EntityContainer>
+        <EntityType Name="localidades">
+          <Key>
+            <PropertyRef Name="idLocalidad" />
+          </Key>
+          <Property Name="idLocalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="claveMunicipio" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="claveLocalidad" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="municipios">
+          <Key>
+            <PropertyRef Name="idMunicipio" />
+          </Key>
+          <Property Name="idMunicipio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="claveEntidad" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
+          <Property Name="claveMunicipio" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="CBTis123ModelStoreContainer" CdmEntityContainer="cbtislocalEntities">
+          <EntitySetMapping Name="academias">
+            <EntityTypeMapping TypeName="CBTis123Model.academias">
+              <MappingFragment StoreEntitySet="academias">
+                <ScalarProperty Name="idAcademia" ColumnName="idAcademia" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Acuerdo" ColumnName="Acuerdo" />
+                <ScalarProperty Name="Tipo" ColumnName="Tipo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="areascampos">
+            <EntityTypeMapping TypeName="CBTis123Model.areascampos">
+              <MappingFragment StoreEntitySet="areascampos">
+                <ScalarProperty Name="idAreacampo" ColumnName="idAreacampo" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="acuerdo" ColumnName="acuerdo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="carreras">
+            <EntityTypeMapping TypeName="CBTis123Model.carreras">
+              <MappingFragment StoreEntitySet="carreras">
+                <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="abreviatura" ColumnName="abreviatura" />
+                <ScalarProperty Name="acuerdo" ColumnName="acuerdo" />
+                <ScalarProperty Name="bachilleratociencias" ColumnName="bachilleratociencias" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="catedras">
+            <EntityTypeMapping TypeName="CBTis123Model.catedras">
+              <MappingFragment StoreEntitySet="catedras">
+                <ScalarProperty Name="idCatedra" ColumnName="idCatedra" />
+                <ScalarProperty Name="idDocente" ColumnName="idDocente" />
+                <ScalarProperty Name="idMateria" ColumnName="idMateria" />
+                <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="docentes">
+            <EntityTypeMapping TypeName="CBTis123Model.docentes">
+              <MappingFragment StoreEntitySet="docentes">
+                <ScalarProperty Name="idDocente" ColumnName="idDocente" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="tarjeta" ColumnName="tarjeta" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="rfc" ColumnName="rfc" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
+                <ScalarProperty Name="correoi" ColumnName="correoi" />
+                <ScalarProperty Name="correop" ColumnName="correop" />
+                <ScalarProperty Name="nivelmedioTit" ColumnName="nivelmedioTit" />
+                <ScalarProperty Name="nivelmedio" ColumnName="nivelmedio" />
+                <ScalarProperty Name="dnivelmedio" ColumnName="dnivelmedio" />
+                <ScalarProperty Name="tecnicosuperiorTit" ColumnName="tecnicosuperiorTit" />
+                <ScalarProperty Name="tecnicosuperior" ColumnName="tecnicosuperior" />
+                <ScalarProperty Name="dtecnicosuperior" ColumnName="dtecnicosuperior" />
+                <ScalarProperty Name="licenciatura1Tit" ColumnName="licenciatura1Tit" />
+                <ScalarProperty Name="licenciatura1" ColumnName="licenciatura1" />
+                <ScalarProperty Name="dlicenciatura1" ColumnName="dlicenciatura1" />
+                <ScalarProperty Name="licenciatura2Tit" ColumnName="licenciatura2Tit" />
+                <ScalarProperty Name="licenciatura2" ColumnName="licenciatura2" />
+                <ScalarProperty Name="dlicenciatura2" ColumnName="dlicenciatura2" />
+                <ScalarProperty Name="especialidad1" ColumnName="especialidad1" />
+                <ScalarProperty Name="despecialidad1" ColumnName="despecialidad1" />
+                <ScalarProperty Name="especialidad2" ColumnName="especialidad2" />
+                <ScalarProperty Name="despecialidad2" ColumnName="despecialidad2" />
+                <ScalarProperty Name="maestria1Tit" ColumnName="maestria1Tit" />
+                <ScalarProperty Name="maestria1" ColumnName="maestria1" />
+                <ScalarProperty Name="dmaestria1" ColumnName="dmaestria1" />
+                <ScalarProperty Name="maestria2Tit" ColumnName="maestria2Tit" />
+                <ScalarProperty Name="maestria2" ColumnName="maestria2" />
+                <ScalarProperty Name="dmaestria2" ColumnName="dmaestria2" />
+                <ScalarProperty Name="doctoradoTit" ColumnName="doctoradoTit" />
+                <ScalarProperty Name="doctorado" ColumnName="doctorado" />
+                <ScalarProperty Name="ddoctorado" ColumnName="ddoctorado" />
+                <ScalarProperty Name="telefonoCelular" ColumnName="telefonoCelular" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="paisNacimiento" ColumnName="paisNacimiento" />
+                <ScalarProperty Name="estadoNacimiento" ColumnName="estadoNacimiento" />
+                <ScalarProperty Name="fechaNacimiento" ColumnName="fechaNacimiento" />
+                <ScalarProperty Name="auxRevision" ColumnName="auxRevision" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="estudiantes">
+            <EntityTypeMapping TypeName="CBTis123Model.estudiantes">
+              <MappingFragment StoreEntitySet="estudiantes">
+                <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
+                <ScalarProperty Name="ncontrol" ColumnName="ncontrol" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="nombrecompleto" ColumnName="nombrecompleto" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="nss" ColumnName="nss" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="fichas">
+            <EntityTypeMapping TypeName="CBTis123Model.fichas">
+              <MappingFragment StoreEntitySet="fichas">
+                <ScalarProperty Name="idFicha" ColumnName="idFicha" />
+                <ScalarProperty Name="preficha" ColumnName="preficha" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="fechanac" ColumnName="fechanac" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="estadoc" ColumnName="estadoc" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="estadonac" ColumnName="estadonac" />
+                <ScalarProperty Name="municipionac" ColumnName="municipionac" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="codigop" ColumnName="codigop" />
+                <ScalarProperty Name="ladalocal" ColumnName="ladalocal" />
+                <ScalarProperty Name="numlocal" ColumnName="numlocal" />
+                <ScalarProperty Name="celulare" ColumnName="celulare" />
+                <ScalarProperty Name="celularr" ColumnName="celularr" />
+                <ScalarProperty Name="correoe" ColumnName="correoe" />
+                <ScalarProperty Name="secundaria" ColumnName="secundaria" />
+                <ScalarProperty Name="clavesecundaria" ColumnName="clavesecundaria" />
+                <ScalarProperty Name="modalidad" ColumnName="modalidad" />
+                <ScalarProperty Name="primera" ColumnName="primera" />
+                <ScalarProperty Name="segunda" ColumnName="segunda" />
+                <ScalarProperty Name="tercera" ColumnName="tercera" />
+                <ScalarProperty Name="aula" ColumnName="aula" />
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="grupos">
+            <EntityTypeMapping TypeName="CBTis123Model.grupos">
+              <MappingFragment StoreEntitySet="grupos">
+                <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+                <ScalarProperty Name="idSemestre" ColumnName="idSemestre" />
+                <ScalarProperty Name="semestre" ColumnName="semestre" />
+                <ScalarProperty Name="letra" ColumnName="letra" />
+                <ScalarProperty Name="turno" ColumnName="turno" />
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="grupos_estudiantes">
+            <EntityTypeMapping TypeName="CBTis123Model.grupos_estudiantes">
+              <MappingFragment StoreEntitySet="grupos_estudiantes">
+                <ScalarProperty Name="idGrupo_Estudiante" ColumnName="idGrupo_Estudiante" />
+                <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+                <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="materias">
+            <EntityTypeMapping TypeName="CBTis123Model.materias">
+              <MappingFragment StoreEntitySet="materias">
+                <ScalarProperty Name="idMateria" ColumnName="idMateria" />
+                <ScalarProperty Name="idAreacampo" ColumnName="idAreacampo" />
+                <ScalarProperty Name="idAcademia" ColumnName="idAcademia" />
+                <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+                <ScalarProperty Name="subModulo" ColumnName="subModulo" />
+                <ScalarProperty Name="semestre" ColumnName="semestre" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="abreviatura" ColumnName="abreviatura" />
+                <ScalarProperty Name="componenteF" ColumnName="componenteF" />
+                <ScalarProperty Name="propedeutica" ColumnName="propedeutica" />
+                <ScalarProperty Name="hrsSemana" ColumnName="hrsSemana" />
+                <ScalarProperty Name="hrsSemestre" ColumnName="hrsSemestre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="modulos">
+            <EntityTypeMapping TypeName="CBTis123Model.modulos">
+              <MappingFragment StoreEntitySet="modulos">
+                <ScalarProperty Name="idModulo" ColumnName="idModulo" />
+                <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="planea_d16_2017">
+            <EntityTypeMapping TypeName="CBTis123Model.planea_d16_2017">
+              <MappingFragment StoreEntitySet="planea_d16_2017">
+                <ScalarProperty Name="idPlanea_d16_2017" ColumnName="idPlanea_d16_2017" />
+                <ScalarProperty Name="ncontrol" ColumnName="ncontrol" />
+                <ScalarProperty Name="apellido1" ColumnName="apellido1" />
+                <ScalarProperty Name="apellido2" ColumnName="apellido2" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="periodo" ColumnName="periodo" />
+                <ScalarProperty Name="respuestas" ColumnName="respuestas" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="planea_mate16_d1_2017">
+            <EntityTypeMapping TypeName="CBTis123Model.planea_mate16_d1_2017">
+              <MappingFragment StoreEntitySet="planea_mate16_d1_2017">
+                <ScalarProperty Name="id" ColumnName="id" />
+                <ScalarProperty Name="ncontrol" ColumnName="ncontrol" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="grupo" ColumnName="grupo" />
+                <ScalarProperty Name="respuestas" ColumnName="respuestas" />
+                <ScalarProperty Name="aplicado" ColumnName="aplicado" />
+                <ScalarProperty Name="aciertos" ColumnName="aciertos" />
+                <ScalarProperty Name="porcentaje" ColumnName="porcentaje" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prefichas">
+            <EntityTypeMapping TypeName="CBTis123Model.prefichas">
+              <MappingFragment StoreEntitySet="prefichas">
+                <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="fechanac" ColumnName="fechanac" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="estadoc" ColumnName="estadoc" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="estadonac" ColumnName="estadonac" />
+                <ScalarProperty Name="municipionac" ColumnName="municipionac" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="codigop" ColumnName="codigop" />
+                <ScalarProperty Name="ladalocal" ColumnName="ladalocal" />
+                <ScalarProperty Name="numlocal" ColumnName="numlocal" />
+                <ScalarProperty Name="celulare" ColumnName="celulare" />
+                <ScalarProperty Name="celularr" ColumnName="celularr" />
+                <ScalarProperty Name="correoe" ColumnName="correoe" />
+                <ScalarProperty Name="secundaria" ColumnName="secundaria" />
+                <ScalarProperty Name="clavesecundaria" ColumnName="clavesecundaria" />
+                <ScalarProperty Name="modalidad" ColumnName="modalidad" />
+                <ScalarProperty Name="primera" ColumnName="primera" />
+                <ScalarProperty Name="segunda" ColumnName="segunda" />
+                <ScalarProperty Name="tercera" ColumnName="tercera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prefichas2016">
+            <EntityTypeMapping TypeName="CBTis123Model.prefichas2016">
+              <MappingFragment StoreEntitySet="prefichas2016">
+                <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="fechanac" ColumnName="fechanac" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="estadoc" ColumnName="estadoc" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="estadonac" ColumnName="estadonac" />
+                <ScalarProperty Name="municipionac" ColumnName="municipionac" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="codigop" ColumnName="codigop" />
+                <ScalarProperty Name="ladalocal" ColumnName="ladalocal" />
+                <ScalarProperty Name="numlocal" ColumnName="numlocal" />
+                <ScalarProperty Name="celulare" ColumnName="celulare" />
+                <ScalarProperty Name="celularr" ColumnName="celularr" />
+                <ScalarProperty Name="correoe" ColumnName="correoe" />
+                <ScalarProperty Name="secundaria" ColumnName="secundaria" />
+                <ScalarProperty Name="clavesecundaria" ColumnName="clavesecundaria" />
+                <ScalarProperty Name="modalidad" ColumnName="modalidad" />
+                <ScalarProperty Name="primera" ColumnName="primera" />
+                <ScalarProperty Name="segunda" ColumnName="segunda" />
+                <ScalarProperty Name="tercera" ColumnName="tercera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="prefichas2017">
+            <EntityTypeMapping TypeName="CBTis123Model.prefichas2017">
+              <MappingFragment StoreEntitySet="prefichas2017">
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+                <ScalarProperty Name="aula" ColumnName="aula" />
+                <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="fechanac" ColumnName="fechanac" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="estadoc" ColumnName="estadoc" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="estadonac" ColumnName="estadonac" />
+                <ScalarProperty Name="municipionac" ColumnName="municipionac" />
+                <ScalarProperty Name="estadovive" ColumnName="estadovive" />
+                <ScalarProperty Name="municipiovive" ColumnName="municipiovive" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="codigop" ColumnName="codigop" />
+                <ScalarProperty Name="ladalocal" ColumnName="ladalocal" />
+                <ScalarProperty Name="numlocal" ColumnName="numlocal" />
+                <ScalarProperty Name="celulare" ColumnName="celulare" />
+                <ScalarProperty Name="celularr" ColumnName="celularr" />
+                <ScalarProperty Name="correoe" ColumnName="correoe" />
+                <ScalarProperty Name="secundaria" ColumnName="secundaria" />
+                <ScalarProperty Name="clavesecundaria" ColumnName="clavesecundaria" />
+                <ScalarProperty Name="modalidad" ColumnName="modalidad" />
+                <ScalarProperty Name="primera" ColumnName="primera" />
+                <ScalarProperty Name="segunda" ColumnName="segunda" />
+                <ScalarProperty Name="tercera" ColumnName="tercera" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="semestres">
+            <EntityTypeMapping TypeName="CBTis123Model.semestres">
+              <MappingFragment StoreEntitySet="semestres">
+                <ScalarProperty Name="idSemestre" ColumnName="idSemestre" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombrecorto" ColumnName="nombrecorto" />
+                <ScalarProperty Name="nombrecorto2" ColumnName="nombrecorto2" />
+                <ScalarProperty Name="nombrecorto3" ColumnName="nombrecorto3" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="usuarios">
+            <EntityTypeMapping TypeName="CBTis123Model.usuarios">
+              <MappingFragment StoreEntitySet="usuarios">
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+                <ScalarProperty Name="usuario" ColumnName="usuario" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="apellidoPaterno" ColumnName="apellidoPaterno" />
+                <ScalarProperty Name="apellidoMaterno" ColumnName="apellidoMaterno" />
+                <ScalarProperty Name="tipoUsuario" ColumnName="tipoUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="localidades">
+            <EntityTypeMapping TypeName="CBTis123Model.localidades">
+              <MappingFragment StoreEntitySet="localidades">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="claveLocalidad" ColumnName="claveLocalidad" />
+                <ScalarProperty Name="claveMunicipio" ColumnName="claveMunicipio" />
+                <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="municipios">
+            <EntityTypeMapping TypeName="CBTis123Model.municipios">
+              <MappingFragment StoreEntitySet="municipios">
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="claveMunicipio" ColumnName="claveMunicipio" />
+                <ScalarProperty Name="claveEntidad" ColumnName="claveEntidad" />
+                <ScalarProperty Name="idMunicipio" ColumnName="idMunicipio" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

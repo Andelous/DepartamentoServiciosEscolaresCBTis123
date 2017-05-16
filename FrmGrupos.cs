@@ -1,7 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
-using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
-using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,8 +16,20 @@ namespace DepartamentoServiciosEscolaresCBTis123
     public partial class FrmGrupos : Form
     {
         // Variables del formulario
-        private ControladorSesion controladorSesion { get; set; }
-        private ControladorGrupos controladorGrupos { get; set; }
+        private ControladorSesion controladorSesion
+        {
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
+        private ControladorGrupos controladorGrupos
+        {
+            get
+            {
+                return ControladorSingleton.controladorGrupos;
+            }
+        }
 
         private Semestre semestreSeleccionado
         {
@@ -39,9 +50,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
         public FrmGrupos()
         {
             InitializeComponent();
-
-            this.controladorSesion = ControladorSingleton.controladorSesion;
-            this.controladorGrupos = ControladorSingleton.controladorGrupos;
         }
 
         private void FrmGrupos_Load(object sender, EventArgs e)

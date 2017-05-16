@@ -2,6 +2,7 @@
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using MySql.Data.MySqlClient;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,7 +21,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         private DAOMaterias daoMaterias { get; set; }
 
         // Controladores
-        private DAODocentes daoDocentes { get; set; }
+        private ControladorDocentes controladorDocentes
+        {
+            get
+            {
+                return ControladorSingleton.controladorDocentes;
+            }
+        }
         private ControladorEstudiantes controladorEstudiantes
         {
             get
@@ -43,9 +50,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             daoCarreras = new DAOCarreras();
             daoCatedras = new DAOCatedras();
             daoMaterias = new DAOMaterias();
-
-            // Futuros controladores
-            daoDocentes = new DAODocentes();
         }
         
         // Métodos de manipulación del modelo
@@ -116,7 +120,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             // Realizamos la operación, y damos manejo a las excepciones
             try
             {
-                listaDocentes = daoDocentes.seleccionarDocentes();
+                listaDocentes = controladorDocentes.seleccionarDocentes();
             }
             catch (MySqlException e)
             {

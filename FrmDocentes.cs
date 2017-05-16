@@ -1,6 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,42 +16,80 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmDocentes : Form
     {
-        private ControladorSesion controladorSesion;
+        // Controladores 
+        private ControladorDocentes controladorDocentes
+        {
+            get
+            {
+                return ControladorSingleton.controladorDocentes;
+            }
+        }
 
-        public FrmDocentes(ControladorSesion controladorSesion)
+        private Docente docenteSeleccionado
+        {
+            get
+            {
+                return (Docente)dgvDocentes.SelectedRows[0].DataBoundItem;
+            }
+        }
+
+        // Métodos de iniciación.
+        public FrmDocentes()
         {
             InitializeComponent();
-
-            this.controladorSesion = controladorSesion;
         }
 
         private void FrmDocentes_Load(object sender, EventArgs e)
         {
-            configurarDGVDocentes(controladorSesion.daoDocentes.seleccionarDocentes());
+            configurarDGVDocentes(controladorDocentes.seleccionarDocentes());
         }
 
-        private void configurarDGVDocentes(List<Docente> lista)
+        // Métodos de eventos de controles
+        private void cmdNuevoDocente_Click(object sender, EventArgs e)
         {
-            dgvDocentes.DataSource = lista;
-
-            DataGridViewColumnCollection columnas = dgvDocentes.Columns;
-
-            foreach (DataGridViewColumn columna in columnas)
-            {
-                columna.Visible = false;
-            }
-
-            columnas["nombres"].Visible = true;
-            columnas["nombres"].HeaderText = "Nombres";
-            columnas["apellidop"].Visible = true;
-            columnas["apellidop"].HeaderText = "Apellido paterno";
-            columnas["apellidom"].Visible = true;
-            columnas["apellidom"].HeaderText = "Apellido Materno";
-            columnas["curp"].Visible = true;
-            columnas["curp"].HeaderText = "CURP";
-            columnas["rfc"].Visible = true;
-            columnas["rfc"].HeaderText = "RFC";
+            (new FrmNuevoDocente()).ShowDialog();
+            configurarDGVDocentes(controladorDocentes.seleccionarDocentes());
         }
+
+        private void cmdEliminarDocente_Click(object sender, EventArgs e)
+        {
+            DialogResult dr =
+                MessageBox.Show(
+                    "¿Está seguro que desea eliminar al docente " +
+                    docenteSeleccionado.ToString() + "?",
+                    "Aviso",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Warning);
+
+            if (dr == DialogResult.Yes)
+            {
+                ResultadoOperacion resultadoOperacion = controladorDocentes.eliminarDocente(docenteSeleccionado);
+
+                ControladorVisual.mostrarMensaje(resultadoOperacion);
+                configurarDGVDocentes(controladorDocentes.seleccionarDocentes());
+            }
+        }
+
+        private void cmdBuscar_Click(object sender, EventArgs e)
+        {
+            configurarDGVDocentes(controladorDocentes.seleccionarDocentes(txtBusqueda.Text));
+        }
+
+        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            if (e.KeyChar == 13)
+            {
+                cmdBuscar_Click(sender, e);
+            }
+        }
+
+        private void cmdEditarDocente_Click(object sender, EventArgs e)
+        {
+            (new FrmModificarDocente(docenteSeleccionado)).ShowDialog();
+            configurarDGVDocentes(controladorDocentes.seleccionarDocentes());
+        }
+
+        // Métodos vinculados con algo visual.
 
         private void FrmDocentes_Resize(object sender, EventArgs e)
         {
@@ -76,118 +115,27 @@ namespace DepartamentoServiciosEscolaresCBTis123
             cmdEliminarDocente.Location = p3;
         }
 
-        private void cmdNuevoDocente_Click(object sender, EventArgs e)
+        private void configurarDGVDocentes(List<Docente> lista)
         {
-            (new FrmNuevoDocente(controladorSesion)).ShowDialog();
-            configurarDGVDocentes(controladorSesion.daoDocentes.seleccionarDocentes());
-        }
+            dgvDocentes.DataSource = lista;
 
-        private void cmdEliminarDocente_Click(object sender, EventArgs e)
-        {
-            if (
-                MessageBox.Show(
-                    "¿Está seguro que desea eliminar al docente " +
-                    dgvDocentes.SelectedRows[0].Cells["nombrecompleto"].Value.ToString() +
-                    "?",
-                    "Aviso",
-                    MessageBoxButtons.OKCancel,
-                    MessageBoxIcon.Warning
-                ) == DialogResult.OK
-                )
+            DataGridViewColumnCollection columnas = dgvDocentes.Columns;
+
+            foreach (DataGridViewColumn columna in columnas)
             {
-                int idDocente = Convert.ToInt32(dgvDocentes.SelectedRows[0].Cells["idDocente"].Value);
-
-                // LISTA CATEDRAS A LAS QUE PERTENECE
-
-                if (// FALTA CONDICIÓN DE LAS CATEDRAS A LAS QUE PERTENECE
-                    controladorSesion.
-                    daoDocentes.
-                    eliminarDocente(
-                        idDocente
-                    ) == 1)
-                {
-                    MessageBox.Show("Docente eliminado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    configurarDGVDocentes(controladorSesion.daoDocentes.seleccionarDocentes());
-                }
-                else
-                {
-                    MessageBox.Show("Error al eliminar el docente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
+                columna.Visible = false;
             }
-        }
 
-        private void cmdBuscar_Click(object sender, EventArgs e)
-        {
-            configurarDGVDocentes(
-                controladorSesion.
-                daoDocentes.
-                seleccionarDocentesPorCoincidencia(txtBusqueda.Text)
-            );
-        }
-
-        private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            if (e.KeyChar == 13)
-            {
-                cmdBuscar_Click(sender, e);
-            }
-        }
-
-        private void cmdEditarDocente_Click(object sender, EventArgs e)
-        {
-            DataGridViewCellCollection cells = dgvDocentes.SelectedRows[0].Cells;
-
-            Docente d = DAODocentes.crearDocente(
-                Convert.ToInt32(cells["idDocente"].Value.ToString()),
-                ".",
-                0,
-                cells["curp"].Value.ToString(),
-                cells["rfc"].Value.ToString(),
-                cells["nombres"].Value.ToString(),
-                cells["apellidop"].Value.ToString(),
-                cells["apellidom"].Value.ToString(),
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                ".",
-                Convert.ToDateTime(cells["fechaNacimiento"].Value),
-                "."
-            );
-
-            (new FrmModificarDocente(controladorSesion, d)).ShowDialog();
-            configurarDGVDocentes(
-                controladorSesion.
-                daoDocentes.
-                seleccionarDocentes()
-            );
+            columnas["nombres"].Visible = true;
+            columnas["nombres"].HeaderText = "Nombres";
+            columnas["apellidop"].Visible = true;
+            columnas["apellidop"].HeaderText = "Apellido paterno";
+            columnas["apellidom"].Visible = true;
+            columnas["apellidom"].HeaderText = "Apellido Materno";
+            columnas["curp"].Visible = true;
+            columnas["curp"].HeaderText = "CURP";
+            columnas["rfc"].Visible = true;
+            columnas["rfc"].HeaderText = "RFC";
         }
     }
 }

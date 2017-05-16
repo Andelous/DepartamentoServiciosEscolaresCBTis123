@@ -1,6 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,41 +16,46 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmNuevoDocente : Form
     {
-        private ControladorSesion controladorSesion;
-
-        public FrmNuevoDocente(ControladorSesion controladorSesion)
+        // Controladores necesarios
+        private ControladorSesion controladorSesion
         {
-            InitializeComponent();
-
-            this.controladorSesion = controladorSesion;
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
+        private ControladorDocentes controladorDocentes
+        {
+            get
+            {
+                return ControladorSingleton.controladorDocentes;
+            }
         }
 
+        // Métodos de inicialización
+        public FrmNuevoDocente()
+        {
+            InitializeComponent();
+        }
+
+        // Métodos de eventos de controles
         private void cmdCancelar_Click(object sender, EventArgs e)
         {
-            Hide();
+            Close();
         }
 
         private void cmdRegistrar_Click(object sender, EventArgs e)
         {
-            if (txtNombres.Text != "" &&
-                txtApellidoMaterno.Text != "" &&
-                txtApellidoPaterno.Text != "" &&
-                txtRfc.Text != "" &&
-                txtCurp.Text != "")
-            {
-                string nombres = txtNombres.Text.Trim();
-                string apellidoPaterno = txtApellidoPaterno.Text.Trim();
-                string apellidoMaterno = txtApellidoMaterno.Text.Trim();
-
-                Docente d = DAODocentes.crearDocente(
-                    0,
+            ResultadoOperacion resultadoOperacion = 
+                controladorDocentes.
+                registrarDocente(
                     ".",
                     0,
                     txtCurp.Text.Trim(),
                     txtRfc.Text.Trim(),
-                    nombres,
-                    apellidoPaterno,
-                    apellidoMaterno,
+                    txtNombres.Text.Trim(),
+                    txtApellidoPaterno.Text.Trim(),
+                    txtApellidoMaterno.Text.Trim(),
                     ".",
                     ".",
                     ".",
@@ -83,24 +89,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     ".",
                     ".",
                     new DateTime(2000, 01, 01),
-                    "."
-                );
+                    ".");
 
-                if (
-                    controladorSesion.daoDocentes.insertarDocente(d) == 1
-                    )
-                {
-                    MessageBox.Show("Docente registrado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Error al registrar el docente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
+
+            if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
             {
-                MessageBox.Show("Rellene los campos de forma correcta", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Close();
             }
         }
     }

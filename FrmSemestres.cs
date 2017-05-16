@@ -1,6 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,8 +16,20 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmSemestres : Form
     {
-        private ControladorSesion controladorSesion { get; set; }
-        private ControladorSemestres controladorSemestres { get; set; }
+        private ControladorSesion controladorSesion
+        {
+            get
+            {
+                return ControladorSingleton.controladorSesion;
+            }
+        }
+        private ControladorSemestres controladorSemestres
+        {
+            get
+            {
+                return ControladorSingleton.controladorSemestres;
+            }
+        }
 
         private Semestre semestreSeleccionado
         {
@@ -29,9 +42,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
         public FrmSemestres()
         {
             InitializeComponent();
-
-            this.controladorSesion = ControladorSingleton.controladorSesion;
-            this.controladorSemestres = ControladorSingleton.controladorSemestres;
         }
 
         private void FrmSemestres_Load(object sender, EventArgs e)

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="43e81bddeb174363a1ffb28feb410436" Name="Diagram1" ZoomLevel="100">
+        <EntityTypeShape EntityType="CBTis123Model.academias" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.areascampos" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.carreras" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.catedras" Width="1.5" PointX="7.5" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.docentes" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.estudiantes" Width="1.5" PointX="5.25" PointY="20.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.fichas" Width="1.5" PointX="9.75" PointY="3.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.grupos" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.grupos_estudiantes" Width="1.5" PointX="7.5" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.materias" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.modulos" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.planea_d16_2017" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.planea_mate16_d1_2017" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.prefichas" Width="1.5" PointX="11.75" PointY="4.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.prefichas2016" Width="1.5" PointX="7.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.prefichas2017" Width="1.5" PointX="9.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.semestres" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123Model.usuarios" Width="1.5" PointX="11.75" PointY="11.75" IsExpanded="true" />
+        <AssociationConnector Association="CBTis123Model.materias_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123Model.materias_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123Model.modulos_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123Model.catedras_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123Model.catedras_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123Model.catedras_ibfk_3" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123Model.grupos_estudiantes_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123Model.grupos_estudiantes_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123Model.grupos_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123Model.materias_ibfk_4" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="CBTis123Model.localidades" Width="1.5" PointX="14.375" PointY="0.75" />
+        <EntityTypeShape EntityType="CBTis123Model.municipios" Width="1.5" PointX="14.375" PointY="3.75" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

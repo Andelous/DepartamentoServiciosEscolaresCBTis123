@@ -2,6 +2,7 @@
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using MySql.Data.MySqlClient;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,13 +15,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
     {
         // Propiedades
         // DAOs
-        private DAOSemestres daoSemestres
-        {
-            get
-            {
-                return DAOSingleton.daoSemestres;
-            }
-        }
+        private DAOSemestres daoSemestres { get; set; }
 
         // Controladores necesarios
         private ControladorGrupos controladorGrupos
@@ -33,7 +28,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         // Inicialización
         public ControladorSemestres()
-        { }
+        {
+            this.daoSemestres = new DAOSemestres();
+        }
 
         // Métodos de manipulación del modelo.
         // Selección
