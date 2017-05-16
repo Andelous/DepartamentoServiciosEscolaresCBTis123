@@ -49,7 +49,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     txtApellidoMaterno.Text,
                     txtCurp.Text,
                     txtNumeroDeControl.Text,
-                    "Not implem");
+                    "");
 
             ControladorVisual.mostrarMensaje(resultadoOperacion);
 

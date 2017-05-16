@@ -76,6 +76,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         public List<Estudiante> seleccionarEstudiantesPorGrupo(Grupo g)
         {
+            if (g == null) return seleccionarEstudiantes();
+
             List<Estudiante> listaEstudiantes = new List<Estudiante>();
 
             // Si algo sale mal, se lo notificaremos al usuario.
@@ -167,7 +169,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 !ValidadorDeTexto.esValido(apellidoPaterno) ||
                 !ValidadorDeTexto.esValido(apellidoMaterno) ||
                 !ValidadorDeTexto.esValido(curp) ||
-                !ValidadorDeTexto.esValido(nss) ||
+                // Se comentó la línea, porque aún no se implementa
+                // el campo en la vista.
+                //!ValidadorDeTexto.esValido(nss) ||
                 !ValidadorDeTexto.esValido(numeroDeControl)
             ) {
                 // Devolvemos un error si es que no son válidos.
@@ -247,7 +251,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 !ValidadorDeTexto.esValido(apellidoPaterno) ||
                 !ValidadorDeTexto.esValido(apellidoMaterno) ||
                 !ValidadorDeTexto.esValido(curp) ||
-                !ValidadorDeTexto.esValido(nss) ||
+                // Se comentó la línea de abajo, porque
+                // la vista aún no implementa el campo
+                //!ValidadorDeTexto.esValido(nss) ||
                 !ValidadorDeTexto.esValido(numeroDeControl)
             ) {
                 // Devolvemos un error si es que no son válidos.
