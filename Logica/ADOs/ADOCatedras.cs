@@ -1,6 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity.Infrastructure;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,67 +13,35 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.ADOs
         // SELECTS
         public List<catedras> seleccionarCatedrasPorGrupo(grupos g)
         {
-            /*
-            string query = "SELECT C.*, M.*, D.*, G.* FROM " +
-                "catedras C, materias M, docentes D, grupos G WHERE " +
-                "C.idGrupo = " + g.idGrupo + " AND " +
-                "C.idDocente = D.idDocente AND " +
-                "C.idGrupo = G.idGrupo AND " +
-                "C.idMateria = M.idMateria;";
-
-            MySqlDataReader dr = dataSource.ejecutarConsulta(query);
-
-            return crearListaCatedrasMySqlDataReader(dr);
-            */
-
             return dataContext.catedras.Where(c => c.grupos.idGrupo == g.idGrupo).ToList();
         }
 
-        public List<Catedra> seleccionarCatedrasPorDocente(docentes d)
+        public List<catedras> seleccionarCatedrasPorDocente(docentes d)
         {
-            /*
-            string query = "SELECT C.*, M.*, D.*, G.* FROM " +
-                "catedras C, materias M, docentes D, grupos G WHERE " +
-                "C.idDocente = " + d.idDocente + " AND " +
-                "C.idDocente = D.idDocente AND " +
-                "C.idGrupo = G.idGrupo AND " +
-                "C.idMateria = M.idMateria;";
-
-            MySqlDataReader dr = dataSource.ejecutarConsulta(query);
-
-            return crearListaCatedrasMySqlDataReader(dr);
-            */
+            return dataContext.catedras.Where(c => c.docentes.idDocente == d.idDocente).ToList();
         }
 
         // INSERTS
-        public int insertarCatedra(Catedra c)
+        public int insertarCatedra(catedras c)
         {
-            /*
-            string query = "INSERT INTO catedras " +
-                    "(idDocente, idMateria, idGrupo) " +
-                    "VALUES (" +
-                    c.idDocente + ", " +
-                    c.idMateria + ", " +
-                    c.idGrupo + ");";
+            dataContext.catedras.Add(c);
 
-            return dataSource.ejecutarActualizacion(query);
-            */
+            return dataContext.SaveChanges();
         }
 
 
         // UPDATES
-        public int modificarCatedra(Catedra c)
+        public int modificarCatedra(catedras c)
         {
-            /*
-            string query = "UPDATE catedras " +
-                "SET " +
-                "idDocente = " + c.idDocente + ", " +
-                "idMateria = " + c.idMateria + ", " +
-                "idGrupo = " + c.idGrupo + " " +
-                "WHERE idCatedra = " + c.idCatedra + ";";
+            dataContext.catedras.Attach(c);
 
-            return dataSource.ejecutarActualizacion(query);
-            */
+            DbEntityEntry<catedras> cambios = dataContext.Entry(c);
+
+            cambios.Property(ca => ca.idDocente).IsModified = true;
+            cambios.Property(ca => ca.idMateria).IsModified = true;
+            cambios.Property(ca => ca.idGrupo).IsModified = true;
+
+            return dataContext.SaveChanges();
         }
 
         // MISC
