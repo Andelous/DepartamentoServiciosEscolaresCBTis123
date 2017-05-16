@@ -325,6 +325,9 @@
     <EmbeddedResource Include="FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="FrmPruebas.resx">
+      <DependentUpon>FrmPruebas.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="FrmSemestres.resx">
       <DependentUpon>FrmSemestres.cs</DependentUpon>
     </EmbeddedResource>

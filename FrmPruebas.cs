@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.ADOs;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
         public FrmPruebas()
         {
             InitializeComponent();
+        }
+
+        private void FrmPruebas_Load(object sender, EventArgs e)
+        {
+            ADOCarreras adoCarreras = new ADOCarreras();
+
+            dataGridView1.DataSource = adoCarreras.seleccionarCarrerasPorAcuerdo("653");
         }
     }
 }
