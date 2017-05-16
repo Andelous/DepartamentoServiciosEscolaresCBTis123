@@ -9,7 +9,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias
 {
     public class ValidadorDeTexto
     {
-        private static Regex _reg = new Regex("[a-zA-Z0-9áéíóúüÁÉÍÓÚÜÑñ., _@-]+");
+        private static Regex _reg = new Regex("[a-zA-Z0-9áéíóúüÁÉÍÓÚÜÑñ., _@()/-]+");
         private static Regex reg {
             get
             {

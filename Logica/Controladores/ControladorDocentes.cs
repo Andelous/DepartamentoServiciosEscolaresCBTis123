@@ -76,6 +76,185 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         // Registro
         public ResultadoOperacion registrarDocente(
+            string genero,
+            int tarjeta,
+            string curp,
+            string rfc,
+            string nombres,
+            string apellidop,
+            string apellidom,
+            string estado,
+            string correoi,
+            string correop,
+            string nivelmedioTit,
+            string nivelmedio,
+            string dnivelmedio,
+            string tecnicosuperiorTit,
+            string tecnicosuperior,
+            string dtecnicosuperior,
+            string licenciatura1Tit,
+            string licenciatura1,
+            string dlicenciatura1,
+            string licenciatura2Tit,
+            string licenciatura2,
+            string dlicenciatura2,
+            string especialidad1,
+            string despecialidad1,
+            string especialidad2,
+            string despecialidad2,
+            string maestria1Tit,
+            string maestria1,
+            string dmaestria1,
+            string maestria2Tit,
+            string maestria2,
+            string dmaestria2,
+            string doctoradoTit,
+            string doctorado,
+            string ddoctorado,
+            string telefonoCelular,
+            string telefono,
+            string paisNacimiento,
+            string estadoNacimiento,
+            DateTime fechaNacimiento,
+            string auxRevision
+        ) {
+            // Verificamos que los datos introducidos
+            // sean válidos para la base de datos.
+            if (
+                !ValidadorDeTexto.esValido(genero) ||
+                !ValidadorDeTexto.esValido(curp) ||
+                !ValidadorDeTexto.esValido(rfc) ||
+                !ValidadorDeTexto.esValido(nombres) ||
+                !ValidadorDeTexto.esValido(apellidop) ||
+                !ValidadorDeTexto.esValido(apellidom) ||
+                !ValidadorDeTexto.esValido(estado) ||
+                !ValidadorDeTexto.esValido(correoi) ||
+                !ValidadorDeTexto.esValido(correop) ||
+                !ValidadorDeTexto.esValido(nivelmedioTit) ||
+                !ValidadorDeTexto.esValido(nivelmedio) ||
+                !ValidadorDeTexto.esValido(dnivelmedio) ||
+                !ValidadorDeTexto.esValido(tecnicosuperiorTit) ||
+                !ValidadorDeTexto.esValido(tecnicosuperior) ||
+                !ValidadorDeTexto.esValido(dtecnicosuperior) ||
+                !ValidadorDeTexto.esValido(licenciatura1Tit) ||
+                !ValidadorDeTexto.esValido(licenciatura1) ||
+                !ValidadorDeTexto.esValido(dlicenciatura1) ||
+                !ValidadorDeTexto.esValido(licenciatura2Tit) ||
+                !ValidadorDeTexto.esValido(licenciatura2) ||
+                !ValidadorDeTexto.esValido(dlicenciatura2) ||
+                !ValidadorDeTexto.esValido(especialidad1) ||
+                !ValidadorDeTexto.esValido(despecialidad1) ||
+                !ValidadorDeTexto.esValido(especialidad2) ||
+                !ValidadorDeTexto.esValido(despecialidad2) ||
+                !ValidadorDeTexto.esValido(maestria1Tit) ||
+                !ValidadorDeTexto.esValido(maestria1) ||
+                !ValidadorDeTexto.esValido(dmaestria1) ||
+                !ValidadorDeTexto.esValido(maestria2Tit) ||
+                !ValidadorDeTexto.esValido(maestria2) ||
+                !ValidadorDeTexto.esValido(dmaestria2) ||
+                !ValidadorDeTexto.esValido(doctoradoTit) ||
+                !ValidadorDeTexto.esValido(doctorado) ||
+                !ValidadorDeTexto.esValido(ddoctorado) ||
+                !ValidadorDeTexto.esValido(telefonoCelular) ||
+                !ValidadorDeTexto.esValido(telefono) ||
+                !ValidadorDeTexto.esValido(paisNacimiento) ||
+                !ValidadorDeTexto.esValido(estadoNacimiento) ||
+                !ValidadorDeTexto.esValido(auxRevision)
+            ) {
+                // Devolvemos un error si es que no son válidos.
+                return new ResultadoOperacion(
+                    EstadoOperacion.ErrorDatosIncorrectos,
+                    "No utilice caracteres especiales o inválidos");
+            }
+
+            ResultadoOperacion innerRO = null;
+
+            Docente d =
+                DAODocentes.
+                crearDocente(
+                    -1,
+                    genero,
+                    tarjeta,
+                    curp,
+                    rfc,
+                    nombres,
+                    apellidop,
+                    apellidom,
+                    estado,
+                    correoi,
+                    correop,
+                    nivelmedioTit,
+                    nivelmedio,
+                    dnivelmedio,
+                    tecnicosuperiorTit,
+                    tecnicosuperior,
+                    dtecnicosuperior,
+                    licenciatura1Tit,
+                    licenciatura1,
+                    dlicenciatura1,
+                    licenciatura2Tit,
+                    licenciatura2,
+                    dlicenciatura2,
+                    especialidad1,
+                    despecialidad1,
+                    especialidad2,
+                    despecialidad2,
+                    maestria1Tit,
+                    maestria1,
+                    dmaestria1,
+                    maestria2Tit,
+                    maestria2,
+                    dmaestria2,
+                    doctoradoTit,
+                    doctorado,
+                    ddoctorado,
+                    telefonoCelular,
+                    telefono,
+                    paisNacimiento,
+                    estadoNacimiento,
+                    fechaNacimiento,
+                    auxRevision);
+
+            int registrado = 0;
+
+            // Si hay algún error durante la ejecución de la operación
+            // se devolverá el respectivo resultado de operación.
+            try
+            {
+                registrado = daoDocentes.insertarDocente(d);
+            }
+            catch (MySqlException ex)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(ex);
+            }
+            catch (Exception ex)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(ex);
+            }
+
+            // Si no hubo problema, se devolverá el resultado correspondiente.
+            return
+                registrado == 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Docente registrado")
+                :
+                registrado > 1 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Se han registrado dos o más docentes",
+                    "DocReg " + registrado.ToString(),
+                    innerRO)
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Docente no registrado",
+                    null,
+                    innerRO);
+        }
+
+        // Modificación
+        public ResultadoOperacion modificarDocente(
             int idDocente,
             string genero,
             int tarjeta,
@@ -216,13 +395,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     fechaNacimiento,
                     auxRevision);
 
-            int registrado = 0;
+            int modificado = 0;
 
             // Si hay algún error durante la ejecución de la operación
             // se devolverá el respectivo resultado de operación.
             try
             {
-                registrado = daoDocentes.insertarDocente(d);
+                modificado = daoDocentes.modificarDocente(d);
             }
             catch (MySqlException ex)
             {
@@ -235,21 +414,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             // Si no hubo problema, se devolverá el resultado correspondiente.
             return
-                registrado == 1 ?
+                modificado == 1 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
-                    "Docente registrado")
+                    "Docente modificado")
                 :
-                registrado > 1 ?
+                modificado > 1 ?
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "Se han registrado dos o más docentes",
-                    "DocReg " + registrado.ToString(),
+                    "DocMod " + modificado.ToString(),
                     innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
-                    "Docente no registrado",
+                    "Docente no modificado",
                     null,
                     innerRO);
         }

@@ -16,6 +16,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmNuevoDocente : Form
     {
+        // Controladores necesarios
         private ControladorSesion controladorSesion
         {
             get
@@ -31,11 +32,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
+        // Métodos de inicialización
         public FrmNuevoDocente()
         {
             InitializeComponent();
         }
 
+        // Métodos de eventos de controles
         private void cmdCancelar_Click(object sender, EventArgs e)
         {
             Close();
@@ -46,7 +49,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
             ResultadoOperacion resultadoOperacion = 
                 controladorDocentes.
                 registrarDocente(
-                    0,
                     ".",
                     0,
                     txtCurp.Text.Trim(),

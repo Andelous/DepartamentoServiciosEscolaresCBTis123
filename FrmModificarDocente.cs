@@ -1,6 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -58,26 +59,17 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdModificar_Click(object sender, EventArgs e)
         {
-            /*
-            if (txtNombres.Text != "" &&
-                txtApellidoMaterno.Text != "" &&
-                txtApellidoPaterno.Text != "" &&
-                txtRfc.Text != "" &&
-                txtCurp.Text != "")
-            {
-                string nombres = txtNombres.Text.Trim();
-                string apellidoPaterno = txtApellidoPaterno.Text.Trim();
-                string apellidoMaterno = txtApellidoMaterno.Text.Trim();
-
-                Docente d = DAODocentes.crearDocente(
-                    this.d.idDocente,
+            ResultadoOperacion resultadoOperacion =
+                controladorDocentes.
+                modificarDocente(
+                    d.idDocente,
                     ".",
                     0,
                     txtCurp.Text.Trim(),
                     txtRfc.Text.Trim(),
-                    nombres,
-                    apellidoPaterno,
-                    apellidoMaterno,
+                    txtNombres.Text.Trim(),
+                    txtApellidoPaterno.Text.Trim(),
+                    txtApellidoMaterno.Text.Trim(),
                     ".",
                     ".",
                     ".",
@@ -111,26 +103,14 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     ".",
                     ".",
                     new DateTime(2000, 01, 01),
-                    "."
-                );
+                    ".");
 
-                if (
-                    controladorSesion.daoDocentes.modificarDocente(d) == 1
-                    )
-                {
-                    MessageBox.Show("Docente modificado con éxito.", "Éxito", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    Hide();
-                }
-                else
-                {
-                    MessageBox.Show("Error al modificar el docente.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-                }
-            }
-            else
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
+
+            if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
             {
-                MessageBox.Show("Rellene los campos de forma correcta", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                Close();
             }
-            */
         }
     }
 }
