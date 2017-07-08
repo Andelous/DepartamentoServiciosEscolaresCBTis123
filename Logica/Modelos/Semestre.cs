@@ -9,6 +9,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
     public class Semestre
     {
         public int idSemestre { get; set; }
+
         public string nombre { get; set; }
         public string nombreCorto { get; set; }
         public string nombreCorto2 { get; set; }

@@ -35,6 +35,63 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             return crearListaDocentesMySqlDataReader(dr);
         }
 
+        public Docente seleccionarDocente(int idDocente)
+        {
+            string query = "SELECT * FROM docentes WHERE idDocente = " + idDocente;
+
+            MySqlDataReader dr = dataSource.ejecutarConsulta(query);
+
+            if (dr.Read())
+            {
+                return crearDocente(
+                    Convert.ToInt32(dr["idDocente"]),
+                    dr["genero"].ToString(),
+                    Convert.ToInt32(dr["tarjeta"]),
+                    dr["curp"].ToString(),
+                    dr["rfc"].ToString(),
+                    dr["nombres"].ToString(),
+                    dr["apellidop"].ToString(),
+                    dr["apellidom"].ToString(),
+                    dr["estado"].ToString(),
+                    dr["correoi"].ToString(),
+                    dr["correop"].ToString(),
+                    dr["nivelmedioTit"].ToString(),
+                    dr["nivelmedio"].ToString(),
+                    dr["dnivelmedio"].ToString(),
+                    dr["tecnicosuperiorTit"].ToString(),
+                    dr["tecnicosuperior"].ToString(),
+                    dr["dtecnicosuperior"].ToString(),
+                    dr["licenciatura1Tit"].ToString(),
+                    dr["licenciatura1"].ToString(),
+                    dr["dlicenciatura1"].ToString(),
+                    dr["licenciatura2Tit"].ToString(),
+                    dr["licenciatura2"].ToString(),
+                    dr["dlicenciatura2"].ToString(),
+                    dr["especialidad1"].ToString(),
+                    dr["despecialidad1"].ToString(),
+                    dr["especialidad2"].ToString(),
+                    dr["despecialidad2"].ToString(),
+                    dr["maestria1Tit"].ToString(),
+                    dr["maestria1"].ToString(),
+                    dr["dmaestria1"].ToString(),
+                    dr["maestria2Tit"].ToString(),
+                    dr["maestria2"].ToString(),
+                    dr["dmaestria2"].ToString(),
+                    dr["doctoradoTit"].ToString(),
+                    dr["doctorado"].ToString(),
+                    dr["ddoctorado"].ToString(),
+                    dr["telefonoCelular"].ToString(),
+                    dr["telefono"].ToString(),
+                    dr["paisNacimiento"].ToString(),
+                    dr["estadoNacimiento"].ToString(),
+                    Convert.ToDateTime(dr["fechaNacimiento"]),
+                    dr["auxRevision"].ToString()
+                );
+            }
+
+            return null;
+        }
+
 
         // INSERTS
         public int insertarDocente(Docente d)

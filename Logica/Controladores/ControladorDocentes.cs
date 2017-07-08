@@ -74,6 +74,26 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaDocentes;
         }
 
+        public Docente seleccionarDocente(int idDocente)
+        {
+            Docente d = null;
+
+            try
+            {
+                d = daoDocentes.seleccionarDocente(idDocente);
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            return d;
+        }
+
         // Registro
         public ResultadoOperacion registrarDocente(
             string genero,

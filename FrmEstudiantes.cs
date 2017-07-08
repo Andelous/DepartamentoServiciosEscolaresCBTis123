@@ -67,9 +67,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmEstudiantes_Load(object sender, EventArgs e)
         {
-            comboSemestres.DataSource = 
-                controladorEstudiantes.
-                seleccionarSemestres();
+            List<Semestre> listaSemestres = controladorEstudiantes.seleccionarSemestres();
+            comboSemestres.DataSource = listaSemestres;
+
+            comboSemestres.SelectedIndex = listaSemestres.Count - 1;
+
+            comboSemestres.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
+            comboGrupos.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
         }
 
         // Funciones lógicas

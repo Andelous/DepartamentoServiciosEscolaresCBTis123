@@ -121,6 +121,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             try
             {
                 listaDocentes = controladorDocentes.seleccionarDocentes();
+
+                Docente d = controladorDocentes.seleccionarDocente(100);
+
+                listaDocentes.Add(d);
             }
             catch (MySqlException e)
             {

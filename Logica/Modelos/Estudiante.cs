@@ -9,6 +9,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
     public class Estudiante
     {
         public int idEstudiante { get; set; }
+
         public string ncontrol { get; set; }
         public string curp { get; set; }
         public string nombreCompleto { get; set; }

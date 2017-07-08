@@ -136,6 +136,8 @@ namespace DepartamentoServiciosEscolaresCBTis123
             columnas["curp"].HeaderText = "CURP";
             columnas["rfc"].Visible = true;
             columnas["rfc"].HeaderText = "RFC";
+
+            lblResultados.Text = "(" + lista.Count +" resultados)";
         }
     }
 }
