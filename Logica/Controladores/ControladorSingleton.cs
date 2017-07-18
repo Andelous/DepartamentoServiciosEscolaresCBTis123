@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -50,6 +51,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             get
             {
                 return _controladorDocentes;
+            }
+        }
+
+        // Modelo de ADO
+        private static CBTis123_Entities _dbContext = new CBTis123_Entities();
+        public static CBTis123_Entities dbContext
+        {
+            get
+            {
+                return _dbContext;
             }
         }
     }

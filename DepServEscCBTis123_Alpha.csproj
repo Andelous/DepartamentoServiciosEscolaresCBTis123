@@ -69,58 +69,58 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FrmAsignacionDeDocentes.cs">
+    <Compile Include="Formularios\Grupos\FrmAsignacionDeDocentes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmAsignacionDeDocentes.Designer.cs">
+    <Compile Include="Formularios\Grupos\FrmAsignacionDeDocentes.Designer.cs">
       <DependentUpon>FrmAsignacionDeDocentes.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmDocentes.cs">
+    <Compile Include="Formularios\Docentes\FrmDocentes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmDocentes.Designer.cs">
+    <Compile Include="Formularios\Docentes\FrmDocentes.Designer.cs">
       <DependentUpon>FrmDocentes.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmEstudiantes.cs">
+    <Compile Include="Formularios\Estudiantes\FrmEstudiantes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmEstudiantes.Designer.cs">
+    <Compile Include="Formularios\Estudiantes\FrmEstudiantes.Designer.cs">
       <DependentUpon>FrmEstudiantes.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmGrupos.cs">
+    <Compile Include="Formularios\Grupos\FrmGrupos.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmGrupos.Designer.cs">
+    <Compile Include="Formularios\Grupos\FrmGrupos.Designer.cs">
       <DependentUpon>FrmGrupos.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmImportarEstudiantes.cs">
+    <Compile Include="Formularios\Grupos\FrmImportarEstudiantes.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmImportarEstudiantes.Designer.cs">
+    <Compile Include="Formularios\Grupos\FrmImportarEstudiantes.Designer.cs">
       <DependentUpon>FrmImportarEstudiantes.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmModificarDocente.cs">
+    <Compile Include="Formularios\Docentes\FrmModificarDocente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmModificarDocente.Designer.cs">
+    <Compile Include="Formularios\Docentes\FrmModificarDocente.Designer.cs">
       <DependentUpon>FrmModificarDocente.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmModificarEstudiante.cs">
+    <Compile Include="Formularios\Estudiantes\FrmModificarEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmModificarEstudiante.Designer.cs">
+    <Compile Include="Formularios\Estudiantes\FrmModificarEstudiante.Designer.cs">
       <DependentUpon>FrmModificarEstudiante.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmModificarGrupo.cs">
+    <Compile Include="Formularios\Grupos\FrmModificarGrupo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmModificarGrupo.Designer.cs">
+    <Compile Include="Formularios\Grupos\FrmModificarGrupo.Designer.cs">
       <DependentUpon>FrmModificarGrupo.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmModificarSemestre.cs">
+    <Compile Include="Formularios\Semestres\FrmModificarSemestre.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmModificarSemestre.Designer.cs">
+    <Compile Include="Formularios\Semestres\FrmModificarSemestre.Designer.cs">
       <DependentUpon>FrmModificarSemestre.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmLogin.cs">
@@ -129,28 +129,28 @@
     <Compile Include="FrmLogin.Designer.cs">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmNuevoDocente.cs">
+    <Compile Include="Formularios\Docentes\FrmNuevoDocente.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmNuevoDocente.Designer.cs">
+    <Compile Include="Formularios\Docentes\FrmNuevoDocente.Designer.cs">
       <DependentUpon>FrmNuevoDocente.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmNuevoEstudiante.cs">
+    <Compile Include="Formularios\Estudiantes\FrmNuevoEstudiante.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmNuevoEstudiante.Designer.cs">
+    <Compile Include="Formularios\Estudiantes\FrmNuevoEstudiante.Designer.cs">
       <DependentUpon>FrmNuevoEstudiante.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmNuevoGrupo.cs">
+    <Compile Include="Formularios\Grupos\FrmNuevoGrupo.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmNuevoGrupo.Designer.cs">
+    <Compile Include="Formularios\Grupos\FrmNuevoGrupo.Designer.cs">
       <DependentUpon>FrmNuevoGrupo.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmNuevoSemestre.cs">
+    <Compile Include="Formularios\Semestres\FrmNuevoSemestre.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmNuevoSemestre.Designer.cs">
+    <Compile Include="Formularios\Semestres\FrmNuevoSemestre.Designer.cs">
       <DependentUpon>FrmNuevoSemestre.cs</DependentUpon>
     </Compile>
     <Compile Include="FrmPrincipal.cs">
@@ -165,16 +165,12 @@
     <Compile Include="FrmPruebas.Designer.cs">
       <DependentUpon>FrmPruebas.cs</DependentUpon>
     </Compile>
-    <Compile Include="FrmSemestres.cs">
+    <Compile Include="Formularios\Semestres\FrmSemestres.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="FrmSemestres.Designer.cs">
+    <Compile Include="Formularios\Semestres\FrmSemestres.Designer.cs">
       <DependentUpon>FrmSemestres.cs</DependentUpon>
     </Compile>
-    <Compile Include="Logica\ADOs\ADO.cs" />
-    <Compile Include="Logica\ADOs\ADOCarreras.cs" />
-    <Compile Include="Logica\ADOs\ADOCatedras.cs" />
-    <Compile Include="Logica\ADOs\ADOSingleton.cs" />
     <Compile Include="Logica\Controladores\ControladorDocentes.cs" />
     <Compile Include="Logica\Controladores\ControladorEstudiantes.cs" />
     <Compile Include="Logica\Controladores\ControladorExcepciones.cs" />
@@ -188,82 +184,82 @@
     <Compile Include="Logica\DAOs\DAOGrupo_Estudiante.cs" />
     <Compile Include="Logica\DAOs\DAOSingleton.cs" />
     <Compile Include="Logica\DBContext\academias.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\areascampos.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\calificaciones.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\carreras.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\catedras.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Logica\DBContext\CBTis123.Context.cs">
+    <Compile Include="Logica\DBContext\CBTis123_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CBTis123.Context.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.Context.tt</DependentUpon>
     </Compile>
-    <Compile Include="Logica\DBContext\CBTis123.cs">
+    <Compile Include="Logica\DBContext\CBTis123_Model.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Logica\DBContext\CBTis123.Designer.cs">
+    <Compile Include="Logica\DBContext\CBTis123_Model.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>CBTis123.edmx</DependentUpon>
+      <DependentUpon>CBTis123_Model.edmx</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\docentes.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\estudiantes.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\fichas.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\grupos.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\grupos_estudiantes.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\localidades.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\materias.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\modulos.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\municipios.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\planea_d16_2017.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\planea_mate16_d1_2017.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\prefichas.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\prefichas2016.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\prefichas2017.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\semestres.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\usuarios.cs">
-      <DependentUpon>CBTis123.tt</DependentUpon>
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\Modelos\Calificacion.cs" />
     <Compile Include="Logica\Modelos\Grupo_Estudiante.cs" />
@@ -290,46 +286,46 @@
     <Compile Include="Logica\Modelos\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <EmbeddedResource Include="FrmAsignacionDeDocentes.resx">
+    <EmbeddedResource Include="Formularios\Grupos\FrmAsignacionDeDocentes.resx">
       <DependentUpon>FrmAsignacionDeDocentes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmDocentes.resx">
+    <EmbeddedResource Include="Formularios\Docentes\FrmDocentes.resx">
       <DependentUpon>FrmDocentes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmEstudiantes.resx">
+    <EmbeddedResource Include="Formularios\Estudiantes\FrmEstudiantes.resx">
       <DependentUpon>FrmEstudiantes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmGrupos.resx">
+    <EmbeddedResource Include="Formularios\Grupos\FrmGrupos.resx">
       <DependentUpon>FrmGrupos.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmImportarEstudiantes.resx">
+    <EmbeddedResource Include="Formularios\Grupos\FrmImportarEstudiantes.resx">
       <DependentUpon>FrmImportarEstudiantes.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmModificarDocente.resx">
+    <EmbeddedResource Include="Formularios\Docentes\FrmModificarDocente.resx">
       <DependentUpon>FrmModificarDocente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmModificarEstudiante.resx">
+    <EmbeddedResource Include="Formularios\Estudiantes\FrmModificarEstudiante.resx">
       <DependentUpon>FrmModificarEstudiante.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmModificarGrupo.resx">
+    <EmbeddedResource Include="Formularios\Grupos\FrmModificarGrupo.resx">
       <DependentUpon>FrmModificarGrupo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmModificarSemestre.resx">
+    <EmbeddedResource Include="Formularios\Semestres\FrmModificarSemestre.resx">
       <DependentUpon>FrmModificarSemestre.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmLogin.resx">
       <DependentUpon>FrmLogin.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmNuevoDocente.resx">
+    <EmbeddedResource Include="Formularios\Docentes\FrmNuevoDocente.resx">
       <DependentUpon>FrmNuevoDocente.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmNuevoEstudiante.resx">
+    <EmbeddedResource Include="Formularios\Estudiantes\FrmNuevoEstudiante.resx">
       <DependentUpon>FrmNuevoEstudiante.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmNuevoGrupo.resx">
+    <EmbeddedResource Include="Formularios\Grupos\FrmNuevoGrupo.resx">
       <DependentUpon>FrmNuevoGrupo.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmNuevoSemestre.resx">
+    <EmbeddedResource Include="Formularios\Semestres\FrmNuevoSemestre.resx">
       <DependentUpon>FrmNuevoSemestre.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPrincipal.resx">
@@ -338,7 +334,7 @@
     <EmbeddedResource Include="FrmPruebas.resx">
       <DependentUpon>FrmPruebas.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="FrmSemestres.resx">
+    <EmbeddedResource Include="Formularios\Semestres\FrmSemestres.resx">
       <DependentUpon>FrmSemestres.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -351,12 +347,12 @@
       <DependentUpon>Resources.resx</DependentUpon>
       <DesignTime>True</DesignTime>
     </Compile>
-    <EntityDeploy Include="Logica\DBContext\CBTis123.edmx">
+    <EntityDeploy Include="Logica\DBContext\CBTis123_Model.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CBTis123.Designer.cs</LastGenOutput>
+      <LastGenOutput>CBTis123_Model.Designer.cs</LastGenOutput>
     </EntityDeploy>
-    <None Include="Logica\DBContext\CBTis123.edmx.diagram">
-      <DependentUpon>CBTis123.edmx</DependentUpon>
+    <None Include="Logica\DBContext\CBTis123_Model.edmx.diagram">
+      <DependentUpon>CBTis123_Model.edmx</DependentUpon>
     </None>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
@@ -375,17 +371,16 @@
   <ItemGroup>
     <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
-    <Content Include="Logica\DBContext\CBTis123.Context.tt">
+    <Content Include="Logica\DBContext\CBTis123_Model.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CBTis123.edmx</DependentUpon>
-      <LastGenOutput>CBTis123.Context.cs</LastGenOutput>
+      <DependentUpon>CBTis123_Model.edmx</DependentUpon>
+      <LastGenOutput>CBTis123_Model.Context.cs</LastGenOutput>
     </Content>
-    <Content Include="Logica\DBContext\CBTis123.tt">
+    <Content Include="Logica\DBContext\CBTis123_Model.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
-      <DependentUpon>CBTis123.edmx</DependentUpon>
-      <LastGenOutput>CBTis123.cs</LastGenOutput>
+      <DependentUpon>CBTis123_Model.edmx</DependentUpon>
+      <LastGenOutput>CBTis123_Model.cs</LastGenOutput>
     </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

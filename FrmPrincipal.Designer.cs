@@ -36,6 +36,7 @@
             this.cmdEstudiantes = new System.Windows.Forms.Button();
             this.cmdDocentes = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.cmdAcreditacion = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // label1
@@ -71,7 +72,7 @@
             // 
             this.cmdSemestres.Location = new System.Drawing.Point(103, 115);
             this.cmdSemestres.Name = "cmdSemestres";
-            this.cmdSemestres.Size = new System.Drawing.Size(110, 35);
+            this.cmdSemestres.Size = new System.Drawing.Size(119, 35);
             this.cmdSemestres.TabIndex = 3;
             this.cmdSemestres.Text = "Semestres";
             this.cmdSemestres.UseVisualStyleBackColor = true;
@@ -79,9 +80,9 @@
             // 
             // cmdGrupos
             // 
-            this.cmdGrupos.Location = new System.Drawing.Point(219, 115);
+            this.cmdGrupos.Location = new System.Drawing.Point(228, 115);
             this.cmdGrupos.Name = "cmdGrupos";
-            this.cmdGrupos.Size = new System.Drawing.Size(110, 35);
+            this.cmdGrupos.Size = new System.Drawing.Size(119, 35);
             this.cmdGrupos.TabIndex = 4;
             this.cmdGrupos.Text = "Grupos";
             this.cmdGrupos.UseVisualStyleBackColor = true;
@@ -89,9 +90,9 @@
             // 
             // cmdEstudiantes
             // 
-            this.cmdEstudiantes.Location = new System.Drawing.Point(335, 115);
+            this.cmdEstudiantes.Location = new System.Drawing.Point(353, 115);
             this.cmdEstudiantes.Name = "cmdEstudiantes";
-            this.cmdEstudiantes.Size = new System.Drawing.Size(110, 35);
+            this.cmdEstudiantes.Size = new System.Drawing.Size(119, 35);
             this.cmdEstudiantes.TabIndex = 5;
             this.cmdEstudiantes.Text = "Estudiantes";
             this.cmdEstudiantes.UseVisualStyleBackColor = true;
@@ -101,7 +102,7 @@
             // 
             this.cmdDocentes.Location = new System.Drawing.Point(103, 156);
             this.cmdDocentes.Name = "cmdDocentes";
-            this.cmdDocentes.Size = new System.Drawing.Size(110, 35);
+            this.cmdDocentes.Size = new System.Drawing.Size(119, 35);
             this.cmdDocentes.TabIndex = 6;
             this.cmdDocentes.Text = "Docentes";
             this.cmdDocentes.UseVisualStyleBackColor = true;
@@ -117,12 +118,22 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // cmdAcreditacion
+            // 
+            this.cmdAcreditacion.Location = new System.Drawing.Point(228, 156);
+            this.cmdAcreditacion.Name = "cmdAcreditacion";
+            this.cmdAcreditacion.Size = new System.Drawing.Size(119, 35);
+            this.cmdAcreditacion.TabIndex = 8;
+            this.cmdAcreditacion.Text = "Acreditación";
+            this.cmdAcreditacion.UseVisualStyleBackColor = true;
+            // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(669, 366);
+            this.Controls.Add(this.cmdAcreditacion);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.cmdDocentes);
             this.Controls.Add(this.cmdEstudiantes);
@@ -156,5 +167,6 @@
         private System.Windows.Forms.Button cmdEstudiantes;
         private System.Windows.Forms.Button cmdDocentes;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cmdAcreditacion;
     }
 }

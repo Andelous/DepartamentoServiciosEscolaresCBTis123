@@ -1,5 +1,5 @@
-﻿using DepartamentoServiciosEscolaresCBTis123.Logica.ADOs;
-using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -21,9 +21,8 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmPruebas_Load(object sender, EventArgs e)
         {
-            //ADOCarreras adoCarreras = new ADOCarreras();
-
-            //dataGridView1.DataSource = adoCarreras.seleccionarCarrerasPorAcuerdo("653");
+            CBTis123_Entities dbContext = ControladorSingleton.dbContext;
+            dataGridView1.DataSource = dbContext.carreras.Where(c => c.acuerdo == "653").ToList();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)
