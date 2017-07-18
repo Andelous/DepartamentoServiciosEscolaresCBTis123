@@ -90,6 +90,30 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaGrupos;
         }
 
+        public Grupo seleccionarGrupo(int idGrupo)
+        {
+            // Creamos un grupo nulo para devolverlo luego
+            Grupo g = null;
+
+            // Intentamos realizar la operación. Si hubo algún error,
+            // el controlador visual mostrará el mensaje correspondiente.
+            try
+            {
+                g = daoGrupos.seleccionarGrupo(idGrupo);
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            // Devolvemos resultado
+            return g;
+        }
+
         public List<Carrera> seleccionarCarreras(string acuerdo = "653")
         {
             // Creamos lista vacía en caso de Excepcion

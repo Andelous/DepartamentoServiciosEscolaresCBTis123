@@ -14,6 +14,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
     public partial class docentes
     {
+        // Propiedades mías
+        public string nombrecompleto
+        {
+            get
+            {
+                return apellidop.Trim() + " " + apellidom.Trim() + " " + nombres.Trim();
+            }
+        }
+
+        // Propiedades del modelo
         public docentes()
         {
             this.catedras = new HashSet<catedras>();
@@ -63,5 +73,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string auxRevision { get; set; }
     
         public virtual ICollection<catedras> catedras { get; set; }
+
+
+        // Métodos míos
+        public override string ToString()
+        {
+            return nombrecompleto;
+        }
     }
 }

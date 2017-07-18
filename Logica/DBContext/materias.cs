@@ -37,5 +37,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public virtual carreras carreras { get; set; }
         public virtual ICollection<catedras> catedras { get; set; }
         public virtual modulos modulos { get; set; }
+
+
+        // Métodos míos
+        public override string ToString()
+        {
+            return nombre + " " + abreviatura;
+        }
     }
 }

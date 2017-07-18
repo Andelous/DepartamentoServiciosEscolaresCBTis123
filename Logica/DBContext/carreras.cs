@@ -28,5 +28,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
         public virtual ICollection<materias> materias { get; set; }
         public virtual ICollection<modulos> modulos { get; set; }
+
+
+        // Métodos míos
+        public override string ToString()
+        {
+            return nombre + " (" + abreviatura + ")";
+        }
     }
 }

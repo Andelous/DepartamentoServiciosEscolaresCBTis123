@@ -26,5 +26,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string nombrecorto3 { get; set; }
     
         public virtual ICollection<grupos> grupos { get; set; }
+
+        // Métodos míos
+        public override string ToString()
+        {
+            return nombre + " (" + nombrecorto2 + ")";
+        }
     }
 }

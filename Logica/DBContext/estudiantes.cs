@@ -31,5 +31,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
         public virtual ICollection<calificaciones> calificaciones { get; set; }
         public virtual ICollection<grupos_estudiantes> grupos_estudiantes { get; set; }
+
+
+        // Métodos míos
+
+        public override string ToString()
+        {
+            return nombrecompleto;
+        }
     }
 }

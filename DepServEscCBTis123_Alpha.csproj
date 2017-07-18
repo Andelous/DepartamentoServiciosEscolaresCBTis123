@@ -69,6 +69,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Formularios\Acreditacion\FrmAcreditacion.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Acreditacion\FrmAcreditacion.Designer.cs">
+      <DependentUpon>FrmAcreditacion.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Grupos\FrmAsignacionDeDocentes.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -171,6 +177,7 @@
     <Compile Include="Formularios\Semestres\FrmSemestres.Designer.cs">
       <DependentUpon>FrmSemestres.cs</DependentUpon>
     </Compile>
+    <Compile Include="Logica\Controladores\ControladorAcreditacion.cs" />
     <Compile Include="Logica\Controladores\ControladorDocentes.cs" />
     <Compile Include="Logica\Controladores\ControladorEstudiantes.cs" />
     <Compile Include="Logica\Controladores\ControladorExcepciones.cs" />
@@ -286,6 +293,9 @@
     <Compile Include="Logica\Modelos\Usuario.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="Formularios\Acreditacion\FrmAcreditacion.resx">
+      <DependentUpon>FrmAcreditacion.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Grupos\FrmAsignacionDeDocentes.resx">
       <DependentUpon>FrmAsignacionDeDocentes.cs</DependentUpon>
     </EmbeddedResource>

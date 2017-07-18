@@ -35,7 +35,6 @@
             this.cmdGrupos = new System.Windows.Forms.Button();
             this.cmdEstudiantes = new System.Windows.Forms.Button();
             this.cmdDocentes = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
             this.cmdAcreditacion = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -108,16 +107,6 @@
             this.cmdDocentes.UseVisualStyleBackColor = true;
             this.cmdDocentes.Click += new System.EventHandler(this.cmdDocentes_Click);
             // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(478, 263);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 7;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
             // cmdAcreditacion
             // 
             this.cmdAcreditacion.Location = new System.Drawing.Point(228, 156);
@@ -126,6 +115,7 @@
             this.cmdAcreditacion.TabIndex = 8;
             this.cmdAcreditacion.Text = "Acreditación";
             this.cmdAcreditacion.UseVisualStyleBackColor = true;
+            this.cmdAcreditacion.Click += new System.EventHandler(this.cmdAcreditacion_Click);
             // 
             // FrmPrincipal
             // 
@@ -134,7 +124,6 @@
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(669, 366);
             this.Controls.Add(this.cmdAcreditacion);
-            this.Controls.Add(this.button1);
             this.Controls.Add(this.cmdDocentes);
             this.Controls.Add(this.cmdEstudiantes);
             this.Controls.Add(this.cmdGrupos);
@@ -166,7 +155,6 @@
         private System.Windows.Forms.Button cmdGrupos;
         private System.Windows.Forms.Button cmdEstudiantes;
         private System.Windows.Forms.Button cmdDocentes;
-        private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button cmdAcreditacion;
     }
 }

@@ -14,6 +14,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
     public partial class calificaciones
     {
+        // Propiedades mías
+        public string nControl
+        {
+            get
+            {
+                return estudiantes.ncontrol;
+            }
+        }
+
+
+        // Propiedades del modelo
         public int idCalificaciones { get; set; }
         public double calificacionParcial1 { get; set; }
         public double calificacionParcial2 { get; set; }
@@ -29,5 +40,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
         public virtual estudiantes estudiantes { get; set; }
         public virtual catedras catedras { get; set; }
+
+        // Propiedades mías
+        public double promedio
+        {
+            get
+            {
+                return (calificacionParcial1 + calificacionParcial2 + calificacionParcial3) / 3;
+            }
+        }
+        public int asistenciasTotales
+        {
+            get
+            {
+                return asistenciasParcial1 + asistenciasParcial2 + asistenciasParcial3;
+            }
+        }
     }
 }
