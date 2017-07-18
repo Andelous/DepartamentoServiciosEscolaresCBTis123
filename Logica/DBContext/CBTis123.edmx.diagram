@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="43e81bddeb174363a1ffb28feb410436" Name="Diagram1" ZoomLevel="100">
+      <Diagram DiagramId="43e81bddeb174363a1ffb28feb410436" Name="Diagram1" ZoomLevel="80">
         <EntityTypeShape EntityType="CBTis123Model.academias" Width="1.5" PointX="9.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123Model.areascampos" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123Model.carreras" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
@@ -35,6 +35,9 @@
         <AssociationConnector Association="CBTis123Model.materias_ibfk_4" ManuallyRouted="false" />
         <EntityTypeShape EntityType="CBTis123Model.localidades" Width="1.5" PointX="14.375" PointY="0.75" />
         <EntityTypeShape EntityType="CBTis123Model.municipios" Width="1.5" PointX="14.375" PointY="3.75" />
+        <EntityTypeShape EntityType="CBTis123Model.calificaciones" Width="1.5" PointX="12.75" PointY="15.125" />
+        <AssociationConnector Association="CBTis123Model.calificaciones_ibfk_1" />
+        <AssociationConnector Association="CBTis123Model.calificaciones_ibfk_2" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

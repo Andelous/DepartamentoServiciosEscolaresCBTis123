@@ -184,12 +184,16 @@
     <Compile Include="Logica\Controladores\ControladorSesion.cs" />
     <Compile Include="Logica\Controladores\ControladorSingleton.cs" />
     <Compile Include="Logica\Controladores\ControladorVisual.cs" />
+    <Compile Include="Logica\DAOs\DAOCalificaciones.cs" />
     <Compile Include="Logica\DAOs\DAOGrupo_Estudiante.cs" />
     <Compile Include="Logica\DAOs\DAOSingleton.cs" />
     <Compile Include="Logica\DBContext\academias.cs">
       <DependentUpon>CBTis123.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\areascampos.cs">
+      <DependentUpon>CBTis123.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Logica\DBContext\calificaciones.cs">
       <DependentUpon>CBTis123.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\carreras.cs">
@@ -261,6 +265,7 @@
     <Compile Include="Logica\DBContext\usuarios.cs">
       <DependentUpon>CBTis123.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logica\Modelos\Calificacion.cs" />
     <Compile Include="Logica\Modelos\Grupo_Estudiante.cs" />
     <Compile Include="Logica\Modelos\RegistroTablaSiseems.cs" />
     <Compile Include="Logica\Utilerias\ValidadorDeTexto.cs" />

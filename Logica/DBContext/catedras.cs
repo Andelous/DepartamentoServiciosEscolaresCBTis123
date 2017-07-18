@@ -14,6 +14,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
     public partial class catedras
     {
+        public catedras()
+        {
+            this.calificaciones = new HashSet<calificaciones>();
+        }
+    
         public int idCatedra { get; set; }
         public Nullable<int> idDocente { get; set; }
         public int idMateria { get; set; }
@@ -22,5 +27,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public virtual docentes docentes { get; set; }
         public virtual materias materias { get; set; }
         public virtual grupos grupos { get; set; }
+        public virtual ICollection<calificaciones> calificaciones { get; set; }
     }
 }

@@ -17,6 +17,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public estudiantes()
         {
             this.grupos_estudiantes = new HashSet<grupos_estudiantes>();
+            this.calificaciones = new HashSet<calificaciones>();
         }
     
         public int idEstudiante { get; set; }
@@ -29,5 +30,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string nss { get; set; }
     
         public virtual ICollection<grupos_estudiantes> grupos_estudiantes { get; set; }
+        public virtual ICollection<calificaciones> calificaciones { get; set; }
     }
 }

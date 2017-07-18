@@ -45,5 +45,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public DbSet<usuarios> usuarios { get; set; }
         public DbSet<localidades> localidades { get; set; }
         public DbSet<municipios> municipios { get; set; }
+        public DbSet<calificaciones> calificaciones { get; set; }
     }
 }
