@@ -13,10 +13,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class cbtislocalEntities : DbContext
+    public partial class CBTis123_Entities : DbContext
     {
-        public cbtislocalEntities()
-            : base("name=cbtislocalEntities")
+        public CBTis123_Entities()
+            : base("name=CBTis123_Entities")
         {
         }
     
@@ -27,6 +27,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
         public DbSet<academias> academias { get; set; }
         public DbSet<areascampos> areascampos { get; set; }
+        public DbSet<calificaciones> calificaciones { get; set; }
         public DbSet<carreras> carreras { get; set; }
         public DbSet<catedras> catedras { get; set; }
         public DbSet<docentes> docentes { get; set; }
@@ -34,8 +35,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public DbSet<fichas> fichas { get; set; }
         public DbSet<grupos> grupos { get; set; }
         public DbSet<grupos_estudiantes> grupos_estudiantes { get; set; }
+        public DbSet<localidades> localidades { get; set; }
         public DbSet<materias> materias { get; set; }
         public DbSet<modulos> modulos { get; set; }
+        public DbSet<municipios> municipios { get; set; }
         public DbSet<planea_d16_2017> planea_d16_2017 { get; set; }
         public DbSet<planea_mate16_d1_2017> planea_mate16_d1_2017 { get; set; }
         public DbSet<prefichas> prefichas { get; set; }
@@ -43,8 +46,5 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public DbSet<prefichas2017> prefichas2017 { get; set; }
         public DbSet<semestres> semestres { get; set; }
         public DbSet<usuarios> usuarios { get; set; }
-        public DbSet<localidades> localidades { get; set; }
-        public DbSet<municipios> municipios { get; set; }
-        public DbSet<calificaciones> calificaciones { get; set; }
     }
 }

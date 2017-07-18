@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-    <Schema Namespace="CBTis123Model.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CBTis123_Entities_Namespace.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="academias">
           <Key>
             <PropertyRef Name="idAcademia" />
@@ -513,7 +513,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CBTis123ModelStoreContainer">
+        <EntityContainer Name="CBTis123_Entities_NamespaceStoreContainer">
           <EntitySet Name="academias" EntityType="Self.academias" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="areascampos" EntityType="Self.areascampos" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="calificaciones" EntityType="Self.calificaciones" Schema="cbtislocal" store:Type="Tables" />
@@ -584,10 +584,11 @@
             <End Role="modulos" EntitySet="modulos" />
           </AssociationSet>
         </EntityContainer>
-      </Schema></edmx:StorageModels>
+      </Schema>
+    </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CBTis123Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CBTis123_Entities_Namespace" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="academias">
           <Key>
             <PropertyRef Name="idAcademia" />
@@ -605,6 +606,25 @@
           <Property Name="nombre" Type="String" MaxLength="128" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="acuerdo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="materias" Relationship="Self.materias_ibfk_2" FromRole="areascampos" ToRole="materias" />
+        </EntityType>
+        <EntityType Name="calificaciones">
+          <Key>
+            <PropertyRef Name="idCalificaciones" />
+          </Key>
+          <Property Name="idCalificaciones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="calificacionParcial1" Type="Double" Nullable="false" />
+          <Property Name="calificacionParcial2" Type="Double" Nullable="false" />
+          <Property Name="calificacionParcial3" Type="Double" Nullable="false" />
+          <Property Name="asistenciasParcial1" Type="Int32" Nullable="false" />
+          <Property Name="asistenciasParcial2" Type="Int32" Nullable="false" />
+          <Property Name="asistenciasParcial3" Type="Int32" Nullable="false" />
+          <Property Name="tipoDeAcreditacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="recursamiento" Type="Boolean" Nullable="false" />
+          <Property Name="firmado" Type="Boolean" Nullable="false" />
+          <Property Name="idEstudiante" Type="Int32" Nullable="false" />
+          <Property Name="idCatedra" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="estudiantes" Relationship="Self.calificaciones_ibfk_1" FromRole="calificaciones" ToRole="estudiantes" />
+          <NavigationProperty Name="catedras" Relationship="Self.calificaciones_ibfk_2" FromRole="calificaciones" ToRole="catedras" />
         </EntityType>
         <EntityType Name="carreras">
           <Key>
@@ -626,10 +646,10 @@
           <Property Name="idDocente" Type="Int32" />
           <Property Name="idMateria" Type="Int32" Nullable="false" />
           <Property Name="idGrupo" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="calificaciones" Relationship="Self.calificaciones_ibfk_2" FromRole="catedras" ToRole="calificaciones" />
           <NavigationProperty Name="docentes" Relationship="Self.catedras_ibfk_1" FromRole="catedras" ToRole="docentes" />
           <NavigationProperty Name="materias" Relationship="Self.catedras_ibfk_2" FromRole="catedras" ToRole="materias" />
           <NavigationProperty Name="grupos" Relationship="Self.catedras_ibfk_3" FromRole="catedras" ToRole="grupos" />
-          <NavigationProperty Name="calificaciones" Relationship="CBTis123Model.calificaciones_ibfk_2" FromRole="catedras" ToRole="calificaciones" />
         </EntityType>
         <EntityType Name="docentes">
           <Key>
@@ -691,8 +711,8 @@
           <Property Name="apellido1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellido2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nss" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="calificaciones" Relationship="Self.calificaciones_ibfk_1" FromRole="estudiantes" ToRole="calificaciones" />
           <NavigationProperty Name="grupos_estudiantes" Relationship="Self.grupos_estudiantes_ibfk_2" FromRole="estudiantes" ToRole="grupos_estudiantes" />
-          <NavigationProperty Name="calificaciones" Relationship="CBTis123Model.calificaciones_ibfk_1" FromRole="estudiantes" ToRole="calificaciones" />
         </EntityType>
         <EntityType Name="fichas">
           <Key>
@@ -752,6 +772,15 @@
           <NavigationProperty Name="estudiantes" Relationship="Self.grupos_estudiantes_ibfk_2" FromRole="grupos_estudiantes" ToRole="estudiantes" />
           <NavigationProperty Name="grupos" Relationship="Self.grupos_estudiantes_ibfk_1" FromRole="grupos_estudiantes" ToRole="grupos" />
         </EntityType>
+        <EntityType Name="localidades">
+          <Key>
+            <PropertyRef Name="idLocalidad" />
+          </Key>
+          <Property Name="idLocalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="claveMunicipio" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="claveLocalidad" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="materias">
           <Key>
             <PropertyRef Name="idMateria" />
@@ -784,6 +813,15 @@
           <Property Name="nombre" Type="String" MaxLength="200" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="carreras" Relationship="Self.modulos_ibfk_1" FromRole="modulos" ToRole="carreras" />
           <NavigationProperty Name="materias" Relationship="Self.materias_ibfk_4" FromRole="modulos" ToRole="materias" />
+        </EntityType>
+        <EntityType Name="municipios">
+          <Key>
+            <PropertyRef Name="idMunicipio" />
+          </Key>
+          <Property Name="idMunicipio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="claveEntidad" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="claveMunicipio" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nombre" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="planea_d16_2017">
           <Key>
@@ -906,7 +944,7 @@
           <Property Name="segunda" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="tercera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="aula" Type="Int32" Nullable="false" />
-          <Property Name="especialidad" Type="String" Nullable="false" MaxLength="6" FixedLength="false" Unicode="false" />
+          <Property Name="especialidad" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="semestres">
           <Key>
@@ -940,6 +978,30 @@
             </Principal>
             <Dependent Role="materias">
               <PropertyRef Name="idAreacampo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="calificaciones_ibfk_1">
+          <End Role="estudiantes" Type="Self.estudiantes" Multiplicity="1" />
+          <End Role="calificaciones" Type="Self.calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="estudiantes">
+              <PropertyRef Name="idEstudiante" />
+            </Principal>
+            <Dependent Role="calificaciones">
+              <PropertyRef Name="idEstudiante" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="calificaciones_ibfk_2">
+          <End Role="catedras" Type="Self.catedras" Multiplicity="1" />
+          <End Role="calificaciones" Type="Self.calificaciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="catedras">
+              <PropertyRef Name="idCatedra" />
+            </Principal>
+            <Dependent Role="calificaciones">
+              <PropertyRef Name="idCatedra" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1059,9 +1121,10 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="cbtislocalEntities" annotation:LazyLoadingEnabled="true">
+        <EntityContainer Name="CBTis123_Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="academias" EntityType="Self.academias" />
           <EntitySet Name="areascampos" EntityType="Self.areascampos" />
+          <EntitySet Name="calificaciones" EntityType="Self.calificaciones" />
           <EntitySet Name="carreras" EntityType="Self.carreras" />
           <EntitySet Name="catedras" EntityType="Self.catedras" />
           <EntitySet Name="docentes" EntityType="Self.docentes" />
@@ -1069,8 +1132,10 @@
           <EntitySet Name="fichas" EntityType="Self.fichas" />
           <EntitySet Name="grupos" EntityType="Self.grupos" />
           <EntitySet Name="grupos_estudiantes" EntityType="Self.grupos_estudiantes" />
+          <EntitySet Name="localidades" EntityType="Self.localidades" />
           <EntitySet Name="materias" EntityType="Self.materias" />
           <EntitySet Name="modulos" EntityType="Self.modulos" />
+          <EntitySet Name="municipios" EntityType="Self.municipios" />
           <EntitySet Name="planea_d16_2017" EntityType="Self.planea_d16_2017" />
           <EntitySet Name="planea_mate16_d1_2017" EntityType="Self.planea_mate16_d1_2017" />
           <EntitySet Name="prefichas" EntityType="Self.prefichas" />
@@ -1081,6 +1146,14 @@
           <AssociationSet Name="materias_ibfk_2" Association="Self.materias_ibfk_2">
             <End Role="areascampos" EntitySet="areascampos" />
             <End Role="materias" EntitySet="materias" />
+          </AssociationSet>
+          <AssociationSet Name="calificaciones_ibfk_1" Association="Self.calificaciones_ibfk_1">
+            <End Role="estudiantes" EntitySet="estudiantes" />
+            <End Role="calificaciones" EntitySet="calificaciones" />
+          </AssociationSet>
+          <AssociationSet Name="calificaciones_ibfk_2" Association="Self.calificaciones_ibfk_2">
+            <End Role="catedras" EntitySet="catedras" />
+            <End Role="calificaciones" EntitySet="calificaciones" />
           </AssociationSet>
           <AssociationSet Name="materias_ibfk_3" Association="Self.materias_ibfk_3">
             <End Role="carreras" EntitySet="carreras" />
@@ -1118,87 +1191,15 @@
             <End Role="modulos" EntitySet="modulos" />
             <End Role="materias" EntitySet="materias" />
           </AssociationSet>
-          <EntitySet Name="localidades" EntityType="CBTis123Model.localidades" />
-          <EntitySet Name="municipios" EntityType="CBTis123Model.municipios" />
-          <EntitySet Name="calificaciones" EntityType="CBTis123Model.calificaciones" />
-          <AssociationSet Name="calificaciones_ibfk_1" Association="CBTis123Model.calificaciones_ibfk_1">
-            <End Role="estudiantes" EntitySet="estudiantes" />
-            <End Role="calificaciones" EntitySet="calificaciones" />
-          </AssociationSet>
-          <AssociationSet Name="calificaciones_ibfk_2" Association="CBTis123Model.calificaciones_ibfk_2">
-            <End Role="catedras" EntitySet="catedras" />
-            <End Role="calificaciones" EntitySet="calificaciones" />
-          </AssociationSet>
         </EntityContainer>
-        <EntityType Name="localidades">
-          <Key>
-            <PropertyRef Name="idLocalidad" />
-          </Key>
-          <Property Name="idLocalidad" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="claveMunicipio" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="claveLocalidad" Type="String" Nullable="false" MaxLength="4" FixedLength="false" Unicode="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="municipios">
-          <Key>
-            <PropertyRef Name="idMunicipio" />
-          </Key>
-          <Property Name="idMunicipio" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="claveEntidad" Type="String" Nullable="false" MaxLength="2" FixedLength="false" Unicode="false" />
-          <Property Name="claveMunicipio" Type="String" Nullable="false" MaxLength="3" FixedLength="false" Unicode="false" />
-          <Property Name="nombre" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="false" />
-        </EntityType>
-        <EntityType Name="calificaciones">
-          <Key>
-            <PropertyRef Name="idCalificaciones" />
-          </Key>
-          <Property Name="idCalificaciones" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="calificacionParcial1" Type="Double" Nullable="false" />
-          <Property Name="calificacionParcial2" Type="Double" Nullable="false" />
-          <Property Name="calificacionParcial3" Type="Double" Nullable="false" />
-          <Property Name="asistenciasParcial1" Type="Int32" Nullable="false" />
-          <Property Name="asistenciasParcial2" Type="Int32" Nullable="false" />
-          <Property Name="asistenciasParcial3" Type="Int32" Nullable="false" />
-          <Property Name="tipoDeAcreditacion" Type="String" Nullable="false" MaxLength="10" FixedLength="false" Unicode="false" />
-          <Property Name="recursamiento" Type="Boolean" Nullable="false" />
-          <Property Name="firmado" Type="Boolean" Nullable="false" />
-          <Property Name="idEstudiante" Type="Int32" Nullable="false" />
-          <Property Name="idCatedra" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="estudiantes" Relationship="CBTis123Model.calificaciones_ibfk_1" FromRole="calificaciones" ToRole="estudiantes" />
-          <NavigationProperty Name="catedras" Relationship="CBTis123Model.calificaciones_ibfk_2" FromRole="calificaciones" ToRole="catedras" />
-        </EntityType>
-        <Association Name="calificaciones_ibfk_1">
-          <End Type="CBTis123Model.estudiantes" Role="estudiantes" Multiplicity="1" />
-          <End Type="CBTis123Model.calificaciones" Role="calificaciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="estudiantes">
-              <PropertyRef Name="idEstudiante" />
-            </Principal>
-            <Dependent Role="calificaciones">
-              <PropertyRef Name="idEstudiante" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="calificaciones_ibfk_2">
-          <End Type="CBTis123Model.catedras" Role="catedras" Multiplicity="1" />
-          <End Type="CBTis123Model.calificaciones" Role="calificaciones" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="catedras">
-              <PropertyRef Name="idCatedra" />
-            </Principal>
-            <Dependent Role="calificaciones">
-              <PropertyRef Name="idCatedra" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CBTis123ModelStoreContainer" CdmEntityContainer="cbtislocalEntities">
+        <EntityContainerMapping StorageEntityContainer="CBTis123_Entities_NamespaceStoreContainer" CdmEntityContainer="CBTis123_Entities">
           <EntitySetMapping Name="academias">
-            <EntityTypeMapping TypeName="CBTis123Model.academias">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.academias">
               <MappingFragment StoreEntitySet="academias">
                 <ScalarProperty Name="idAcademia" ColumnName="idAcademia" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1208,7 +1209,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="areascampos">
-            <EntityTypeMapping TypeName="CBTis123Model.areascampos">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.areascampos">
               <MappingFragment StoreEntitySet="areascampos">
                 <ScalarProperty Name="idAreacampo" ColumnName="idAreacampo" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -1216,8 +1217,26 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="calificaciones">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.calificaciones">
+              <MappingFragment StoreEntitySet="calificaciones">
+                <ScalarProperty Name="idCalificaciones" ColumnName="idCalificaciones" />
+                <ScalarProperty Name="calificacionParcial1" ColumnName="calificacionParcial1" />
+                <ScalarProperty Name="calificacionParcial2" ColumnName="calificacionParcial2" />
+                <ScalarProperty Name="calificacionParcial3" ColumnName="calificacionParcial3" />
+                <ScalarProperty Name="asistenciasParcial1" ColumnName="asistenciasParcial1" />
+                <ScalarProperty Name="asistenciasParcial2" ColumnName="asistenciasParcial2" />
+                <ScalarProperty Name="asistenciasParcial3" ColumnName="asistenciasParcial3" />
+                <ScalarProperty Name="tipoDeAcreditacion" ColumnName="tipoDeAcreditacion" />
+                <ScalarProperty Name="recursamiento" ColumnName="recursamiento" />
+                <ScalarProperty Name="firmado" ColumnName="firmado" />
+                <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
+                <ScalarProperty Name="idCatedra" ColumnName="idCatedra" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="carreras">
-            <EntityTypeMapping TypeName="CBTis123Model.carreras">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.carreras">
               <MappingFragment StoreEntitySet="carreras">
                 <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -1228,7 +1247,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="catedras">
-            <EntityTypeMapping TypeName="CBTis123Model.catedras">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.catedras">
               <MappingFragment StoreEntitySet="catedras">
                 <ScalarProperty Name="idCatedra" ColumnName="idCatedra" />
                 <ScalarProperty Name="idDocente" ColumnName="idDocente" />
@@ -1238,7 +1257,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="docentes">
-            <EntityTypeMapping TypeName="CBTis123Model.docentes">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.docentes">
               <MappingFragment StoreEntitySet="docentes">
                 <ScalarProperty Name="idDocente" ColumnName="idDocente" />
                 <ScalarProperty Name="genero" ColumnName="genero" />
@@ -1286,7 +1305,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="estudiantes">
-            <EntityTypeMapping TypeName="CBTis123Model.estudiantes">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.estudiantes">
               <MappingFragment StoreEntitySet="estudiantes">
                 <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
                 <ScalarProperty Name="ncontrol" ColumnName="ncontrol" />
@@ -1300,7 +1319,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="fichas">
-            <EntityTypeMapping TypeName="CBTis123Model.fichas">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.fichas">
               <MappingFragment StoreEntitySet="fichas">
                 <ScalarProperty Name="idFicha" ColumnName="idFicha" />
                 <ScalarProperty Name="preficha" ColumnName="preficha" />
@@ -1335,7 +1354,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="grupos">
-            <EntityTypeMapping TypeName="CBTis123Model.grupos">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.grupos">
               <MappingFragment StoreEntitySet="grupos">
                 <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
                 <ScalarProperty Name="idSemestre" ColumnName="idSemestre" />
@@ -1347,7 +1366,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="grupos_estudiantes">
-            <EntityTypeMapping TypeName="CBTis123Model.grupos_estudiantes">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.grupos_estudiantes">
               <MappingFragment StoreEntitySet="grupos_estudiantes">
                 <ScalarProperty Name="idGrupo_Estudiante" ColumnName="idGrupo_Estudiante" />
                 <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
@@ -1355,8 +1374,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="localidades">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.localidades">
+              <MappingFragment StoreEntitySet="localidades">
+                <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
+                <ScalarProperty Name="claveMunicipio" ColumnName="claveMunicipio" />
+                <ScalarProperty Name="claveLocalidad" ColumnName="claveLocalidad" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="materias">
-            <EntityTypeMapping TypeName="CBTis123Model.materias">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.materias">
               <MappingFragment StoreEntitySet="materias">
                 <ScalarProperty Name="idMateria" ColumnName="idMateria" />
                 <ScalarProperty Name="idAreacampo" ColumnName="idAreacampo" />
@@ -1375,7 +1404,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="modulos">
-            <EntityTypeMapping TypeName="CBTis123Model.modulos">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.modulos">
               <MappingFragment StoreEntitySet="modulos">
                 <ScalarProperty Name="idModulo" ColumnName="idModulo" />
                 <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
@@ -1384,8 +1413,18 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="municipios">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.municipios">
+              <MappingFragment StoreEntitySet="municipios">
+                <ScalarProperty Name="idMunicipio" ColumnName="idMunicipio" />
+                <ScalarProperty Name="claveEntidad" ColumnName="claveEntidad" />
+                <ScalarProperty Name="claveMunicipio" ColumnName="claveMunicipio" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="planea_d16_2017">
-            <EntityTypeMapping TypeName="CBTis123Model.planea_d16_2017">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.planea_d16_2017">
               <MappingFragment StoreEntitySet="planea_d16_2017">
                 <ScalarProperty Name="idPlanea_d16_2017" ColumnName="idPlanea_d16_2017" />
                 <ScalarProperty Name="ncontrol" ColumnName="ncontrol" />
@@ -1399,7 +1438,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="planea_mate16_d1_2017">
-            <EntityTypeMapping TypeName="CBTis123Model.planea_mate16_d1_2017">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.planea_mate16_d1_2017">
               <MappingFragment StoreEntitySet="planea_mate16_d1_2017">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="ncontrol" ColumnName="ncontrol" />
@@ -1413,7 +1452,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="prefichas">
-            <EntityTypeMapping TypeName="CBTis123Model.prefichas">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.prefichas">
               <MappingFragment StoreEntitySet="prefichas">
                 <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
                 <ScalarProperty Name="nombres" ColumnName="nombres" />
@@ -1445,7 +1484,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="prefichas2016">
-            <EntityTypeMapping TypeName="CBTis123Model.prefichas2016">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.prefichas2016">
               <MappingFragment StoreEntitySet="prefichas2016">
                 <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
                 <ScalarProperty Name="nombres" ColumnName="nombres" />
@@ -1477,10 +1516,8 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="prefichas2017">
-            <EntityTypeMapping TypeName="CBTis123Model.prefichas2017">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.prefichas2017">
               <MappingFragment StoreEntitySet="prefichas2017">
-                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
-                <ScalarProperty Name="aula" ColumnName="aula" />
                 <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
                 <ScalarProperty Name="nombres" ColumnName="nombres" />
                 <ScalarProperty Name="apellidop" ColumnName="apellidop" />
@@ -1509,11 +1546,13 @@
                 <ScalarProperty Name="primera" ColumnName="primera" />
                 <ScalarProperty Name="segunda" ColumnName="segunda" />
                 <ScalarProperty Name="tercera" ColumnName="tercera" />
+                <ScalarProperty Name="aula" ColumnName="aula" />
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="semestres">
-            <EntityTypeMapping TypeName="CBTis123Model.semestres">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.semestres">
               <MappingFragment StoreEntitySet="semestres">
                 <ScalarProperty Name="idSemestre" ColumnName="idSemestre" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -1524,7 +1563,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="usuarios">
-            <EntityTypeMapping TypeName="CBTis123Model.usuarios">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.usuarios">
               <MappingFragment StoreEntitySet="usuarios">
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="usuario" ColumnName="usuario" />
@@ -1533,44 +1572,6 @@
                 <ScalarProperty Name="apellidoPaterno" ColumnName="apellidoPaterno" />
                 <ScalarProperty Name="apellidoMaterno" ColumnName="apellidoMaterno" />
                 <ScalarProperty Name="tipoUsuario" ColumnName="tipoUsuario" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="localidades">
-            <EntityTypeMapping TypeName="CBTis123Model.localidades">
-              <MappingFragment StoreEntitySet="localidades">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="claveLocalidad" ColumnName="claveLocalidad" />
-                <ScalarProperty Name="claveMunicipio" ColumnName="claveMunicipio" />
-                <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="municipios">
-            <EntityTypeMapping TypeName="CBTis123Model.municipios">
-              <MappingFragment StoreEntitySet="municipios">
-                <ScalarProperty Name="nombre" ColumnName="nombre" />
-                <ScalarProperty Name="claveMunicipio" ColumnName="claveMunicipio" />
-                <ScalarProperty Name="claveEntidad" ColumnName="claveEntidad" />
-                <ScalarProperty Name="idMunicipio" ColumnName="idMunicipio" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="calificaciones">
-            <EntityTypeMapping TypeName="CBTis123Model.calificaciones">
-              <MappingFragment StoreEntitySet="calificaciones">
-                <ScalarProperty Name="idCatedra" ColumnName="idCatedra" />
-                <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
-                <ScalarProperty Name="firmado" ColumnName="firmado" />
-                <ScalarProperty Name="recursamiento" ColumnName="recursamiento" />
-                <ScalarProperty Name="tipoDeAcreditacion" ColumnName="tipoDeAcreditacion" />
-                <ScalarProperty Name="asistenciasParcial3" ColumnName="asistenciasParcial3" />
-                <ScalarProperty Name="asistenciasParcial2" ColumnName="asistenciasParcial2" />
-                <ScalarProperty Name="asistenciasParcial1" ColumnName="asistenciasParcial1" />
-                <ScalarProperty Name="calificacionParcial3" ColumnName="calificacionParcial3" />
-                <ScalarProperty Name="calificacionParcial2" ColumnName="calificacionParcial2" />
-                <ScalarProperty Name="calificacionParcial1" ColumnName="calificacionParcial1" />
-                <ScalarProperty Name="idCalificaciones" ColumnName="idCalificaciones" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
