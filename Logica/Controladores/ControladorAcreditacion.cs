@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using ResultadosOperacion;
 
 namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
@@ -19,6 +20,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
         }
 
+
+        // SELECTS
         public static List<grupos> seleccionarGrupos(
             semestres periodo,
             string turno,
@@ -82,6 +85,54 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaCalificaciones;
         }
 
+        // UPDATES
+        public static ResultadoOperacion actualizarCalificaciones(List<calificaciones> listaCalificaciones)
+        {
+            int calificacionesModificadas = 0;
+            ResultadoOperacion innerRO = null;
+
+            try
+            {
+                foreach (calificaciones c in listaCalificaciones)
+                {
+                    calificaciones cUpdated = dbContext.calificaciones.SingleOrDefault(c1 => c1.idCalificaciones == c.idCalificaciones);
+
+                    cUpdated.asistenciasParcial1 = c.asistenciasParcial1;
+                    cUpdated.asistenciasParcial2 = c.asistenciasParcial2;
+                    cUpdated.asistenciasParcial3 = c.asistenciasParcial3;
+
+                    cUpdated.calificacionParcial1 = c.calificacionParcial1;
+                    cUpdated.calificacionParcial2 = c.calificacionParcial2;
+                    cUpdated.calificacionParcial3 = c.calificacionParcial3;
+
+                    cUpdated.firmado = c.firmado;
+                    cUpdated.recursamiento = c.recursamiento;
+                    cUpdated.tipoDeAcreditacion = c.tipoDeAcreditacion;
+                }
+
+                calificacionesModificadas = dbContext.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
+            }
+
+            int listaCalificacionesCount = listaCalificaciones.Count;
+
+            return
+                calificacionesModificadas > 0?
+                    new ResultadoOperacion(
+                        EstadoOperacion.Correcto,
+                        "Calificaciones actualizadas")
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "No se han actualizado todas las calificaciones,\no más de las debidas fueron actualizadas",
+                    "CalAct " + calificacionesModificadas.ToString(),
+                    innerRO);
+        }
+
+        // Métodos misceláneos
         private static void inicializarCatedras(grupos grupo)
         {
             try

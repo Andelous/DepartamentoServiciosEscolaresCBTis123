@@ -45,6 +45,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             this.comboAsignatura = new System.Windows.Forms.ComboBox();
             this.dgvCalificaciones = new System.Windows.Forms.DataGridView();
             this.cmdImportar = new System.Windows.Forms.Button();
+            this.cmdGuardar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCalificaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -189,27 +190,42 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             this.dgvCalificaciones.AllowUserToAddRows = false;
             this.dgvCalificaciones.AllowUserToDeleteRows = false;
             this.dgvCalificaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvCalificaciones.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvCalificaciones.Location = new System.Drawing.Point(12, 118);
+            this.dgvCalificaciones.MultiSelect = false;
             this.dgvCalificaciones.Name = "dgvCalificaciones";
             this.dgvCalificaciones.RowHeadersWidth = 60;
+            this.dgvCalificaciones.RowTemplate.DefaultCellStyle.NullValue = null;
             this.dgvCalificaciones.Size = new System.Drawing.Size(810, 335);
             this.dgvCalificaciones.TabIndex = 13;
             // 
             // cmdImportar
             // 
+            this.cmdImportar.Enabled = false;
             this.cmdImportar.Location = new System.Drawing.Point(662, 459);
             this.cmdImportar.Name = "cmdImportar";
             this.cmdImportar.Size = new System.Drawing.Size(160, 32);
             this.cmdImportar.TabIndex = 14;
             this.cmdImportar.Text = "Importar de SISEEMS";
             this.cmdImportar.UseVisualStyleBackColor = true;
+            this.cmdImportar.Click += new System.EventHandler(this.cmdImportar_Click);
+            // 
+            // cmdGuardar
+            // 
+            this.cmdGuardar.Enabled = false;
+            this.cmdGuardar.Location = new System.Drawing.Point(12, 459);
+            this.cmdGuardar.Name = "cmdGuardar";
+            this.cmdGuardar.Size = new System.Drawing.Size(160, 32);
+            this.cmdGuardar.TabIndex = 15;
+            this.cmdGuardar.Text = "Guardar calificaciones";
+            this.cmdGuardar.UseVisualStyleBackColor = true;
+            this.cmdGuardar.Click += new System.EventHandler(this.cmdGuardar_Click);
             // 
             // FrmAcreditacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 503);
+            this.Controls.Add(this.cmdGuardar);
             this.Controls.Add(this.cmdImportar);
             this.Controls.Add(this.dgvCalificaciones);
             this.Controls.Add(this.lblAsignatura);
@@ -251,5 +267,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         private System.Windows.Forms.ComboBox comboAsignatura;
         private System.Windows.Forms.DataGridView dgvCalificaciones;
         private System.Windows.Forms.Button cmdImportar;
+        private System.Windows.Forms.Button cmdGuardar;
     }
 }
