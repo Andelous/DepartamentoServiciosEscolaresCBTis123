@@ -224,5 +224,37 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
             }
         }
+
+        public static List<calificaciones> crearListaCalificaciones(string[][] tabla)
+        {
+            List<calificaciones> listaCalificaciones = new List<calificaciones>();
+
+            foreach (string[] row in tabla)
+            {
+                if (row.Length < 13)
+                    continue;
+
+                calificaciones c = new calificaciones();
+
+                string ncontrol = row[1];
+                
+                c.asistenciasParcial1 = Convert.ToInt32(row[6]);
+                c.asistenciasParcial2 = Convert.ToInt32(row[7]);
+                c.asistenciasParcial3 = Convert.ToInt32(row[8]);
+                c.calificacionParcial1 = Convert.ToDouble(row[3]);
+                c.calificacionParcial2 = Convert.ToDouble(row[4]);
+                c.calificacionParcial3 = Convert.ToDouble(row[5]);
+                c.estudiantes = dbContext.estudiantes.SingleOrDefault(e => e.ncontrol == ncontrol);
+                c.idEstudiante = c.estudiantes.idEstudiante;
+                c.firmado = Convert.ToBoolean(row[12]);
+                c.idCalificaciones = -1;
+                c.recursamiento = false;
+                c.tipoDeAcreditacion = row[11];
+
+                listaCalificaciones.Add(c);
+            }
+
+            return listaCalificaciones;
+        }
     }
 }

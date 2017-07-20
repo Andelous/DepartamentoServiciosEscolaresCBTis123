@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             this.cmdImportar = new System.Windows.Forms.Button();
-            this.webBrowser1 = new System.Windows.Forms.WebBrowser();
+            this.webSiseems = new System.Windows.Forms.WebBrowser();
             this.SuspendLayout();
             // 
             // cmdImportar
@@ -40,23 +40,24 @@
             this.cmdImportar.TabIndex = 0;
             this.cmdImportar.Text = "Importar";
             this.cmdImportar.UseVisualStyleBackColor = true;
+            this.cmdImportar.Click += new System.EventHandler(this.cmdImportar_Click);
             // 
-            // webBrowser1
+            // webSiseems
             // 
-            this.webBrowser1.Dock = System.Windows.Forms.DockStyle.Top;
-            this.webBrowser1.Location = new System.Drawing.Point(0, 0);
-            this.webBrowser1.MinimumSize = new System.Drawing.Size(20, 20);
-            this.webBrowser1.Name = "webBrowser1";
-            this.webBrowser1.Size = new System.Drawing.Size(1008, 510);
-            this.webBrowser1.TabIndex = 1;
-            this.webBrowser1.Url = new System.Uri("http://www.siseems.sems.gob.mx/produccion/", System.UriKind.Absolute);
+            this.webSiseems.Dock = System.Windows.Forms.DockStyle.Top;
+            this.webSiseems.Location = new System.Drawing.Point(0, 0);
+            this.webSiseems.MinimumSize = new System.Drawing.Size(20, 20);
+            this.webSiseems.Name = "webSiseems";
+            this.webSiseems.Size = new System.Drawing.Size(1008, 510);
+            this.webSiseems.TabIndex = 1;
+            this.webSiseems.Url = new System.Uri("http://www.siseems.sems.gob.mx/produccion/", System.UriKind.Absolute);
             // 
             // FrmImportarCalificaciones
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 561);
-            this.Controls.Add(this.webBrowser1);
+            this.Controls.Add(this.webSiseems);
             this.Controls.Add(this.cmdImportar);
             this.Name = "FrmImportarCalificaciones";
             this.Text = "FrmImportarCalificaciones";
@@ -67,6 +68,6 @@
         #endregion
 
         private System.Windows.Forms.Button cmdImportar;
-        private System.Windows.Forms.WebBrowser webBrowser1;
+        private System.Windows.Forms.WebBrowser webSiseems;
     }
 }

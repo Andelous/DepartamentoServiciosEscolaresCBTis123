@@ -59,7 +59,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             }
         }
 
-        private List<calificaciones> calificacionesDeDGV
+        // Propiedad pública para uso del importador
+        public List<calificaciones> calificacionesDeDGV
         {
             get
             {
