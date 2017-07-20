@@ -61,6 +61,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
              * Termina código únicamente para pruebas
              * 
              */
+
+            FrmAcreditacion frmAcreditacion = (FrmAcreditacion)Application.OpenForms["FrmAcreditacion"];
+
+            new FrmDiferencias(frmAcreditacion.calificacionesDeDGV, calificacionesSiseems).Show();
         }
     }
 }
