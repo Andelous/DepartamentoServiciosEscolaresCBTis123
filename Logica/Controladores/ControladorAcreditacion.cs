@@ -85,6 +85,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaCalificaciones;
         }
 
+
+        // INSERTS
+        public static ResultadoOperacion insertarCalificacion()
+        {
+            return null;
+        }
+
+
         // UPDATES
         public static ResultadoOperacion actualizarCalificaciones(List<calificaciones> listaCalificaciones)
         {
@@ -93,6 +101,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             try
             {
+                bool cambios = false;
                 foreach (calificaciones c in listaCalificaciones)
                 {
                     calificaciones cUpdated = dbContext.calificaciones.SingleOrDefault(c1 => c1.idCalificaciones == c.idCalificaciones);
@@ -108,9 +117,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     cUpdated.firmado = c.firmado;
                     cUpdated.recursamiento = c.recursamiento;
                     cUpdated.tipoDeAcreditacion = c.tipoDeAcreditacion;
-                }
 
-                calificacionesModificadas = dbContext.SaveChanges();
+                    cambios = true;
+                }
+                if (cambios)
+                {
+                    calificacionesModificadas = dbContext.SaveChanges();
+                }
             }
             catch (Exception e)
             {
@@ -128,6 +141,77 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
                     "No se han actualizado todas las calificaciones,\no más de las debidas fueron actualizadas",
+                    "CalAct " + calificacionesModificadas.ToString(),
+                    innerRO);
+        }
+
+        public static ResultadoOperacion actualizarCalificacionesDesdeSiseems(List<calificaciones> listaCalificaciones)
+        {
+            int calificacionesModificadas = 0;
+            ResultadoOperacion innerRO = null;
+
+            try
+            {
+                bool cambios = false;
+                foreach (calificaciones c in listaCalificaciones)
+                {
+                    calificaciones cUpdated = dbContext.calificaciones.SingleOrDefault(c1 => c1.idEstudiante == c.idEstudiante && c1.idCatedra == c.idCatedra);
+
+                    if (cUpdated == null)
+                    {
+                        cUpdated = new calificaciones()
+                        {
+                            asistenciasParcial1 = 0,
+                            asistenciasParcial2 = 0,
+                            asistenciasParcial3 = 0,
+                            calificacionParcial1 = 0,
+                            calificacionParcial2 = 0,
+                            calificacionParcial3 = 0,
+                            firmado = true,
+                            tipoDeAcreditacion = "A",
+                            idCatedra = c.idCatedra,
+                            idEstudiante = c.idEstudiante,
+                            recursamiento = true
+                        };
+
+                        dbContext.calificaciones.Add(cUpdated);
+                        dbContext.SaveChanges();
+                    }
+
+                    cUpdated.asistenciasParcial1 = c.asistenciasParcial1;
+                    cUpdated.asistenciasParcial2 = c.asistenciasParcial2;
+                    cUpdated.asistenciasParcial3 = c.asistenciasParcial3;
+
+                    cUpdated.calificacionParcial1 = c.calificacionParcial1;
+                    cUpdated.calificacionParcial2 = c.calificacionParcial2;
+                    cUpdated.calificacionParcial3 = c.calificacionParcial3;
+
+                    cUpdated.firmado = c.firmado;
+                    cUpdated.tipoDeAcreditacion = c.tipoDeAcreditacion;
+                    cambios = true;
+                }
+
+                if (cambios)
+                {
+                    calificacionesModificadas = dbContext.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
+            }
+
+            int listaCalificacionesCount = listaCalificaciones.Count;
+
+            return
+                calificacionesModificadas > 0 ?
+                    new ResultadoOperacion(
+                        EstadoOperacion.Correcto,
+                        "Calificaciones importadas desde el SISEEMS")
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "No se han importado todas las calificaciones,\no más de las debidas fueron actualizadas",
                     "CalAct " + calificacionesModificadas.ToString(),
                     innerRO);
         }
@@ -197,6 +281,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     listaEstudiantes.RemoveAll(e => e.idEstudiante == c.idEstudiante);
                 }
 
+                bool cambios = false;
                 foreach (estudiantes e in listaEstudiantes)
                 {
                     calificaciones c = new calificaciones
@@ -215,17 +300,22 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     };
 
                     dbContext.calificaciones.Add(c);
+                    cambios = true;
+                }
+                if (cambios)
+                {
                     dbContext.SaveChanges();
                 }
             }
             catch (Exception e)
             {
-                throw;
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
             }
         }
 
-        public static List<calificaciones> crearListaCalificaciones(string[][] tabla)
+
+        // Métodos misceláneos
+        public static List<calificaciones> crearListaCalificaciones(string[][] tabla, int idCatedra = -1, catedras catedra = null)
         {
             List<calificaciones> listaCalificaciones = new List<calificaciones>();
 
@@ -237,7 +327,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 calificaciones c = new calificaciones();
 
                 string ncontrol = row[1];
-                
+
                 c.asistenciasParcial1 = Convert.ToInt32(row[6]);
                 c.asistenciasParcial2 = Convert.ToInt32(row[7]);
                 c.asistenciasParcial3 = Convert.ToInt32(row[8]);
@@ -250,6 +340,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 c.idCalificaciones = -1;
                 c.recursamiento = false;
                 c.tipoDeAcreditacion = row[11];
+                c.catedras = catedra;
+                c.idCatedra = idCatedra;
+
 
                 listaCalificaciones.Add(c);
             }

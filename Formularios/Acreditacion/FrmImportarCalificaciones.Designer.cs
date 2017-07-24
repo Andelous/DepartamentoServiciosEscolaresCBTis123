@@ -34,7 +34,7 @@
             // 
             // cmdImportar
             // 
-            this.cmdImportar.Location = new System.Drawing.Point(850, 516);
+            this.cmdImportar.Location = new System.Drawing.Point(837, 516);
             this.cmdImportar.Name = "cmdImportar";
             this.cmdImportar.Size = new System.Drawing.Size(146, 33);
             this.cmdImportar.TabIndex = 0;
@@ -44,11 +44,11 @@
             // 
             // webSiseems
             // 
-            this.webSiseems.Dock = System.Windows.Forms.DockStyle.Top;
+            this.webSiseems.Dock = System.Windows.Forms.DockStyle.Fill;
             this.webSiseems.Location = new System.Drawing.Point(0, 0);
             this.webSiseems.MinimumSize = new System.Drawing.Size(20, 20);
             this.webSiseems.Name = "webSiseems";
-            this.webSiseems.Size = new System.Drawing.Size(1008, 510);
+            this.webSiseems.Size = new System.Drawing.Size(1008, 561);
             this.webSiseems.TabIndex = 1;
             this.webSiseems.Url = new System.Uri("http://www.siseems.sems.gob.mx/produccion/", System.UriKind.Absolute);
             // 
@@ -57,10 +57,12 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 561);
-            this.Controls.Add(this.webSiseems);
             this.Controls.Add(this.cmdImportar);
+            this.Controls.Add(this.webSiseems);
             this.Name = "FrmImportarCalificaciones";
             this.Text = "FrmImportarCalificaciones";
+            this.Load += new System.EventHandler(this.FrmImportarCalificaciones_Load);
+            this.Resize += new System.EventHandler(this.FrmImportarCalificaciones_Resize);
             this.ResumeLayout(false);
 
         }

@@ -160,12 +160,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         public void cargarAlumnos(object sender, EventArgs e)
         {
             catedras asignatura = asignaturaSeleccionada;
-
             if (asignatura != null)
             {
-                List<calificaciones> listaCalificaciones = ControladorAcreditacion.seleccionarCalificaciones(asignatura).OrderBy(c => c.estudiantes.apellido1 + c.estudiantes.apellido2 + c.estudiantes.nombres).ToList();
+                List<calificaciones> listaCalificaciones = ControladorAcreditacion.seleccionarCalificaciones(asignatura);
                 BindingList<calificaciones> listaCalificacionesBinding = new BindingList<calificaciones>(listaCalificaciones);
-
+            
                 configurarDGVCalificaciones(listaCalificacionesBinding);
             }
             else
@@ -213,7 +212,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void cmdImportar_Click(object sender, EventArgs e)
         {
-            new FrmImportarCalificaciones().Show();
+            new FrmImportarCalificaciones(asignaturaSeleccionada).ShowDialog();
+            cargarAlumnos(sender, e);
         }
 
         // Métodos visuales
@@ -230,6 +230,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
                 return;
             }
+
+            // Ordenamos la binding list...
+            listaCalificacionesBinding = new BindingList<calificaciones>(
+                listaCalificacionesBinding.
+                OrderBy(
+                    c => 
+                    c.estudiantes.apellido1 + 
+                    c.estudiantes.apellido2 + 
+                    c.estudiantes.nombres).
+                ToList()
+            );
 
             // Agregamos todos los datos al dgv
             dgvCalificaciones.DataSource = listaCalificacionesBinding;

@@ -1,4 +1,6 @@
-﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -15,6 +17,52 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
     {
         private List<calificaciones> calificacionesActuales { get; set; }
         private List<calificaciones> calificacionesSiseems { get; set; }
+
+        // Propiedad pública para uso del importador
+        public List<calificaciones> calificacionesDeDGVSiseems
+        {
+            get
+            {
+                BindingList<calificaciones> calificaciones = (BindingList<calificaciones>)dgvCalificacionesSiseems.DataSource;
+
+                int count = 0;
+                foreach (DataGridViewRow row in dgvCalificacionesSiseems.Rows)
+                {
+                    calificaciones c = calificaciones[count];
+
+                    c.tipoDeAcreditacion = row.Cells["tipoDeAcreditacion1"].Value.ToString();
+
+                    count++;
+                }
+
+                return calificaciones.ToList();
+            }
+        }
+        public List<calificaciones> calificacionesDeDGVSiseemsActualizables
+        {
+            get
+            {
+                BindingList<calificaciones> calificaciones = (BindingList<calificaciones>)dgvCalificacionesSiseems.DataSource;
+                List<calificaciones> listaNueva = new List<calificaciones>();
+
+                int count = 0;
+                foreach (DataGridViewRow row in dgvCalificacionesSiseems.Rows)
+                {
+                    calificaciones c = calificaciones[count];
+
+                    c.tipoDeAcreditacion = row.Cells["tipoDeAcreditacion1"].Value.ToString();
+
+                    count++;
+
+
+                    bool actualizable = Convert.ToBoolean(row.Cells["actualizar"].Value);
+                    if (actualizable)
+                        listaNueva.Add(c);
+                }
+
+                return listaNueva.ToList();
+            }
+        }
 
         // Métodos de inicialización
         public FrmDiferencias(List<calificaciones> calificacionesActuales, List<calificaciones> calificacionesSiseems)
@@ -40,13 +88,63 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         private void ScrollDGVActuales(object sender, ScrollEventArgs e)
         {
             dgvCalificacionesSiseems.FirstDisplayedScrollingRowIndex = dgvCalificacionesActuales.FirstDisplayedScrollingRowIndex;
-            dgvCalificacionesSiseems.FirstDisplayedScrollingColumnIndex = dgvCalificacionesActuales.FirstDisplayedScrollingColumnIndex;
+            //dgvCalificacionesSiseems.FirstDisplayedScrollingColumnIndex = dgvCalificacionesActuales.FirstDisplayedScrollingColumnIndex;
+
         }
 
         private void ScrollDGVSiseems(object sender, ScrollEventArgs e)
         {
             dgvCalificacionesActuales.FirstDisplayedScrollingRowIndex = dgvCalificacionesSiseems.FirstDisplayedScrollingRowIndex;
-            dgvCalificacionesActuales.FirstDisplayedScrollingColumnIndex = dgvCalificacionesSiseems.FirstDisplayedScrollingColumnIndex;
+            //dgvCalificacionesActuales.FirstDisplayedScrollingColumnIndex = dgvCalificacionesSiseems.FirstDisplayedScrollingColumnIndex;
+        }
+
+        private void cmdSeleccionarTodos_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvCalificacionesSiseems.Rows)
+            {
+                if (!row.Cells["actualizar"].ReadOnly)
+                    row.Cells["actualizar"].Value = true;
+            }
+        }
+
+        private void cmdSeleccionarNinguno_Click(object sender, EventArgs e)
+        {
+            foreach (DataGridViewRow row in dgvCalificacionesSiseems.Rows)
+            {
+                if (!row.Cells["actualizar"].ReadOnly)
+                    row.Cells["actualizar"].Value = false;
+            }
+        }
+
+        private void cmdGuardarDiferencias_Click(object sender, EventArgs e)
+        {
+            ResultadoOperacion resultadoOperacion = 
+                ControladorAcreditacion.
+                actualizarCalificacionesDesdeSiseems(
+                    calificacionesDeDGVSiseemsActualizables);
+
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
+            if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
+            {
+                Close();
+            }
+        }
+
+        private void FrmDiferencias_Resize(object sender, EventArgs e)
+        {
+            int finalWidth = (int)((Width - 260) / (double)2);
+
+            dgvCalificacionesActuales.Width = finalWidth;
+            dgvCalificacionesSiseems.Width = finalWidth;
+
+            Point p1 = new Point(finalWidth + 6, cmdGuardarDiferencias.Location.Y);
+            cmdGuardarDiferencias.Location = p1;
+
+            Point p2 = new Point(finalWidth + 6, cmdSeleccionarNinguno.Location.Y);
+            cmdSeleccionarNinguno.Location = p2;
+
+            Point p3 = new Point(finalWidth + 6, cmdSeleccionarTodos.Location.Y);
+            cmdSeleccionarTodos.Location = p3;
         }
 
         // Métodos visuales
@@ -60,6 +158,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
                 return;
             }
+
+            // Ordenamos la binding list...
+            listaCalificacionesBinding = new BindingList<calificaciones>(
+                listaCalificacionesBinding.
+                OrderBy(
+                    c =>
+                    c.estudiantes.apellido1 +
+                    c.estudiantes.apellido2 +
+                    c.estudiantes.nombres).
+                ToList()
+            );
 
             // Agregamos todos los datos al dgv
             dgvCalificacionesActuales.DataSource = listaCalificacionesBinding;
@@ -193,9 +302,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             {
                 dgvCalificacionesSiseems.DataSource = null;
                 dgvCalificacionesSiseems.Columns["tipoDeAcreditacion1"].Visible = false;
+                dgvCalificacionesSiseems.Columns["actualizar"].Visible = false;
 
                 return;
             }
+
+            // Ordenamos la binding list...
+            listaCalificacionesBinding = new BindingList<calificaciones>(
+                listaCalificacionesBinding.
+                OrderBy(
+                    c =>
+                    c.estudiantes.apellido1 +
+                    c.estudiantes.apellido2 +
+                    c.estudiantes.nombres).
+                ToList()
+            );
 
             // Agregamos todos los datos al dgv
             dgvCalificacionesSiseems.DataSource = listaCalificacionesBinding;
@@ -234,10 +355,15 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
 
             // Iteramos sobre todas las columnas para hacerlas invisibles
+            // y de sólo lectura
             foreach (DataGridViewColumn c in columnas)
             {
                 c.Visible = false;
+                c.ReadOnly = true;
             }
+
+            // Volvemos editable la columna de actualizar
+            columnas["actualizar"].ReadOnly = false;
 
             // Itero sobre las filas para agregar algunas cosas
             int i = 0;
@@ -266,33 +392,100 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 // ESTO ES ADICIONAL PARA RESALTAR LAS DIFERENCIAS
                 calificaciones cEquivalente = calificacionesActuales.SingleOrDefault(c => c.idEstudiante == cFila.idEstudiante);
                 // -- Ya existen, pero las calificaciones son diferentes (LIGHT BLUE)
-
+                // -- Además de que se pone como default el valor TRUE para actualizar
+                // -- y los botones se desactivarán
                 if (cEquivalente != null)
                 {
-                    if (
-                        cFila.calificacionParcial1 != cEquivalente.calificacionParcial1 ||
-                        cFila.calificacionParcial2 != cEquivalente.calificacionParcial2 ||
-                        cFila.calificacionParcial3 != cEquivalente.calificacionParcial3 ||
-                        
-                        cFila.asistenciasParcial1 != cEquivalente.asistenciasParcial1 ||
-                        cFila.asistenciasParcial2 != cEquivalente.asistenciasParcial2 ||
-                        cFila.asistenciasParcial3 != cEquivalente.asistenciasParcial3 ||
+                    bool flag = false;
 
-                        cFila.tipoDeAcreditacion != cEquivalente.tipoDeAcreditacion ||
-                        cFila.firmado != cEquivalente.firmado
-                    ) {
+                    if (cFila.calificacionParcial1 != cEquivalente.calificacionParcial1)
+                    {
+                        flag = true;
+
+                        row.Cells["calificacionParcial1"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                    }
+
+                    if (cFila.calificacionParcial2 != cEquivalente.calificacionParcial2)
+                    {
+                        flag = true;
+
+                        row.Cells["calificacionParcial2"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                    }
+
+                    if (cFila.calificacionParcial3 != cEquivalente.calificacionParcial3)
+                    {
+                        flag = true;
+
+                        row.Cells["calificacionParcial3"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                    }
+
+                    if (cFila.asistenciasParcial1 != cEquivalente.asistenciasParcial1)
+                    {
+                        flag = true;
+
+                        row.Cells["asistenciasParcial1"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                    }
+
+                    if (cFila.asistenciasParcial2 != cEquivalente.asistenciasParcial2)
+                    {
+                        flag = true;
+
+                        row.Cells["asistenciasParcial2"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                    }
+
+                    if (cFila.asistenciasParcial3 != cEquivalente.asistenciasParcial3)
+                    {
+                        flag = true;
+
+                        row.Cells["asistenciasParcial3"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                    }
+                    
+                    if (cFila.tipoDeAcreditacion != cEquivalente.tipoDeAcreditacion)
+                    {
+                        flag = true;
+
+                        row.Cells["tipoDeAcreditacion"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                    }
+
+                    if (cFila.firmado != cEquivalente.firmado)
+                    {
+                        flag = true;
+
+                        row.Cells["firmado"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                    }
+
+                    if (flag)
+                    {
                         row.DefaultCellStyle.BackColor = Color.FromArgb(220, 220, 255);
+                        row.Cells["actualizar"].Value = true;
+
+                        cmdGuardarDiferencias.Enabled = true;
+                        cmdSeleccionarNinguno.Enabled = true;
+                        cmdSeleccionarTodos.Enabled = true;
+                    }
+                    // -- Si no, entonces no se pondrá color, y se hará inactualizable
+                    // -- tal registro, y los botones se desactivarán
+                    else
+                    {
+                        row.Cells["actualizar"].Value = false;
+                        row.Cells["actualizar"].ReadOnly = true;
+
+                        cmdGuardarDiferencias.Enabled = true;
+                        cmdSeleccionarNinguno.Enabled = true;
+                        cmdSeleccionarTodos.Enabled = true;
                     }
                 }
                 // -- No existe en nuestro registro (LIGHT RED)
                 else
                 {
                     row.DefaultCellStyle.BackColor = Color.FromArgb(255, 220, 220);
+                    row.Cells["recursamiento"].Value = true;
+                    row.Cells["actualizar"].Value = true;
                 }
-                
             }
 
             // Muestro únicamente las que me interesan
+            columnas["actualizar"].Visible = true;
             columnas["nControl"].Visible = true;
             columnas["calificacionParcial1"].Visible = true;
             columnas["calificacionParcial2"].Visible = true;
@@ -325,20 +518,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["asistenciasTotales"].HeaderText = "Asistencias totales";
 
             // Las muestro en un orden particular
-            columnas["nControl"].DisplayIndex = 0;
-            columnas["estudiantes"].DisplayIndex = 1;
-            columnas["calificacionParcial1"].DisplayIndex = 2;
-            columnas["calificacionParcial2"].DisplayIndex = 3;
-            columnas["calificacionParcial3"].DisplayIndex = 4;
-            columnas["asistenciasParcial1"].DisplayIndex = 5;
-            columnas["asistenciasParcial2"].DisplayIndex = 6;
-            columnas["asistenciasParcial3"].DisplayIndex = 7;
-            columnas["promedio"].DisplayIndex = 8;
-            columnas["asistenciasTotales"].DisplayIndex = 9;
-            columnas["tipoDeAcreditacion"].DisplayIndex = 10;
-            columnas["tipoDeAcreditacion1"].DisplayIndex = 11;
-            columnas["firmado"].DisplayIndex = 12;
-            columnas["recursamiento"].DisplayIndex = 13;
+            columnas["actualizar"].DisplayIndex = 0;
+            columnas["nControl"].DisplayIndex = 1;
+            columnas["estudiantes"].DisplayIndex = 2;
+            columnas["calificacionParcial1"].DisplayIndex = 3;
+            columnas["calificacionParcial2"].DisplayIndex = 4;
+            columnas["calificacionParcial3"].DisplayIndex = 5;
+            columnas["asistenciasParcial1"].DisplayIndex = 6;
+            columnas["asistenciasParcial2"].DisplayIndex = 7;
+            columnas["asistenciasParcial3"].DisplayIndex = 8;
+            columnas["promedio"].DisplayIndex = 9;
+            columnas["asistenciasTotales"].DisplayIndex = 10;
+            columnas["tipoDeAcreditacion"].DisplayIndex = 11;
+            columnas["tipoDeAcreditacion1"].DisplayIndex = 12;
+            columnas["firmado"].DisplayIndex = 13;
+            columnas["recursamiento"].DisplayIndex = 14;
 
             // Limito la edición de los campos
             columnas["nControl"].ReadOnly = true;
@@ -357,6 +551,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void agregarColumnasCombos()
         {
+            // DGV Actual
             // Obtenemos la colección de columnas...
             DataGridViewColumnCollection columnas = dgvCalificacionesActuales.Columns;
 
@@ -367,6 +562,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             dgvCalificacionesActuales.Columns.Add(columna1);
 
+            // DGV Siseems
             // Obtenemos la colección de columnas...
             columnas = dgvCalificacionesSiseems.Columns;
 
@@ -376,6 +572,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columna2.Visible = false;
 
             dgvCalificacionesSiseems.Columns.Add(columna2);
+
+            // Esta siguiente columna es para decidir si 
+            // agregamos las modificaciones a la base de datos
+
+            DataGridViewCheckBoxColumn columna3 = new DataGridViewCheckBoxColumn() { Name = "actualizar", HeaderText = "Actualizar"};
+            columna3.Visible = false;
+            columnas.Add(columna3);
         }
     }
 }
