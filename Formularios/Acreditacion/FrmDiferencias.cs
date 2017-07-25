@@ -18,6 +18,18 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         private List<calificaciones> calificacionesActuales { get; set; }
         private List<calificaciones> calificacionesSiseems { get; set; }
 
+        public int encontrados { get; set; }
+        public int diferencias { get; set; }
+        public int noEncontrados { get; set; }
+
+        // Colores
+        private Color colorDiferencias { get; set; }
+        private Color colorDiferenciasResaltado { get; set; }
+        private Color colorNoEncontradosGrupo { get; set; }
+        private Color colorNoEncontradosGrupoResaltado { get; set; }
+        private Color colorNoEncontradosDB { get; set; }
+        private Color colorNoEncontradosDBResaltado { get; set; }
+
         // Propiedad pública para uso del importador
         public List<calificaciones> calificacionesDeDGVSiseems
         {
@@ -73,6 +85,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             this.calificacionesSiseems = calificacionesSiseems;
 
             agregarColumnasCombos();
+
+            encontrados = 0;
+            diferencias = 0;
+            noEncontrados = 0;
         }
 
         private void FrmDiferencias_Load(object sender, EventArgs e)
@@ -82,6 +98,20 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             BindingList<calificaciones> calificacionesSiseems = new BindingList<calificaciones>(this.calificacionesSiseems);
             configurarDGVCalificacionesSiseems(calificacionesSiseems);
+
+            DoubleBuffered = true;
+
+            colorDiferencias = Color.FromArgb(220, 220, 255);
+            colorDiferenciasResaltado = Color.FromArgb(170, 170, 255);
+
+            colorNoEncontradosGrupo = Color.FromArgb(255, 255, 170);
+            colorNoEncontradosGrupoResaltado = Color.FromArgb(255, 255, 120);
+
+            colorNoEncontradosDB = Color.FromArgb(255, 220, 220);
+            colorNoEncontradosDBResaltado = Color.FromArgb(255, 170, 170);
+
+            lblDiferencias.BackColor = colorDiferencias;
+            lblNoEncontradosGrupo.BackColor = colorNoEncontradosGrupo;
         }
 
         // Métodos de eventos
@@ -137,14 +167,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             dgvCalificacionesActuales.Width = finalWidth;
             dgvCalificacionesSiseems.Width = finalWidth;
 
-            Point p1 = new Point(finalWidth + 6, cmdGuardarDiferencias.Location.Y);
-            cmdGuardarDiferencias.Location = p1;
+            Point pLbl = new Point(Width - finalWidth, lblSiseems.Location.Y);
+            lblSiseems.Location = pLbl;
 
-            Point p2 = new Point(finalWidth + 6, cmdSeleccionarNinguno.Location.Y);
-            cmdSeleccionarNinguno.Location = p2;
+            //Point p1 = new Point(finalWidth + 6, cmdGuardarDiferencias.Location.Y);
+            //cmdGuardarDiferencias.Location = p1;
 
-            Point p3 = new Point(finalWidth + 6, cmdSeleccionarTodos.Location.Y);
-            cmdSeleccionarTodos.Location = p3;
+            //Point p2 = new Point(finalWidth + 6, cmdSeleccionarNinguno.Location.Y);
+            //cmdSeleccionarNinguno.Location = p2;
+
+            //Point p3 = new Point(finalWidth + 6, cmdSeleccionarTodos.Location.Y);
+            //cmdSeleccionarTodos.Location = p3;
         }
 
         // Métodos visuales
@@ -396,67 +429,70 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 // -- y los botones se desactivarán
                 if (cEquivalente != null)
                 {
+                    encontrados++;
                     bool flag = false;
 
                     if (cFila.calificacionParcial1 != cEquivalente.calificacionParcial1)
                     {
                         flag = true;
 
-                        row.Cells["calificacionParcial1"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                        row.Cells["calificacionParcial1"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
                     if (cFila.calificacionParcial2 != cEquivalente.calificacionParcial2)
                     {
                         flag = true;
 
-                        row.Cells["calificacionParcial2"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                        row.Cells["calificacionParcial2"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
                     if (cFila.calificacionParcial3 != cEquivalente.calificacionParcial3)
                     {
                         flag = true;
 
-                        row.Cells["calificacionParcial3"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                        row.Cells["calificacionParcial3"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
                     if (cFila.asistenciasParcial1 != cEquivalente.asistenciasParcial1)
                     {
                         flag = true;
 
-                        row.Cells["asistenciasParcial1"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                        row.Cells["asistenciasParcial1"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
                     if (cFila.asistenciasParcial2 != cEquivalente.asistenciasParcial2)
                     {
                         flag = true;
 
-                        row.Cells["asistenciasParcial2"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                        row.Cells["asistenciasParcial2"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
                     if (cFila.asistenciasParcial3 != cEquivalente.asistenciasParcial3)
                     {
                         flag = true;
 
-                        row.Cells["asistenciasParcial3"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                        row.Cells["asistenciasParcial3"].Style.BackColor = colorDiferenciasResaltado;
                     }
                     
                     if (cFila.tipoDeAcreditacion != cEquivalente.tipoDeAcreditacion)
                     {
                         flag = true;
 
-                        row.Cells["tipoDeAcreditacion"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                        row.Cells["tipoDeAcreditacion"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
                     if (cFila.firmado != cEquivalente.firmado)
                     {
                         flag = true;
 
-                        row.Cells["firmado"].Style.BackColor = Color.FromArgb(170, 170, 255);
+                        row.Cells["firmado"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
                     if (flag)
                     {
-                        row.DefaultCellStyle.BackColor = Color.FromArgb(220, 220, 255);
+                        diferencias++;
+
+                        row.DefaultCellStyle.BackColor = colorDiferencias;
                         row.Cells["actualizar"].Value = true;
 
                         cmdGuardarDiferencias.Enabled = true;
@@ -478,7 +514,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 // -- No existe en nuestro registro (LIGHT RED)
                 else
                 {
-                    row.DefaultCellStyle.BackColor = Color.FromArgb(255, 220, 220);
+                    noEncontrados++;
+
+                    row.DefaultCellStyle.BackColor = colorNoEncontradosGrupo;
                     row.Cells["recursamiento"].Value = true;
                     row.Cells["actualizar"].Value = true;
                 }
@@ -547,6 +585,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["promedio"].DefaultCellStyle.Format = "N2";
 
             columnas["recursamiento"].DefaultCellStyle.ForeColor = Color.LightGray;
+
+            // Construcción del resumen
+            lblEncontrados.Text = "Se encontraron " + encontrados + " alumno(s) pertenecientes al grupo.";
+            lblDiferencias.Text = diferencias + " alumnos tienen diferencias en sus calificaciones.";
+            lblNoEncontradosGrupo.Text = noEncontrados + " alumnos no pertenecen al grupo.";
+
+            // Si las diferencias y los alumnos no pertenecientes son 0
+            // entonces deshabilitamos el botón de guardar diferencias
         }
 
         private void agregarColumnasCombos()
@@ -582,3 +628,4 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         }
     }
 }
+
