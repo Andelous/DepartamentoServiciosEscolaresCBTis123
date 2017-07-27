@@ -15,8 +15,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 {
     public partial class FrmDiferencias : Form
     {
-        private List<calificaciones> calificacionesActuales { get; set; }
-        private List<calificaciones> calificacionesSiseems { get; set; }
+        private List<calificacionessemestrales> calificacionesActuales { get; set; }
+        private List<calificacionessemestrales> calificacionesSiseems { get; set; }
 
         public int encontrados { get; set; }
         public int diferencias { get; set; }
@@ -31,16 +31,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         private Color colorNoEncontradosDBResaltado { get; set; }
 
         // Propiedad pública para uso del importador
-        public List<calificaciones> calificacionesDeDGVSiseems
+        public List<calificacionessemestrales> calificacionesDeDGVSiseems
         {
             get
             {
-                BindingList<calificaciones> calificaciones = (BindingList<calificaciones>)dgvCalificacionesSiseems.DataSource;
+                BindingList<calificacionessemestrales> calificaciones = (BindingList<calificacionessemestrales>)dgvCalificacionesSiseems.DataSource;
 
                 int count = 0;
                 foreach (DataGridViewRow row in dgvCalificacionesSiseems.Rows)
                 {
-                    calificaciones c = calificaciones[count];
+                    calificacionessemestrales c = calificaciones[count];
 
                     c.tipoDeAcreditacion = row.Cells["tipoDeAcreditacion1"].Value.ToString();
 
@@ -50,17 +50,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 return calificaciones.ToList();
             }
         }
-        public List<calificaciones> calificacionesDeDGVSiseemsActualizables
+        public List<calificacionessemestrales> calificacionesDeDGVSiseemsActualizables
         {
             get
             {
-                BindingList<calificaciones> calificaciones = (BindingList<calificaciones>)dgvCalificacionesSiseems.DataSource;
-                List<calificaciones> listaNueva = new List<calificaciones>();
+                BindingList<calificacionessemestrales> calificaciones = (BindingList<calificacionessemestrales>)dgvCalificacionesSiseems.DataSource;
+                List<calificacionessemestrales> listaNueva = new List<calificacionessemestrales>();
 
                 int count = 0;
                 foreach (DataGridViewRow row in dgvCalificacionesSiseems.Rows)
                 {
-                    calificaciones c = calificaciones[count];
+                    calificacionessemestrales c = calificaciones[count];
 
                     c.tipoDeAcreditacion = row.Cells["tipoDeAcreditacion1"].Value.ToString();
 
@@ -77,7 +77,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         }
 
         // Métodos de inicialización
-        public FrmDiferencias(List<calificaciones> calificacionesActuales, List<calificaciones> calificacionesSiseems)
+        public FrmDiferencias(List<calificacionessemestrales> calificacionesActuales, List<calificacionessemestrales> calificacionesSiseems)
         {
             InitializeComponent();
 
@@ -93,10 +93,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void FrmDiferencias_Load(object sender, EventArgs e)
         {
-            BindingList<calificaciones> calificacionesActuales = new BindingList<calificaciones>(this.calificacionesActuales);
+            BindingList<calificacionessemestrales> calificacionesActuales = new BindingList<calificacionessemestrales>(this.calificacionesActuales);
             configurarDGVCalificacionesActuales(calificacionesActuales);
 
-            BindingList<calificaciones> calificacionesSiseems = new BindingList<calificaciones>(this.calificacionesSiseems);
+            BindingList<calificacionessemestrales> calificacionesSiseems = new BindingList<calificacionessemestrales>(this.calificacionesSiseems);
             configurarDGVCalificacionesSiseems(calificacionesSiseems);
 
             DoubleBuffered = true;
@@ -181,7 +181,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         }
 
         // Métodos visuales
-        private void configurarDGVCalificacionesActuales(BindingList<calificaciones> listaCalificacionesBinding)
+        private void configurarDGVCalificacionesActuales(BindingList<calificacionessemestrales> listaCalificacionesBinding)
         {
             // Si la colección es originalmente nula, o vacía, salimos.
             if (listaCalificacionesBinding == null || listaCalificacionesBinding.Count < 1)
@@ -193,7 +193,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             }
 
             // Ordenamos la binding list...
-            listaCalificacionesBinding = new BindingList<calificaciones>(
+            listaCalificacionesBinding = new BindingList<calificacionessemestrales>(
                 listaCalificacionesBinding.
                 OrderBy(
                     c =>
@@ -253,7 +253,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
 
                 // Segundo, el color de fondo para mostrar a los de recursamiento
-                if (((calificaciones)row.DataBoundItem).recursamiento)
+                if (((calificacionessemestrales)row.DataBoundItem).recursamiento)
                 {
                     row.DefaultCellStyle.BackColor = Color.LightGreen;
                 }
@@ -328,7 +328,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["recursamiento"].DefaultCellStyle.ForeColor = Color.LightGray;
         }
 
-        private void configurarDGVCalificacionesSiseems(BindingList<calificaciones> listaCalificacionesBinding)
+        private void configurarDGVCalificacionesSiseems(BindingList<calificacionessemestrales> listaCalificacionesBinding)
         {
             // Si la colección es originalmente nula, o vacía, salimos.
             if (listaCalificacionesBinding == null || listaCalificacionesBinding.Count < 1)
@@ -341,7 +341,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             }
 
             // Ordenamos la binding list...
-            listaCalificacionesBinding = new BindingList<calificaciones>(
+            listaCalificacionesBinding = new BindingList<calificacionessemestrales>(
                 listaCalificacionesBinding.
                 OrderBy(
                     c =>
@@ -405,7 +405,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 // Primero, el número de lista
                 row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
 
-                calificaciones cFila = ((calificaciones)row.DataBoundItem);
+                calificacionessemestrales cFila = ((calificacionessemestrales)row.DataBoundItem);
 
                 // Segundo, el color de fondo para mostrar a los de recursamiento
                 // (Probablemente en este DGV nunca se muestren)
@@ -423,7 +423,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
 
                 // ESTO ES ADICIONAL PARA RESALTAR LAS DIFERENCIAS
-                calificaciones cEquivalente = calificacionesActuales.SingleOrDefault(c => c.idEstudiante == cFila.idEstudiante);
+                calificacionessemestrales cEquivalente = calificacionesActuales.SingleOrDefault(c => c.idEstudiante == cFila.idEstudiante);
                 // -- Ya existen, pero las calificaciones son diferentes (LIGHT BLUE)
                 // -- Además de que se pone como default el valor TRUE para actualizar
                 // -- y los botones se desactivarán

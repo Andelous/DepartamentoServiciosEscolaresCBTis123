@@ -208,7 +208,7 @@
     <Compile Include="Logica\DBContext\areascampos.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Logica\DBContext\calificaciones.cs">
+    <Compile Include="Logica\DBContext\calificacionessemestrales.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\carreras.cs">

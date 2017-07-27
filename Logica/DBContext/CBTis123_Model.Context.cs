@@ -27,7 +27,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
         public DbSet<academias> academias { get; set; }
         public DbSet<areascampos> areascampos { get; set; }
-        public DbSet<calificaciones> calificaciones { get; set; }
+        public DbSet<calificacionessemestrales> calificacionessemestrales { get; set; }
         public DbSet<carreras> carreras { get; set; }
         public DbSet<catedras> catedras { get; set; }
         public DbSet<docentes> docentes { get; set; }

@@ -68,14 +68,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaCatedras;
         }
 
-        public static List<calificaciones> seleccionarCalificaciones(catedras asignatura)
+        public static List<calificacionessemestrales> seleccionarCalificaciones(catedras asignatura)
         {
-            List<calificaciones> listaCalificaciones = new List<calificaciones>();
+            List<calificacionessemestrales> listaCalificaciones = new List<calificacionessemestrales>();
 
             try
             {
                 inicializarCalificaciones(asignatura);
-                listaCalificaciones = dbContext.calificaciones.Where(c => c.idCatedra == asignatura.idCatedra).ToList();
+                listaCalificaciones = dbContext.calificacionessemestrales.Where(c => c.idCatedra == asignatura.idCatedra).ToList();
             }
             catch (Exception e)
             {
@@ -94,7 +94,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
 
         // UPDATES
-        public static ResultadoOperacion actualizarCalificaciones(List<calificaciones> listaCalificaciones)
+        public static ResultadoOperacion actualizarCalificaciones(List<calificacionessemestrales> listaCalificaciones)
         {
             int calificacionesModificadas = 0;
             ResultadoOperacion innerRO = null;
@@ -102,9 +102,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             try
             {
                 bool cambios = false;
-                foreach (calificaciones c in listaCalificaciones)
+                foreach (calificacionessemestrales c in listaCalificaciones)
                 {
-                    calificaciones cUpdated = dbContext.calificaciones.SingleOrDefault(c1 => c1.idCalificaciones == c.idCalificaciones);
+                    calificacionessemestrales cUpdated = dbContext.calificacionessemestrales.SingleOrDefault(c1 => c1.idCalificacionesSemestrales == c.idCalificacionesSemestrales);
 
                     cUpdated.asistenciasParcial1 = c.asistenciasParcial1;
                     cUpdated.asistenciasParcial2 = c.asistenciasParcial2;
@@ -145,7 +145,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     innerRO);
         }
 
-        public static ResultadoOperacion actualizarCalificacionesDesdeSiseems(List<calificaciones> listaCalificaciones)
+        public static ResultadoOperacion actualizarCalificacionesDesdeSiseems(List<calificacionessemestrales> listaCalificaciones)
         {
             int calificacionesModificadas = 0;
             ResultadoOperacion innerRO = null;
@@ -153,28 +153,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             try
             {
                 bool cambios = false;
-                foreach (calificaciones c in listaCalificaciones)
+                foreach (calificacionessemestrales c in listaCalificaciones)
                 {
-                    calificaciones cUpdated = dbContext.calificaciones.SingleOrDefault(c1 => c1.idEstudiante == c.idEstudiante && c1.idCatedra == c.idCatedra);
+                    calificacionessemestrales cUpdated = dbContext.calificacionessemestrales.SingleOrDefault(c1 => c1.idEstudiante == c.idEstudiante && c1.idCatedra == c.idCatedra);
 
                     if (cUpdated == null)
                     {
-                        cUpdated = new calificaciones()
+                        cUpdated = new calificacionessemestrales()
                         {
-                            asistenciasParcial1 = 0,
-                            asistenciasParcial2 = 0,
-                            asistenciasParcial3 = 0,
-                            calificacionParcial1 = 0,
-                            calificacionParcial2 = 0,
-                            calificacionParcial3 = 0,
-                            firmado = true,
-                            tipoDeAcreditacion = "A",
+                            firmado = false,
                             idCatedra = c.idCatedra,
                             idEstudiante = c.idEstudiante,
                             recursamiento = true
                         };
 
-                        dbContext.calificaciones.Add(cUpdated);
+                        dbContext.calificacionessemestrales.Add(cUpdated);
                         dbContext.SaveChanges();
                     }
 
@@ -266,9 +259,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
                 // Ahora, obtendremos todas las calificaciones
                 // que ya existen en la base de datos.
-                List<calificaciones> listaCalificaciones = new List<calificaciones>();
+                List<calificacionessemestrales> listaCalificaciones = new List<calificacionessemestrales>();
 
-                listaCalificaciones = dbContext.calificaciones.Where(c => c.idCatedra == catedra.idCatedra).ToList();
+                listaCalificaciones = dbContext.calificacionessemestrales.Where(c => c.idCatedra == catedra.idCatedra).ToList();
 
 
                 // Ya que tenemos las calificaciones, iteramos
@@ -276,7 +269,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 // ya un registro. Si no tienen registro, lo agregamos
                 
                 // Eliminación de los alumnos que ya tienen calificación
-                foreach (calificaciones c in listaCalificaciones)
+                foreach (calificacionessemestrales c in listaCalificaciones)
                 {
                     listaEstudiantes.RemoveAll(e => e.idEstudiante == c.idEstudiante);
                 }
@@ -284,22 +277,15 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 bool cambios = false;
                 foreach (estudiantes e in listaEstudiantes)
                 {
-                    calificaciones c = new calificaciones
+                    calificacionessemestrales c = new calificacionessemestrales
                     {
-                        asistenciasParcial1 = 0,
-                        asistenciasParcial2 = 0,
-                        asistenciasParcial3 = 0,
-                        calificacionParcial1 = 0,
-                        calificacionParcial2 = 0,
-                        calificacionParcial3 = 0,
-                        firmado = true,
-                        tipoDeAcreditacion = "A",
+                        firmado = false,
                         idCatedra = catedra.idCatedra,
                         idEstudiante = e.idEstudiante,
                         recursamiento = false
                     };
 
-                    dbContext.calificaciones.Add(c);
+                    dbContext.calificacionessemestrales.Add(c);
                     cambios = true;
                 }
                 if (cambios)
@@ -315,16 +301,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
 
         // Métodos misceláneos
-        public static List<calificaciones> crearListaCalificaciones(string[][] tabla, int idCatedra = -1, catedras catedra = null)
+        public static List<calificacionessemestrales> crearListaCalificaciones(string[][] tabla, int idCatedra = -1, catedras catedra = null)
         {
-            List<calificaciones> listaCalificaciones = new List<calificaciones>();
+            List<calificacionessemestrales> listaCalificaciones = new List<calificacionessemestrales>();
 
             foreach (string[] row in tabla)
             {
                 if (row.Length < 13)
                     continue;
 
-                calificaciones c = new calificaciones();
+                calificacionessemestrales c = new calificacionessemestrales();
 
                 string ncontrol = row[1];
 
@@ -337,7 +323,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 c.estudiantes = dbContext.estudiantes.SingleOrDefault(e => e.ncontrol == ncontrol);
                 c.idEstudiante = c.estudiantes.idEstudiante;
                 c.firmado = Convert.ToBoolean(row[12]);
-                c.idCalificaciones = -1;
+                c.idCalificacionesSemestrales = -1;
                 c.recursamiento = false;
                 c.tipoDeAcreditacion = row[11];
                 c.catedras = catedra;

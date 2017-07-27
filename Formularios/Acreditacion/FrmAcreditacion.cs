@@ -58,20 +58,35 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 return (catedras)comboAsignatura.SelectedItem;
             }
         }
-
-        // Propiedad pública para uso del importador
-        public List<calificaciones> calificacionesDeDGV
+        private calificacionessemestrales calificacionSeleccionada
         {
             get
             {
-                BindingList<calificaciones> calificaciones = (BindingList<calificaciones>)dgvCalificaciones.DataSource;
+                return (calificacionessemestrales)dgvCalificaciones.Rows[dgvCalificaciones.SelectedCells[0].RowIndex].DataBoundItem;
+            }
+        }
+        private string nombrePropiedadSeleccionada
+        {
+            get
+            {
+                return dgvCalificaciones.Columns[dgvCalificaciones.SelectedCells[0].ColumnIndex].Name;
+            }
+        }
+
+        // Propiedad pública para uso del importador
+        public List<calificacionessemestrales> calificacionesDeDGV
+        {
+            get
+            {
+                BindingList<calificacionessemestrales> calificaciones = (BindingList<calificacionessemestrales>)dgvCalificaciones.DataSource;
 
                 int count = 0;
                 foreach (DataGridViewRow row in dgvCalificaciones.Rows)
                 {
-                    calificaciones c = calificaciones[count];
+                    calificacionessemestrales c = calificaciones[count];
 
-                    c.tipoDeAcreditacion = row.Cells["tipoDeAcreditacion1"].Value.ToString();
+                    object valor = row.Cells["tipoDeAcreditacion1"].Value;
+                    c.tipoDeAcreditacion = valor != null ? row.Cells["tipoDeAcreditacion1"].Value.ToString() : null;
 
                     count++;
                 }
@@ -162,8 +177,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             catedras asignatura = asignaturaSeleccionada;
             if (asignatura != null)
             {
-                List<calificaciones> listaCalificaciones = ControladorAcreditacion.seleccionarCalificaciones(asignatura);
-                BindingList<calificaciones> listaCalificacionesBinding = new BindingList<calificaciones>(listaCalificaciones);
+                List<calificacionessemestrales> listaCalificaciones = ControladorAcreditacion.seleccionarCalificaciones(asignatura);
+                BindingList<calificacionessemestrales> listaCalificacionesBinding = new BindingList<calificacionessemestrales>(listaCalificaciones);
             
                 configurarDGVCalificaciones(listaCalificacionesBinding);
             }
@@ -175,7 +190,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void cmdGuardar_Click(object sender, EventArgs e)
         {
-            List<calificaciones> calif = calificacionesDeDGV;
+            List<calificacionessemestrales> calif = calificacionesDeDGV;
 
             /*
              * 
@@ -216,8 +231,39 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             cargarAlumnos(sender, e);
         }
 
+        private void cmdReestablecer_Click(object sender, EventArgs e)
+        {
+            switch (nombrePropiedadSeleccionada)
+            {
+                case "calificacionParcial1":
+                    calificacionSeleccionada.calificacionParcial1 = null;
+                    break;
+                case "calificacionParcial2":
+                    calificacionSeleccionada.calificacionParcial2 = null;
+                    break;
+                case "calificacionParcial3":
+                    calificacionSeleccionada.calificacionParcial3 = null;
+                    break;
+                case "asistenciasParcial1":
+                    calificacionSeleccionada.asistenciasParcial1 = null;
+                    break;
+                case "asistenciasParcial2":
+                    calificacionSeleccionada.asistenciasParcial2 = null;
+                    break;
+                case "asistenciasParcial3":
+                    calificacionSeleccionada.asistenciasParcial3 = null;
+                    break;
+                case "tipoDeAcreditacion":
+                    calificacionSeleccionada.tipoDeAcreditacion = null;
+                    break;
+                default:
+                    MessageBox.Show("No se puede reestablecer el valor de esta propiedad", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    break;
+            }
+        }
+
         // Métodos visuales
-        private void configurarDGVCalificaciones(BindingList<calificaciones> listaCalificacionesBinding)
+        private void configurarDGVCalificaciones(BindingList<calificacionessemestrales> listaCalificacionesBinding)
         {
             // Si la colección es originalmente nula, o vacía, salimos.
             if (listaCalificacionesBinding == null || listaCalificacionesBinding.Count < 1)
@@ -227,12 +273,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
                 cmdGuardar.Enabled = false;
                 cmdImportar.Enabled = false;
+                cmdReestablecer.Enabled = false;
 
                 return;
             }
 
             // Ordenamos la binding list...
-            listaCalificacionesBinding = new BindingList<calificaciones>(
+            listaCalificacionesBinding = new BindingList<calificacionessemestrales>(
                 listaCalificacionesBinding.
                 OrderBy(
                     c => 
@@ -292,7 +339,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
 
                 // Segundo, el color de fondo para mostrar a los de recursamiento
-                if (((calificaciones)row.DataBoundItem).recursamiento)
+                if (((calificacionessemestrales)row.DataBoundItem).recursamiento)
                 {
                     row.DefaultCellStyle.BackColor = Color.LightGreen;
                 }
@@ -369,6 +416,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             // Botones que sólo funcionan si hay DataSource
             cmdGuardar.Enabled = true;
             cmdImportar.Enabled = true;
+            cmdReestablecer.Enabled = true;
         }
 
         private void agregarColumnaCombos()

@@ -4,10 +4,10 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1bcd471ceaf7436aa5f654e3602b0395" Name="Diagram1">
+      <Diagram DiagramId="0288bffafa8f4e14b1c142cef3adf7d4" Name="Diagram1">
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.academias" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.areascampos" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
-        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.calificaciones" Width="1.5" PointX="9.75" PointY="5.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.calificacionessemestrales" Width="1.5" PointX="9.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.carreras" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.catedras" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.docentes" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
@@ -27,8 +27,8 @@
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.semestres" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.usuarios" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
         <AssociationConnector Association="CBTis123_Entities_Namespace.materias_ibfk_2" ManuallyRouted="false" />
-        <AssociationConnector Association="CBTis123_Entities_Namespace.calificaciones_ibfk_1" ManuallyRouted="false" />
-        <AssociationConnector Association="CBTis123_Entities_Namespace.calificaciones_ibfk_2" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123_Entities_Namespace.calificacionessemestrales_ibfk_1" ManuallyRouted="false" />
+        <AssociationConnector Association="CBTis123_Entities_Namespace.calificacionessemestrales_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="CBTis123_Entities_Namespace.materias_ibfk_3" ManuallyRouted="false" />
         <AssociationConnector Association="CBTis123_Entities_Namespace.modulos_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="CBTis123_Entities_Namespace.catedras_ibfk_1" ManuallyRouted="false" />

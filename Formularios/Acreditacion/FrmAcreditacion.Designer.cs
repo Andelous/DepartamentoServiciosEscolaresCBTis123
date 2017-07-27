@@ -46,6 +46,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             this.dgvCalificaciones = new System.Windows.Forms.DataGridView();
             this.cmdImportar = new System.Windows.Forms.Button();
             this.cmdGuardar = new System.Windows.Forms.Button();
+            this.cmdReestablecer = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCalificaciones)).BeginInit();
             this.SuspendLayout();
             // 
@@ -220,11 +221,23 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             this.cmdGuardar.UseVisualStyleBackColor = true;
             this.cmdGuardar.Click += new System.EventHandler(this.cmdGuardar_Click);
             // 
+            // cmdReestablecer
+            // 
+            this.cmdReestablecer.Enabled = false;
+            this.cmdReestablecer.Location = new System.Drawing.Point(178, 459);
+            this.cmdReestablecer.Name = "cmdReestablecer";
+            this.cmdReestablecer.Size = new System.Drawing.Size(118, 32);
+            this.cmdReestablecer.TabIndex = 16;
+            this.cmdReestablecer.Text = "Reestablecer valor";
+            this.cmdReestablecer.UseVisualStyleBackColor = true;
+            this.cmdReestablecer.Click += new System.EventHandler(this.cmdReestablecer_Click);
+            // 
             // FrmAcreditacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(834, 503);
+            this.Controls.Add(this.cmdReestablecer);
             this.Controls.Add(this.cmdGuardar);
             this.Controls.Add(this.cmdImportar);
             this.Controls.Add(this.dgvCalificaciones);
@@ -268,5 +281,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         private System.Windows.Forms.DataGridView dgvCalificaciones;
         private System.Windows.Forms.Button cmdImportar;
         private System.Windows.Forms.Button cmdGuardar;
+        private System.Windows.Forms.Button cmdReestablecer;
     }
 }
