@@ -437,11 +437,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                         double v1 = cFila.calificacionParcial1.HasValue ? cFila.calificacionParcial1.Value : -1;
                         double v2 = cEquivalente.calificacionParcial1.HasValue ? cEquivalente.calificacionParcial1.Value : -1;
 
-                        MessageBox.Show(v1.ToString() + " " + v2.ToString());
-
                         if (v1 != v2)
                         {
-                            MessageBox.Show("Entramos!");
                             flag = true;
 
                             row.Cells["calificacionParcial1"].Style.BackColor = colorDiferenciasResaltado;
@@ -479,11 +476,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                         int v1 = cFila.asistenciasParcial1.HasValue ? cFila.asistenciasParcial1.Value : -1;
                         int v2 = cEquivalente.asistenciasParcial1.HasValue ? cEquivalente.asistenciasParcial1.Value : -1;
 
-                        MessageBox.Show(v1.ToString() + " " + v2.ToString());
-
                         if (v1 != v2)
                         {
-                            MessageBox.Show("Entramos!");
                             flag = true;
 
                             row.Cells["asistenciasParcial1"].Style.BackColor = colorDiferenciasResaltado;
