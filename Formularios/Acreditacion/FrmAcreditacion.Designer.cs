@@ -198,6 +198,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             this.dgvCalificaciones.RowTemplate.DefaultCellStyle.NullValue = null;
             this.dgvCalificaciones.Size = new System.Drawing.Size(810, 335);
             this.dgvCalificaciones.TabIndex = 13;
+            this.dgvCalificaciones.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCalificaciones_CellValueChanged);
             // 
             // cmdImportar
             // 

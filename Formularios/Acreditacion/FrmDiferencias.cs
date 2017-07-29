@@ -89,6 +89,15 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             encontrados = 0;
             diferencias = 0;
             noEncontrados = 0;
+
+            colorDiferencias = Color.FromArgb(220, 220, 255);
+            colorDiferenciasResaltado = Color.FromArgb(170, 170, 255);
+
+            colorNoEncontradosGrupo = Color.FromArgb(255, 255, 170);
+            colorNoEncontradosGrupoResaltado = Color.FromArgb(255, 255, 120);
+
+            colorNoEncontradosDB = Color.FromArgb(255, 220, 220);
+            colorNoEncontradosDBResaltado = Color.FromArgb(255, 170, 170);
         }
 
         private void FrmDiferencias_Load(object sender, EventArgs e)
@@ -100,15 +109,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             configurarDGVCalificacionesSiseems(calificacionesSiseems);
 
             DoubleBuffered = true;
-
-            colorDiferencias = Color.FromArgb(220, 220, 255);
-            colorDiferenciasResaltado = Color.FromArgb(170, 170, 255);
-
-            colorNoEncontradosGrupo = Color.FromArgb(255, 255, 170);
-            colorNoEncontradosGrupoResaltado = Color.FromArgb(255, 255, 120);
-
-            colorNoEncontradosDB = Color.FromArgb(255, 220, 220);
-            colorNoEncontradosDBResaltado = Color.FromArgb(255, 170, 170);
 
             lblDiferencias.BackColor = colorDiferencias;
             lblNoEncontradosGrupo.BackColor = colorNoEncontradosGrupo;
@@ -432,48 +432,90 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                     encontrados++;
                     bool flag = false;
 
-                    if (cFila.calificacionParcial1 != cEquivalente.calificacionParcial1)
+                    if (cFila.calificacionParcial1.HasValue || cEquivalente.calificacionParcial1.HasValue)
                     {
-                        flag = true;
+                        double v1 = cFila.calificacionParcial1.HasValue ? cFila.calificacionParcial1.Value : -1;
+                        double v2 = cEquivalente.calificacionParcial1.HasValue ? cEquivalente.calificacionParcial1.Value : -1;
 
-                        row.Cells["calificacionParcial1"].Style.BackColor = colorDiferenciasResaltado;
+                        MessageBox.Show(v1.ToString() + " " + v2.ToString());
+
+                        if (v1 != v2)
+                        {
+                            MessageBox.Show("Entramos!");
+                            flag = true;
+
+                            row.Cells["calificacionParcial1"].Style.BackColor = colorDiferenciasResaltado;
+                        }
                     }
 
-                    if (cFila.calificacionParcial2 != cEquivalente.calificacionParcial2)
+                    if (cFila.calificacionParcial2.HasValue || cEquivalente.calificacionParcial2.HasValue)
                     {
-                        flag = true;
+                        double v1 = cFila.calificacionParcial2.HasValue ? cFila.calificacionParcial2.Value : -1;
+                        double v2 = cEquivalente.calificacionParcial2.HasValue ? cEquivalente.calificacionParcial2.Value : -1;
 
-                        row.Cells["calificacionParcial2"].Style.BackColor = colorDiferenciasResaltado;
+                        if (v1 != v2)
+                        {
+                            flag = true;
+
+                            row.Cells["calificacionParcial2"].Style.BackColor = colorDiferenciasResaltado;
+                        }
                     }
 
-                    if (cFila.calificacionParcial3 != cEquivalente.calificacionParcial3)
+                    if (cFila.calificacionParcial3.HasValue || cEquivalente.calificacionParcial3.HasValue)
                     {
-                        flag = true;
+                        double v1 = cFila.calificacionParcial3.HasValue ? cFila.calificacionParcial3.Value : -1;
+                        double v2 = cEquivalente.calificacionParcial3.HasValue ? cEquivalente.calificacionParcial3.Value : -1;
 
-                        row.Cells["calificacionParcial3"].Style.BackColor = colorDiferenciasResaltado;
+                        if (v1 != v2)
+                        {
+                            flag = true;
+
+                            row.Cells["calificacionParcial3"].Style.BackColor = colorDiferenciasResaltado;
+                        }
                     }
 
-                    if (cFila.asistenciasParcial1 != cEquivalente.asistenciasParcial1)
+                    if (cFila.asistenciasParcial1.HasValue != cEquivalente.asistenciasParcial1.HasValue)
                     {
-                        flag = true;
+                        int v1 = cFila.asistenciasParcial1.HasValue ? cFila.asistenciasParcial1.Value : -1;
+                        int v2 = cEquivalente.asistenciasParcial1.HasValue ? cEquivalente.asistenciasParcial1.Value : -1;
 
-                        row.Cells["asistenciasParcial1"].Style.BackColor = colorDiferenciasResaltado;
+                        MessageBox.Show(v1.ToString() + " " + v2.ToString());
+
+                        if (v1 != v2)
+                        {
+                            MessageBox.Show("Entramos!");
+                            flag = true;
+
+                            row.Cells["asistenciasParcial1"].Style.BackColor = colorDiferenciasResaltado;
+                        }
                     }
 
-                    if (cFila.asistenciasParcial2 != cEquivalente.asistenciasParcial2)
+                    if (cFila.asistenciasParcial2.HasValue != cEquivalente.asistenciasParcial2.HasValue)
                     {
-                        flag = true;
+                        int v1 = cFila.asistenciasParcial2.HasValue ? cFila.asistenciasParcial2.Value : -1;
+                        int v2 = cEquivalente.asistenciasParcial2.HasValue ? cEquivalente.asistenciasParcial2.Value : -1;
 
-                        row.Cells["asistenciasParcial2"].Style.BackColor = colorDiferenciasResaltado;
+                        if (v1 != v2)
+                        {
+                            flag = true;
+
+                            row.Cells["asistenciasParcial2"].Style.BackColor = colorDiferenciasResaltado;
+                        }
                     }
 
-                    if (cFila.asistenciasParcial3 != cEquivalente.asistenciasParcial3)
+                    if (cFila.asistenciasParcial3.HasValue != cEquivalente.asistenciasParcial3.HasValue)
                     {
-                        flag = true;
+                        int v1 = cFila.asistenciasParcial3.HasValue ? cFila.asistenciasParcial3.Value : -1;
+                        int v2 = cEquivalente.asistenciasParcial3.HasValue ? cEquivalente.asistenciasParcial3.Value : -1;
 
-                        row.Cells["asistenciasParcial3"].Style.BackColor = colorDiferenciasResaltado;
+                        if (v1 != v2)
+                        {
+                            flag = true;
+
+                            row.Cells["asistenciasParcial3"].Style.BackColor = colorDiferenciasResaltado;
+                        }
                     }
-                    
+
                     if (cFila.tipoDeAcreditacion != cEquivalente.tipoDeAcreditacion)
                     {
                         flag = true;

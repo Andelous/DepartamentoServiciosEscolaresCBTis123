@@ -72,7 +72,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 return dgvCalificaciones.Columns[dgvCalificaciones.SelectedCells[0].ColumnIndex].Name;
             }
         }
-
+        
         // Propiedad pública para uso del importador
         public List<calificacionessemestrales> calificacionesDeDGV
         {
@@ -95,6 +95,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             }
         }
 
+
+
+
+
+
+
+
+
+
+
+
         // Métodos de inicialización
         public FrmAcreditacion()
         {
@@ -115,6 +126,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             comboCarrera.DataSource = ControladorSingleton.dbContext.carreras.Where(c => c.acuerdo == "653").ToList();
             comboPeriodo.DataSource = ControladorSingleton.dbContext.semestres.ToList().OrderByDescending(s => s.idSemestre).ToList();
         }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Métodos de evento
         public void cargarGrupos(object sender, EventArgs e)
@@ -233,6 +259,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void cmdReestablecer_Click(object sender, EventArgs e)
         {
+            // Solución sencilla
+            //dgvCalificaciones.SelectedCells[0].Value = null;
+
+            // Solución específica
             switch (nombrePropiedadSeleccionada)
             {
                 case "calificacionParcial1":
@@ -253,14 +283,38 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 case "asistenciasParcial3":
                     calificacionSeleccionada.asistenciasParcial3 = null;
                     break;
-                case "tipoDeAcreditacion":
+                case "tipoDeAcreditacion1":
                     calificacionSeleccionada.tipoDeAcreditacion = null;
+                    dgvCalificaciones.SelectedCells[0].Value = null;
                     break;
                 default:
                     MessageBox.Show("No se puede reestablecer el valor de esta propiedad", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
         }
+
+        private void dgvCalificaciones_CellValueChanged(object sender, DataGridViewCellEventArgs e)
+        {
+            dgvCalificaciones.Invalidate();
+        }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
         // Métodos visuales
         private void configurarDGVCalificaciones(BindingList<calificacionessemestrales> listaCalificacionesBinding)
