@@ -218,6 +218,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
         public virtual estudiantes estudiantes { get; set; }
         public virtual catedras catedras { get; set; }
+		public virtual ICollection<historialcalificacionessemestrales> historialcalificacionessemestrales { get; set; }
 
         // Propiedades mías
         public double? promedio

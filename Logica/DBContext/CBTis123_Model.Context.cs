@@ -35,6 +35,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public DbSet<fichas> fichas { get; set; }
         public DbSet<grupos> grupos { get; set; }
         public DbSet<grupos_estudiantes> grupos_estudiantes { get; set; }
+        public DbSet<historialcalificacionessemestrales> historialcalificacionessemestrales { get; set; }
         public DbSet<localidades> localidades { get; set; }
         public DbSet<materias> materias { get; set; }
         public DbSet<modulos> modulos { get; set; }
