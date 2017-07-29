@@ -291,6 +291,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                     MessageBox.Show("No se puede reestablecer el valor de esta propiedad", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     break;
             }
+
+            dgvCalificaciones.Invalidate();
         }
 
         private void dgvCalificaciones_CellValueChanged(object sender, DataGridViewCellEventArgs e)

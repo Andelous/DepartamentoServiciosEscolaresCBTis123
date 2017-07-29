@@ -225,17 +225,23 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
             get
             {
                 int nulos = 0;
+                double total = 0;
 
                 if (!calificacionParcial1.HasValue)
                     nulos++;
+                else
+                    total += calificacionParcial1.Value;
 
                 if (!calificacionParcial2.HasValue)
                     nulos++;
+                else
+                    total += calificacionParcial2.Value;
 
                 if (!calificacionParcial3.HasValue)
                     nulos++;
+                else
+                    total += calificacionParcial3.Value;
 
-                double total = (calificacionParcial1.HasValue ? calificacionParcial1.Value : 0.0) + (calificacionParcial2.HasValue ? calificacionParcial2.Value : 0.0) + (calificacionParcial3.HasValue ? calificacionParcial3.Value : 0.0);
 
                 if (nulos < 3)
                 {
@@ -252,19 +258,26 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
             get
             {
                 int nulos = 0;
+                int total = 0;
 
                 if (!asistenciasParcial1.HasValue)
                     nulos++;
+                else
+                    total += asistenciasParcial1.Value;
 
                 if (!asistenciasParcial2.HasValue)
                     nulos++;
+                else
+                    total += asistenciasParcial2.Value;
 
                 if (!asistenciasParcial3.HasValue)
                     nulos++;
+                else
+                    total += asistenciasParcial3.Value;
 
                 if (nulos < 3)
                 {
-                    return (asistenciasParcial1.HasValue ? asistenciasParcial1.Value : 0) + (asistenciasParcial2.HasValue ? asistenciasParcial2.Value : 0) + (asistenciasParcial3.HasValue ? asistenciasParcial3.Value : 0);
+                    return total;
                 }
                 else
                 {
