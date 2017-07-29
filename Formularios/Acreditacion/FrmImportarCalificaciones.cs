@@ -36,7 +36,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             string html = webSiseems.Document.Body.InnerHtml;
             string[][] tabla = ControladorMiscelaneo.crearTablaDeHtml(html);
 
-            List<calificacionessemestrales> calificacionesSiseems = ControladorAcreditacion.crearListaCalificaciones(tabla, catedraActual.idCatedra, catedraActual);
+            List<calificaciones_semestrales> calificacionesSiseems = ControladorAcreditacion.crearListaCalificaciones(tabla, catedraActual.idCatedra, catedraActual);
 
             /*
              * 

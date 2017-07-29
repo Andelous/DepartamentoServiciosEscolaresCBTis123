@@ -58,11 +58,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 return (catedras)comboAsignatura.SelectedItem;
             }
         }
-        private calificacionessemestrales calificacionSeleccionada
+        private calificaciones_semestrales calificacionSeleccionada
         {
             get
             {
-                return (calificacionessemestrales)dgvCalificaciones.Rows[dgvCalificaciones.SelectedCells[0].RowIndex].DataBoundItem;
+                return (calificaciones_semestrales)dgvCalificaciones.Rows[dgvCalificaciones.SelectedCells[0].RowIndex].DataBoundItem;
             }
         }
         private string nombrePropiedadSeleccionada
@@ -74,16 +74,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         }
         
         // Propiedad pública para uso del importador
-        public List<calificacionessemestrales> calificacionesDeDGV
+        public List<calificaciones_semestrales> calificacionesDeDGV
         {
             get
             {
-                BindingList<calificacionessemestrales> calificaciones = (BindingList<calificacionessemestrales>)dgvCalificaciones.DataSource;
+                BindingList<calificaciones_semestrales> calificaciones = (BindingList<calificaciones_semestrales>)dgvCalificaciones.DataSource;
 
                 int count = 0;
                 foreach (DataGridViewRow row in dgvCalificaciones.Rows)
                 {
-                    calificacionessemestrales c = calificaciones[count];
+                    calificaciones_semestrales c = calificaciones[count];
 
                     object valor = row.Cells["tipoDeAcreditacion1"].Value;
                     c.tipoDeAcreditacion = valor != null ? row.Cells["tipoDeAcreditacion1"].Value.ToString() : null;
@@ -203,8 +203,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             catedras asignatura = asignaturaSeleccionada;
             if (asignatura != null)
             {
-                List<calificacionessemestrales> listaCalificaciones = ControladorAcreditacion.seleccionarCalificaciones(asignatura);
-                BindingList<calificacionessemestrales> listaCalificacionesBinding = new BindingList<calificacionessemestrales>(listaCalificaciones);
+                List<calificaciones_semestrales> listaCalificaciones = ControladorAcreditacion.seleccionarCalificaciones(asignatura);
+                BindingList<calificaciones_semestrales> listaCalificacionesBinding = new BindingList<calificaciones_semestrales>(listaCalificaciones);
             
                 configurarDGVCalificaciones(listaCalificacionesBinding);
             }
@@ -216,7 +216,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void cmdGuardar_Click(object sender, EventArgs e)
         {
-            List<calificacionessemestrales> calif = calificacionesDeDGV;
+            List<calificaciones_semestrales> calif = calificacionesDeDGV;
 
             /*
              * 
@@ -319,7 +319,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
 
         // Métodos visuales
-        private void configurarDGVCalificaciones(BindingList<calificacionessemestrales> listaCalificacionesBinding)
+        private void configurarDGVCalificaciones(BindingList<calificaciones_semestrales> listaCalificacionesBinding)
         {
             // Si la colección es originalmente nula, o vacía, salimos.
             if (listaCalificacionesBinding == null || listaCalificacionesBinding.Count < 1)
@@ -335,7 +335,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             }
 
             // Ordenamos la binding list...
-            listaCalificacionesBinding = new BindingList<calificacionessemestrales>(
+            listaCalificacionesBinding = new BindingList<calificaciones_semestrales>(
                 listaCalificacionesBinding.
                 OrderBy(
                     c => 
@@ -395,7 +395,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
 
                 // Segundo, el color de fondo para mostrar a los de recursamiento
-                if (((calificacionessemestrales)row.DataBoundItem).recursamiento)
+                if (((calificaciones_semestrales)row.DataBoundItem).recursamiento)
                 {
                     row.DefaultCellStyle.BackColor = Color.LightGreen;
                 }

@@ -27,7 +27,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
         public DbSet<academias> academias { get; set; }
         public DbSet<areascampos> areascampos { get; set; }
-        public DbSet<calificacionessemestrales> calificacionessemestrales { get; set; }
+        public DbSet<calificaciones_semestrales> calificaciones_semestrales { get; set; }
         public DbSet<carreras> carreras { get; set; }
         public DbSet<catedras> catedras { get; set; }
         public DbSet<docentes> docentes { get; set; }
@@ -35,7 +35,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public DbSet<fichas> fichas { get; set; }
         public DbSet<grupos> grupos { get; set; }
         public DbSet<grupos_estudiantes> grupos_estudiantes { get; set; }
-        public DbSet<historialcalificacionessemestrales> historialcalificacionessemestrales { get; set; }
+        public DbSet<historial_calificaciones_semestrales> historial_calificaciones_semestrales { get; set; }
         public DbSet<localidades> localidades { get; set; }
         public DbSet<materias> materias { get; set; }
         public DbSet<modulos> modulos { get; set; }

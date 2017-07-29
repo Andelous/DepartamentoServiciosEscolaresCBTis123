@@ -22,11 +22,11 @@
           <Property Name="nombre" Type="varchar" MaxLength="128" Nullable="false" />
           <Property Name="acuerdo" Type="varchar" MaxLength="10" Nullable="false" />
         </EntityType>
-        <EntityType Name="calificacionessemestrales">
+        <EntityType Name="calificaciones_semestrales">
           <Key>
-            <PropertyRef Name="idCalificacionesSemestrales" />
+            <PropertyRef Name="idCalificacion_Semestral" />
           </Key>
-          <Property Name="idCalificacionesSemestrales" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idCalificacion_Semestral" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="calificacionParcial1" Type="double" />
           <Property Name="calificacionParcial2" Type="double" />
           <Property Name="calificacionParcial3" Type="double" />
@@ -171,15 +171,15 @@
           <Property Name="idGrupo" Type="int" Nullable="false" />
           <Property Name="idEstudiante" Type="int" Nullable="false" />
         </EntityType>
-        <EntityType Name="historialcalificacionessemestrales">
+        <EntityType Name="historial_calificaciones_semestrales">
           <Key>
-            <PropertyRef Name="idHistorialCalificacionesSemestrales" />
+            <PropertyRef Name="idHistorial_Calificacion_Semestral" />
           </Key>
-          <Property Name="idHistorialCalificacionesSemestrales" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idHistorial_Calificacion_Semestral" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="nombreCampo" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="valorAnterior" Type="varchar" MaxLength="100" Nullable="false" />
           <Property Name="valorNuevo" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="idCalificacionesSemestrales" Type="int" Nullable="false" />
+          <Property Name="idCalificacion_Semestral" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="localidades">
           <Key>
@@ -371,26 +371,26 @@
           <Property Name="apellidoMaterno" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="tipoUsuario" Type="int" Nullable="false" />
         </EntityType>
-        <Association Name="calificacionessemestrales_ibfk_1">
+        <Association Name="calificaciones_semestrales_ibfk_1">
           <End Role="estudiantes" Type="Self.estudiantes" Multiplicity="1" />
-          <End Role="calificacionessemestrales" Type="Self.calificacionessemestrales" Multiplicity="*" />
+          <End Role="calificaciones_semestrales" Type="Self.calificaciones_semestrales" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="estudiantes">
               <PropertyRef Name="idEstudiante" />
             </Principal>
-            <Dependent Role="calificacionessemestrales">
+            <Dependent Role="calificaciones_semestrales">
               <PropertyRef Name="idEstudiante" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="calificacionessemestrales_ibfk_2">
+        <Association Name="calificaciones_semestrales_ibfk_2">
           <End Role="catedras" Type="Self.catedras" Multiplicity="1" />
-          <End Role="calificacionessemestrales" Type="Self.calificacionessemestrales" Multiplicity="*" />
+          <End Role="calificaciones_semestrales" Type="Self.calificaciones_semestrales" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="catedras">
               <PropertyRef Name="idCatedra" />
             </Principal>
-            <Dependent Role="calificacionessemestrales">
+            <Dependent Role="calificaciones_semestrales">
               <PropertyRef Name="idCatedra" />
             </Dependent>
           </ReferentialConstraint>
@@ -475,15 +475,15 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="historialcalificacionessemestrales_ibfk_1">
-          <End Role="calificacionessemestrales" Type="Self.calificacionessemestrales" Multiplicity="1" />
-          <End Role="historialcalificacionessemestrales" Type="Self.historialcalificacionessemestrales" Multiplicity="*" />
+        <Association Name="historial_calificaciones_semestrales_ibfk_1">
+          <End Role="calificaciones_semestrales" Type="Self.calificaciones_semestrales" Multiplicity="1" />
+          <End Role="historial_calificaciones_semestrales" Type="Self.historial_calificaciones_semestrales" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="calificacionessemestrales">
-              <PropertyRef Name="idCalificacionesSemestrales" />
+            <Principal Role="calificaciones_semestrales">
+              <PropertyRef Name="idCalificacion_Semestral" />
             </Principal>
-            <Dependent Role="historialcalificacionessemestrales">
-              <PropertyRef Name="idCalificacionesSemestrales" />
+            <Dependent Role="historial_calificaciones_semestrales">
+              <PropertyRef Name="idCalificacion_Semestral" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -538,7 +538,7 @@
         <EntityContainer Name="CBTis123_Entities_NamespaceStoreContainer">
           <EntitySet Name="academias" EntityType="Self.academias" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="areascampos" EntityType="Self.areascampos" Schema="cbtislocal" store:Type="Tables" />
-          <EntitySet Name="calificacionessemestrales" EntityType="Self.calificacionessemestrales" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="calificaciones_semestrales" EntityType="Self.calificaciones_semestrales" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="carreras" EntityType="Self.carreras" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="catedras" EntityType="Self.catedras" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="docentes" EntityType="Self.docentes" Schema="cbtislocal" store:Type="Tables" />
@@ -546,7 +546,7 @@
           <EntitySet Name="fichas" EntityType="Self.fichas" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="grupos" EntityType="Self.grupos" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="grupos_estudiantes" EntityType="Self.grupos_estudiantes" Schema="cbtislocal" store:Type="Tables" />
-          <EntitySet Name="historialcalificacionessemestrales" EntityType="Self.historialcalificacionessemestrales" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="historial_calificaciones_semestrales" EntityType="Self.historial_calificaciones_semestrales" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="localidades" EntityType="Self.localidades" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="materias" EntityType="Self.materias" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="modulos" EntityType="Self.modulos" Schema="cbtislocal" store:Type="Tables" />
@@ -558,13 +558,13 @@
           <EntitySet Name="prefichas2017" EntityType="Self.prefichas2017" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="semestres" EntityType="Self.semestres" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="cbtislocal" store:Type="Tables" />
-          <AssociationSet Name="calificacionessemestrales_ibfk_1" Association="Self.calificacionessemestrales_ibfk_1">
+          <AssociationSet Name="calificaciones_semestrales_ibfk_1" Association="Self.calificaciones_semestrales_ibfk_1">
             <End Role="estudiantes" EntitySet="estudiantes" />
-            <End Role="calificacionessemestrales" EntitySet="calificacionessemestrales" />
+            <End Role="calificaciones_semestrales" EntitySet="calificaciones_semestrales" />
           </AssociationSet>
-          <AssociationSet Name="calificacionessemestrales_ibfk_2" Association="Self.calificacionessemestrales_ibfk_2">
+          <AssociationSet Name="calificaciones_semestrales_ibfk_2" Association="Self.calificaciones_semestrales_ibfk_2">
             <End Role="catedras" EntitySet="catedras" />
-            <End Role="calificacionessemestrales" EntitySet="calificacionessemestrales" />
+            <End Role="calificaciones_semestrales" EntitySet="calificaciones_semestrales" />
           </AssociationSet>
           <AssociationSet Name="catedras_ibfk_1" Association="Self.catedras_ibfk_1">
             <End Role="docentes" EntitySet="docentes" />
@@ -590,9 +590,9 @@
             <End Role="semestres" EntitySet="semestres" />
             <End Role="grupos" EntitySet="grupos" />
           </AssociationSet>
-          <AssociationSet Name="historialcalificacionessemestrales_ibfk_1" Association="Self.historialcalificacionessemestrales_ibfk_1">
-            <End Role="calificacionessemestrales" EntitySet="calificacionessemestrales" />
-            <End Role="historialcalificacionessemestrales" EntitySet="historialcalificacionessemestrales" />
+          <AssociationSet Name="historial_calificaciones_semestrales_ibfk_1" Association="Self.historial_calificaciones_semestrales_ibfk_1">
+            <End Role="calificaciones_semestrales" EntitySet="calificaciones_semestrales" />
+            <End Role="historial_calificaciones_semestrales" EntitySet="historial_calificaciones_semestrales" />
           </AssociationSet>
           <AssociationSet Name="materias_ibfk_2" Association="Self.materias_ibfk_2">
             <End Role="areascampos" EntitySet="areascampos" />
@@ -634,11 +634,11 @@
           <Property Name="acuerdo" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
           <NavigationProperty Name="materias" Relationship="Self.materias_ibfk_2" FromRole="areascampos" ToRole="materias" />
         </EntityType>
-        <EntityType Name="calificacionessemestrales">
+        <EntityType Name="calificaciones_semestrales">
           <Key>
-            <PropertyRef Name="idCalificacionesSemestrales" />
+            <PropertyRef Name="idCalificacion_Semestral" />
           </Key>
-          <Property Name="idCalificacionesSemestrales" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idCalificacion_Semestral" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="calificacionParcial1" Type="Double" />
           <Property Name="calificacionParcial2" Type="Double" />
           <Property Name="calificacionParcial3" Type="Double" />
@@ -650,9 +650,9 @@
           <Property Name="firmado" Type="Boolean" Nullable="false" />
           <Property Name="idEstudiante" Type="Int32" Nullable="false" />
           <Property Name="idCatedra" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="estudiantes" Relationship="Self.calificacionessemestrales_ibfk_1" FromRole="calificacionessemestrales" ToRole="estudiantes" />
-          <NavigationProperty Name="catedras" Relationship="Self.calificacionessemestrales_ibfk_2" FromRole="calificacionessemestrales" ToRole="catedras" />
-          <NavigationProperty Name="historialcalificacionessemestrales" Relationship="Self.historialcalificacionessemestrales_ibfk_1" FromRole="calificacionessemestrales" ToRole="historialcalificacionessemestrales" />
+          <NavigationProperty Name="estudiantes" Relationship="Self.calificaciones_semestrales_ibfk_1" FromRole="calificaciones_semestrales" ToRole="estudiantes" />
+          <NavigationProperty Name="catedras" Relationship="Self.calificaciones_semestrales_ibfk_2" FromRole="calificaciones_semestrales" ToRole="catedras" />
+          <NavigationProperty Name="historial_calificaciones_semestrales" Relationship="Self.historial_calificaciones_semestrales_ibfk_1" FromRole="calificaciones_semestrales" ToRole="historial_calificaciones_semestrales" />
         </EntityType>
         <EntityType Name="carreras">
           <Key>
@@ -674,7 +674,7 @@
           <Property Name="idDocente" Type="Int32" />
           <Property Name="idMateria" Type="Int32" Nullable="false" />
           <Property Name="idGrupo" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="calificacionessemestrales" Relationship="Self.calificacionessemestrales_ibfk_2" FromRole="catedras" ToRole="calificacionessemestrales" />
+          <NavigationProperty Name="calificaciones_semestrales" Relationship="Self.calificaciones_semestrales_ibfk_2" FromRole="catedras" ToRole="calificaciones_semestrales" />
           <NavigationProperty Name="docentes" Relationship="Self.catedras_ibfk_1" FromRole="catedras" ToRole="docentes" />
           <NavigationProperty Name="materias" Relationship="Self.catedras_ibfk_2" FromRole="catedras" ToRole="materias" />
           <NavigationProperty Name="grupos" Relationship="Self.catedras_ibfk_3" FromRole="catedras" ToRole="grupos" />
@@ -739,7 +739,7 @@
           <Property Name="apellido1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellido2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nss" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
-          <NavigationProperty Name="calificacionessemestrales" Relationship="Self.calificacionessemestrales_ibfk_1" FromRole="estudiantes" ToRole="calificacionessemestrales" />
+          <NavigationProperty Name="calificaciones_semestrales" Relationship="Self.calificaciones_semestrales_ibfk_1" FromRole="estudiantes" ToRole="calificaciones_semestrales" />
           <NavigationProperty Name="grupos_estudiantes" Relationship="Self.grupos_estudiantes_ibfk_2" FromRole="estudiantes" ToRole="grupos_estudiantes" />
         </EntityType>
         <EntityType Name="fichas">
@@ -800,16 +800,16 @@
           <NavigationProperty Name="estudiantes" Relationship="Self.grupos_estudiantes_ibfk_2" FromRole="grupos_estudiantes" ToRole="estudiantes" />
           <NavigationProperty Name="grupos" Relationship="Self.grupos_estudiantes_ibfk_1" FromRole="grupos_estudiantes" ToRole="grupos" />
         </EntityType>
-        <EntityType Name="historialcalificacionessemestrales">
+        <EntityType Name="historial_calificaciones_semestrales">
           <Key>
-            <PropertyRef Name="idHistorialCalificacionesSemestrales" />
+            <PropertyRef Name="idHistorial_Calificacion_Semestral" />
           </Key>
-          <Property Name="idHistorialCalificacionesSemestrales" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idHistorial_Calificacion_Semestral" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="nombreCampo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="valorAnterior" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="valorNuevo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="idCalificacionesSemestrales" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="calificacionessemestrales" Relationship="Self.historialcalificacionessemestrales_ibfk_1" FromRole="historialcalificacionessemestrales" ToRole="calificacionessemestrales" />
+          <Property Name="idCalificacion_Semestral" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="calificaciones_semestrales" Relationship="Self.historial_calificaciones_semestrales_ibfk_1" FromRole="historial_calificaciones_semestrales" ToRole="calificaciones_semestrales" />
         </EntityType>
         <EntityType Name="localidades">
           <Key>
@@ -1020,39 +1020,39 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="calificacionessemestrales_ibfk_1">
+        <Association Name="calificaciones_semestrales_ibfk_1">
           <End Role="estudiantes" Type="Self.estudiantes" Multiplicity="1" />
-          <End Role="calificacionessemestrales" Type="Self.calificacionessemestrales" Multiplicity="*" />
+          <End Role="calificaciones_semestrales" Type="Self.calificaciones_semestrales" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="estudiantes">
               <PropertyRef Name="idEstudiante" />
             </Principal>
-            <Dependent Role="calificacionessemestrales">
+            <Dependent Role="calificaciones_semestrales">
               <PropertyRef Name="idEstudiante" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="calificacionessemestrales_ibfk_2">
+        <Association Name="calificaciones_semestrales_ibfk_2">
           <End Role="catedras" Type="Self.catedras" Multiplicity="1" />
-          <End Role="calificacionessemestrales" Type="Self.calificacionessemestrales" Multiplicity="*" />
+          <End Role="calificaciones_semestrales" Type="Self.calificaciones_semestrales" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="catedras">
               <PropertyRef Name="idCatedra" />
             </Principal>
-            <Dependent Role="calificacionessemestrales">
+            <Dependent Role="calificaciones_semestrales">
               <PropertyRef Name="idCatedra" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="historialcalificacionessemestrales_ibfk_1">
-          <End Role="calificacionessemestrales" Type="Self.calificacionessemestrales" Multiplicity="1" />
-          <End Role="historialcalificacionessemestrales" Type="Self.historialcalificacionessemestrales" Multiplicity="*" />
+        <Association Name="historial_calificaciones_semestrales_ibfk_1">
+          <End Role="calificaciones_semestrales" Type="Self.calificaciones_semestrales" Multiplicity="1" />
+          <End Role="historial_calificaciones_semestrales" Type="Self.historial_calificaciones_semestrales" Multiplicity="*" />
           <ReferentialConstraint>
-            <Principal Role="calificacionessemestrales">
-              <PropertyRef Name="idCalificacionesSemestrales" />
+            <Principal Role="calificaciones_semestrales">
+              <PropertyRef Name="idCalificacion_Semestral" />
             </Principal>
-            <Dependent Role="historialcalificacionessemestrales">
-              <PropertyRef Name="idCalificacionesSemestrales" />
+            <Dependent Role="historial_calificaciones_semestrales">
+              <PropertyRef Name="idCalificacion_Semestral" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1175,7 +1175,7 @@
         <EntityContainer Name="CBTis123_Entities" annotation:LazyLoadingEnabled="true">
           <EntitySet Name="academias" EntityType="Self.academias" />
           <EntitySet Name="areascampos" EntityType="Self.areascampos" />
-          <EntitySet Name="calificacionessemestrales" EntityType="Self.calificacionessemestrales" />
+          <EntitySet Name="calificaciones_semestrales" EntityType="Self.calificaciones_semestrales" />
           <EntitySet Name="carreras" EntityType="Self.carreras" />
           <EntitySet Name="catedras" EntityType="Self.catedras" />
           <EntitySet Name="docentes" EntityType="Self.docentes" />
@@ -1183,7 +1183,7 @@
           <EntitySet Name="fichas" EntityType="Self.fichas" />
           <EntitySet Name="grupos" EntityType="Self.grupos" />
           <EntitySet Name="grupos_estudiantes" EntityType="Self.grupos_estudiantes" />
-          <EntitySet Name="historialcalificacionessemestrales" EntityType="Self.historialcalificacionessemestrales" />
+          <EntitySet Name="historial_calificaciones_semestrales" EntityType="Self.historial_calificaciones_semestrales" />
           <EntitySet Name="localidades" EntityType="Self.localidades" />
           <EntitySet Name="materias" EntityType="Self.materias" />
           <EntitySet Name="modulos" EntityType="Self.modulos" />
@@ -1199,17 +1199,17 @@
             <End Role="areascampos" EntitySet="areascampos" />
             <End Role="materias" EntitySet="materias" />
           </AssociationSet>
-          <AssociationSet Name="calificacionessemestrales_ibfk_1" Association="Self.calificacionessemestrales_ibfk_1">
+          <AssociationSet Name="calificaciones_semestrales_ibfk_1" Association="Self.calificaciones_semestrales_ibfk_1">
             <End Role="estudiantes" EntitySet="estudiantes" />
-            <End Role="calificacionessemestrales" EntitySet="calificacionessemestrales" />
+            <End Role="calificaciones_semestrales" EntitySet="calificaciones_semestrales" />
           </AssociationSet>
-          <AssociationSet Name="calificacionessemestrales_ibfk_2" Association="Self.calificacionessemestrales_ibfk_2">
+          <AssociationSet Name="calificaciones_semestrales_ibfk_2" Association="Self.calificaciones_semestrales_ibfk_2">
             <End Role="catedras" EntitySet="catedras" />
-            <End Role="calificacionessemestrales" EntitySet="calificacionessemestrales" />
+            <End Role="calificaciones_semestrales" EntitySet="calificaciones_semestrales" />
           </AssociationSet>
-          <AssociationSet Name="historialcalificacionessemestrales_ibfk_1" Association="Self.historialcalificacionessemestrales_ibfk_1">
-            <End Role="calificacionessemestrales" EntitySet="calificacionessemestrales" />
-            <End Role="historialcalificacionessemestrales" EntitySet="historialcalificacionessemestrales" />
+          <AssociationSet Name="historial_calificaciones_semestrales_ibfk_1" Association="Self.historial_calificaciones_semestrales_ibfk_1">
+            <End Role="calificaciones_semestrales" EntitySet="calificaciones_semestrales" />
+            <End Role="historial_calificaciones_semestrales" EntitySet="historial_calificaciones_semestrales" />
           </AssociationSet>
           <AssociationSet Name="materias_ibfk_3" Association="Self.materias_ibfk_3">
             <End Role="carreras" EntitySet="carreras" />
@@ -1273,10 +1273,10 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="calificacionessemestrales">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.calificacionessemestrales">
-              <MappingFragment StoreEntitySet="calificacionessemestrales">
-                <ScalarProperty Name="idCalificacionesSemestrales" ColumnName="idCalificacionesSemestrales" />
+          <EntitySetMapping Name="calificaciones_semestrales">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.calificaciones_semestrales">
+              <MappingFragment StoreEntitySet="calificaciones_semestrales">
+                <ScalarProperty Name="idCalificacion_Semestral" ColumnName="idCalificacion_Semestral" />
                 <ScalarProperty Name="calificacionParcial1" ColumnName="calificacionParcial1" />
                 <ScalarProperty Name="calificacionParcial2" ColumnName="calificacionParcial2" />
                 <ScalarProperty Name="calificacionParcial3" ColumnName="calificacionParcial3" />
@@ -1430,14 +1430,14 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
-          <EntitySetMapping Name="historialcalificacionessemestrales">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.historialcalificacionessemestrales">
-              <MappingFragment StoreEntitySet="historialcalificacionessemestrales">
-                <ScalarProperty Name="idHistorialCalificacionesSemestrales" ColumnName="idHistorialCalificacionesSemestrales" />
+          <EntitySetMapping Name="historial_calificaciones_semestrales">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.historial_calificaciones_semestrales">
+              <MappingFragment StoreEntitySet="historial_calificaciones_semestrales">
+                <ScalarProperty Name="idHistorial_Calificacion_Semestral" ColumnName="idHistorial_Calificacion_Semestral" />
                 <ScalarProperty Name="nombreCampo" ColumnName="nombreCampo" />
                 <ScalarProperty Name="valorAnterior" ColumnName="valorAnterior" />
                 <ScalarProperty Name="valorNuevo" ColumnName="valorNuevo" />
-                <ScalarProperty Name="idCalificacionesSemestrales" ColumnName="idCalificacionesSemestrales" />
+                <ScalarProperty Name="idCalificacion_Semestral" ColumnName="idCalificacion_Semestral" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

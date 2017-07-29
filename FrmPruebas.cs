@@ -22,7 +22,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void FrmPruebas_Load(object sender, EventArgs e)
         {
             CBTis123_Entities dbContext = ControladorSingleton.dbContext;
-            dataGridView1.DataSource = dbContext.carreras.Where(c => c.acuerdo == "653").ToList();
+            dataGridView1.DataSource = dbContext.catedras.ToList();
         }
 
         private void textBox1_TextChanged(object sender, EventArgs e)

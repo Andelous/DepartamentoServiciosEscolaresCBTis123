@@ -16,7 +16,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     {
         public catedras()
         {
-            this.calificacionessemestrales = new HashSet<calificacionessemestrales>();
+            this.calificaciones_semestrales = new HashSet<calificaciones_semestrales>();
         }
     
         public int idCatedra { get; set; }
@@ -24,7 +24,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public int idMateria { get; set; }
         public int idGrupo { get; set; }
     
-        public virtual ICollection<calificacionessemestrales> calificacionessemestrales { get; set; }
+        public virtual ICollection<calificaciones_semestrales> calificaciones_semestrales { get; set; }
         public virtual docentes docentes { get; set; }
         public virtual materias materias { get; set; }
         public virtual grupos grupos { get; set; }

@@ -12,9 +12,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     using System;
     using System.Collections.Generic;
     
-    public partial class calificacionessemestrales
+    public partial class calificaciones_semestrales
     {
-        // Propiedades mías
+		// Propiedades mías
         public string nControl
         {
             get
@@ -22,12 +22,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
                 return estudiantes.ncontrol;
             }
         }
-
-
-        // Propiedades del modelo
-        public int idCalificacionesSemestrales { get; set; }
-
-
+		
+		// Propiedades del modelo
+        public calificaciones_semestrales()
+        {
+            this.historial_calificaciones_semestrales = new HashSet<historial_calificaciones_semestrales>();
+        }
+		
+        public int idCalificacion_Semestral { get; set; }
+		
+		
         private Nullable<double> _calificacionParcial1;
         public Nullable<double> calificacionParcial1
         {
@@ -208,8 +212,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
                 }
             }
         }
-
-
+		
+		
         public string tipoDeAcreditacion { get; set; }
         public bool recursamiento { get; set; }
         public bool firmado { get; set; }
@@ -218,8 +222,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
         public virtual estudiantes estudiantes { get; set; }
         public virtual catedras catedras { get; set; }
-		public virtual ICollection<historialcalificacionessemestrales> historialcalificacionessemestrales { get; set; }
-
+        public virtual ICollection<historial_calificaciones_semestrales> historial_calificaciones_semestrales { get; set; }
+		
         // Propiedades mías
         public double? promedio
         {

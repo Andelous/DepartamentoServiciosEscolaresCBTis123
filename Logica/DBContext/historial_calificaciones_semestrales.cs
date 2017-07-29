@@ -12,14 +12,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     using System;
     using System.Collections.Generic;
     
-    public partial class historialcalificacionessemestrales
+    public partial class historial_calificaciones_semestrales
     {
-        public int idHistorialCalificacionesSemestrales { get; set; }
+        public int idHistorial_Calificacion_Semestral { get; set; }
         public string nombreCampo { get; set; }
         public string valorAnterior { get; set; }
         public string valorNuevo { get; set; }
-        public int idCalificacionesSemestrales { get; set; }
+        public int idCalificacion_Semestral { get; set; }
     
-        public virtual calificacionessemestrales calificacionessemestrales { get; set; }
+        public virtual calificaciones_semestrales calificaciones_semestrales { get; set; }
     }
 }
