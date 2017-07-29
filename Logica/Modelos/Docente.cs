@@ -9,6 +9,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
     public class Docente
     {
         public int idDocente { get; set; }
+
         public string genero { get; set; }
         public int tarjeta { get; set; }
         public string curp { get; set; }

@@ -67,9 +67,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmEstudiantes_Load(object sender, EventArgs e)
         {
-            comboSemestres.DataSource = 
-                controladorEstudiantes.
-                seleccionarSemestres();
+            List<Semestre> listaSemestres = controladorEstudiantes.seleccionarSemestres();
+            comboSemestres.DataSource = listaSemestres;
+
+            comboSemestres.SelectedIndex = listaSemestres.Count - 1;
+
+            comboSemestres.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
+            comboGrupos.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
         }
 
         // Funciones lógicas
@@ -83,47 +87,92 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
             else
             {
-                comboGrupos.Enabled = true;
-                comboGrupos.DataSource =
+                List<Grupo> listaGrupos = 
                     controladorEstudiantes.
                     seleccionarGrupos(semestreSeleccionado);
+
+                if (listaGrupos.Count > 0)
+                {
+                    comboGrupos.Enabled = true;
+                    comboGrupos.DataSource = listaGrupos;
+                }
+                else
+                {
+                    comboSemestres.SelectedIndex = comboSemestres.Items.Count - 1;
+                    MessageBox.Show("El semestre no contiene grupos. Se muestran los alumnos de todos los semestres y grupos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    comboGrupos.Enabled = false;
+
+                    mostrarEstudiantes(sender, e);
+                }
             }
         }
 
         private void mostrarEstudiantes(object sender, EventArgs e)
         {
-            // Se decide si el evento proviene del combo, además de comprobar
-            // si el combo tiene grupos...
-            if (sender.Equals(comboGrupos) && comboGrupos.Enabled)
-            {
-                configurarDGVEstudiantes(controladorEstudiantes.seleccionarEstudiantesPorGrupo(grupoSeleccionado));
-            }
-            // Si el evento proviene del combo, sabemos que no tiene grupos,
-            // Ya que hubiera entrado en el apartado anterior.
-            else if (sender.Equals(comboGrupos))
-            {
-                configurarDGVEstudiantes(controladorEstudiantes.seleccionarEstudiantes());
-            }
-            // Si proviene de otro control, sabemos
-            // que fue click de búsqueda o enter en 
-            // el txtBusqueda
-            else
+            // Se decide si el evento proviene de los combos.
+            // Si es así, significa que no fue una búsqueda.
+            if (sender.Equals(comboGrupos) || sender.Equals(comboSemestres))
             {
                 configurarDGVEstudiantes(
                     controladorEstudiantes.
-                    seleccionarEstudiantesParametros(
-                        txtBusqueda.Text,
-                        chkNombreCompleto.Checked,
-                        chkNombres.Checked,
-                        chkApellidoPaterno.Checked,
-                        chkApellidoMaterno.Checked,
-                        chkCurp.Checked,
-                        chkNss.Checked,
-                        chkNcontrol.Checked,
+                    seleccionarEstudiantesPorGrupo(
                         grupoSeleccionado));
 
-                lblAdvertencia.Visible = false;
+                ultimoCambioBusqueda = false;
             }
+            // Si proviene de otro control, sabemos
+            // que fue click de búsqueda o enter en 
+            // el txtBusqueda, o alguna operación de
+            // inserción, modificación o eliminación.
+            else
+            {
+                // Si fue una búsqueda, se oculta la advertencia 
+                // y se pone que el último cambio fue una búsqueda.
+                if (sender.Equals(txtBusqueda) || sender.Equals(cmdBuscar))
+                {
+                    ultimoCambioBusqueda = true;
+                    lblAdvertencia.Visible = false;
+                }
+
+                // Si lo último que se hizo fue una búsqueda,
+                // se repetirá la búsqueda para actualizar los registros.
+                if (ultimoCambioBusqueda)
+                {
+                    configurarDGVEstudiantes(
+                        controladorEstudiantes.
+                        seleccionarEstudiantesParametros(
+                            txtBusqueda.Text,
+                            chkNombreCompleto.Checked,
+                            chkNombres.Checked,
+                            chkApellidoPaterno.Checked,
+                            chkApellidoMaterno.Checked,
+                            chkCurp.Checked,
+                            chkNss.Checked,
+                            chkNcontrol.Checked,
+                            grupoSeleccionado));
+                }
+                // Si lo último no fue una búsqueda,
+                // se actualiza a la lista de grupo.
+                else
+                {
+                    configurarDGVEstudiantes(
+                        controladorEstudiantes.
+                        seleccionarEstudiantesPorGrupo(
+                            grupoSeleccionado));
+                }
+            }
+        }
+
+        private void reiniciarBusqueda()
+        {
+            chkApellidoMaterno.Checked = false;
+            chkApellidoPaterno.Checked = false;
+            chkCurp.Checked = false;
+            chkNcontrol.Checked = false;
+            chkNombres.Checked = false;
+            chkNss.Checked = false;
+
+            txtBusqueda.Text = "";
         }
 
         // Métodos de evento de controles
@@ -172,14 +221,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             lblAdvertencia.Visible = true;
 
-            if (
-                chkApellidoMaterno.Checked || 
+            if (chkApellidoMaterno.Checked || 
                 chkApellidoPaterno.Checked || 
                 chkCurp.Checked ||
                 chkNcontrol.Checked ||
                 chkNombres.Checked ||
-                chkNss.Checked)
-            {
+                chkNss.Checked
+            ) {
                 chkNombreCompleto.Enabled = true;
             }
             else
@@ -204,7 +252,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvEstudiantes.Columns["apellido1"].HeaderText = "Apellido p.";
             dgvEstudiantes.Columns["apellido2"].HeaderText = "Apellido m.";
 
-            if (dgvEstudiantes.SelectedRows.Count < 1)
+            if (dgvEstudiantes.SelectedRows.Count == 0)
             {
                 cmdEditarEstudiante.Enabled = false;
                 cmdEliminarEstudiante.Enabled = false;

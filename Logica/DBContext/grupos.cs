@@ -14,6 +14,18 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     
     public partial class grupos
     {
+        // Propiedades mías 
+        public string nombreCompleto
+        {
+            get
+            {
+                return semestre.ToString() + letra + turno + "-" + especialidad;
+            }
+        }
+
+
+
+        // Propiedades del modelo
         public grupos()
         {
             this.catedras = new HashSet<catedras>();
@@ -30,5 +42,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public virtual ICollection<catedras> catedras { get; set; }
         public virtual ICollection<grupos_estudiantes> grupos_estudiantes { get; set; }
         public virtual semestres semestres { get; set; }
+
+
+
+
+        // Métodos míos
+        public override string ToString()
+        {
+            return nombreCompleto;
+        }
     }
 }

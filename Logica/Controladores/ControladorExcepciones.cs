@@ -23,42 +23,48 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         new ResultadoOperacion(
                             EstadoOperacion.ErrorConexionServidor,
                             "MySqlException",
-                            e.Number.ToString());
+                            e.Number.ToString(),
+                            e.InnerException != null ? crearResultadoOperacionException(e.InnerException) : null);
 
                 case TipoError.ErrorDesconocido:
                     return
                         new ResultadoOperacion(
                             EstadoOperacion.ErrorDesconocido,
                             "MySqlException",
-                            e.Number.ToString());
+                            e.Number.ToString(),
+                            e.InnerException != null ? crearResultadoOperacionException(e.InnerException) : null);
 
                 case TipoError.ErrorEnServidor:
                     return
                         new ResultadoOperacion(
                             EstadoOperacion.ErrorEnServidor,
                             "MySqlException",
-                            e.Number.ToString());
+                            e.Number.ToString(),
+                            e.InnerException != null ? crearResultadoOperacionException(e.InnerException) : null);
 
                 case TipoError.ErrorAcceso_SintaxisSQL:
                     return
                         new ResultadoOperacion(
                             EstadoOperacion.ErrorAcceso_SintaxisSQL,
                             "MySqlException",
-                            e.Number.ToString());
+                            e.Number.ToString(),
+                            e.InnerException != null ? crearResultadoOperacionException(e.InnerException) : null);
 
                 case TipoError.ErrorAjenoMySql:
                     return
                         new ResultadoOperacion(
                             EstadoOperacion.ErrorAplicacion,
                             "MySqlException/Aplicación - " + e.Message,
-                            e.Number.ToString());
+                            e.Number.ToString(),
+                            e.InnerException != null ? crearResultadoOperacionException(e.InnerException) : null);
 
                 default:
                     return
                         new ResultadoOperacion(
                             EstadoOperacion.ErrorEnServidor,
                             "MySqlException",
-                            e.Number.ToString());
+                            e.Number.ToString(),
+                            e.InnerException != null ? crearResultadoOperacionException(e.InnerException) : null);
             }
         }
 
@@ -67,7 +73,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
-                    e.Message);
+                    e.Message,
+                    null,
+                    e.InnerException != null ? crearResultadoOperacionException(e.InnerException) : null);
         }
     }
 }

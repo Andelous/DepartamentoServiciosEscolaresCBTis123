@@ -1,5 +1,4 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
-using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
@@ -13,7 +12,7 @@ using System.Windows.Forms;
 
 namespace DepartamentoServiciosEscolaresCBTis123
 {
-    public partial class FrmModificarEstudiante : Form
+    public partial class FrmNuevoEstudiante : Form
     {
         private ControladorSesion controladorSesion
         {
@@ -30,37 +29,27 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        private Estudiante estudiante { get; set; }
-
-        public FrmModificarEstudiante(Estudiante estudiante)
+        public FrmNuevoEstudiante()
         {
             InitializeComponent();
-
-            this.estudiante = estudiante;
         }
 
-        private void FrmModificarEstudiante_Load(object sender, EventArgs e)
+        private void cmdCancelar_Click(object sender, EventArgs e)
         {
-            txtNombres.Text = estudiante.nombres;
-            txtApellidoPaterno.Text = estudiante.apellido1;
-            txtApellidoMaterno.Text = estudiante.apellido2;
-
-            txtCurp.Text = estudiante.curp;
-            txtNumeroDeControl.Text = estudiante.ncontrol;
+            Close();
         }
 
-        private void cmdModificar_Click(object sender, EventArgs e)
+        private void cmdRegistrar_Click(object sender, EventArgs e)
         {
             ResultadoOperacion resultadoOperacion =
                 controladorEstudiantes.
-                modificarEstudiante(
-                    estudiante.idEstudiante,
+                registrarEstudiante(
                     txtNombres.Text,
                     txtApellidoPaterno.Text,
                     txtApellidoMaterno.Text,
                     txtCurp.Text,
                     txtNumeroDeControl.Text,
-                    "Not implem");
+                    "");
 
             ControladorVisual.mostrarMensaje(resultadoOperacion);
 
@@ -68,11 +57,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
             {
                 Close();
             }
-        }
-
-        private void cmdCancelar_Click(object sender, EventArgs e)
-        {
-            Close();
         }
     }
 }

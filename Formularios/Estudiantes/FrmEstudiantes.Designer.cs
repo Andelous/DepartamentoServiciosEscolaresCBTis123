@@ -84,6 +84,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             // 
             // cmdEliminarEstudiante
             // 
+            this.cmdEliminarEstudiante.Enabled = false;
             this.cmdEliminarEstudiante.Location = new System.Drawing.Point(646, 486);
             this.cmdEliminarEstudiante.Name = "cmdEliminarEstudiante";
             this.cmdEliminarEstudiante.Size = new System.Drawing.Size(168, 34);
@@ -94,6 +95,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             // 
             // cmdEditarEstudiante
             // 
+            this.cmdEditarEstudiante.Enabled = false;
             this.cmdEditarEstudiante.Location = new System.Drawing.Point(12, 486);
             this.cmdEditarEstudiante.Name = "cmdEditarEstudiante";
             this.cmdEditarEstudiante.Size = new System.Drawing.Size(168, 34);

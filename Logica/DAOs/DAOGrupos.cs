@@ -12,6 +12,19 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
     {
         // SELECTS
 
+        public Grupo seleccionarGrupo(int idGrupo)
+        {
+            string query = "SELECT * FROM grupos G, semestres S, carreras C " +
+                "WHERE G.idGrupo = " + idGrupo + " AND G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
+                "ORDER BY semestre, turno, especialidad, letra;";
+
+            MySqlDataReader dr = dataSource.ejecutarConsulta(query);
+
+            List<Grupo> listaGrupo = crearListaGruposMySqlDataReader(dr);
+
+            return listaGrupo[0];
+        }
+
         public List<Grupo> seleccionarGrupos()
         {
             string query = "SELECT * FROM grupos G, semestres S, carreras C " +
@@ -125,7 +138,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                 Carrera c = 
                     DAOCarreras.crearCarrera(
                         Convert.ToInt32(dr["idCarrera"]),
-                        dr[11].ToString(),
+                        dr[12].ToString(),
                         dr["abreviatura"].ToString(),
                         dr["acuerdo"].ToString(),
                         dr["bachilleratociencias"].ToString());

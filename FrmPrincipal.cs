@@ -1,4 +1,5 @@
-﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+﻿using DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -39,7 +40,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void cmdCerrarSesion_Click(object sender, EventArgs e)
         {
             Close();
-            ((FrmLogin)Application.OpenForms["FrmLogin"]).Show();
         }
 
         private void cmdSemestres_Click(object sender, EventArgs e)
@@ -65,6 +65,11 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void button1_Click(object sender, EventArgs e)
         {
             new FrmPruebas().Show();
+        }
+
+        private void cmdAcreditacion_Click(object sender, EventArgs e)
+        {
+            new FrmAcreditacion().Show();
         }
     }
 }

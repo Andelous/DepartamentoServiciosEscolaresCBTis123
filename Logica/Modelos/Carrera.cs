@@ -9,6 +9,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
     public class Carrera
     {
         public int idCarrera { get; set; }
+
         public string nombre { get; set; }
         public string abreviatura { get; set; }
         public string acuerdo { get; set; }

@@ -19,6 +19,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 
         public int idGrupo { get; set; }
         public int idSemestre { get; set; }
+
         public int semestre { get; set; }
         public string letra { get; set; }
 
@@ -34,8 +35,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
                 _turno = value[0].ToString().ToUpper();
             }
         }
-
         public string especialidad { get; set; }
+
         public Semestre semestreObj { get; set; }
         public Carrera especialidadObj { get; set; }
 

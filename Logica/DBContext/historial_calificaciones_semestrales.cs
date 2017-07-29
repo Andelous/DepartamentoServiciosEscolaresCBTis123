@@ -12,25 +12,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     using System;
     using System.Collections.Generic;
     
-    public partial class semestres
+    public partial class historial_calificaciones_semestrales
     {
-        public semestres()
-        {
-            this.grupos = new HashSet<grupos>();
-        }
+        public int idHistorial_Calificacion_Semestral { get; set; }
+        public string nombreCampo { get; set; }
+        public string valorAnterior { get; set; }
+        public string valorNuevo { get; set; }
+        public int idCalificacion_Semestral { get; set; }
     
-        public int idSemestre { get; set; }
-        public string nombre { get; set; }
-        public string nombrecorto { get; set; }
-        public string nombrecorto2 { get; set; }
-        public string nombrecorto3 { get; set; }
-    
-        public virtual ICollection<grupos> grupos { get; set; }
-
-        // Métodos míos
-        public override string ToString()
-        {
-            return nombre + " (" + nombrecorto2 + ")";
-        }
+        public virtual calificaciones_semestrales calificaciones_semestrales { get; set; }
     }
 }

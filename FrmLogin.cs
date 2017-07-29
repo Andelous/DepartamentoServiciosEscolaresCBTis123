@@ -60,5 +60,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
             base.Show();
             controladorSesion.cerrarSesion();
         }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            new FrmPruebas().Show();
+        }
     }
 }

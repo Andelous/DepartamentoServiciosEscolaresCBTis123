@@ -16,6 +16,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     {
         public estudiantes()
         {
+            this.calificaciones_semestrales = new HashSet<calificaciones_semestrales>();
             this.grupos_estudiantes = new HashSet<grupos_estudiantes>();
         }
     
@@ -28,6 +29,15 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string apellido2 { get; set; }
         public string nss { get; set; }
     
+        public virtual ICollection<calificaciones_semestrales> calificaciones_semestrales { get; set; }
         public virtual ICollection<grupos_estudiantes> grupos_estudiantes { get; set; }
+
+
+        // Métodos míos
+
+        public override string ToString()
+        {
+            return nombrecompleto;
+        }
     }
 }

@@ -94,7 +94,7 @@
             // 
             this.txtRfc.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
             this.txtRfc.Location = new System.Drawing.Point(12, 131);
-            this.txtRfc.MaxLength = 18;
+            this.txtRfc.MaxLength = 13;
             this.txtRfc.Name = "txtRfc";
             this.txtRfc.Size = new System.Drawing.Size(245, 29);
             this.txtRfc.TabIndex = 20;
