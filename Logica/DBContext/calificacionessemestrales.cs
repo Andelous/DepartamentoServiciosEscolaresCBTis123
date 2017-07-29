@@ -26,12 +26,190 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
 
         // Propiedades del modelo
         public int idCalificacionesSemestrales { get; set; }
-        public Nullable<double> calificacionParcial1 { get; set; }
-        public Nullable<double> calificacionParcial2 { get; set; }
-        public Nullable<double> calificacionParcial3 { get; set; }
-        public Nullable<int> asistenciasParcial1 { get; set; }
-        public Nullable<int> asistenciasParcial2 { get; set; }
-        public Nullable<int> asistenciasParcial3 { get; set; }
+
+
+        private Nullable<double> _calificacionParcial1;
+        public Nullable<double> calificacionParcial1
+        {
+            get
+            {
+                return _calificacionParcial1;
+            }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    if (value > 10)
+                    {
+                        _calificacionParcial1 = 10;
+                    }
+                    else if (value < 0)
+                    {
+                        _calificacionParcial1 = 0;
+                    }
+                    else
+                    {
+                        _calificacionParcial1 = value;
+                    }
+                }
+                else
+                {
+                    _calificacionParcial1 = null;
+                }
+            }
+        }
+
+        private Nullable<double> _calificacionParcial2;
+        public Nullable<double> calificacionParcial2
+        {
+            get
+            {
+                return _calificacionParcial2;
+            }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    if (value > 10)
+                    {
+                        _calificacionParcial2 = 10;
+                    }
+                    else if (value < 0)
+                    {
+                        _calificacionParcial2 = 0;
+                    }
+                    else
+                    {
+                        _calificacionParcial2 = value;
+                    }
+                }
+                else
+                {
+                    _calificacionParcial2 = null;
+                }
+            }
+        }
+
+        private Nullable<double> _calificacionParcial3;
+        public Nullable<double> calificacionParcial3
+        {
+            get
+            {
+                return _calificacionParcial3;
+            }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    if (value > 10)
+                    {
+                        _calificacionParcial3 = 10;
+                    }
+                    else if (value < 0)
+                    {
+                        _calificacionParcial3 = 0;
+                    }
+                    else
+                    {
+                        _calificacionParcial3 = value;
+                    }
+                }
+                else
+                {
+                    _calificacionParcial3 = null;
+                }
+            }
+        }
+
+
+        private Nullable<int> _asistenciasParcial1;
+        public Nullable<int> asistenciasParcial1
+        {
+            get
+            {
+                return _asistenciasParcial1;
+            }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    if (value < 0)
+                    {
+                        _asistenciasParcial1 = 0;
+                    }
+                    else
+                    {
+                        _asistenciasParcial1 = value;
+                    }
+                }
+                else
+                {
+                    _asistenciasParcial1 = null;
+                }
+            }
+        }
+
+        private Nullable<int> _asistenciasParcial2;
+        public Nullable<int> asistenciasParcial2
+        {
+            get
+            {
+                return _asistenciasParcial2;
+            }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    if (value < 0)
+                    {
+                        _asistenciasParcial2 = 0;
+                    }
+                    else
+                    {
+                        _asistenciasParcial2 = value;
+                    }
+                }
+                else
+                {
+                    _asistenciasParcial2 = null;
+                }
+            }
+        }
+
+        private Nullable<int> _asistenciasParcial3;
+        public Nullable<int> asistenciasParcial3
+        {
+            get
+            {
+                return _asistenciasParcial3;
+            }
+
+            set
+            {
+                if (value.HasValue)
+                {
+                    if (value < 0)
+                    {
+                        _asistenciasParcial3 = 0;
+                    }
+                    else
+                    {
+                        _asistenciasParcial3 = value;
+                    }
+                }
+                else
+                {
+                    _asistenciasParcial3 = null;
+                }
+            }
+        }
+
+
         public string tipoDeAcreditacion { get; set; }
         public bool recursamiento { get; set; }
         public bool firmado { get; set; }
