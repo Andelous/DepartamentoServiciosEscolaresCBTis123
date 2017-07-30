@@ -15,9 +15,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     public partial class historial_calificaciones_semestrales
     {
         public int idHistorial_Calificacion_Semestral { get; set; }
-        public string nombreCampo { get; set; }
-        public string valorAnterior { get; set; }
-        public string valorNuevo { get; set; }
+        public string cambios { get; set; }
         public int idCalificacion_Semestral { get; set; }
     
         public virtual calificaciones_semestrales calificaciones_semestrales { get; set; }

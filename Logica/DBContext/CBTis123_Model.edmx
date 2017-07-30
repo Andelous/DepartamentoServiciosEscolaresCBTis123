@@ -36,6 +36,7 @@
           <Property Name="tipoDeAcreditacion" Type="varchar" MaxLength="10" />
           <Property Name="recursamiento" Type="bool" Nullable="false" />
           <Property Name="firmado" Type="bool" Nullable="false" />
+          <Property Name="verificado" Type="bool" Nullable="false" />
           <Property Name="idEstudiante" Type="int" Nullable="false" />
           <Property Name="idCatedra" Type="int" Nullable="false" />
         </EntityType>
@@ -176,9 +177,7 @@
             <PropertyRef Name="idHistorial_Calificacion_Semestral" />
           </Key>
           <Property Name="idHistorial_Calificacion_Semestral" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombreCampo" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="valorAnterior" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="valorNuevo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cambios" Type="text" Nullable="false" />
           <Property Name="idCalificacion_Semestral" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="localidades">
@@ -648,6 +647,7 @@
           <Property Name="tipoDeAcreditacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="recursamiento" Type="Boolean" Nullable="false" />
           <Property Name="firmado" Type="Boolean" Nullable="false" />
+          <Property Name="verificado" Type="Boolean" Nullable="false" />
           <Property Name="idEstudiante" Type="Int32" Nullable="false" />
           <Property Name="idCatedra" Type="Int32" Nullable="false" />
           <NavigationProperty Name="estudiantes" Relationship="Self.calificaciones_semestrales_ibfk_1" FromRole="calificaciones_semestrales" ToRole="estudiantes" />
@@ -805,9 +805,7 @@
             <PropertyRef Name="idHistorial_Calificacion_Semestral" />
           </Key>
           <Property Name="idHistorial_Calificacion_Semestral" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombreCampo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="valorAnterior" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="valorNuevo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cambios" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idCalificacion_Semestral" Type="Int32" Nullable="false" />
           <NavigationProperty Name="calificaciones_semestrales" Relationship="Self.historial_calificaciones_semestrales_ibfk_1" FromRole="historial_calificaciones_semestrales" ToRole="calificaciones_semestrales" />
         </EntityType>
@@ -1286,6 +1284,7 @@
                 <ScalarProperty Name="tipoDeAcreditacion" ColumnName="tipoDeAcreditacion" />
                 <ScalarProperty Name="recursamiento" ColumnName="recursamiento" />
                 <ScalarProperty Name="firmado" ColumnName="firmado" />
+                <ScalarProperty Name="verificado" ColumnName="verificado" />
                 <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
                 <ScalarProperty Name="idCatedra" ColumnName="idCatedra" />
               </MappingFragment>
@@ -1434,9 +1433,7 @@
             <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.historial_calificaciones_semestrales">
               <MappingFragment StoreEntitySet="historial_calificaciones_semestrales">
                 <ScalarProperty Name="idHistorial_Calificacion_Semestral" ColumnName="idHistorial_Calificacion_Semestral" />
-                <ScalarProperty Name="nombreCampo" ColumnName="nombreCampo" />
-                <ScalarProperty Name="valorAnterior" ColumnName="valorAnterior" />
-                <ScalarProperty Name="valorNuevo" ColumnName="valorNuevo" />
+                <ScalarProperty Name="cambios" ColumnName="cambios" />
                 <ScalarProperty Name="idCalificacion_Semestral" ColumnName="idCalificacion_Semestral" />
               </MappingFragment>
             </EntityTypeMapping>

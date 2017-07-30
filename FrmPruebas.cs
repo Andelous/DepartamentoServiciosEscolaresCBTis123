@@ -141,6 +141,38 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
             System.IO.File.WriteAllText(@"C:\Users\angel\Desktop\Resultado.txt", nuevaCadena.ToString());
         }
+
+        private void button7_Click(object sender, EventArgs e)
+        {
+            string s1 = textBox2.Text;
+            string[] s2 = s1.Split(new string[] { "|" }, StringSplitOptions.RemoveEmptyEntries);
+
+            string[][] valoresFinales = new string[s2.Length][];
+
+            for (int i = 0; i < s2.Length; i++)
+            {
+                string s = s2[i];
+
+                valoresFinales[i] = s.Split(new string[] { ":" }, StringSplitOptions.RemoveEmptyEntries);
+            }
+
+            foreach (string[] sArr in valoresFinales)
+            {
+                StringBuilder sFinal = new StringBuilder();
+
+                foreach (string sInd in sArr)
+                {
+                    sFinal.Append(sInd.Trim() + " | ");
+                }
+
+                MessageBox.Show(sFinal.ToString());
+            }
+        }
+
+        private void button8_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(DateTime.Now.ToString());
+        }
     }
 }
 

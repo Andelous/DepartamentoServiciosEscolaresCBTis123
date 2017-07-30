@@ -217,6 +217,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string tipoDeAcreditacion { get; set; }
         public bool recursamiento { get; set; }
         public bool firmado { get; set; }
+		public bool verificado { get; set; }
         public int idEstudiante { get; set; }
         public int idCatedra { get; set; }
     
