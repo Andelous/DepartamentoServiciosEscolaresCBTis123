@@ -173,6 +173,11 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             MessageBox.Show(DateTime.Now.ToString());
         }
+
+        private void button9_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show((new estudiantes()).idEstudiante.ToString());
+        }
     }
 }
 

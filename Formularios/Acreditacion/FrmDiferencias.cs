@@ -20,7 +20,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         public int encontrados { get; set; }
         public int diferencias { get; set; }
-        public int noEncontrados { get; set; }
+        public int noEncontradosGrupo { get; set; }
+        public int noEncontradosDB { get; set; }
+
 
         // Colores
         private Color colorDiferencias { get; set; }
@@ -88,7 +90,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             encontrados = 0;
             diferencias = 0;
-            noEncontrados = 0;
+            noEncontradosGrupo = 0;
+            noEncontradosDB = 0;
 
             colorDiferencias = Color.FromArgb(220, 220, 255);
             colorDiferenciasResaltado = Color.FromArgb(170, 170, 255);
@@ -112,6 +115,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             lblDiferencias.BackColor = colorDiferencias;
             lblNoEncontradosGrupo.BackColor = colorNoEncontradosGrupo;
+            lblNoEncontradosDB.BackColor = colorNoEncontradosDB;
         }
 
         // Métodos de eventos
@@ -298,25 +302,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["asistenciasTotales"].HeaderText = "Asistencias totales";
 
             // Las muestro en un orden particular
-            columnas["nControl"].DisplayIndex = 0;
-            columnas["estudiantes"].DisplayIndex = 1;
-            columnas["calificacionParcial1"].DisplayIndex = 2;
-            columnas["calificacionParcial2"].DisplayIndex = 3;
-            columnas["calificacionParcial3"].DisplayIndex = 4;
-            columnas["asistenciasParcial1"].DisplayIndex = 5;
-            columnas["asistenciasParcial2"].DisplayIndex = 6;
-            columnas["asistenciasParcial3"].DisplayIndex = 7;
-            columnas["promedio"].DisplayIndex = 8;
-            columnas["asistenciasTotales"].DisplayIndex = 9;
-            columnas["tipoDeAcreditacion"].DisplayIndex = 10;
-            columnas["tipoDeAcreditacion1"].DisplayIndex = 11;
-            columnas["firmado"].DisplayIndex = 12;
-            columnas["recursamiento"].DisplayIndex = 13;
-
-            // Limito la edición de los campos
-            columnas["nControl"].ReadOnly = true;
-            columnas["estudiantes"].ReadOnly = true;
-            columnas["recursamiento"].ReadOnly = true;
+            int intOrden = 0;
+            columnas["nControl"].DisplayIndex = intOrden++;
+            columnas["estudiantes"].DisplayIndex = intOrden++;
+            columnas["calificacionParcial1"].DisplayIndex = intOrden++;
+            columnas["calificacionParcial2"].DisplayIndex = intOrden++;
+            columnas["calificacionParcial3"].DisplayIndex = intOrden++;
+            columnas["asistenciasParcial1"].DisplayIndex = intOrden++;
+            columnas["asistenciasParcial2"].DisplayIndex = intOrden++;
+            columnas["asistenciasParcial3"].DisplayIndex = intOrden++;
+            columnas["promedio"].DisplayIndex = intOrden++;
+            columnas["asistenciasTotales"].DisplayIndex = intOrden++;
+            columnas["tipoDeAcreditacion"].DisplayIndex = intOrden++;
+            columnas["tipoDeAcreditacion1"].DisplayIndex = intOrden++;
+            columnas["firmado"].DisplayIndex = intOrden++;
+            columnas["recursamiento"].DisplayIndex = intOrden++;
 
             // Y finalmente, le doy formato a las columnas de calificaciones, 
             // para que sólo acepten dos decimales, y otras cosas más...
@@ -324,8 +324,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["calificacionParcial2"].DefaultCellStyle.Format = "N2";
             columnas["calificacionParcial3"].DefaultCellStyle.Format = "N2";
             columnas["promedio"].DefaultCellStyle.Format = "N2";
-
-            columnas["recursamiento"].DefaultCellStyle.ForeColor = Color.LightGray;
         }
 
         private void configurarDGVCalificacionesSiseems(BindingList<calificaciones_semestrales> listaCalificacionesBinding)
@@ -550,11 +548,22 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 // -- No existe en nuestro registro (LIGHT RED)
                 else
                 {
-                    noEncontrados++;
+                    if (cFila.idEstudiante != -1)
+                    {
+                        noEncontradosGrupo++;
 
-                    row.DefaultCellStyle.BackColor = colorNoEncontradosGrupo;
+                        row.DefaultCellStyle.BackColor = colorNoEncontradosGrupo;
+                    }
+                    else
+                    {
+                        noEncontradosDB++;
+
+                        row.DefaultCellStyle.BackColor = colorNoEncontradosDB;
+                    }
+
                     row.Cells["recursamiento"].Value = true;
                     row.Cells["actualizar"].Value = true;
+                    row.Cells["verificado"].Value = false;
                 }
             }
 
@@ -569,7 +578,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["asistenciasParcial3"].Visible = true;
             columnas["tipoDeAcreditacion"].Visible = false;
             columnas["tipoDeAcreditacion1"].Visible = true;
-            columnas["recursamiento"].Visible = true;
             columnas["firmado"].Visible = true;
             columnas["estudiantes"].Visible = true;
             columnas["promedio"].Visible = true;
@@ -585,33 +593,27 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["asistenciasParcial3"].HeaderText = "Asis. P3";
             columnas["tipoDeAcreditacion"].HeaderText = "Tipo de Acreditación";
             columnas["tipoDeAcreditacion1"].HeaderText = "Tipo de Acreditación (Combo)";
-            columnas["recursamiento"].HeaderText = "Recursamiento";
             columnas["firmado"].HeaderText = "Firmado";
             columnas["estudiantes"].HeaderText = "Estudiante";
             columnas["promedio"].HeaderText = "Promedio";
             columnas["asistenciasTotales"].HeaderText = "Asistencias totales";
 
             // Las muestro en un orden particular
-            columnas["actualizar"].DisplayIndex = 0;
-            columnas["nControl"].DisplayIndex = 1;
-            columnas["estudiantes"].DisplayIndex = 2;
-            columnas["calificacionParcial1"].DisplayIndex = 3;
-            columnas["calificacionParcial2"].DisplayIndex = 4;
-            columnas["calificacionParcial3"].DisplayIndex = 5;
-            columnas["asistenciasParcial1"].DisplayIndex = 6;
-            columnas["asistenciasParcial2"].DisplayIndex = 7;
-            columnas["asistenciasParcial3"].DisplayIndex = 8;
-            columnas["promedio"].DisplayIndex = 9;
-            columnas["asistenciasTotales"].DisplayIndex = 10;
-            columnas["tipoDeAcreditacion"].DisplayIndex = 11;
-            columnas["tipoDeAcreditacion1"].DisplayIndex = 12;
-            columnas["firmado"].DisplayIndex = 13;
-            columnas["recursamiento"].DisplayIndex = 14;
-
-            // Limito la edición de los campos
-            columnas["nControl"].ReadOnly = true;
-            columnas["estudiantes"].ReadOnly = true;
-            columnas["recursamiento"].ReadOnly = true;
+            int intOrden = 0;
+            columnas["actualizar"].DisplayIndex = intOrden++;
+            columnas["nControl"].DisplayIndex = intOrden++;
+            columnas["estudiantes"].DisplayIndex = intOrden++;
+            columnas["calificacionParcial1"].DisplayIndex = intOrden++;
+            columnas["calificacionParcial2"].DisplayIndex = intOrden++;
+            columnas["calificacionParcial3"].DisplayIndex = intOrden++;
+            columnas["asistenciasParcial1"].DisplayIndex = intOrden++;
+            columnas["asistenciasParcial2"].DisplayIndex = intOrden++;
+            columnas["asistenciasParcial3"].DisplayIndex = intOrden++;
+            columnas["promedio"].DisplayIndex = intOrden++;
+            columnas["asistenciasTotales"].DisplayIndex = intOrden++;
+            columnas["tipoDeAcreditacion"].DisplayIndex = intOrden++;
+            columnas["tipoDeAcreditacion1"].DisplayIndex = intOrden++;
+            columnas["firmado"].DisplayIndex = intOrden++;
 
             // Y finalmente, le doy formato a las columnas de calificaciones, 
             // para que sólo acepten dos decimales, y otras cosas más...
@@ -620,12 +622,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["calificacionParcial3"].DefaultCellStyle.Format = "N2";
             columnas["promedio"].DefaultCellStyle.Format = "N2";
 
-            columnas["recursamiento"].DefaultCellStyle.ForeColor = Color.LightGray;
-
             // Construcción del resumen
             lblEncontrados.Text = "Se encontraron " + encontrados + " alumno(s) pertenecientes al grupo.";
             lblDiferencias.Text = diferencias + " alumnos tienen diferencias en sus calificaciones.";
-            lblNoEncontradosGrupo.Text = noEncontrados + " alumnos no pertenecen al grupo.";
+            lblNoEncontradosGrupo.Text = noEncontradosGrupo + " alumnos no pertenecen al grupo.";
+            lblNoEncontradosDB.Text = noEncontradosDB + " alumnos no se encuentran en la base de datos.";
 
             // Si las diferencias y los alumnos no pertenecientes son 0
             // entonces deshabilitamos el botón de guardar diferencias

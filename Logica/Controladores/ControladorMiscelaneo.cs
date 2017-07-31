@@ -65,13 +65,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                             case 9:
                             case 10:
                                 HtmlNode input = celdas[j].SelectSingleNode("./input");
-                                tablaDeCadenas[i][j] = input.GetAttributeValue("value", 0).ToString();
+                                tablaDeCadenas[i][j] = input.GetAttributeValue("value", null);
                                 break;
 
                             // <select> y <option>
                             case 11:
                                 HtmlNode option = celdas[j].SelectSingleNode(".//option[@selected]");
-                                tablaDeCadenas[i][j] = option.GetAttributeValue("value", "");
+                                tablaDeCadenas[i][j] = option.GetAttributeValue("value", null);
                                 break;
 
                             // <input type="checkbox">

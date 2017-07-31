@@ -133,7 +133,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             int listaCalificacionesCount = listaCalificaciones.Count;
 
             return
-                calificacionesModificadas > 0?
+                calificacionesModificadas > 0
+                ?
                     new ResultadoOperacion(
                         EstadoOperacion.Correcto,
                         "Calificaciones actualizadas")
@@ -155,6 +156,26 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 bool cambios = false;
                 foreach (calificaciones_semestrales c in listaCalificaciones)
                 {
+                    if (c.idEstudiante == -1)
+                    {
+                        estudiantes estudianteC = c.estudiantes;
+
+                        estudianteC.idEstudiante = 0;
+                        //estudianteC.ncontrol = estudianteC.ncontrol.Substring(0, 18);
+                        //estudianteC.nombrecompleto = estudianteC.nombrecompleto.Substring(0, 60);
+                        //estudianteC.nombres = estudianteC.nombres.Substring(0, 30);
+                        estudianteC.curp = "";
+                        estudianteC.apellido1 = "";
+                        estudianteC.apellido2 = "";
+                        estudianteC.nss = "";
+                        estudianteC.verificado = false;
+
+                        dbContext.estudiantes.Add(estudianteC);
+                        dbContext.SaveChanges();
+
+                        c.idEstudiante = estudianteC.idEstudiante;
+                    }
+
                     calificaciones_semestrales cUpdated = dbContext.calificaciones_semestrales.SingleOrDefault(c1 => c1.idEstudiante == c.idEstudiante && c1.idCatedra == c.idCatedra);
 
                     if (cUpdated == null)
@@ -168,7 +189,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         };
 
                         dbContext.calificaciones_semestrales.Add(cUpdated);
-                        dbContext.SaveChanges();
                     }
 
                     cUpdated.asistenciasParcial1 = c.asistenciasParcial1;
@@ -273,8 +293,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 {
                     listaEstudiantes.RemoveAll(e => e.idEstudiante == c.idEstudiante);
                 }
-
-                bool cambios = false;
+                
                 foreach (estudiantes e in listaEstudiantes)
                 {
                     calificaciones_semestrales c = new calificaciones_semestrales
@@ -282,13 +301,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         firmado = false,
                         idCatedra = catedra.idCatedra,
                         idEstudiante = e.idEstudiante,
-                        recursamiento = false
+                        recursamiento = false,
+                        verificado = true
                     };
 
                     dbContext.calificaciones_semestrales.Add(c);
-                    cambios = true;
                 }
-                if (cambios)
+                
+                if (listaEstudiantes.Count > 0)
                 {
                     dbContext.SaveChanges();
                 }
@@ -313,14 +333,75 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 calificaciones_semestrales c = new calificaciones_semestrales();
 
                 string ncontrol = row[1];
+                string nombres = row[2];
 
-                c.asistenciasParcial1 = Convert.ToInt32(row[6]);
-                c.asistenciasParcial2 = Convert.ToInt32(row[7]);
-                c.asistenciasParcial3 = Convert.ToInt32(row[8]);
-                c.calificacionParcial1 = Convert.ToDouble(row[3]);
-                c.calificacionParcial2 = Convert.ToDouble(row[4]);
-                c.calificacionParcial3 = Convert.ToDouble(row[5]);
-                c.estudiantes = dbContext.estudiantes.SingleOrDefault(e => e.ncontrol == ncontrol);
+                // ASISTENCIAS
+                if (row[6] != null && row[6] != "")
+                {
+                    c.asistenciasParcial1 = Convert.ToInt32(row[6]);
+                }
+                else
+                {
+                    c.asistenciasParcial1 = null;
+                }
+
+                if (row[7] != null && row[7] != "")
+                {
+                    c.asistenciasParcial2 = Convert.ToInt32(row[7]);
+                }
+                else
+                {
+                    c.asistenciasParcial2 = null;
+                }
+
+                if (row[8] != null && row[8] != "")
+                {
+                    c.asistenciasParcial3 = Convert.ToInt32(row[8]);
+                }
+                else
+                {
+                    c.asistenciasParcial3 = null;
+                }
+
+
+                // CALIFICACIONES PARCIALES
+                if (row[3] != null && row[3] != "")
+                {
+                    c.calificacionParcial1 = Convert.ToDouble(row[3]);
+                }
+                else
+                {
+                    c.calificacionParcial1 = null;
+                }
+
+                if (row[4] != null && row[4] != "")
+                {
+                    c.calificacionParcial2 = Convert.ToDouble(row[4]);
+                }
+                else
+                {
+                    c.calificacionParcial2 = null;
+                }
+
+                if (row[5] != null && row[5] != "")
+                {
+                    c.calificacionParcial3 = Convert.ToDouble(row[5]);
+                }
+                else
+                {
+                    c.calificacionParcial3 = null;
+                }
+
+                estudiantes estudianteDeCalificacion = dbContext.estudiantes.SingleOrDefault(e => e.ncontrol == ncontrol);
+
+                if (estudianteDeCalificacion == null)
+                {
+                    estudianteDeCalificacion = new estudiantes() { idEstudiante = -1, nombrecompleto = nombres, nombres = nombres, ncontrol = ncontrol};
+                }
+
+                c.estudiantes = estudianteDeCalificacion;
+
+
                 c.idEstudiante = c.estudiantes.idEstudiante;
                 c.firmado = Convert.ToBoolean(row[12]);
                 c.idCalificacion_Semestral = -1;

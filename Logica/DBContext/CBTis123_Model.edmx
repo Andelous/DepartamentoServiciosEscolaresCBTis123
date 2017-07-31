@@ -55,7 +55,7 @@
             <PropertyRef Name="idCatedra" />
           </Key>
           <Property Name="idCatedra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idDocente" Type="int" />
+          <Property Name="idDocente" Type="int" Nullable="false" />
           <Property Name="idMateria" Type="int" Nullable="false" />
           <Property Name="idGrupo" Type="int" Nullable="false" />
         </EntityType>
@@ -118,6 +118,7 @@
           <Property Name="apellido1" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="apellido2" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="nss" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="verificado" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="fichas">
           <Key>
@@ -395,7 +396,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="catedras_ibfk_1">
-          <End Role="docentes" Type="Self.docentes" Multiplicity="0..1" />
+          <End Role="docentes" Type="Self.docentes" Multiplicity="1" />
           <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="docentes">
@@ -671,7 +672,7 @@
             <PropertyRef Name="idCatedra" />
           </Key>
           <Property Name="idCatedra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idDocente" Type="Int32" />
+          <Property Name="idDocente" Type="Int32" Nullable="false" />
           <Property Name="idMateria" Type="Int32" Nullable="false" />
           <Property Name="idGrupo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="calificaciones_semestrales" Relationship="Self.calificaciones_semestrales_ibfk_2" FromRole="catedras" ToRole="calificaciones_semestrales" />
@@ -739,6 +740,7 @@
           <Property Name="apellido1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellido2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nss" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="verificado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="calificaciones_semestrales" Relationship="Self.calificaciones_semestrales_ibfk_1" FromRole="estudiantes" ToRole="calificaciones_semestrales" />
           <NavigationProperty Name="grupos_estudiantes" Relationship="Self.grupos_estudiantes_ibfk_2" FromRole="estudiantes" ToRole="grupos_estudiantes" />
         </EntityType>
@@ -1079,7 +1081,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="catedras_ibfk_1">
-          <End Role="docentes" Type="Self.docentes" Multiplicity="0..1" />
+          <End Role="docentes" Type="Self.docentes" Multiplicity="1" />
           <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="docentes">
@@ -1370,6 +1372,7 @@
                 <ScalarProperty Name="apellido1" ColumnName="apellido1" />
                 <ScalarProperty Name="apellido2" ColumnName="apellido2" />
                 <ScalarProperty Name="nss" ColumnName="nss" />
+                <ScalarProperty Name="verificado" ColumnName="verificado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

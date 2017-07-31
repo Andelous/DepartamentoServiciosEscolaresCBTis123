@@ -422,6 +422,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["estudiantes"].Visible = true;
             columnas["promedio"].Visible = true;
             columnas["asistenciasTotales"].Visible = true;
+            columnas["verificado"].Visible = true;
 
             // Cambio el título
             columnas["nControl"].HeaderText = "Núm. control";
@@ -438,22 +439,25 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["estudiantes"].HeaderText = "Estudiante";
             columnas["promedio"].HeaderText = "Promedio";
             columnas["asistenciasTotales"].HeaderText = "Asistencias totales";
+            columnas["verificado"].HeaderText = "Verificado";
 
             // Las muestro en un orden particular
-            columnas["nControl"].DisplayIndex = 0;
-            columnas["estudiantes"].DisplayIndex = 1;
-            columnas["calificacionParcial1"].DisplayIndex = 2;
-            columnas["calificacionParcial2"].DisplayIndex = 3;
-            columnas["calificacionParcial3"].DisplayIndex = 4;
-            columnas["asistenciasParcial1"].DisplayIndex = 5;
-            columnas["asistenciasParcial2"].DisplayIndex = 6;
-            columnas["asistenciasParcial3"].DisplayIndex = 7;
-            columnas["promedio"].DisplayIndex = 8;
-            columnas["asistenciasTotales"].DisplayIndex = 9;
-            columnas["tipoDeAcreditacion"].DisplayIndex = 10;
-            columnas["tipoDeAcreditacion1"].DisplayIndex = 11;
-            columnas["firmado"].DisplayIndex = 12;
-            columnas["recursamiento"].DisplayIndex = 13;
+            int intOrden = 0;
+            columnas["nControl"].DisplayIndex = intOrden++;
+            columnas["estudiantes"].DisplayIndex = intOrden++;
+            columnas["calificacionParcial1"].DisplayIndex = intOrden++;
+            columnas["calificacionParcial2"].DisplayIndex = intOrden++;
+            columnas["calificacionParcial3"].DisplayIndex = intOrden++;
+            columnas["asistenciasParcial1"].DisplayIndex = intOrden++;
+            columnas["asistenciasParcial2"].DisplayIndex = intOrden++;
+            columnas["asistenciasParcial3"].DisplayIndex = intOrden++;
+            columnas["promedio"].DisplayIndex = intOrden++;
+            columnas["asistenciasTotales"].DisplayIndex = intOrden++;
+            columnas["tipoDeAcreditacion"].DisplayIndex = intOrden++;
+            columnas["tipoDeAcreditacion1"].DisplayIndex = intOrden++;
+            columnas["firmado"].DisplayIndex = intOrden++;
+            columnas["recursamiento"].DisplayIndex = intOrden++;
+            columnas["verificado"].DisplayIndex = intOrden++;
 
             // Limito la edición de los campos
             columnas["nControl"].ReadOnly = true;
