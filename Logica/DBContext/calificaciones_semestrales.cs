@@ -22,6 +22,15 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
                 return estudiantes.ncontrol;
             }
         }
+
+        private static List<string> _tiposDeAcreditacion = new List<string>() { "A", "NA", "NP", "RV", "R", null };
+        public static List<string> tiposDeAcreditacion
+        {
+            get
+            {
+                return _tiposDeAcreditacion;
+            }
+        }
 		
 		// Propiedades del modelo
         public calificaciones_semestrales()
@@ -212,9 +221,27 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
                 }
             }
         }
-		
-		
-        public string tipoDeAcreditacion { get; set; }
+
+        private string _tipoDeAcreditacion;
+        public string tipoDeAcreditacion
+        {
+            get
+            {
+                return _tipoDeAcreditacion;
+            }
+            set
+            {
+                if (!tiposDeAcreditacion.Contains(value))
+                {
+                    _tipoDeAcreditacion = null;
+                }
+                else
+                {
+                    _tipoDeAcreditacion = value;
+                }
+            }
+        }
+
         public bool recursamiento { get; set; }
         public bool firmado { get; set; }
         public bool verificado { get; set; }

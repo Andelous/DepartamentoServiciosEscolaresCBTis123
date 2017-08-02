@@ -50,7 +50,7 @@
             this.webSiseems.Name = "webSiseems";
             this.webSiseems.Size = new System.Drawing.Size(1008, 561);
             this.webSiseems.TabIndex = 1;
-            this.webSiseems.Url = new System.Uri("http://www.siseems.sems.gob.mx/produccion/", System.UriKind.Absolute);
+            this.webSiseems.Url = new System.Uri("file:///C:/Users/angel/Desktop/Prueba.html", System.UriKind.Absolute);
             // 
             // FrmImportarCalificaciones
             // 

@@ -488,7 +488,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             // Agrego a la tabla, los combos de A NP NA RV R
             DataGridViewComboBoxColumn columna = new DataGridViewComboBoxColumn() { Name = "tipoDeAcreditacion1" };
-            columna.DataSource = new string[] { "A", "NA", "NP", "RV", "R" };
+            columna.DataSource = calificaciones_semestrales.tiposDeAcreditacion.ToList();
             columna.Visible = false;
 
             dgvCalificaciones.Columns.Add(columna);

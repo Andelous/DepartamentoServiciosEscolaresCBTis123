@@ -12,6 +12,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
         public string nombreDeCampo { get; set; }
         public string valorAnterior { get; set; }
         public string valorNuevo { get; set; }
+        public string fuenteDeCambio { get; set; }
         public string fecha { get; set; }
         public usuarios usuarioAutor { get; set; }
     }

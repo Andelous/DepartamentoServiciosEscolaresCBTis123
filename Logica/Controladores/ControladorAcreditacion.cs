@@ -142,12 +142,15 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     {
                         HistorialCalificacionSemestral h = new HistorialCalificacionSemestral();
 
-                        h.nombreDeCampo = sArr[0];
-                        h.valorAnterior = sArr[1];
-                        h.valorNuevo = sArr[2];
-                        h.fecha = sArr[3];
+                        int posicion = 0;
 
-                        int idUsuario = Convert.ToInt32(sArr[4]);
+                        h.nombreDeCampo = sArr[posicion++];
+                        h.valorAnterior = sArr[posicion++];
+                        h.valorNuevo = sArr[posicion++];
+                        h.fuenteDeCambio = sArr[posicion++];
+                        h.fecha = sArr[posicion++];
+
+                        int idUsuario = Convert.ToInt32(sArr[posicion++]);
                         usuarios u = dbContext.usuarios.SingleOrDefault(u1 => u1.idUsuario == idUsuario);
 
                         h.usuarioAutor = u;
@@ -209,6 +212,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Asistencias parcial 1", 
                                 cUpdated.asistenciasParcial1.ToString(),
                                 c.asistenciasParcial1.ToString(),
+                                "Captura manual de datos",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -224,6 +228,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Asistencias parcial 2",
                                 cUpdated.asistenciasParcial2.ToString(),
                                 c.asistenciasParcial2.ToString(),
+                                "Captura manual de datos",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -239,6 +244,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Asistencias parcial 3",
                                 cUpdated.asistenciasParcial3.ToString(),
                                 c.asistenciasParcial3.ToString(),
+                                "Captura manual de datos",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -256,6 +262,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Calificación parcial 1",
                                 cUpdated.calificacionParcial1.ToString(),
                                 c.calificacionParcial1.ToString(),
+                                "Captura manual de datos",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -271,6 +278,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Calificación parcial 2",
                                 cUpdated.calificacionParcial2.ToString(),
                                 c.calificacionParcial2.ToString(),
+                                "Captura manual de datos",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -286,6 +294,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Calificación parcial 3",
                                 cUpdated.calificacionParcial3.ToString(),
                                 c.calificacionParcial3.ToString(),
+                                "Captura manual de datos",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -303,6 +312,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Firmado",
                                 cUpdated.firmado.ToString(),
                                 c.firmado.ToString(),
+                                "Captura manual de datos",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -316,8 +326,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         logCambios.Append(
                             crearLogCambios(
                                 "Tipo de acreditación",
-                                cUpdated.tipoDeAcreditacion.ToString(),
-                                c.tipoDeAcreditacion.ToString(),
+                                cUpdated.tipoDeAcreditacion,
+                                c.tipoDeAcreditacion,
+                                "Captura manual de datos",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -375,13 +386,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
-                    "Calificaciones actualizadas",
-                    calificacionesModificadas.ToString(),
+                    "Calificaciones actualizadas - " + calificacionesModificadas.ToString(),
+                    null,
                     innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
-                    "No se han actualizado todas las calificaciones,\no más de las debidas fueron actualizadas",
+                    "No se han actualizado las calificaciones",
                     "CalAct " + calificacionesModificadas.ToString(),
                     innerRO);
         }
@@ -398,8 +409,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             bool cambios = false;
 
-            //try
-            //{
+            try
+            {
                 // Iteramos sobre las calificaciones que nos pasaron
                 foreach (calificaciones_semestrales c in listaCalificaciones)
                 {
@@ -454,6 +465,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Asistencias parcial 1",
                                 cUpdated.asistenciasParcial1.ToString(),
                                 c.asistenciasParcial1.ToString(),
+                                "Importación de SISEEMS",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -469,6 +481,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Asistencias parcial 2",
                                 cUpdated.asistenciasParcial2.ToString(),
                                 c.asistenciasParcial2.ToString(),
+                                "Importación de SISEEMS",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -484,6 +497,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Asistencias parcial 3",
                                 cUpdated.asistenciasParcial3.ToString(),
                                 c.asistenciasParcial3.ToString(),
+                                "Importación de SISEEMS",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -501,6 +515,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Calificación parcial 1",
                                 cUpdated.calificacionParcial1.ToString(),
                                 c.calificacionParcial1.ToString(),
+                                "Importación de SISEEMS",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -516,6 +531,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Calificación parcial 2",
                                 cUpdated.calificacionParcial2.ToString(),
                                 c.calificacionParcial2.ToString(),
+                                "Importación de SISEEMS",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -531,6 +547,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Calificación parcial 3",
                                 cUpdated.calificacionParcial3.ToString(),
                                 c.calificacionParcial3.ToString(),
+                                "Importación de SISEEMS",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -548,6 +565,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Firmado",
                                 cUpdated.firmado.ToString(),
                                 c.firmado.ToString(),
+                                "Importación de SISEEMS",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -563,6 +581,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Tipo de acreditación",
                                 cUpdated.tipoDeAcreditacion,
                                 c.tipoDeAcreditacion,
+                                "Importación de SISEEMS",
                                 ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
                             )
                         );
@@ -597,11 +616,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 {
                     calificacionesModificadas = dbContext.SaveChanges();
                 }
-            //}
-            //catch (Exception e)
-            //{
-            //    innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
-            //}
+            }
+            catch (Exception e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
+            }
 
             int listaCalificacionesCount = listaCalificaciones.Count;
 
@@ -616,8 +635,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 calificacionesModificadas > 0 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
-                    "Calificaciones importadas desde el SISEEMS",
-                    calificacionesModificadas.ToString(),
+                    "Calificaciones importadas desde el SISEEMS - " + calificacionesModificadas.ToString(),
+                    null,
                     innerRO)
                 :
                 new ResultadoOperacion(
@@ -827,7 +846,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaCalificaciones;
         }
 
-        public static string crearLogCambios(string nombreDeCampo, string valorAnterior, string valorNuevo, int idUsuarioAutor)
+        public static string crearLogCambios(string nombreDeCampo, string valorAnterior, string valorNuevo, string fuenteDeCambio, int idUsuarioAutor)
         {
             StringBuilder sb = new StringBuilder();
 
@@ -838,6 +857,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             sb.Append(separadorCampo);
             sb.Append(valorNuevo);
             sb.Append(separadorCampo);
+            sb.Append(fuenteDeCambio);
+            sb.Append(separadorCampo);
             sb.Append(DateTime.Now.ToString());
             sb.Append(separadorCampo);
             sb.Append(idUsuarioAutor.ToString());
@@ -846,3 +867,4 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         }
     }
 }
+

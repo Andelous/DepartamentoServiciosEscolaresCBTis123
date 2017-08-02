@@ -616,7 +616,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             // Agrego a la tabla, los combos de A NP NA RV R
             DataGridViewComboBoxColumn columna1 = new DataGridViewComboBoxColumn() { Name = "tipoDeAcreditacion1" };
-            columna1.DataSource = new string[] { "A", "NA", "NP", "RV", "R" };
+            columna1.DataSource = calificaciones_semestrales.tiposDeAcreditacion.ToList();
             columna1.Visible = false;
 
             dgvCalificacionesActuales.Columns.Add(columna1);
@@ -627,7 +627,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             // Agrego a la tabla, los combos de A NP NA RV R
             DataGridViewComboBoxColumn columna2 = new DataGridViewComboBoxColumn() { Name = "tipoDeAcreditacion1" };
-            columna2.DataSource = new string[] { "A", "NA", "NP", "RV", "R" };
+            columna2.DataSource = calificaciones_semestrales.tiposDeAcreditacion.ToList();
             columna2.Visible = false;
 
             dgvCalificacionesSiseems.Columns.Add(columna2);

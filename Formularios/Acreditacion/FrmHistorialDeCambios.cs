@@ -66,6 +66,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["nombreDeCampo"].HeaderText = "Nombre de campo modificado";
             columnas["valorAnterior"].HeaderText = "Valor anterior";
             columnas["valorNuevo"].HeaderText = "Valor nuevo";
+            columnas["fuenteDeCambio"].HeaderText = "Fuente de cambio";
             columnas["fecha"].HeaderText = "Fecha y hora del cambio";
             columnas["usuarioAutor"].HeaderText = "Usuario responsable del cambio";
         }
