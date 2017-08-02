@@ -99,5 +99,31 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             return tablaDeCadenas;
         }
+
+        public static int compararNullableDouble(double? n1, double? n2)
+        {
+            if (n1.HasValue ^ n2.HasValue)
+            {
+                return n1.HasValue ? 1 : -1;
+            }
+
+            if (!n1.HasValue && !n2.HasValue)
+            {
+                return 0;
+            }
+
+            if (n1.Value > n2.Value)
+            {
+                return 1;
+            }
+            else if (n2.Value > n1.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

@@ -292,12 +292,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                     break;
             }
 
-            dgvCalificaciones.Invalidate();
+            dgvCalificaciones_CellValueChanged(sender, null);
         }
 
         private void dgvCalificaciones_CellValueChanged(object sender, DataGridViewCellEventArgs e)
         {
             dgvCalificaciones.Invalidate();
+        }
+
+        private void cmdVerHistorial_Click(object sender, EventArgs e)
+        {
+            new FrmHistorialDeCambios(calificacionSeleccionada).ShowDialog();
         }
 
 
@@ -327,9 +332,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 dgvCalificaciones.DataSource = null;
                 dgvCalificaciones.Columns["tipoDeAcreditacion1"].Visible = false;
 
-                cmdGuardar.Enabled = false;
-                cmdImportar.Enabled = false;
-                cmdReestablecer.Enabled = false;
+                configurarBotones(false);
 
                 return;
             }
@@ -433,7 +436,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["asistenciasParcial2"].HeaderText = "Asis. P2";
             columnas["asistenciasParcial3"].HeaderText = "Asis. P3";
             columnas["tipoDeAcreditacion"].HeaderText = "Tipo de Acreditación";
-            columnas["tipoDeAcreditacion1"].HeaderText = "Tipo de Acreditación (Combo)";
+            columnas["tipoDeAcreditacion1"].HeaderText = "Tipo de Acreditación";
             columnas["recursamiento"].HeaderText = "Recursamiento";
             columnas["firmado"].HeaderText = "Firmado";
             columnas["estudiantes"].HeaderText = "Estudiante";
@@ -463,6 +466,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["nControl"].ReadOnly = true;
             columnas["estudiantes"].ReadOnly = true;
             columnas["recursamiento"].ReadOnly = true;
+            columnas["verificado"].ReadOnly = true;
 
             // Y finalmente, le doy formato a las columnas de calificaciones, 
             // para que sólo acepten dos decimales, y otras cosas más...
@@ -474,9 +478,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["recursamiento"].DefaultCellStyle.ForeColor = Color.LightGray;
 
             // Botones que sólo funcionan si hay DataSource
-            cmdGuardar.Enabled = true;
-            cmdImportar.Enabled = true;
-            cmdReestablecer.Enabled = true;
+            configurarBotones(true);
         }
 
         private void agregarColumnaCombos()
@@ -490,6 +492,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columna.Visible = false;
 
             dgvCalificaciones.Columns.Add(columna);
+        }
+
+        private void configurarBotones(bool b)
+        {
+            cmdGuardar.Enabled = b;
+            cmdImportar.Enabled = b;
+            cmdReestablecer.Enabled = b;
+            cmdVerHistorial.Enabled = b;
         }
     }
 }

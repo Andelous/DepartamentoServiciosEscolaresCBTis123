@@ -47,7 +47,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             this.cmdImportar = new System.Windows.Forms.Button();
             this.cmdGuardar = new System.Windows.Forms.Button();
             this.cmdReestablecer = new System.Windows.Forms.Button();
+            this.pnlArriba = new System.Windows.Forms.Panel();
+            this.pnlBotonesTopRight = new System.Windows.Forms.Panel();
+            this.cmdVerHistorial = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCalificaciones)).BeginInit();
+            this.pnlArriba.SuspendLayout();
+            this.pnlBotonesTopRight.SuspendLayout();
             this.SuspendLayout();
             // 
             // comboPeriodo
@@ -190,22 +195,24 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             // 
             this.dgvCalificaciones.AllowUserToAddRows = false;
             this.dgvCalificaciones.AllowUserToDeleteRows = false;
-            this.dgvCalificaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.AllCells;
-            this.dgvCalificaciones.Location = new System.Drawing.Point(12, 118);
+            this.dgvCalificaciones.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvCalificaciones.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.dgvCalificaciones.Location = new System.Drawing.Point(0, 128);
             this.dgvCalificaciones.MultiSelect = false;
             this.dgvCalificaciones.Name = "dgvCalificaciones";
             this.dgvCalificaciones.RowHeadersWidth = 60;
             this.dgvCalificaciones.RowTemplate.DefaultCellStyle.NullValue = null;
-            this.dgvCalificaciones.Size = new System.Drawing.Size(810, 335);
+            this.dgvCalificaciones.Size = new System.Drawing.Size(1030, 388);
             this.dgvCalificaciones.TabIndex = 13;
             this.dgvCalificaciones.CellValueChanged += new System.Windows.Forms.DataGridViewCellEventHandler(this.dgvCalificaciones_CellValueChanged);
             // 
             // cmdImportar
             // 
+            this.cmdImportar.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdImportar.Enabled = false;
-            this.cmdImportar.Location = new System.Drawing.Point(662, 459);
+            this.cmdImportar.Location = new System.Drawing.Point(0, 32);
             this.cmdImportar.Name = "cmdImportar";
-            this.cmdImportar.Size = new System.Drawing.Size(160, 32);
+            this.cmdImportar.Size = new System.Drawing.Size(201, 32);
             this.cmdImportar.TabIndex = 14;
             this.cmdImportar.Text = "Importar de SISEEMS";
             this.cmdImportar.UseVisualStyleBackColor = true;
@@ -213,10 +220,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             // 
             // cmdGuardar
             // 
+            this.cmdGuardar.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdGuardar.Enabled = false;
-            this.cmdGuardar.Location = new System.Drawing.Point(12, 459);
+            this.cmdGuardar.Location = new System.Drawing.Point(0, 0);
             this.cmdGuardar.Name = "cmdGuardar";
-            this.cmdGuardar.Size = new System.Drawing.Size(160, 32);
+            this.cmdGuardar.Size = new System.Drawing.Size(201, 32);
             this.cmdGuardar.TabIndex = 15;
             this.cmdGuardar.Text = "Guardar calificaciones";
             this.cmdGuardar.UseVisualStyleBackColor = true;
@@ -224,43 +232,78 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             // 
             // cmdReestablecer
             // 
+            this.cmdReestablecer.Dock = System.Windows.Forms.DockStyle.Top;
             this.cmdReestablecer.Enabled = false;
-            this.cmdReestablecer.Location = new System.Drawing.Point(178, 459);
+            this.cmdReestablecer.Location = new System.Drawing.Point(0, 64);
             this.cmdReestablecer.Name = "cmdReestablecer";
-            this.cmdReestablecer.Size = new System.Drawing.Size(118, 32);
+            this.cmdReestablecer.Size = new System.Drawing.Size(201, 32);
             this.cmdReestablecer.TabIndex = 16;
             this.cmdReestablecer.Text = "Reestablecer valor";
             this.cmdReestablecer.UseVisualStyleBackColor = true;
             this.cmdReestablecer.Click += new System.EventHandler(this.cmdReestablecer_Click);
             // 
+            // pnlArriba
+            // 
+            this.pnlArriba.Controls.Add(this.pnlBotonesTopRight);
+            this.pnlArriba.Controls.Add(this.lblAcreditacionPorGrupo);
+            this.pnlArriba.Controls.Add(this.comboPeriodo);
+            this.pnlArriba.Controls.Add(this.lblPeriodo);
+            this.pnlArriba.Controls.Add(this.comboTurno);
+            this.pnlArriba.Controls.Add(this.lblAsignatura);
+            this.pnlArriba.Controls.Add(this.lblTurno);
+            this.pnlArriba.Controls.Add(this.comboAsignatura);
+            this.pnlArriba.Controls.Add(this.comboSemestre);
+            this.pnlArriba.Controls.Add(this.lblGrupo);
+            this.pnlArriba.Controls.Add(this.lblSemestre);
+            this.pnlArriba.Controls.Add(this.comboGrupo);
+            this.pnlArriba.Controls.Add(this.comboCarrera);
+            this.pnlArriba.Controls.Add(this.lblCarrera);
+            this.pnlArriba.Dock = System.Windows.Forms.DockStyle.Top;
+            this.pnlArriba.Location = new System.Drawing.Point(0, 0);
+            this.pnlArriba.Name = "pnlArriba";
+            this.pnlArriba.Size = new System.Drawing.Size(1030, 128);
+            this.pnlArriba.TabIndex = 17;
+            // 
+            // pnlBotonesTopRight
+            // 
+            this.pnlBotonesTopRight.Controls.Add(this.cmdVerHistorial);
+            this.pnlBotonesTopRight.Controls.Add(this.cmdReestablecer);
+            this.pnlBotonesTopRight.Controls.Add(this.cmdImportar);
+            this.pnlBotonesTopRight.Controls.Add(this.cmdGuardar);
+            this.pnlBotonesTopRight.Dock = System.Windows.Forms.DockStyle.Right;
+            this.pnlBotonesTopRight.Location = new System.Drawing.Point(829, 0);
+            this.pnlBotonesTopRight.Name = "pnlBotonesTopRight";
+            this.pnlBotonesTopRight.Size = new System.Drawing.Size(201, 128);
+            this.pnlBotonesTopRight.TabIndex = 17;
+            // 
+            // cmdVerHistorial
+            // 
+            this.cmdVerHistorial.Dock = System.Windows.Forms.DockStyle.Top;
+            this.cmdVerHistorial.Enabled = false;
+            this.cmdVerHistorial.Location = new System.Drawing.Point(0, 96);
+            this.cmdVerHistorial.Name = "cmdVerHistorial";
+            this.cmdVerHistorial.Size = new System.Drawing.Size(201, 32);
+            this.cmdVerHistorial.TabIndex = 17;
+            this.cmdVerHistorial.Text = "Ver historial de cambios";
+            this.cmdVerHistorial.UseVisualStyleBackColor = true;
+            this.cmdVerHistorial.Click += new System.EventHandler(this.cmdVerHistorial_Click);
+            // 
             // FrmAcreditacion
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(834, 503);
-            this.Controls.Add(this.cmdReestablecer);
-            this.Controls.Add(this.cmdGuardar);
-            this.Controls.Add(this.cmdImportar);
+            this.ClientSize = new System.Drawing.Size(1030, 516);
             this.Controls.Add(this.dgvCalificaciones);
-            this.Controls.Add(this.lblAsignatura);
-            this.Controls.Add(this.comboAsignatura);
-            this.Controls.Add(this.lblGrupo);
-            this.Controls.Add(this.comboGrupo);
-            this.Controls.Add(this.lblCarrera);
-            this.Controls.Add(this.comboCarrera);
-            this.Controls.Add(this.lblSemestre);
-            this.Controls.Add(this.comboSemestre);
-            this.Controls.Add(this.lblTurno);
-            this.Controls.Add(this.comboTurno);
-            this.Controls.Add(this.lblPeriodo);
-            this.Controls.Add(this.lblAcreditacionPorGrupo);
-            this.Controls.Add(this.comboPeriodo);
+            this.Controls.Add(this.pnlArriba);
+            this.MinimumSize = new System.Drawing.Size(1046, 555);
             this.Name = "FrmAcreditacion";
             this.Text = "FrmAcreditacion";
             this.Load += new System.EventHandler(this.FrmAcreditacion_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dgvCalificaciones)).EndInit();
+            this.pnlArriba.ResumeLayout(false);
+            this.pnlArriba.PerformLayout();
+            this.pnlBotonesTopRight.ResumeLayout(false);
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
@@ -283,5 +326,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         private System.Windows.Forms.Button cmdImportar;
         private System.Windows.Forms.Button cmdGuardar;
         private System.Windows.Forms.Button cmdReestablecer;
+        private System.Windows.Forms.Panel pnlArriba;
+        private System.Windows.Forms.Panel pnlBotonesTopRight;
+        private System.Windows.Forms.Button cmdVerHistorial;
     }
 }

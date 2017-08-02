@@ -76,6 +76,12 @@
     <Compile Include="Formularios\Acreditacion\FrmDiferencias.Designer.cs">
       <DependentUpon>FrmDiferencias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Acreditacion\FrmHistorialDeCambios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Acreditacion\FrmHistorialDeCambios.Designer.cs">
+      <DependentUpon>FrmHistorialDeCambios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Acreditacion\FrmImportarCalificaciones.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -280,6 +286,7 @@
     </Compile>
     <Compile Include="Logica\Modelos\Calificacion.cs" />
     <Compile Include="Logica\Modelos\Grupo_Estudiante.cs" />
+    <Compile Include="Logica\Modelos\HistorialCalificacionSemestral.cs" />
     <Compile Include="Logica\Modelos\RegistroTablaSiseems.cs" />
     <Compile Include="Logica\Utilerias\ValidadorDeTexto.cs" />
     <Compile Include="Logica\DAOs\DAO.cs" />
@@ -308,6 +315,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Acreditacion\FrmDiferencias.resx">
       <DependentUpon>FrmDiferencias.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Acreditacion\FrmHistorialDeCambios.resx">
+      <DependentUpon>FrmHistorialDeCambios.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Acreditacion\FrmImportarCalificaciones.resx">
       <DependentUpon>FrmImportarCalificaciones.cs</DependentUpon>

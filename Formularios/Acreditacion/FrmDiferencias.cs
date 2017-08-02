@@ -430,83 +430,57 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                     encontrados++;
                     bool flag = false;
 
-                    if (cFila.calificacionParcial1.HasValue || cEquivalente.calificacionParcial1.HasValue)
+
+                    if (ControladorMiscelaneo.compararNullableDouble(cFila.calificacionParcial1, cEquivalente.calificacionParcial1) != 0)
                     {
-                        double v1 = cFila.calificacionParcial1.HasValue ? cFila.calificacionParcial1.Value : -1;
-                        double v2 = cEquivalente.calificacionParcial1.HasValue ? cEquivalente.calificacionParcial1.Value : -1;
+                        flag = true;
 
-                        if (v1 != v2)
-                        {
-                            flag = true;
-
-                            row.Cells["calificacionParcial1"].Style.BackColor = colorDiferenciasResaltado;
-                        }
+                        row.Cells["calificacionParcial1"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
-                    if (cFila.calificacionParcial2.HasValue || cEquivalente.calificacionParcial2.HasValue)
+                    if (ControladorMiscelaneo.compararNullableDouble(cFila.calificacionParcial2, cEquivalente.calificacionParcial2) != 0)
                     {
-                        double v1 = cFila.calificacionParcial2.HasValue ? cFila.calificacionParcial2.Value : -1;
-                        double v2 = cEquivalente.calificacionParcial2.HasValue ? cEquivalente.calificacionParcial2.Value : -1;
+                        flag = true;
 
-                        if (v1 != v2)
-                        {
-                            flag = true;
-
-                            row.Cells["calificacionParcial2"].Style.BackColor = colorDiferenciasResaltado;
-                        }
+                        row.Cells["calificacionParcial2"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
-                    if (cFila.calificacionParcial3.HasValue || cEquivalente.calificacionParcial3.HasValue)
+
+                    if (ControladorMiscelaneo.compararNullableDouble(cFila.calificacionParcial3, cEquivalente.calificacionParcial3) != 0)
                     {
-                        double v1 = cFila.calificacionParcial3.HasValue ? cFila.calificacionParcial3.Value : -1;
-                        double v2 = cEquivalente.calificacionParcial3.HasValue ? cEquivalente.calificacionParcial3.Value : -1;
+                        flag = true;
 
-                        if (v1 != v2)
-                        {
-                            flag = true;
-
-                            row.Cells["calificacionParcial3"].Style.BackColor = colorDiferenciasResaltado;
-                        }
+                        row.Cells["calificacionParcial3"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
-                    if (cFila.asistenciasParcial1.HasValue != cEquivalente.asistenciasParcial1.HasValue)
+
+
+
+
+                    if (ControladorMiscelaneo.compararNullableDouble(cFila.asistenciasParcial1, cEquivalente.asistenciasParcial1) != 0)
                     {
-                        int v1 = cFila.asistenciasParcial1.HasValue ? cFila.asistenciasParcial1.Value : -1;
-                        int v2 = cEquivalente.asistenciasParcial1.HasValue ? cEquivalente.asistenciasParcial1.Value : -1;
+                        flag = true;
 
-                        if (v1 != v2)
-                        {
-                            flag = true;
+                        row.Cells["asistenciasParcial1"].Style.BackColor = colorDiferenciasResaltado;
+                    }
+                    
+                    if (ControladorMiscelaneo.compararNullableDouble(cFila.asistenciasParcial2, cEquivalente.asistenciasParcial2) != 0)
+                    {
+                        flag = true;
 
-                            row.Cells["asistenciasParcial1"].Style.BackColor = colorDiferenciasResaltado;
-                        }
+                        row.Cells["asistenciasParcial2"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
-                    if (cFila.asistenciasParcial2.HasValue != cEquivalente.asistenciasParcial2.HasValue)
+                    if (ControladorMiscelaneo.compararNullableDouble(cFila.asistenciasParcial3, cEquivalente.asistenciasParcial3) != 0)
                     {
-                        int v1 = cFila.asistenciasParcial2.HasValue ? cFila.asistenciasParcial2.Value : -1;
-                        int v2 = cEquivalente.asistenciasParcial2.HasValue ? cEquivalente.asistenciasParcial2.Value : -1;
+                        flag = true;
 
-                        if (v1 != v2)
-                        {
-                            flag = true;
-
-                            row.Cells["asistenciasParcial2"].Style.BackColor = colorDiferenciasResaltado;
-                        }
+                        row.Cells["asistenciasParcial3"].Style.BackColor = colorDiferenciasResaltado;
                     }
 
-                    if (cFila.asistenciasParcial3.HasValue != cEquivalente.asistenciasParcial3.HasValue)
-                    {
-                        int v1 = cFila.asistenciasParcial3.HasValue ? cFila.asistenciasParcial3.Value : -1;
-                        int v2 = cEquivalente.asistenciasParcial3.HasValue ? cEquivalente.asistenciasParcial3.Value : -1;
 
-                        if (v1 != v2)
-                        {
-                            flag = true;
 
-                            row.Cells["asistenciasParcial3"].Style.BackColor = colorDiferenciasResaltado;
-                        }
-                    }
+
 
                     if (cFila.tipoDeAcreditacion != cEquivalente.tipoDeAcreditacion)
                     {
@@ -521,6 +495,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
                         row.Cells["firmado"].Style.BackColor = colorDiferenciasResaltado;
                     }
+
+
 
                     if (flag)
                     {

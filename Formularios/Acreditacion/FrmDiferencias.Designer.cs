@@ -302,6 +302,7 @@
             this.Controls.Add(this.lblActuales);
             this.Controls.Add(this.dgvCalificacionesSiseems);
             this.Controls.Add(this.dgvCalificacionesActuales);
+            this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "FrmDiferencias";
             this.Text = "FrmDiferencias";
             this.Load += new System.EventHandler(this.FrmDiferencias_Load);

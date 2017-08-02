@@ -50,7 +50,7 @@
             this.webSiseems.Name = "webSiseems";
             this.webSiseems.Size = new System.Drawing.Size(1008, 561);
             this.webSiseems.TabIndex = 1;
-            this.webSiseems.Url = new System.Uri("file:///C:/Users/angel/Desktop/Prueba4_RegistroNoExistente.html", System.UriKind.Absolute);
+            this.webSiseems.Url = new System.Uri("http://www.siseems.sems.gob.mx/produccion/", System.UriKind.Absolute);
             // 
             // FrmImportarCalificaciones
             // 
@@ -59,6 +59,7 @@
             this.ClientSize = new System.Drawing.Size(1008, 561);
             this.Controls.Add(this.cmdImportar);
             this.Controls.Add(this.webSiseems);
+            this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "FrmImportarCalificaciones";
             this.Text = "FrmImportarCalificaciones";
             this.Load += new System.EventHandler(this.FrmImportarCalificaciones_Load);
