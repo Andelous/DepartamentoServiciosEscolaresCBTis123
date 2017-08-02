@@ -23,7 +23,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
             }
         }
 
-        private static List<string> _tiposDeAcreditacion = new List<string>() { "A", "NA", "NP", "RV", "R", null };
+        private static List<string> _tiposDeAcreditacion = new List<string>() { "A", "NA", "NP", "RV", "R" };
         public static List<string> tiposDeAcreditacion
         {
             get
