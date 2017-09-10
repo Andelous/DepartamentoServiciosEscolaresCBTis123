@@ -172,6 +172,12 @@
     <Compile Include="Formularios\Semestres\FrmNuevoSemestre.Designer.cs">
       <DependentUpon>FrmNuevoSemestre.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmOpciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmOpciones.Designer.cs">
+      <DependentUpon>FrmOpciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -218,6 +224,7 @@
     <Compile Include="Logica\DBContext\catedras.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logica\DBContext\CBTis123_Entities.cs" />
     <Compile Include="Logica\DBContext\CBTis123_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -284,6 +291,7 @@
     <Compile Include="Logica\DBContext\usuarios.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logica\DBContext\Vinculo_DB.cs" />
     <Compile Include="Logica\Modelos\Calificacion.cs" />
     <Compile Include="Logica\Modelos\Grupo_Estudiante.cs" />
     <Compile Include="Logica\Modelos\HistorialCalificacionSemestral.cs" />
@@ -363,6 +371,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Semestres\FrmNuevoSemestre.resx">
       <DependentUpon>FrmNuevoSemestre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOpciones.resx">
+      <DependentUpon>FrmOpciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>

@@ -65,5 +65,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             new FrmPruebas().Show();
         }
+
+        private void cmdOpciones_Click(object sender, EventArgs e)
+        {
+            new FrmOpciones().Show();
+        }
     }
 }

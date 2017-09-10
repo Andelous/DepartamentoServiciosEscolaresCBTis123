@@ -12,7 +12,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    
+
     public partial class CBTis123_Entities : DbContext
     {
         public CBTis123_Entities()

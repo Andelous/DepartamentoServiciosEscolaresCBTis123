@@ -37,7 +37,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         ) {
             // Código necesario para los métodos que 
             // utilicen la base de datos
-            CBTis123_Entities dbContext = new CBTis123_Entities();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
 
             List<grupos> listaGrupos = new List<grupos>();
 
@@ -65,7 +65,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
-            CBTis123_Entities dbContext = new CBTis123_Entities();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
 
             List<catedras> listaCatedras = new List<catedras>();
 
@@ -89,7 +89,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
-            CBTis123_Entities dbContext = new CBTis123_Entities();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
 
             List<calificaciones_semestrales> listaCalificaciones = new List<calificaciones_semestrales>();
 
@@ -110,7 +110,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
-            CBTis123_Entities dbContext = new CBTis123_Entities();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
 
             List<HistorialCalificacionSemestral> listaHistorial = new List<HistorialCalificacionSemestral>();
 
@@ -179,7 +179,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
-            CBTis123_Entities dbContext = new CBTis123_Entities();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
 
             // Setteamos variables necesarias para el método
             int calificacionesModificadas = 0;
@@ -401,7 +401,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
-            CBTis123_Entities dbContext = new CBTis123_Entities();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
 
             // Inicializamos variables para el método
             int calificacionesModificadas = 0;
@@ -651,7 +651,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
-            CBTis123_Entities dbContext = new CBTis123_Entities();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
 
             try
             {
@@ -680,7 +680,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
-            CBTis123_Entities dbContext = new CBTis123_Entities();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
 
             try
             {
@@ -750,7 +750,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
-            CBTis123_Entities dbContext = new CBTis123_Entities();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
 
             List<calificaciones_semestrales> listaCalificaciones = new List<calificaciones_semestrales>();
 

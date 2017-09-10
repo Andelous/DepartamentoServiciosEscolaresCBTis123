@@ -1,4 +1,5 @@
-﻿using MySqlUtilerias.DataSource;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
+using MySqlUtilerias.DataSource;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,7 +19,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         public DAO()
         {
-            dataSource = new MySqlDataSourceGeneric("localhost", 3306, "root", "Mexico.2017", "cbtislocal");
+            dataSource = new MySqlDataSourceGeneric(Vinculo_DB.server, Vinculo_DB.puerto, Vinculo_DB.userID, Vinculo_DB.password, Vinculo_DB.database);
         }
     }
 }

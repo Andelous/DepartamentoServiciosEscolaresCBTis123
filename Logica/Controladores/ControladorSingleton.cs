@@ -55,7 +55,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         }
 
         // Modelo de ADO
-        private static CBTis123_Entities _dbContext = new CBTis123_Entities();
+        private static CBTis123_Entities _dbContext = Vinculo_DB.generarContexto();
         public static CBTis123_Entities dbContext
         {
             get
