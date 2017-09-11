@@ -20,7 +20,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         }
     
         public int idCatedra { get; set; }
-        public Nullable<int> idDocente { get; set; }
+        public int idDocente { get; set; }
         public int idMateria { get; set; }
         public int idGrupo { get; set; }
     

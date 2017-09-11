@@ -125,5 +125,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 return 0;
             }
         }
+
+        public static bool verificarVersion()
+        {
+            return true;
+        }
     }
 }

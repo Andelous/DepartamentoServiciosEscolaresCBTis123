@@ -27,7 +27,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         }
 
         private Nullable<double> _calificacionParcial1;
-        public new Nullable<double> calificacionParcial1
+        public Nullable<double> calificacionParcial1
         {
             get
             {
@@ -59,7 +59,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         }
 
         private Nullable<double> _calificacionParcial2;
-        public new Nullable<double> calificacionParcial2
+        public Nullable<double> calificacionParcial2
         {
             get
             {
@@ -91,7 +91,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         }
 
         private Nullable<double> _calificacionParcial3;
-        public new Nullable<double> calificacionParcial3
+        public Nullable<double> calificacionParcial3
         {
             get
             {
@@ -124,7 +124,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
 
 
         private Nullable<int> _asistenciasParcial1;
-        public new Nullable<int> asistenciasParcial1
+        public Nullable<int> asistenciasParcial1
         {
             get
             {
@@ -152,7 +152,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         }
 
         private Nullable<int> _asistenciasParcial2;
-        public new Nullable<int> asistenciasParcial2
+        public Nullable<int> asistenciasParcial2
         {
             get
             {
@@ -180,7 +180,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         }
 
         private Nullable<int> _asistenciasParcial3;
-        public new Nullable<int> asistenciasParcial3
+        public Nullable<int> asistenciasParcial3
         {
             get
             {
@@ -208,7 +208,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         }
 
         private string _tipoDeAcreditacion;
-        public new string tipoDeAcreditacion
+        public string tipoDeAcreditacion
         {
             get
             {

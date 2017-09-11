@@ -18,9 +18,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         {
             this.historial_calificaciones_semestrales = new HashSet<historial_calificaciones_semestrales>();
         }
-		
+    
         public int idCalificacion_Semestral { get; set; }
-
         public bool recursamiento { get; set; }
         public bool firmado { get; set; }
         public bool verificado { get; set; }
