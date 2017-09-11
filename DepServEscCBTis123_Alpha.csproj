@@ -201,6 +201,7 @@
     <Compile Include="Logica\Controladores\ControladorEstudiantes.cs" />
     <Compile Include="Logica\Controladores\ControladorExcepciones.cs" />
     <Compile Include="Logica\Controladores\ControladorGrupos.cs" />
+    <Compile Include="Logica\Controladores\ControladorGrupos_Estudiantes.cs" />
     <Compile Include="Logica\Controladores\ControladorMiscelaneo.cs" />
     <Compile Include="Logica\Controladores\ControladorSemestres.cs" />
     <Compile Include="Logica\Controladores\ControladorSesion.cs" />
@@ -273,6 +274,7 @@
     <Compile Include="Logica\DBContext\ModelosParciales\docentes.cs" />
     <Compile Include="Logica\DBContext\ModelosParciales\estudiantes.cs" />
     <Compile Include="Logica\DBContext\ModelosParciales\grupos.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\grupos_estudiantes.cs" />
     <Compile Include="Logica\DBContext\ModelosParciales\materias.cs" />
     <Compile Include="Logica\DBContext\ModelosParciales\semestres.cs" />
     <Compile Include="Logica\DBContext\ModelosParciales\usuarios.cs" />

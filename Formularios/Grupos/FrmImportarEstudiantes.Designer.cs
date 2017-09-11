@@ -29,64 +29,63 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            this.label1 = new System.Windows.Forms.Label();
-            this.dgvEstudiantesImportar = new System.Windows.Forms.DataGridView();
-            this.dgvEstudiantesImportados = new System.Windows.Forms.DataGridView();
+            this.dgvEstudiantes = new System.Windows.Forms.DataGridView();
+            this.dgvEstudiantesActuales = new System.Windows.Forms.DataGridView();
             this.cmdAgregarSeleccion = new System.Windows.Forms.Button();
             this.cmdAgregarTodos = new System.Windows.Forms.Button();
-            this.lblGrupo = new System.Windows.Forms.Label();
-            this.lblSemestre = new System.Windows.Forms.Label();
-            this.comboGrupos = new System.Windows.Forms.ComboBox();
-            this.comboSemestres = new System.Windows.Forms.ComboBox();
-            this.cmdBuscar = new System.Windows.Forms.Button();
-            this.txtBusqueda = new System.Windows.Forms.TextBox();
-            this.chkTodosLosEstudiantes = new System.Windows.Forms.CheckBox();
             this.txtGrado = new System.Windows.Forms.TextBox();
             this.txtEspecialidad = new System.Windows.Forms.TextBox();
             this.txtSemestre = new System.Windows.Forms.TextBox();
             this.label2 = new System.Windows.Forms.Label();
             this.toolTipCmdAgregarSeleccion = new System.Windows.Forms.ToolTip(this.components);
             this.cmdEliminarSeleccion = new System.Windows.Forms.Button();
-            this.lblResultados = new System.Windows.Forms.Label();
             this.cmdGuardar = new System.Windows.Forms.Button();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEstudiantesImportar)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEstudiantesImportados)).BeginInit();
+            this.chkNss = new System.Windows.Forms.CheckBox();
+            this.chkApellidoMaterno = new System.Windows.Forms.CheckBox();
+            this.chkApellidoPaterno = new System.Windows.Forms.CheckBox();
+            this.chkNombres = new System.Windows.Forms.CheckBox();
+            this.chkNombreCompleto = new System.Windows.Forms.CheckBox();
+            this.chkCurp = new System.Windows.Forms.CheckBox();
+            this.chkNcontrol = new System.Windows.Forms.CheckBox();
+            this.label4 = new System.Windows.Forms.Label();
+            this.lblAdvertencia = new System.Windows.Forms.Label();
+            this.cmdBuscar = new System.Windows.Forms.Button();
+            this.txtBusqueda = new System.Windows.Forms.TextBox();
+            this.lblEstudiantes = new System.Windows.Forms.Label();
+            this.lblGrupo = new System.Windows.Forms.Label();
+            this.lblSemestre = new System.Windows.Forms.Label();
+            this.comboGrupos = new System.Windows.Forms.ComboBox();
+            this.comboSemestres = new System.Windows.Forms.ComboBox();
+            this.toolTipEliminarEstudiantes = new System.Windows.Forms.ToolTip(this.components);
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEstudiantes)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEstudiantesActuales)).BeginInit();
             this.SuspendLayout();
             // 
-            // label1
+            // dgvEstudiantes
             // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 9);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(171, 22);
-            this.label1.TabIndex = 2;
-            this.label1.Text = "Importar Estudiantes";
+            this.dgvEstudiantes.AllowUserToAddRows = false;
+            this.dgvEstudiantes.AllowUserToDeleteRows = false;
+            this.dgvEstudiantes.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEstudiantes.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEstudiantes.Location = new System.Drawing.Point(12, 228);
+            this.dgvEstudiantes.Name = "dgvEstudiantes";
+            this.dgvEstudiantes.ReadOnly = true;
+            this.dgvEstudiantes.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEstudiantes.Size = new System.Drawing.Size(445, 294);
+            this.dgvEstudiantes.TabIndex = 20;
             // 
-            // dgvEstudiantesImportar
+            // dgvEstudiantesActuales
             // 
-            this.dgvEstudiantesImportar.AllowUserToAddRows = false;
-            this.dgvEstudiantesImportar.AllowUserToDeleteRows = false;
-            this.dgvEstudiantesImportar.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvEstudiantesImportar.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEstudiantesImportar.Location = new System.Drawing.Point(12, 228);
-            this.dgvEstudiantesImportar.Name = "dgvEstudiantesImportar";
-            this.dgvEstudiantesImportar.ReadOnly = true;
-            this.dgvEstudiantesImportar.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEstudiantesImportar.Size = new System.Drawing.Size(445, 294);
-            this.dgvEstudiantesImportar.TabIndex = 20;
-            // 
-            // dgvEstudiantesImportados
-            // 
-            this.dgvEstudiantesImportados.AllowUserToAddRows = false;
-            this.dgvEstudiantesImportados.AllowUserToDeleteRows = false;
-            this.dgvEstudiantesImportados.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
-            this.dgvEstudiantesImportados.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dgvEstudiantesImportados.Location = new System.Drawing.Point(519, 228);
-            this.dgvEstudiantesImportados.Name = "dgvEstudiantesImportados";
-            this.dgvEstudiantesImportados.ReadOnly = true;
-            this.dgvEstudiantesImportados.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
-            this.dgvEstudiantesImportados.Size = new System.Drawing.Size(445, 294);
-            this.dgvEstudiantesImportados.TabIndex = 23;
+            this.dgvEstudiantesActuales.AllowUserToAddRows = false;
+            this.dgvEstudiantesActuales.AllowUserToDeleteRows = false;
+            this.dgvEstudiantesActuales.AutoSizeColumnsMode = System.Windows.Forms.DataGridViewAutoSizeColumnsMode.Fill;
+            this.dgvEstudiantesActuales.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dgvEstudiantesActuales.Location = new System.Drawing.Point(519, 228);
+            this.dgvEstudiantesActuales.Name = "dgvEstudiantesActuales";
+            this.dgvEstudiantesActuales.ReadOnly = true;
+            this.dgvEstudiantesActuales.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.FullRowSelect;
+            this.dgvEstudiantesActuales.Size = new System.Drawing.Size(445, 294);
+            this.dgvEstudiantesActuales.TabIndex = 23;
             // 
             // cmdAgregarSeleccion
             // 
@@ -109,73 +108,6 @@
             this.toolTipCmdAgregarSeleccion.SetToolTip(this.cmdAgregarTodos, "Todos los alumnos en la lista");
             this.cmdAgregarTodos.UseVisualStyleBackColor = true;
             this.cmdAgregarTodos.Click += new System.EventHandler(this.cmdAgregarTodos_Click);
-            // 
-            // lblGrupo
-            // 
-            this.lblGrupo.AutoSize = true;
-            this.lblGrupo.Location = new System.Drawing.Point(12, 100);
-            this.lblGrupo.Name = "lblGrupo";
-            this.lblGrupo.Size = new System.Drawing.Size(59, 22);
-            this.lblGrupo.TabIndex = 39;
-            this.lblGrupo.Text = "Grupo";
-            // 
-            // lblSemestre
-            // 
-            this.lblSemestre.AutoSize = true;
-            this.lblSemestre.Location = new System.Drawing.Point(12, 42);
-            this.lblSemestre.Name = "lblSemestre";
-            this.lblSemestre.Size = new System.Drawing.Size(82, 22);
-            this.lblSemestre.TabIndex = 38;
-            this.lblSemestre.Text = "Semestre";
-            // 
-            // comboGrupos
-            // 
-            this.comboGrupos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboGrupos.FormattingEnabled = true;
-            this.comboGrupos.Location = new System.Drawing.Point(12, 125);
-            this.comboGrupos.Name = "comboGrupos";
-            this.comboGrupos.Size = new System.Drawing.Size(284, 30);
-            this.comboGrupos.TabIndex = 37;
-            this.comboGrupos.SelectedIndexChanged += new System.EventHandler(this.comboGrupos_SelectedIndexChanged);
-            // 
-            // comboSemestres
-            // 
-            this.comboSemestres.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboSemestres.FormattingEnabled = true;
-            this.comboSemestres.Location = new System.Drawing.Point(12, 67);
-            this.comboSemestres.Name = "comboSemestres";
-            this.comboSemestres.Size = new System.Drawing.Size(284, 30);
-            this.comboSemestres.TabIndex = 36;
-            this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.comboSemestres_SelectedIndexChanged);
-            // 
-            // cmdBuscar
-            // 
-            this.cmdBuscar.Location = new System.Drawing.Point(319, 193);
-            this.cmdBuscar.Name = "cmdBuscar";
-            this.cmdBuscar.Size = new System.Drawing.Size(93, 29);
-            this.cmdBuscar.TabIndex = 41;
-            this.cmdBuscar.Text = "Buscar";
-            this.cmdBuscar.UseVisualStyleBackColor = true;
-            this.cmdBuscar.Click += new System.EventHandler(this.cmdBuscar_Click);
-            // 
-            // txtBusqueda
-            // 
-            this.txtBusqueda.Location = new System.Drawing.Point(12, 193);
-            this.txtBusqueda.Name = "txtBusqueda";
-            this.txtBusqueda.Size = new System.Drawing.Size(301, 29);
-            this.txtBusqueda.TabIndex = 40;
-            this.txtBusqueda.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.txtBusqueda_KeyPress);
-            // 
-            // chkTodosLosEstudiantes
-            // 
-            this.chkTodosLosEstudiantes.AutoSize = true;
-            this.chkTodosLosEstudiantes.Location = new System.Drawing.Point(12, 161);
-            this.chkTodosLosEstudiantes.Name = "chkTodosLosEstudiantes";
-            this.chkTodosLosEstudiantes.Size = new System.Drawing.Size(195, 26);
-            this.chkTodosLosEstudiantes.TabIndex = 42;
-            this.chkTodosLosEstudiantes.Text = "Todos los estudiantes";
-            this.chkTodosLosEstudiantes.UseVisualStyleBackColor = true;
-            this.chkTodosLosEstudiantes.CheckedChanged += new System.EventHandler(this.chkTodosLosEstudiantes_CheckedChanged);
             // 
             // txtGrado
             // 
@@ -235,18 +167,9 @@
             this.cmdEliminarSeleccion.Size = new System.Drawing.Size(30, 30);
             this.cmdEliminarSeleccion.TabIndex = 48;
             this.cmdEliminarSeleccion.Text = "x";
-            this.toolTipCmdAgregarSeleccion.SetToolTip(this.cmdEliminarSeleccion, "Todos los alumnos en la lista");
+            this.toolTipEliminarEstudiantes.SetToolTip(this.cmdEliminarSeleccion, "Los alumnos seleccionados");
             this.cmdEliminarSeleccion.UseVisualStyleBackColor = true;
             this.cmdEliminarSeleccion.Click += new System.EventHandler(this.cmdEliminarSeleccion_Click);
-            // 
-            // lblResultados
-            // 
-            this.lblResultados.AutoSize = true;
-            this.lblResultados.Location = new System.Drawing.Point(315, 165);
-            this.lblResultados.Name = "lblResultados";
-            this.lblResultados.Size = new System.Drawing.Size(94, 22);
-            this.lblResultados.TabIndex = 47;
-            this.lblResultados.Text = "Resultados";
             // 
             // cmdGuardar
             // 
@@ -258,64 +181,249 @@
             this.cmdGuardar.UseVisualStyleBackColor = true;
             this.cmdGuardar.Click += new System.EventHandler(this.cmdGuardar_Click);
             // 
+            // chkNss
+            // 
+            this.chkNss.AutoSize = true;
+            this.chkNss.Location = new System.Drawing.Point(263, 154);
+            this.chkNss.Name = "chkNss";
+            this.chkNss.Size = new System.Drawing.Size(59, 26);
+            this.chkNss.TabIndex = 57;
+            this.chkNss.Text = "NSS";
+            this.chkNss.UseVisualStyleBackColor = true;
+            this.chkNss.CheckedChanged += new System.EventHandler(this.cambioDeCriterio);
+            // 
+            // chkApellidoMaterno
+            // 
+            this.chkApellidoMaterno.AutoSize = true;
+            this.chkApellidoMaterno.Location = new System.Drawing.Point(186, 130);
+            this.chkApellidoMaterno.Name = "chkApellidoMaterno";
+            this.chkApellidoMaterno.Size = new System.Drawing.Size(160, 26);
+            this.chkApellidoMaterno.TabIndex = 56;
+            this.chkApellidoMaterno.Text = "Apellido materno";
+            this.chkApellidoMaterno.UseVisualStyleBackColor = true;
+            this.chkApellidoMaterno.CheckedChanged += new System.EventHandler(this.cambioDeCriterio);
+            // 
+            // chkApellidoPaterno
+            // 
+            this.chkApellidoPaterno.AutoSize = true;
+            this.chkApellidoPaterno.Location = new System.Drawing.Point(12, 130);
+            this.chkApellidoPaterno.Name = "chkApellidoPaterno";
+            this.chkApellidoPaterno.Size = new System.Drawing.Size(155, 26);
+            this.chkApellidoPaterno.TabIndex = 55;
+            this.chkApellidoPaterno.Text = "Apellido paterno";
+            this.chkApellidoPaterno.UseVisualStyleBackColor = true;
+            this.chkApellidoPaterno.CheckedChanged += new System.EventHandler(this.cambioDeCriterio);
+            // 
+            // chkNombres
+            // 
+            this.chkNombres.AutoSize = true;
+            this.chkNombres.Location = new System.Drawing.Point(186, 106);
+            this.chkNombres.Name = "chkNombres";
+            this.chkNombres.Size = new System.Drawing.Size(100, 26);
+            this.chkNombres.TabIndex = 54;
+            this.chkNombres.Text = "Nombres";
+            this.chkNombres.UseVisualStyleBackColor = true;
+            this.chkNombres.CheckedChanged += new System.EventHandler(this.cambioDeCriterio);
+            // 
+            // chkNombreCompleto
+            // 
+            this.chkNombreCompleto.AutoSize = true;
+            this.chkNombreCompleto.Checked = true;
+            this.chkNombreCompleto.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.chkNombreCompleto.Enabled = false;
+            this.chkNombreCompleto.Location = new System.Drawing.Point(12, 106);
+            this.chkNombreCompleto.Name = "chkNombreCompleto";
+            this.chkNombreCompleto.Size = new System.Drawing.Size(168, 26);
+            this.chkNombreCompleto.TabIndex = 53;
+            this.chkNombreCompleto.Text = "Nombre completo";
+            this.chkNombreCompleto.UseVisualStyleBackColor = true;
+            this.chkNombreCompleto.CheckedChanged += new System.EventHandler(this.cambioDeCriterio);
+            // 
+            // chkCurp
+            // 
+            this.chkCurp.AutoSize = true;
+            this.chkCurp.Location = new System.Drawing.Point(186, 154);
+            this.chkCurp.Name = "chkCurp";
+            this.chkCurp.Size = new System.Drawing.Size(71, 26);
+            this.chkCurp.TabIndex = 52;
+            this.chkCurp.Text = "CURP";
+            this.chkCurp.UseVisualStyleBackColor = true;
+            this.chkCurp.CheckedChanged += new System.EventHandler(this.cambioDeCriterio);
+            // 
+            // chkNcontrol
+            // 
+            this.chkNcontrol.AutoSize = true;
+            this.chkNcontrol.Location = new System.Drawing.Point(12, 154);
+            this.chkNcontrol.Name = "chkNcontrol";
+            this.chkNcontrol.Size = new System.Drawing.Size(152, 26);
+            this.chkNcontrol.TabIndex = 51;
+            this.chkNcontrol.Text = "Núm. de control";
+            this.chkNcontrol.UseVisualStyleBackColor = true;
+            this.chkNcontrol.CheckedChanged += new System.EventHandler(this.cambioDeCriterio);
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(12, 81);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(178, 22);
+            this.label4.TabIndex = 50;
+            this.label4.Text = "Criterios de búsqueda";
+            // 
+            // lblAdvertencia
+            // 
+            this.lblAdvertencia.AutoSize = true;
+            this.lblAdvertencia.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblAdvertencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
+            this.lblAdvertencia.Location = new System.Drawing.Point(233, 11);
+            this.lblAdvertencia.Name = "lblAdvertencia";
+            this.lblAdvertencia.Size = new System.Drawing.Size(210, 18);
+            this.lblAdvertencia.TabIndex = 61;
+            this.lblAdvertencia.Text = "Criterios de búsqueda cambiados.";
+            this.lblAdvertencia.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.lblAdvertencia.Visible = false;
+            // 
+            // cmdBuscar
+            // 
+            this.cmdBuscar.Location = new System.Drawing.Point(269, 40);
+            this.cmdBuscar.Name = "cmdBuscar";
+            this.cmdBuscar.Size = new System.Drawing.Size(93, 29);
+            this.cmdBuscar.TabIndex = 60;
+            this.cmdBuscar.Text = "Buscar";
+            this.cmdBuscar.UseVisualStyleBackColor = true;
+            this.cmdBuscar.Click += new System.EventHandler(this.mostrarEstudiantes);
+            // 
+            // txtBusqueda
+            // 
+            this.txtBusqueda.Location = new System.Drawing.Point(12, 40);
+            this.txtBusqueda.Name = "txtBusqueda";
+            this.txtBusqueda.Size = new System.Drawing.Size(251, 29);
+            this.txtBusqueda.TabIndex = 59;
+            // 
+            // lblEstudiantes
+            // 
+            this.lblEstudiantes.AutoSize = true;
+            this.lblEstudiantes.Location = new System.Drawing.Point(12, 9);
+            this.lblEstudiantes.Name = "lblEstudiantes";
+            this.lblEstudiantes.Size = new System.Drawing.Size(216, 22);
+            this.lblEstudiantes.TabIndex = 58;
+            this.lblEstudiantes.Text = "Estudiantes - (0 resultados)";
+            // 
+            // lblGrupo
+            // 
+            this.lblGrupo.AutoSize = true;
+            this.lblGrupo.Location = new System.Drawing.Point(465, 51);
+            this.lblGrupo.Name = "lblGrupo";
+            this.lblGrupo.Size = new System.Drawing.Size(59, 22);
+            this.lblGrupo.TabIndex = 65;
+            this.lblGrupo.Text = "Grupo";
+            // 
+            // lblSemestre
+            // 
+            this.lblSemestre.AutoSize = true;
+            this.lblSemestre.Location = new System.Drawing.Point(442, 15);
+            this.lblSemestre.Name = "lblSemestre";
+            this.lblSemestre.Size = new System.Drawing.Size(82, 22);
+            this.lblSemestre.TabIndex = 64;
+            this.lblSemestre.Text = "Semestre";
+            // 
+            // comboGrupos
+            // 
+            this.comboGrupos.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboGrupos.FormattingEnabled = true;
+            this.comboGrupos.Location = new System.Drawing.Point(530, 48);
+            this.comboGrupos.Name = "comboGrupos";
+            this.comboGrupos.Size = new System.Drawing.Size(284, 30);
+            this.comboGrupos.TabIndex = 63;
+            this.comboGrupos.SelectedIndexChanged += new System.EventHandler(this.mostrarEstudiantes);
+            // 
+            // comboSemestres
+            // 
+            this.comboSemestres.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+            this.comboSemestres.FormattingEnabled = true;
+            this.comboSemestres.Location = new System.Drawing.Point(530, 12);
+            this.comboSemestres.Name = "comboSemestres";
+            this.comboSemestres.Size = new System.Drawing.Size(284, 30);
+            this.comboSemestres.TabIndex = 62;
+            this.comboSemestres.SelectedIndexChanged += new System.EventHandler(this.mostrarGrupos);
+            // 
+            // toolTipEliminarEstudiantes
+            // 
+            this.toolTipEliminarEstudiantes.ToolTipTitle = "Eliminar del grupo...";
+            // 
             // FrmImportarEstudiantes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(976, 534);
-            this.Controls.Add(this.cmdGuardar);
-            this.Controls.Add(this.cmdEliminarSeleccion);
-            this.Controls.Add(this.lblResultados);
-            this.Controls.Add(this.txtGrado);
-            this.Controls.Add(this.txtEspecialidad);
-            this.Controls.Add(this.txtSemestre);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.chkTodosLosEstudiantes);
-            this.Controls.Add(this.cmdBuscar);
-            this.Controls.Add(this.txtBusqueda);
             this.Controls.Add(this.lblGrupo);
             this.Controls.Add(this.lblSemestre);
             this.Controls.Add(this.comboGrupos);
             this.Controls.Add(this.comboSemestres);
+            this.Controls.Add(this.lblAdvertencia);
+            this.Controls.Add(this.cmdBuscar);
+            this.Controls.Add(this.txtBusqueda);
+            this.Controls.Add(this.lblEstudiantes);
+            this.Controls.Add(this.chkNss);
+            this.Controls.Add(this.chkApellidoMaterno);
+            this.Controls.Add(this.chkApellidoPaterno);
+            this.Controls.Add(this.chkNombres);
+            this.Controls.Add(this.chkNombreCompleto);
+            this.Controls.Add(this.chkCurp);
+            this.Controls.Add(this.chkNcontrol);
+            this.Controls.Add(this.label4);
+            this.Controls.Add(this.cmdGuardar);
+            this.Controls.Add(this.cmdEliminarSeleccion);
+            this.Controls.Add(this.txtGrado);
+            this.Controls.Add(this.txtEspecialidad);
+            this.Controls.Add(this.txtSemestre);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.cmdAgregarTodos);
             this.Controls.Add(this.cmdAgregarSeleccion);
-            this.Controls.Add(this.dgvEstudiantesImportados);
-            this.Controls.Add(this.dgvEstudiantesImportar);
-            this.Controls.Add(this.label1);
+            this.Controls.Add(this.dgvEstudiantesActuales);
+            this.Controls.Add(this.dgvEstudiantes);
             this.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.Name = "FrmImportarEstudiantes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Importar estudiantes - Control Escolar CBTis 123";
             this.Load += new System.EventHandler(this.FrmImportarEstudiantes_Load);
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEstudiantesImportar)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.dgvEstudiantesImportados)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEstudiantes)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.dgvEstudiantesActuales)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.DataGridView dgvEstudiantesImportar;
-        private System.Windows.Forms.DataGridView dgvEstudiantesImportados;
+        private System.Windows.Forms.DataGridView dgvEstudiantes;
+        private System.Windows.Forms.DataGridView dgvEstudiantesActuales;
         private System.Windows.Forms.Button cmdAgregarSeleccion;
         private System.Windows.Forms.Button cmdAgregarTodos;
-        private System.Windows.Forms.Label lblGrupo;
-        private System.Windows.Forms.Label lblSemestre;
-        private System.Windows.Forms.ComboBox comboGrupos;
-        private System.Windows.Forms.ComboBox comboSemestres;
-        private System.Windows.Forms.Button cmdBuscar;
-        private System.Windows.Forms.TextBox txtBusqueda;
-        private System.Windows.Forms.CheckBox chkTodosLosEstudiantes;
         private System.Windows.Forms.TextBox txtGrado;
         private System.Windows.Forms.TextBox txtEspecialidad;
         private System.Windows.Forms.TextBox txtSemestre;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.ToolTip toolTipCmdAgregarSeleccion;
-        private System.Windows.Forms.Label lblResultados;
         private System.Windows.Forms.Button cmdEliminarSeleccion;
         private System.Windows.Forms.Button cmdGuardar;
+        private System.Windows.Forms.CheckBox chkNss;
+        private System.Windows.Forms.CheckBox chkApellidoMaterno;
+        private System.Windows.Forms.CheckBox chkApellidoPaterno;
+        private System.Windows.Forms.CheckBox chkNombres;
+        private System.Windows.Forms.CheckBox chkNombreCompleto;
+        private System.Windows.Forms.CheckBox chkCurp;
+        private System.Windows.Forms.CheckBox chkNcontrol;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label lblAdvertencia;
+        private System.Windows.Forms.Button cmdBuscar;
+        private System.Windows.Forms.TextBox txtBusqueda;
+        private System.Windows.Forms.Label lblEstudiantes;
+        private System.Windows.Forms.Label lblGrupo;
+        private System.Windows.Forms.Label lblSemestre;
+        private System.Windows.Forms.ComboBox comboGrupos;
+        private System.Windows.Forms.ComboBox comboSemestres;
+        private System.Windows.Forms.ToolTip toolTipEliminarEstudiantes;
     }
 }
