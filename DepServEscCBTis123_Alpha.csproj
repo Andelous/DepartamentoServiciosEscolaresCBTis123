@@ -264,6 +264,15 @@
     <Compile Include="Logica\DBContext\materias.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logica\DBContext\ModelosParciales\calificaciones_semestrales.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\carreras.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\catedras.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\docentes.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\estudiantes.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\grupos.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\materias.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\semestres.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\usuarios.cs" />
     <Compile Include="Logica\DBContext\modulos.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>

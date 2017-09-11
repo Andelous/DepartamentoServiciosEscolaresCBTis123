@@ -21,28 +21,5 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string apellidoPaterno { get; set; }
         public string apellidoMaterno { get; set; }
         public int tipoUsuario { get; set; }
-
-        public override string ToString()
-        {
-            return nombre + " " + apellidoPaterno + " " + apellidoMaterno;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj != null)
-            {
-                if (obj.GetType() == typeof(usuarios))
-                {
-                    usuarios u = (usuarios)obj;
-
-                    if (u.idUsuario == idUsuario)
-                    {
-                        return true;
-                    }
-                }
-            }
-
-            return false;
-        }
     }
 }

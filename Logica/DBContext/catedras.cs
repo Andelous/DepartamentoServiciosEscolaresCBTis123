@@ -28,12 +28,5 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public virtual docentes docentes { get; set; }
         public virtual materias materias { get; set; }
         public virtual grupos grupos { get; set; }
-        
-
-        // Métodos míos
-        public override string ToString()
-        {
-            return materias.ToString() + " (" + docentes.ToString() + ")";
-        }
     }
 }
