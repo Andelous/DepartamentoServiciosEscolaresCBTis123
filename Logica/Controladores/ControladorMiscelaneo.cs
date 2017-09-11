@@ -1,7 +1,10 @@
-﻿using HtmlAgilityPack;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
+using HtmlAgilityPack;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +12,30 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public static class ControladorMiscelaneo
     {
+        static ControladorMiscelaneo()
+        {
+            versionActual = typeof(ControladorMiscelaneo).Assembly.GetName().Version.ToString().Substring(0, 3);
+
+            CBTis123_Entities db = Vinculo_DB.generarContexto();
+            datos_varios version = null;
+
+            try
+            {
+                version = db.datos_varios.Single(dv => dv.nombre == "version");
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+                version = new datos_varios();
+                version.valor = null;
+            }
+
+            versionMasReciente = version.valor;
+        }
+
+        private static string versionActual { get; set; }
+        private static string versionMasReciente { get; set; }
+
         public static string[][] crearTablaDeHtml(string cadenaHtml)
         {
             // Cargamos el HTML a un documento.
@@ -126,9 +153,47 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
         }
 
-        public static bool verificarVersion()
+        public static bool? isAplicacionActualizada()
         {
-            return true;
+            if (versionMasReciente == null)
+                return null;
+
+            return versionActual == versionMasReciente;
+        }
+
+        public static bool? validarVersion()
+        {
+            //MessageBox.Show(Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, 3));
+            bool? valor = isAplicacionActualizada();
+
+            switch (valor)
+            {
+                case true:
+                    break;
+                case false:
+                    ResultadoOperacion ro2 =
+                    new ResultadoOperacion(
+                        EstadoOperacion.NingunResultado,
+                        "No es posible utilizar la aplicación ya que no cuenta con la última versión. " + 
+                        "(Versión actual " + versionActual + " | Versión más reciente " + versionMasReciente + ")",
+                        "VerAct " + versionActual
+                    );
+
+                    ControladorVisual.mostrarMensaje(ro2);
+                    break;
+                case null:
+                    ResultadoOperacion ro3 =
+                    new ResultadoOperacion(
+                        EstadoOperacion.ErrorAplicacion,
+                        "No fue posible verificar la versión de la aplicación. Verifique la conexión al servidor.",
+                        "VerAct " + versionActual
+                    );
+
+                    ControladorVisual.mostrarMensaje(ro3);
+                    break;
+            }
+
+            return valor;
         }
     }
 }

@@ -15,7 +15,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         {
             get
             {
-                return File.ReadAllLines("host.sys");
+                try
+                {
+                    return File.ReadAllLines("host.sys");
+                }
+                catch (Exception)
+                {
+                    return new string[] { "", "", "", "", "" };
+                }
             }
         }
         public static string userID
