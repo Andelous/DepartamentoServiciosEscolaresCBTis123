@@ -175,7 +175,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
 
         // UPDATES
-        public static ResultadoOperacion actualizarCalificaciones(List<calificaciones_semestrales> listaCalificaciones)
+        public static ResultadoOperacion actualizarCalificaciones(IList<calificaciones_semestrales> listaCalificaciones)
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
@@ -397,7 +397,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     innerRO);
         }
 
-        public static ResultadoOperacion actualizarCalificacionesDesdeSiseems(List<calificaciones_semestrales> listaCalificaciones)
+        public static ResultadoOperacion actualizarCalificacionesDesdeSiseems(IList<calificaciones_semestrales> listaCalificaciones, string clase = "Desconocida")
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
@@ -574,6 +574,22 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         cambios = true;
                     }
 
+                    if (cUpdated.recursamiento != c.recursamiento)
+                    {
+                        logCambios.Append(
+                            crearLogCambios(
+                                "Firmado",
+                                cUpdated.recursamiento.ToString(),
+                                c.recursamiento.ToString(),
+                                "Importación de SISEEMS",
+                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
+                            )
+                        );
+
+                        cUpdated.recursamiento = c.recursamiento;
+                        cambios = true;
+                    }
+
                     if (cUpdated.tipoDeAcreditacion != c.tipoDeAcreditacion)
                     {
                         logCambios.Append(
@@ -628,26 +644,29 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 !cambios ?
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
-                    "No se guardó ninguna calificación",
+                    "No se guardó ninguna calificación" + "\n" +
+                    "Para la cátedra: " + clase,
                     null,
                     innerRO)
                 :
                 calificacionesModificadas > 0 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
-                    "Calificaciones importadas desde el SISEEMS - " + calificacionesModificadas.ToString(),
+                    "Calificaciones importadas desde el SISEEMS - " + calificacionesModificadas.ToString() + "\n" +
+                    "Para la cátedra: " + clase,
                     null,
                     innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
-                    "No se han importado todas las calificaciones,\no más de las debidas fueron actualizadas",
+                    "No se han importado todas las calificaciones,\no más de las debidas fueron actualizadas" + "\n" +
+                    "Para la cátedra: " + clase,
                     "CalAct " + calificacionesModificadas.ToString(),
                     innerRO);
         }
 
         // Métodos misceláneos
-        private static void inicializarCatedras(grupos grupo)
+        public static void inicializarCatedras(grupos grupo)
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
@@ -668,6 +687,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     registrarCatedras(
                         ControladorSingleton.controladorGrupos.
                         crearListaCatedrasGrupo(g1));
+
+                    dbContext = Vinculo_DB.generarContexto();
+                    listaCatedras = dbContext.catedras.Where(
+                        c =>
+                        c.idGrupo == grupo.idGrupo
+                    ).ToList();
+
+                    foreach (catedras c in listaCatedras)
+                    {
+                        inicializarCalificaciones(c);
+                    }
                 }
             }
             catch (Exception e)
@@ -676,7 +706,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
         }
 
-        public static void inicializarCalificaciones(catedras catedra)
+        public static void inicializarCatedras(Grupo grupo)
+        {
+            inicializarCatedras(new grupos() { idGrupo = grupo.idGrupo });
+        }
+
+            public static void inicializarCalificaciones(catedras catedra)
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
@@ -864,6 +899,31 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             sb.Append(idUsuarioAutor.ToString());
 
             return sb.ToString();
+        }
+
+        public static IList<estudiantes> estudiantesPresentesEnTodasListas(IList<calificaciones_semestrales>[] arrListasCalificaciones)
+        {
+            // Creamos la lista que contendrá los estudiantes que existen en todas las listas...
+            IList<estudiantes> listaEstudiantes = new List<estudiantes>();
+
+            IList<calificaciones_semestrales> listaBase = arrListasCalificaciones[0];
+
+            foreach (calificaciones_semestrales cs in listaBase)
+            {
+                bool flag = true;
+
+                foreach (IList<calificaciones_semestrales> lista in arrListasCalificaciones)
+                {
+                    calificaciones_semestrales csI = lista.FirstOrDefault(cs1 => cs1.nControl == cs.nControl);
+                    flag = csI != null;
+
+                    if (!flag) break;
+                }
+
+                if (flag) listaEstudiantes.Add(cs.estudiantes);
+            }
+
+            return listaEstudiantes;
         }
     }
 }

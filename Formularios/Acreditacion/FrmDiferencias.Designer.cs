@@ -240,7 +240,6 @@
             // 
             this.cmdGuardarDiferencias.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdGuardarDiferencias.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cmdGuardarDiferencias.Enabled = false;
             this.cmdGuardarDiferencias.FlatAppearance.BorderSize = 0;
             this.cmdGuardarDiferencias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdGuardarDiferencias.Location = new System.Drawing.Point(0, 521);
@@ -265,7 +264,6 @@
             // 
             this.cmdSeleccionarNinguno.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdSeleccionarNinguno.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdSeleccionarNinguno.Enabled = false;
             this.cmdSeleccionarNinguno.FlatAppearance.BorderSize = 0;
             this.cmdSeleccionarNinguno.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSeleccionarNinguno.Location = new System.Drawing.Point(0, 40);
@@ -280,7 +278,6 @@
             // 
             this.cmdSeleccionarTodos.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdSeleccionarTodos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdSeleccionarTodos.Enabled = false;
             this.cmdSeleccionarTodos.FlatAppearance.BorderSize = 0;
             this.cmdSeleccionarTodos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSeleccionarTodos.Location = new System.Drawing.Point(0, 0);

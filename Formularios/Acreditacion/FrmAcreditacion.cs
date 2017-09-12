@@ -72,6 +72,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 return dgvCalificaciones.Columns[dgvCalificaciones.SelectedCells[0].ColumnIndex].Name;
             }
         }
+
+        private IList<catedras> asignaturas
+        {
+            get
+            {
+                return (List<catedras>)comboAsignatura.DataSource;
+            }
+        }
         
         // Propiedad pública para uso del importador
         public List<calificaciones_semestrales> calificacionesDeDGV
@@ -253,7 +261,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void cmdImportar_Click(object sender, EventArgs e)
         {
-            new FrmImportarCalificaciones(asignaturaSeleccionada).ShowDialog();
+            //new FrmImportarCalificaciones(asignaturaSeleccionada).ShowDialog();
+            new FrmImportarCalificacionesM(asignaturas, grupoSeleccionado).ShowDialog();
             cargarAlumnos(sender, e);
         }
 

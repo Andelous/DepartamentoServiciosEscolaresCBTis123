@@ -34,7 +34,7 @@
             // 
             // cmdImportar
             // 
-            this.cmdImportar.Location = new System.Drawing.Point(837, 516);
+            this.cmdImportar.Location = new System.Drawing.Point(835, 516);
             this.cmdImportar.Name = "cmdImportar";
             this.cmdImportar.Size = new System.Drawing.Size(146, 33);
             this.cmdImportar.TabIndex = 0;

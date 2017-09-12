@@ -23,6 +23,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         public int noEncontradosGrupo { get; set; }
         public int noEncontradosDB { get; set; }
 
+        private int? pos { get; set; }
 
         // Colores
         private Color colorDiferencias { get; set; }
@@ -79,12 +80,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         }
 
         // Métodos de inicialización
-        public FrmDiferencias(List<calificaciones_semestrales> calificacionesActuales, List<calificaciones_semestrales> calificacionesSiseems)
+        public FrmDiferencias(List<calificaciones_semestrales> calificacionesActuales, List<calificaciones_semestrales> calificacionesSiseems, int? pos = null)
         {
             InitializeComponent();
 
             this.calificacionesActuales = calificacionesActuales;
             this.calificacionesSiseems = calificacionesSiseems;
+
+            this.pos = pos;
 
             agregarColumnasCombos();
 
@@ -128,7 +131,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void ScrollDGVSiseems(object sender, ScrollEventArgs e)
         {
-            dgvCalificacionesActuales.FirstDisplayedScrollingRowIndex = dgvCalificacionesSiseems.FirstDisplayedScrollingRowIndex;
+            try
+            {
+                dgvCalificacionesActuales.FirstDisplayedScrollingRowIndex = dgvCalificacionesSiseems.FirstDisplayedScrollingRowIndex;
+            }
+            catch (Exception)
+            {
+                
+            }
             //dgvCalificacionesActuales.FirstDisplayedScrollingColumnIndex = dgvCalificacionesSiseems.FirstDisplayedScrollingColumnIndex;
         }
 
@@ -152,15 +162,24 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void cmdGuardarDiferencias_Click(object sender, EventArgs e)
         {
-            ResultadoOperacion resultadoOperacion = 
-                ControladorAcreditacion.
-                actualizarCalificacionesDesdeSiseems(
-                    calificacionesDeDGVSiseemsActualizables);
-
-            ControladorVisual.mostrarMensaje(resultadoOperacion);
-            if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
+            if (pos.HasValue)
             {
+                FrmImportarCalificacionesM frm = (FrmImportarCalificacionesM)Application.OpenForms["FrmImportarCalificacionesM"];
+                frm.agregarCalificaciones(pos.Value, calificacionesDeDGVSiseemsActualizables);
                 Close();
+            }
+            else
+            {
+                ResultadoOperacion resultadoOperacion =
+                    ControladorAcreditacion.
+                    actualizarCalificacionesDesdeSiseems(
+                        calificacionesDeDGVSiseemsActualizables);
+
+                ControladorVisual.mostrarMensaje(resultadoOperacion);
+                if (resultadoOperacion.estadoOperacion == EstadoOperacion.Correcto)
+                {
+                    Close();
+                }
             }
         }
 
@@ -192,6 +211,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             {
                 dgvCalificacionesActuales.DataSource = null;
                 dgvCalificacionesActuales.Columns["tipoDeAcreditacion1"].Visible = false;
+
+                cmdGuardarDiferencias.Enabled = true;
+                cmdSeleccionarNinguno.Enabled = true;
+                cmdSeleccionarTodos.Enabled = true;
 
                 return;
             }
@@ -537,7 +560,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                         row.DefaultCellStyle.BackColor = colorNoEncontradosDB;
                     }
 
-                    row.Cells["recursamiento"].Value = true;
+                    row.Cells["recursamiento"].Value = false;
                     row.Cells["actualizar"].Value = true;
                     row.Cells["verificado"].Value = false;
                 }

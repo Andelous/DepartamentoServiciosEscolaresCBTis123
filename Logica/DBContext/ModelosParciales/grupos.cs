@@ -17,6 +17,39 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
             }
         }
 
+        public string turnoCompleto
+        {
+            get
+            {
+                string t = turno.ToUpper();
+
+                switch (t)
+                {
+                    case "M":
+                        return "Matutino";
+                    case "V":
+                        return "Vespertino";
+                }
+
+                return "Desconocido";
+            }
+        }
+        public string especialidadCompleta
+        {
+            get
+            {
+                string esp = especialidad;
+
+                switch (esp)
+                {
+                    default:
+                        break;
+                }
+
+                return esp;
+            }
+        }
+
         // Métodos míos
         public override string ToString()
         {
