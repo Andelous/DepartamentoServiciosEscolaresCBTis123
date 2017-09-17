@@ -1,7 +1,10 @@
-﻿using HtmlAgilityPack;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
+using HtmlAgilityPack;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -9,6 +12,30 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public static class ControladorMiscelaneo
     {
+        static ControladorMiscelaneo()
+        {
+            versionActual = typeof(ControladorMiscelaneo).Assembly.GetName().Version.ToString().Substring(0, 3);
+
+            CBTis123_Entities db = Vinculo_DB.generarContexto();
+            datos_varios version = null;
+
+            try
+            {
+                version = db.datos_varios.Single(dv => dv.nombre == "version");
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+                version = new datos_varios();
+                version.valor = null;
+            }
+
+            versionMasReciente = version.valor;
+        }
+
+        private static string versionActual { get; set; }
+        private static string versionMasReciente { get; set; }
+
         public static string[][] crearTablaDeHtml(string cadenaHtml)
         {
             // Cargamos el HTML a un documento.
@@ -65,13 +92,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                             case 9:
                             case 10:
                                 HtmlNode input = celdas[j].SelectSingleNode("./input");
-                                tablaDeCadenas[i][j] = input.GetAttributeValue("value", 0).ToString();
+                                tablaDeCadenas[i][j] = input.GetAttributeValue("value", null);
                                 break;
 
                             // <select> y <option>
                             case 11:
                                 HtmlNode option = celdas[j].SelectSingleNode(".//option[@selected]");
-                                tablaDeCadenas[i][j] = option.GetAttributeValue("value", "");
+                                tablaDeCadenas[i][j] = option.GetAttributeValue("value", null);
                                 break;
 
                             // <input type="checkbox">
@@ -98,6 +125,74 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
 
             return tablaDeCadenas;
+        }
+
+        public static int compararNullableDouble(double? n1, double? n2)
+        {
+            if (n1.HasValue ^ n2.HasValue)
+            {
+                return n1.HasValue ? 1 : -1;
+            }
+
+            if (!n1.HasValue && !n2.HasValue)
+            {
+                return 0;
+            }
+
+            if (n1.Value > n2.Value)
+            {
+                return 1;
+            }
+            else if (n2.Value > n1.Value)
+            {
+                return -1;
+            }
+            else
+            {
+                return 0;
+            }
+        }
+
+        public static bool? isAplicacionActualizada()
+        {
+            if (versionMasReciente == null)
+                return null;
+
+            return versionActual == versionMasReciente;
+        }
+
+        public static bool? validarVersion()
+        {
+            bool? valor = isAplicacionActualizada();
+
+            switch (valor)
+            {
+                case true:
+                    break;
+                case false:
+                    ResultadoOperacion ro2 =
+                    new ResultadoOperacion(
+                        EstadoOperacion.NingunResultado,
+                        "No es posible utilizar la aplicación ya que no cuenta con la última versión. " + 
+                        "(Versión actual " + versionActual + " | Versión más reciente " + versionMasReciente + ")",
+                        "VerAct " + versionActual
+                    );
+
+                    ControladorVisual.mostrarMensaje(ro2);
+                    break;
+                case null:
+                    ResultadoOperacion ro3 =
+                    new ResultadoOperacion(
+                        EstadoOperacion.ErrorAplicacion,
+                        "No fue posible verificar la versión de la aplicación. Verifique la conexión al servidor.",
+                        "VerAct " + versionActual
+                    );
+
+                    ControladorVisual.mostrarMensaje(ro3);
+                    break;
+            }
+
+            return valor;
         }
     }
 }

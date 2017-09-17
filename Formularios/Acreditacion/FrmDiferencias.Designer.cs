@@ -34,16 +34,17 @@
             this.lblSiseems = new System.Windows.Forms.Label();
             this.pnlMedio = new System.Windows.Forms.Panel();
             this.pnlResumen = new System.Windows.Forms.Panel();
+            this.lblNoEncontradosDB = new System.Windows.Forms.Label();
+            this.lblComodin4 = new System.Windows.Forms.Label();
             this.lblNoEncontradosGrupo = new System.Windows.Forms.Label();
             this.lblComodin2 = new System.Windows.Forms.Label();
             this.lblDiferencias = new System.Windows.Forms.Label();
             this.lblComodin1 = new System.Windows.Forms.Label();
             this.lblEncontrados = new System.Windows.Forms.Label();
             this.lblComodin3 = new System.Windows.Forms.Label();
-            this.lblResumen = new System.Windows.Forms.Label();
+            this.txtResumenTitulo = new System.Windows.Forms.TextBox();
             this.cmdGuardarDiferencias = new System.Windows.Forms.Button();
             this.pnlArriba = new System.Windows.Forms.Panel();
-            this.txtResumenTitulo = new System.Windows.Forms.TextBox();
             this.cmdSeleccionarNinguno = new System.Windows.Forms.Button();
             this.cmdSeleccionarTodos = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvCalificacionesActuales)).BeginInit();
@@ -117,25 +118,50 @@
             // 
             // pnlResumen
             // 
+            this.pnlResumen.Controls.Add(this.lblNoEncontradosDB);
+            this.pnlResumen.Controls.Add(this.lblComodin4);
             this.pnlResumen.Controls.Add(this.lblNoEncontradosGrupo);
             this.pnlResumen.Controls.Add(this.lblComodin2);
             this.pnlResumen.Controls.Add(this.lblDiferencias);
             this.pnlResumen.Controls.Add(this.lblComodin1);
             this.pnlResumen.Controls.Add(this.lblEncontrados);
             this.pnlResumen.Controls.Add(this.lblComodin3);
-            this.pnlResumen.Controls.Add(this.lblResumen);
+            this.pnlResumen.Controls.Add(this.txtResumenTitulo);
             this.pnlResumen.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.pnlResumen.Location = new System.Drawing.Point(0, 326);
+            this.pnlResumen.Location = new System.Drawing.Point(0, 302);
             this.pnlResumen.Name = "pnlResumen";
-            this.pnlResumen.Size = new System.Drawing.Size(248, 195);
+            this.pnlResumen.Size = new System.Drawing.Size(248, 219);
             this.pnlResumen.TabIndex = 29;
+            // 
+            // lblNoEncontradosDB
+            // 
+            this.lblNoEncontradosDB.AutoSize = true;
+            this.lblNoEncontradosDB.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblNoEncontradosDB.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblNoEncontradosDB.Location = new System.Drawing.Point(0, 146);
+            this.lblNoEncontradosDB.MaximumSize = new System.Drawing.Size(248, 0);
+            this.lblNoEncontradosDB.Name = "lblNoEncontradosDB";
+            this.lblNoEncontradosDB.Size = new System.Drawing.Size(45, 16);
+            this.lblNoEncontradosDB.TabIndex = 8;
+            this.lblNoEncontradosDB.Text = "label1";
+            // 
+            // lblComodin4
+            // 
+            this.lblComodin4.AutoSize = true;
+            this.lblComodin4.Dock = System.Windows.Forms.DockStyle.Top;
+            this.lblComodin4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.lblComodin4.Location = new System.Drawing.Point(0, 130);
+            this.lblComodin4.MaximumSize = new System.Drawing.Size(248, 0);
+            this.lblComodin4.Name = "lblComodin4";
+            this.lblComodin4.Size = new System.Drawing.Size(0, 16);
+            this.lblComodin4.TabIndex = 7;
             // 
             // lblNoEncontradosGrupo
             // 
             this.lblNoEncontradosGrupo.AutoSize = true;
             this.lblNoEncontradosGrupo.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblNoEncontradosGrupo.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblNoEncontradosGrupo.Location = new System.Drawing.Point(0, 112);
+            this.lblNoEncontradosGrupo.Location = new System.Drawing.Point(0, 114);
             this.lblNoEncontradosGrupo.MaximumSize = new System.Drawing.Size(248, 0);
             this.lblNoEncontradosGrupo.Name = "lblNoEncontradosGrupo";
             this.lblNoEncontradosGrupo.Size = new System.Drawing.Size(45, 16);
@@ -147,7 +173,7 @@
             this.lblComodin2.AutoSize = true;
             this.lblComodin2.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblComodin2.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblComodin2.Location = new System.Drawing.Point(0, 92);
+            this.lblComodin2.Location = new System.Drawing.Point(0, 94);
             this.lblComodin2.Name = "lblComodin2";
             this.lblComodin2.Size = new System.Drawing.Size(0, 20);
             this.lblComodin2.TabIndex = 3;
@@ -157,7 +183,7 @@
             this.lblDiferencias.AutoSize = true;
             this.lblDiferencias.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblDiferencias.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblDiferencias.Location = new System.Drawing.Point(0, 76);
+            this.lblDiferencias.Location = new System.Drawing.Point(0, 78);
             this.lblDiferencias.MaximumSize = new System.Drawing.Size(248, 0);
             this.lblDiferencias.Name = "lblDiferencias";
             this.lblDiferencias.Size = new System.Drawing.Size(45, 16);
@@ -169,7 +195,7 @@
             this.lblComodin1.AutoSize = true;
             this.lblComodin1.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblComodin1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblComodin1.Location = new System.Drawing.Point(0, 56);
+            this.lblComodin1.Location = new System.Drawing.Point(0, 58);
             this.lblComodin1.Name = "lblComodin1";
             this.lblComodin1.Size = new System.Drawing.Size(0, 20);
             this.lblComodin1.TabIndex = 2;
@@ -179,7 +205,7 @@
             this.lblEncontrados.AutoSize = true;
             this.lblEncontrados.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblEncontrados.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblEncontrados.Location = new System.Drawing.Point(0, 40);
+            this.lblEncontrados.Location = new System.Drawing.Point(0, 42);
             this.lblEncontrados.MaximumSize = new System.Drawing.Size(248, 0);
             this.lblEncontrados.Name = "lblEncontrados";
             this.lblEncontrados.Size = new System.Drawing.Size(45, 16);
@@ -191,27 +217,29 @@
             this.lblComodin3.AutoSize = true;
             this.lblComodin3.Dock = System.Windows.Forms.DockStyle.Top;
             this.lblComodin3.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblComodin3.Location = new System.Drawing.Point(0, 20);
+            this.lblComodin3.Location = new System.Drawing.Point(0, 22);
             this.lblComodin3.Name = "lblComodin3";
             this.lblComodin3.Size = new System.Drawing.Size(0, 20);
             this.lblComodin3.TabIndex = 5;
             // 
-            // lblResumen
+            // txtResumenTitulo
             // 
-            this.lblResumen.AutoSize = true;
-            this.lblResumen.Dock = System.Windows.Forms.DockStyle.Top;
-            this.lblResumen.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblResumen.Location = new System.Drawing.Point(0, 0);
-            this.lblResumen.Name = "lblResumen";
-            this.lblResumen.Size = new System.Drawing.Size(203, 20);
-            this.lblResumen.TabIndex = 6;
-            this.lblResumen.Text = "Resumen de diferencias";
+            this.txtResumenTitulo.BackColor = System.Drawing.Color.White;
+            this.txtResumenTitulo.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.txtResumenTitulo.Dock = System.Windows.Forms.DockStyle.Top;
+            this.txtResumenTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.txtResumenTitulo.Location = new System.Drawing.Point(0, 0);
+            this.txtResumenTitulo.Name = "txtResumenTitulo";
+            this.txtResumenTitulo.ReadOnly = true;
+            this.txtResumenTitulo.Size = new System.Drawing.Size(248, 22);
+            this.txtResumenTitulo.TabIndex = 27;
+            this.txtResumenTitulo.Text = "Resumen de diferencias";
+            this.txtResumenTitulo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
             // 
             // cmdGuardarDiferencias
             // 
             this.cmdGuardarDiferencias.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdGuardarDiferencias.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.cmdGuardarDiferencias.Enabled = false;
             this.cmdGuardarDiferencias.FlatAppearance.BorderSize = 0;
             this.cmdGuardarDiferencias.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdGuardarDiferencias.Location = new System.Drawing.Point(0, 521);
@@ -224,7 +252,6 @@
             // 
             // pnlArriba
             // 
-            this.pnlArriba.Controls.Add(this.txtResumenTitulo);
             this.pnlArriba.Controls.Add(this.cmdSeleccionarNinguno);
             this.pnlArriba.Controls.Add(this.cmdSeleccionarTodos);
             this.pnlArriba.Dock = System.Windows.Forms.DockStyle.Top;
@@ -233,25 +260,10 @@
             this.pnlArriba.Size = new System.Drawing.Size(248, 124);
             this.pnlArriba.TabIndex = 28;
             // 
-            // txtResumenTitulo
-            // 
-            this.txtResumenTitulo.BackColor = System.Drawing.Color.White;
-            this.txtResumenTitulo.BorderStyle = System.Windows.Forms.BorderStyle.None;
-            this.txtResumenTitulo.Dock = System.Windows.Forms.DockStyle.Top;
-            this.txtResumenTitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.txtResumenTitulo.Location = new System.Drawing.Point(0, 80);
-            this.txtResumenTitulo.Name = "txtResumenTitulo";
-            this.txtResumenTitulo.ReadOnly = true;
-            this.txtResumenTitulo.Size = new System.Drawing.Size(248, 22);
-            this.txtResumenTitulo.TabIndex = 26;
-            this.txtResumenTitulo.Text = "Resumen de diferencias";
-            this.txtResumenTitulo.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
-            // 
             // cmdSeleccionarNinguno
             // 
             this.cmdSeleccionarNinguno.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdSeleccionarNinguno.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdSeleccionarNinguno.Enabled = false;
             this.cmdSeleccionarNinguno.FlatAppearance.BorderSize = 0;
             this.cmdSeleccionarNinguno.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSeleccionarNinguno.Location = new System.Drawing.Point(0, 40);
@@ -266,7 +278,6 @@
             // 
             this.cmdSeleccionarTodos.BackColor = System.Drawing.Color.WhiteSmoke;
             this.cmdSeleccionarTodos.Dock = System.Windows.Forms.DockStyle.Top;
-            this.cmdSeleccionarTodos.Enabled = false;
             this.cmdSeleccionarTodos.FlatAppearance.BorderSize = 0;
             this.cmdSeleccionarTodos.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.cmdSeleccionarTodos.Location = new System.Drawing.Point(0, 0);
@@ -288,6 +299,7 @@
             this.Controls.Add(this.lblActuales);
             this.Controls.Add(this.dgvCalificacionesSiseems);
             this.Controls.Add(this.dgvCalificacionesActuales);
+            this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "FrmDiferencias";
             this.Text = "FrmDiferencias";
             this.Load += new System.EventHandler(this.FrmDiferencias_Load);
@@ -298,7 +310,6 @@
             this.pnlResumen.ResumeLayout(false);
             this.pnlResumen.PerformLayout();
             this.pnlArriba.ResumeLayout(false);
-            this.pnlArriba.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -314,7 +325,6 @@
         private System.Windows.Forms.Button cmdSeleccionarNinguno;
         private System.Windows.Forms.Button cmdSeleccionarTodos;
         private System.Windows.Forms.Button cmdGuardarDiferencias;
-        private System.Windows.Forms.TextBox txtResumenTitulo;
         private System.Windows.Forms.Panel pnlArriba;
         private System.Windows.Forms.Panel pnlResumen;
         private System.Windows.Forms.Label lblEncontrados;
@@ -323,6 +333,8 @@
         private System.Windows.Forms.Label lblComodin2;
         private System.Windows.Forms.Label lblNoEncontradosGrupo;
         private System.Windows.Forms.Label lblComodin3;
-        private System.Windows.Forms.Label lblResumen;
+        private System.Windows.Forms.Label lblNoEncontradosDB;
+        private System.Windows.Forms.Label lblComodin4;
+        private System.Windows.Forms.TextBox txtResumenTitulo;
     }
 }

@@ -4,29 +4,30 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="1afb6e6de22840e7b912542ab7235e66" Name="Diagram1">
+      <Diagram DiagramId="86db0c89502b4ccb83df6de094e537f3" Name="Diagram1">
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.academias" Width="1.5" PointX="7.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.areascampos" Width="1.5" PointX="3" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.calificaciones_semestrales" Width="1.5" PointX="9.75" PointY="5.25" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.carreras" Width="1.5" PointX="0.75" PointY="3.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.catedras" Width="1.5" PointX="7.5" PointY="6" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.datos_varios" Width="1.5" PointX="9.75" PointY="10.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.docentes" Width="1.5" PointX="5.25" PointY="10.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.estudiantes" Width="1.5" PointX="7.5" PointY="1.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.fichas" Width="1.5" PointX="9.75" PointY="10.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.fichas" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.grupos" Width="1.5" PointX="5.25" PointY="0.875" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.grupos_estudiantes" Width="1.5" PointX="9.75" PointY="1.875" IsExpanded="true" />
-        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.historial_calificaciones_semestrales" Width="1.5" PointX="12" PointY="6.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.historial_calificaciones_semestrales" Width="1.5" PointX="12" PointY="6.375" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.localidades" Width="1.5" PointX="11.75" PointY="0.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.materias" Width="1.5" PointX="5.25" PointY="5.125" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.modulos" Width="1.5" PointX="3" PointY="8.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.municipios" Width="1.5" PointX="0.75" PointY="11.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.municipios" Width="1.5" PointX="11.75" PointY="3.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.planea_d16_2017" Width="1.5" PointX="11.75" PointY="9.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.planea_mate16_d1_2017" Width="1.5" PointX="13.75" PointY="0.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.prefichas" Width="1.5" PointX="13.75" PointY="9.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.prefichas2016" Width="1.5" PointX="0.75" PointY="14.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.prefichas2017" Width="1.5" PointX="15.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.prefichas" Width="1.5" PointX="7.75" PointY="13.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.prefichas2016" Width="1.5" PointX="13.75" PointY="9.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.prefichas2017" Width="1.5" PointX="9.75" PointY="13.75" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Entities_Namespace.semestres" Width="1.5" PointX="3" PointY="1.25" IsExpanded="true" />
-        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.usuarios" Width="1.5" PointX="15.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="CBTis123_Entities_Namespace.usuarios" Width="1.5" PointX="14.75" PointY="4.75" IsExpanded="true" />
         <AssociationConnector Association="CBTis123_Entities_Namespace.materias_ibfk_2" ManuallyRouted="false" />
         <AssociationConnector Association="CBTis123_Entities_Namespace.calificaciones_semestrales_ibfk_1" ManuallyRouted="false" />
         <AssociationConnector Association="CBTis123_Entities_Namespace.calificaciones_semestrales_ibfk_2" ManuallyRouted="false" />

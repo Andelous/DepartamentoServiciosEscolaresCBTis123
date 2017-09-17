@@ -14,14 +14,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmPrincipal : Form
     {
-        private ControladorSesion controladorSesion
-        {
-            get
-            {
-                return ControladorSingleton.controladorSesion;
-            }
-        }
-
+        // Métodos de inicialización
         public FrmPrincipal()
         {
             InitializeComponent();
@@ -29,9 +22,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
         {
-            lblNombre.Text = controladorSesion.usuarioActivo.ToString();
+            lblNombre.Text = ControladorSesion.usuarioActivo.ToString();
         }
 
+
+
+        // Métodos de eventos
         private void FrmPrincipal_FormClosed(object sender, FormClosedEventArgs e)
         {
             ((FrmLogin)Application.OpenForms["FrmLogin"]).Show();

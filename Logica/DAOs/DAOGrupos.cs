@@ -138,7 +138,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                 Carrera c = 
                     DAOCarreras.crearCarrera(
                         Convert.ToInt32(dr["idCarrera"]),
-                        dr[12].ToString(),
+                        dr[20].ToString(),
                         dr["abreviatura"].ToString(),
                         dr["acuerdo"].ToString(),
                         dr["bachilleratociencias"].ToString());

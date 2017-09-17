@@ -367,7 +367,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     innerRO);
         }
 
-        // Misceláneons
+        // Misceláneos
     }
 }
  

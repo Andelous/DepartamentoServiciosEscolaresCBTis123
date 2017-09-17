@@ -76,11 +76,23 @@
     <Compile Include="Formularios\Acreditacion\FrmDiferencias.Designer.cs">
       <DependentUpon>FrmDiferencias.cs</DependentUpon>
     </Compile>
+    <Compile Include="Formularios\Acreditacion\FrmHistorialDeCambios.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Acreditacion\FrmHistorialDeCambios.Designer.cs">
+      <DependentUpon>FrmHistorialDeCambios.cs</DependentUpon>
+    </Compile>
     <Compile Include="Formularios\Acreditacion\FrmImportarCalificaciones.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="Formularios\Acreditacion\FrmImportarCalificaciones.Designer.cs">
       <DependentUpon>FrmImportarCalificaciones.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Acreditacion\FrmImportarCalificacionesM.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Acreditacion\FrmImportarCalificacionesM.Designer.cs">
+      <DependentUpon>FrmImportarCalificacionesM.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Grupos\FrmAsignacionDeDocentes.cs">
       <SubType>Form</SubType>
@@ -166,6 +178,12 @@
     <Compile Include="Formularios\Semestres\FrmNuevoSemestre.Designer.cs">
       <DependentUpon>FrmNuevoSemestre.cs</DependentUpon>
     </Compile>
+    <Compile Include="FrmOpciones.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="FrmOpciones.Designer.cs">
+      <DependentUpon>FrmOpciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="FrmPrincipal.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -189,6 +207,7 @@
     <Compile Include="Logica\Controladores\ControladorEstudiantes.cs" />
     <Compile Include="Logica\Controladores\ControladorExcepciones.cs" />
     <Compile Include="Logica\Controladores\ControladorGrupos.cs" />
+    <Compile Include="Logica\Controladores\ControladorGrupos_Estudiantes.cs" />
     <Compile Include="Logica\Controladores\ControladorMiscelaneo.cs" />
     <Compile Include="Logica\Controladores\ControladorSemestres.cs" />
     <Compile Include="Logica\Controladores\ControladorSesion.cs" />
@@ -212,6 +231,7 @@
     <Compile Include="Logica\DBContext\catedras.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logica\DBContext\CBTis123_Entities.cs" />
     <Compile Include="Logica\DBContext\CBTis123_Model.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
@@ -226,6 +246,9 @@
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>CBTis123_Model.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Logica\DBContext\datos_varios.cs">
+      <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Logica\DBContext\docentes.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
@@ -251,6 +274,16 @@
     <Compile Include="Logica\DBContext\materias.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logica\DBContext\ModelosParciales\calificaciones_semestrales.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\carreras.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\catedras.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\docentes.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\estudiantes.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\grupos.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\grupos_estudiantes.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\materias.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\semestres.cs" />
+    <Compile Include="Logica\DBContext\ModelosParciales\usuarios.cs" />
     <Compile Include="Logica\DBContext\modulos.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
@@ -278,8 +311,10 @@
     <Compile Include="Logica\DBContext\usuarios.cs">
       <DependentUpon>CBTis123_Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Logica\DBContext\Vinculo_DB.cs" />
     <Compile Include="Logica\Modelos\Calificacion.cs" />
     <Compile Include="Logica\Modelos\Grupo_Estudiante.cs" />
+    <Compile Include="Logica\Modelos\HistorialCalificacionSemestral.cs" />
     <Compile Include="Logica\Modelos\RegistroTablaSiseems.cs" />
     <Compile Include="Logica\Utilerias\ValidadorDeTexto.cs" />
     <Compile Include="Logica\DAOs\DAO.cs" />
@@ -309,8 +344,14 @@
     <EmbeddedResource Include="Formularios\Acreditacion\FrmDiferencias.resx">
       <DependentUpon>FrmDiferencias.cs</DependentUpon>
     </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Acreditacion\FrmHistorialDeCambios.resx">
+      <DependentUpon>FrmHistorialDeCambios.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Acreditacion\FrmImportarCalificaciones.resx">
       <DependentUpon>FrmImportarCalificaciones.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Acreditacion\FrmImportarCalificacionesM.resx">
+      <DependentUpon>FrmImportarCalificacionesM.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Grupos\FrmAsignacionDeDocentes.resx">
       <DependentUpon>FrmAsignacionDeDocentes.cs</DependentUpon>
@@ -353,6 +394,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Semestres\FrmNuevoSemestre.resx">
       <DependentUpon>FrmNuevoSemestre.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="FrmOpciones.resx">
+      <DependentUpon>FrmOpciones.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="FrmPrincipal.resx">
       <DependentUpon>FrmPrincipal.cs</DependentUpon>

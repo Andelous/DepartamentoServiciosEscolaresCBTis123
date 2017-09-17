@@ -38,38 +38,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             List<calificaciones_semestrales> calificacionesSiseems = ControladorAcreditacion.crearListaCalificaciones(tabla, catedraActual.idCatedra, catedraActual);
 
-            /*
-             * 
-             * Código únicamente para pruebas
-             * 
-             */
-
-            //foreach (calificaciones c in calificacionesSiseems)
-            //{
-            //    DialogResult dr = MessageBox.Show(
-            //        "P1 - " + c.calificacionParcial1 + "\n" +
-            //        "P2 - " + c.calificacionParcial2 + "\n" +
-            //        "AT - " + c.asistenciasTotales + "\n" +
-            //        "TA - " + c.tipoDeAcreditacion + "\n" +
-            //        "Re - " + c.recursamiento.ToString() + "\n" +
-            //        "Fi - " + c.firmado.ToString() + "\n" +
-            //        "Es - " + c.estudiantes.ToString(),
-
-            //        "Hola desde importar",
-            //        MessageBoxButtons.OKCancel);
-
-            //    if (dr == DialogResult.Cancel)
-            //    {
-            //        break;
-            //    }
-            //}
-
-            /*
-             * 
-             * Termina código únicamente para pruebas
-             * 
-             */
-
             FrmAcreditacion frmAcreditacion = (FrmAcreditacion)Application.OpenForms["FrmAcreditacion"];
 
             new FrmDiferencias(frmAcreditacion.calificacionesDeDGV, calificacionesSiseems).ShowDialog();

@@ -12,21 +12,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     using System;
     using System.Collections.Generic;
     
-    public partial class carreras
+    public partial class datos_varios
     {
-        public carreras()
-        {
-            this.materias = new HashSet<materias>();
-            this.modulos = new HashSet<modulos>();
-        }
-    
-        public int idCarrera { get; set; }
+        public int idDato { get; set; }
         public string nombre { get; set; }
-        public string abreviatura { get; set; }
-        public string acuerdo { get; set; }
-        public string bachilleratociencias { get; set; }
-    
-        public virtual ICollection<materias> materias { get; set; }
-        public virtual ICollection<modulos> modulos { get; set; }
+        public string valor { get; set; }
     }
 }

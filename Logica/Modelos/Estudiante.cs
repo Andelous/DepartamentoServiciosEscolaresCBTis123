@@ -20,7 +20,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 
         public override string ToString()
         {
-            return nombreCompleto;
+            return apellido1.Trim() + " " + apellido2.Trim() + " " + nombres.Trim();
         }
 
         public override bool Equals(object obj)

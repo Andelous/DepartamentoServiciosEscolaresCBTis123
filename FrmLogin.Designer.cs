@@ -34,6 +34,7 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
+            this.cmdOpciones = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // cmdIngresar
@@ -98,12 +99,23 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
+            // cmdOpciones
+            // 
+            this.cmdOpciones.Location = new System.Drawing.Point(111, 306);
+            this.cmdOpciones.Name = "cmdOpciones";
+            this.cmdOpciones.Size = new System.Drawing.Size(178, 38);
+            this.cmdOpciones.TabIndex = 19;
+            this.cmdOpciones.Text = "Opciones";
+            this.cmdOpciones.UseVisualStyleBackColor = true;
+            this.cmdOpciones.Click += new System.EventHandler(this.cmdOpciones_Click);
+            // 
             // FrmLogin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(618, 358);
+            this.Controls.Add(this.cmdOpciones);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -118,6 +130,7 @@
             this.Name = "FrmLogin";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login - Control Escolar CBTis 123";
+            this.Load += new System.EventHandler(this.FrmLogin_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -131,6 +144,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button cmdOpciones;
     }
 }
 

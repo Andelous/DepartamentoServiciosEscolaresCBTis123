@@ -1,5 +1,7 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
+using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -14,315 +16,324 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmImportarEstudiantes : Form
     {
+        // Propiedades
         // Controladores
-        private ControladorSesion controladorSesion
+        private ControladorEstudiantes controladorEstudiantes
         {
             get
             {
-                return ControladorSingleton.controladorSesion;
+                return ControladorSingleton.controladorEstudiantes;
             }
         }
-        private ControladorGrupos controladorGrupos
+        
+        // Lógicas
+        private bool ultimoCambioBusqueda { get; set; }
+
+        private List<Estudiante> estudiantesSeleccionados
         {
             get
             {
-                return ControladorSingleton.controladorGrupos;
+                List<Estudiante> listaEstudiantes = new List<Estudiante>();
+
+                foreach (DataGridViewRow r in dgvEstudiantes.SelectedRows)
+                {
+                    listaEstudiantes.Add((Estudiante)r.DataBoundItem);
+                }
+
+                return listaEstudiantes;
+            }
+        }
+        private List<Estudiante> estudiantesActualesSeleccionados
+        {
+            get
+            {
+                List<Estudiante> listaEstudiantes = new List<Estudiante>();
+
+                foreach (DataGridViewRow r in dgvEstudiantesActuales.SelectedRows)
+                {
+                    listaEstudiantes.Add((Estudiante)r.DataBoundItem);
+                }
+
+                return listaEstudiantes;
+            }
+        }
+        private Semestre semestreSeleccionado
+        {
+            get
+            {
+                return (Semestre)comboSemestres.SelectedItem;
+            }
+        }
+        private Grupo grupoSeleccionado
+        {
+            get
+            {
+                return (Grupo)comboGrupos.SelectedItem;
             }
         }
 
         private Grupo grupo { get; set; }
-        private BindingList<Estudiante> estudiantesActuales { get; set; }
-        // Este es el bueno...
-        // private List<Estudiante> estudiantesOriginales { get; set; }
-        private List<Estudiante> estudiantesNuevos { get; set; }
 
+        private IList<Estudiante> listaEstudiantesActuales { get; set; }
+
+
+        // Métodos de inicialización
         public FrmImportarEstudiantes(Grupo grupo)
         {
             InitializeComponent();
 
             this.grupo = grupo;
 
-            estudiantesNuevos = new List<Estudiante>();
+            ultimoCambioBusqueda = false;
         }
 
         private void FrmImportarEstudiantes_Load(object sender, EventArgs e)
         {
-            /*
-            comboSemestres.DataSource = 
-                controladorSesion.
-                daoSemestres.
-                seleccionarSemestres();
+            List<Semestre> listaSemestres = controladorEstudiantes.seleccionarSemestres();
+            comboSemestres.DataSource = listaSemestres;
 
             comboSemestres.SelectedItem = grupo.semestreObj;
-            int selectedIndex = comboSemestres.SelectedIndex;
-            try
+
+            comboSemestres.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
+            comboGrupos.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
+
+            txtEspecialidad.Text = grupo.especialidadObj.ToString();
+            txtGrado.Text = grupo.semestre.ToString() + "° Semestre \"" + grupo.letra + "\"";
+            txtSemestre.Text = grupo.semestreObj.ToString();
+
+            listaEstudiantesActuales = controladorEstudiantes.seleccionarEstudiantesPorGrupo(grupo).OrderBy(est => est.ToString()).ToList();
+            configurarDGVEstudiantesActuales(listaEstudiantesActuales);
+        }
+
+        // Funciones lógicas
+        private void mostrarGrupos(object sender, EventArgs e)
+        {
+            if (comboSemestres.Text.Contains("Todos"))
             {
-                comboSemestres.SelectedIndex = selectedIndex + 1;
+                comboGrupos.Enabled = false;
+                comboGrupos.DataSource = null;
+                //comboGrupos.Text = "Ninguno.";
             }
-            catch (Exception) { }
-
-            try
+            else
             {
-                if (grupo.semestre > 1)
+                List<Grupo> listaGrupos =
+                    controladorEstudiantes.
+                    seleccionarGrupos(semestreSeleccionado);
+
+                if (listaGrupos.Count > 0)
                 {
-                    List<Grupo> grupos = (List<Grupo>)comboGrupos.DataSource;
+                    comboGrupos.Enabled = true;
+                    comboGrupos.DataSource = listaGrupos;
+                }
+                else
+                {
+                    comboSemestres.SelectedIndex = comboSemestres.Items.Count - 1;
+                    MessageBox.Show("El semestre no contiene grupos. Se muestran los alumnos de todos los semestres y grupos.", "Aviso", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    comboGrupos.Enabled = false;
 
-                    Grupo grupoSeleccionado = grupos[0];
-                    List<Grupo> gruposPosibles = grupos.Where(
-                        g => g.especialidad.Equals(grupo.especialidad) &&
-                             g.semestre == grupo.semestre - 1 &&
-                             g.turno.Equals(grupo.turno)
-                    ).ToList();
-
-                    if (gruposPosibles.Count == 0)
-                    {
-                        gruposPosibles = grupos.Where(
-                            g => g.especialidad.Equals(grupo.especialidad) &&
-                                 g.semestre == grupo.semestre - 1
-                        ).ToList();
-                    }
+                    mostrarEstudiantes(sender, e);
                 }
             }
-            catch (Exception ex)
-            {
-                throw ex;
-            }
-
-            // Mostramos las propiedades del grupo en los Txts de arriba
-            txtSemestre.Text = grupo.semestreObj.ToString();
-            txtEspecialidad.Text = grupo.especialidadObj.ToString();
-            txtGrado.Text = grupo.semestre.ToString() + "° Semestre | Turno: " + grupo.turno;
-
-            // Mostramos los alumnos actuales del grupo...
-            estudiantesActuales = new BindingList<Estudiante>(
-                controladorSesion.
-                daoEstudiantes.
-                seleccionarEstudiantesPorGrupo(grupo)
-            );
-
-            dgvEstudiantesImportados.DataSource = estudiantesActuales;
-
-            configurarDGVEstudiantesVisualmente(dgvEstudiantesImportados);
-            */
         }
 
-        private void UpdateFont(DataGridView dgv)
+        private void mostrarEstudiantes(object sender, EventArgs e)
         {
-            //Change cell font
-            foreach (DataGridViewColumn c in dgv.Columns)
+            // Se decide si el evento proviene de los combos.
+            // Si es así, significa que no fue una búsqueda.
+            if (sender.Equals(comboGrupos) || sender.Equals(comboSemestres))
             {
-                c.DefaultCellStyle.Font = new Font("Open Sans", 9.75F, GraphicsUnit.Pixel);
-            }
-        }
-
-        private void chkTodosLosEstudiantes_CheckedChanged(object sender, EventArgs e)
-        {
-            /*
-            List<Estudiante> estudiantes = new List<Estudiante>();
-
-            comboGrupos.Enabled = !chkTodosLosEstudiantes.Checked;
-            comboSemestres.Enabled = !chkTodosLosEstudiantes.Checked;
-
-            if (chkTodosLosEstudiantes.Checked)
-                estudiantes =
-                    controladorSesion.
-                    daoEstudiantes.
-                    seleccionarEstudiantes();
-            else
-                estudiantes =
-                    controladorSesion.
-                    daoEstudiantes.
+                configurarDGVEstudiantes(
+                    controladorEstudiantes.
                     seleccionarEstudiantesPorGrupo(
-                        ((Grupo)comboGrupos.SelectedItem)
-                    );
+                        grupoSeleccionado));
 
-            configurarDGVEstudiantes(estudiantes, dgvEstudiantesImportar, lblResultados);
-            */
-        }
-
-        private void comboSemestres_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /*
-            comboGrupos.DataSource =
-                controladorSesion.
-                daoGrupos.
-                seleccionarGruposPorSemestre(
-                    ((Semestre)comboSemestres.SelectedItem).idSemestre
-                );*/
-        }
-
-        private void comboGrupos_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            /*
-            List<Estudiante> estudiantes =
-                controladorSesion.
-                daoEstudiantes.
-                seleccionarEstudiantesPorGrupo(
-                    ((Grupo)comboGrupos.SelectedItem)
-                );
-
-            configurarDGVEstudiantes(estudiantes, dgvEstudiantesImportar, lblResultados);
-            */
-        }
-
-        private void configurarDGVEstudiantes(List<Estudiante> estudiantes, DataGridView dgv, Label lbl)
-        {
-            dgv.DataSource = estudiantes;
-            lbl.Text = "Resultados - " + estudiantes.Count;
-            configurarDGVEstudiantesVisualmente(dgv);
-        }
-
-        private void configurarDGVEstudiantesVisualmente(DataGridView dgv)
-        {
-            dgv.Columns["idEstudiante"].Visible = false;
-            dgv.Columns["ncontrol"].HeaderText = "No. de control";
-            dgv.Columns["curp"].HeaderText = "CURP";
-            dgv.Columns["nombrecompleto"].Visible = false;
-            dgv.Columns["nombres"].HeaderText = "Nombre(s)";
-            dgv.Columns["apellido1"].HeaderText = "Apellido p.";
-            dgv.Columns["apellido2"].HeaderText = "Apellido m.";
-
-            dgv.Columns["apellido1"].DisplayIndex = 1;
-            dgv.Columns["apellido2"].DisplayIndex = 2;
-            dgv.Columns["nombres"].DisplayIndex = 3;
-
-            UpdateFont(dgv);
-        }
-
-        private void cmdBuscar_Click(object sender, EventArgs e)
-        {
-            /*
-            List<Estudiante> estudiantesResultado = new List<Estudiante>();
-
-            if (chkTodosLosEstudiantes.Checked)
-            {
-                estudiantesResultado =
-                    controladorSesion.
-                    daoEstudiantes.
-                    seleccionarEstudiantesCondicional(
-                        false,
-                        false,
-                        true,
-                        true,
-                        true,
-                        true,
-                        true,
-                        txtBusqueda.Text
-                    );
+                ultimoCambioBusqueda = false;
             }
+            // Si proviene de otro control, sabemos
+            // que fue click de búsqueda o enter en 
+            // el txtBusqueda, o alguna operación de
+            // inserción, modificación o eliminación.
             else
             {
-                estudiantesResultado =
-                    controladorSesion.
-                    daoEstudiantes.
-                    seleccionarEstudiantesPorGrupoCondicional(
-                        ((Grupo)comboGrupos.SelectedItem),
-                        false, 
-                        false,
-                        true, 
-                        true,
-                        true,
-                        true, 
-                        true,
-                        txtBusqueda.Text);
-            }
+                // Si fue una búsqueda, se oculta la advertencia 
+                // y se pone que el último cambio fue una búsqueda.
+                if (sender.Equals(txtBusqueda) || sender.Equals(cmdBuscar))
+                {
+                    ultimoCambioBusqueda = true;
+                    lblAdvertencia.Visible = false;
+                }
 
-            configurarDGVEstudiantes(estudiantesResultado, dgvEstudiantesImportar, lblResultados);
-            */
+                // Si lo último que se hizo fue una búsqueda,
+                // se repetirá la búsqueda para actualizar los registros.
+                if (ultimoCambioBusqueda)
+                {
+                    configurarDGVEstudiantes(
+                        controladorEstudiantes.
+                        seleccionarEstudiantesParametros(
+                            txtBusqueda.Text,
+                            chkNombreCompleto.Checked,
+                            chkNombres.Checked,
+                            chkApellidoPaterno.Checked,
+                            chkApellidoMaterno.Checked,
+                            chkCurp.Checked,
+                            chkNss.Checked,
+                            chkNcontrol.Checked,
+                            grupoSeleccionado));
+                }
+                // Si lo último no fue una búsqueda,
+                // se actualiza a la lista de grupo.
+                else
+                {
+                    configurarDGVEstudiantes(
+                        controladorEstudiantes.
+                        seleccionarEstudiantesPorGrupo(
+                            grupoSeleccionado));
+                }
+            }
         }
 
+        private void reiniciarBusqueda()
+        {
+            chkApellidoMaterno.Checked = false;
+            chkApellidoPaterno.Checked = false;
+            chkCurp.Checked = false;
+            chkNcontrol.Checked = false;
+            chkNombres.Checked = false;
+            chkNss.Checked = false;
+
+            txtBusqueda.Text = "";
+        }
+
+        // Métodos de eventos
         private void txtBusqueda_KeyPress(object sender, KeyPressEventArgs e)
         {
             if (e.KeyChar == 13)
             {
-                cmdBuscar_Click(sender, e);
+                mostrarEstudiantes(sender, e);
+            }
+        }
+
+        private void cambioDeCriterio(object sender, EventArgs e)
+        {
+            lblAdvertencia.Visible = true;
+
+            if (chkApellidoMaterno.Checked ||
+                chkApellidoPaterno.Checked ||
+                chkCurp.Checked ||
+                chkNcontrol.Checked ||
+                chkNombres.Checked ||
+                chkNss.Checked
+            )
+            {
+                chkNombreCompleto.Enabled = true;
+            }
+            else
+            {
+                chkNombreCompleto.Enabled = false;
+                chkNombreCompleto.Checked = true;
             }
         }
 
         private void cmdAgregarSeleccion_Click(object sender, EventArgs e)
         {
-            /*
-            if (dgvEstudiantesImportar.SelectedRows.Count > 0)
+            foreach (Estudiante est in estudiantesSeleccionados)
             {
-                List<Estudiante> estudiantesSeleccionados =
-                    controladorSesion.
-                    daoEstudiantes.crearListaEstudiantesDataGridViewSelectedRowCollection(
-                        dgvEstudiantesImportar.SelectedRows
-                    );
-                MessageBox.Show("Se filtró la lista... contiene " + estudiantesSeleccionados.Count);
-                agregarEstudiantes(estudiantesSeleccionados);
+                if (listaEstudiantesActuales.FirstOrDefault(est1 => est1.idEstudiante == est.idEstudiante) == null)
+                {
+                    listaEstudiantesActuales.Add(est);
+                }
             }
-            */
+
+            listaEstudiantesActuales = listaEstudiantesActuales.OrderBy(est => est.ToString()).ToList();
+            configurarDGVEstudiantesActuales(listaEstudiantesActuales);
         }
 
         private void cmdAgregarTodos_Click(object sender, EventArgs e)
         {
-            if (dgvEstudiantesImportar.Rows.Count > 0)
+            IList<Estudiante> estudiantesDataSource = (List<Estudiante>)dgvEstudiantes.DataSource;
+            foreach (Estudiante est in estudiantesDataSource)
             {
-                MessageBox.Show("Entramos");
-                agregarEstudiantes(((List<Estudiante>)dgvEstudiantesImportar.DataSource).ToList());
-            }
-        }
-
-        //private List<Estudiante> filtrarAlumnos(DataGridViewSelectedRowCollection dgvSRC, List<Estudiante> listaOriginal)
-        //{
-        //    List<Estudiante> listaFiltrada = new List<Estudiante>();
-        //    List<Estudiante> copiaListaOriginal = listaOriginal.ToList();
-
-        //    foreach (DataGridViewRow dgvR in dgvSRC)
-        //    {
-        //        int idEstudiante = Convert.ToInt32(dgvR.Cells["idEstudiante"].Value);
-        //        listaFiltrada.Add(
-        //            copiaListaOriginal.Single(e => e.idEstudiante == idEstudiante)
-        //        );
-        //    }
-
-        //    return listaFiltrada;
-        //}
-
-        private void agregarEstudiantes(List<Estudiante> estudiantesNuevos)
-        {
-            foreach (Estudiante e in estudiantesNuevos)
-            {
-                if (!estudiantesActuales.Contains(e) && !this.estudiantesNuevos.Contains(e))
+                if (listaEstudiantesActuales.FirstOrDefault(est1 => est1.idEstudiante == est.idEstudiante) == null)
                 {
-                    this.estudiantesNuevos.Add(e);
-                    estudiantesActuales.Add(e);
+                    listaEstudiantesActuales.Add(est);
                 }
             }
+
+            listaEstudiantesActuales = listaEstudiantesActuales.OrderBy(est => est.ToString()).ToList();
+            configurarDGVEstudiantesActuales(listaEstudiantesActuales);
         }
 
         private void cmdEliminarSeleccion_Click(object sender, EventArgs e)
         {
-            /*
-            if (dgvEstudiantesImportados.SelectedRows.Count > 0)
+            foreach (Estudiante est in estudiantesActualesSeleccionados)
             {
-                List<Estudiante> estudiantesSeleccionados =
-                    controladorSesion.
-                    daoEstudiantes.
-                    crearListaEstudiantesDataGridViewSelectedRowCollection(
-                        dgvEstudiantesImportados.SelectedRows
-                    );
-
-                foreach (Estudiante est in estudiantesSeleccionados)
-                {
-                    estudiantesActuales.Remove(est);
-                    estudiantesNuevos.Remove(est);
-                }
+                Estudiante estAux = listaEstudiantesActuales.FirstOrDefault(est1 => est1.idEstudiante == est.idEstudiante);
+                listaEstudiantesActuales.Remove(estAux);
             }
-            */
+
+            listaEstudiantesActuales = listaEstudiantesActuales.OrderBy(est => est.ToString()).ToList();
+            configurarDGVEstudiantesActuales(listaEstudiantesActuales);
+        }
+
+        // Métodos visuales
+        private void configurarDGVEstudiantes(IList<Estudiante> listaEstudiantes)
+        {
+            lblEstudiantes.Text = "Estudiantes - (" + listaEstudiantes.Count + " resultados)";
+            dgvEstudiantes.DataSource = listaEstudiantes;
+
+            dgvEstudiantes.Columns["idEstudiante"].Visible = false;
+            dgvEstudiantes.Columns["ncontrol"].HeaderText = "No. de control";
+            dgvEstudiantes.Columns["curp"].HeaderText = "CURP";
+            dgvEstudiantes.Columns["nss"].HeaderText = "NSS";
+            dgvEstudiantes.Columns["nombrecompleto"].Visible = false;
+            dgvEstudiantes.Columns["nombres"].HeaderText = "Nombre(s)";
+            dgvEstudiantes.Columns["apellido1"].HeaderText = "Apellido p.";
+            dgvEstudiantes.Columns["apellido2"].HeaderText = "Apellido m.";
+
+            if (dgvEstudiantes.SelectedRows.Count == 0)
+            {
+                cmdAgregarSeleccion.Enabled = false;
+                cmdAgregarTodos.Enabled = false;
+            }
+            else
+            {
+                cmdAgregarSeleccion.Enabled = true;
+                cmdAgregarTodos.Enabled = true;
+            }
+        }
+
+        private void configurarDGVEstudiantesActuales(IList<Estudiante> listaEstudiantes)
+        {
+            dgvEstudiantesActuales.DataSource = listaEstudiantes;
+
+            dgvEstudiantesActuales.Columns["idEstudiante"].Visible = false;
+            dgvEstudiantesActuales.Columns["ncontrol"].HeaderText = "No. de control";
+            dgvEstudiantesActuales.Columns["curp"].HeaderText = "CURP";
+            dgvEstudiantesActuales.Columns["nss"].HeaderText = "NSS";
+            dgvEstudiantesActuales.Columns["nombrecompleto"].Visible = false;
+            dgvEstudiantesActuales.Columns["nombres"].HeaderText = "Nombre(s)";
+            dgvEstudiantesActuales.Columns["apellido1"].HeaderText = "Apellido p.";
+            dgvEstudiantesActuales.Columns["apellido2"].HeaderText = "Apellido m.";
+
+            if (dgvEstudiantesActuales.SelectedRows.Count == 0)
+            {
+                cmdEliminarSeleccion.Enabled = false;
+            }
+            else
+            {
+                cmdEliminarSeleccion.Enabled = true;
+            }
         }
 
         private void cmdGuardar_Click(object sender, EventArgs e)
         {
-            /*
-            int resultado =
-                controladorSesion.
-                daoEstudiantes.
-                insertarEstudiantesEnGrupo(estudiantesNuevos, grupo);
+            ResultadoOperacion resultadoOperacion = 
+                ControladorGrupos_Estudiantes.
+                actualizarGrupos_Estudiantes(
+                    listaEstudiantesActuales,
+                    grupo);
 
-            MessageBox.Show("Se guardaron: " + resultado + " nuevo(s) estudiante(s)");
-            */
+            ControladorVisual.mostrarMensaje(resultadoOperacion);
         }
     }
 }

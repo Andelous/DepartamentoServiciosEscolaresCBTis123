@@ -36,6 +36,7 @@
           <Property Name="tipoDeAcreditacion" Type="varchar" MaxLength="10" />
           <Property Name="recursamiento" Type="bool" Nullable="false" />
           <Property Name="firmado" Type="bool" Nullable="false" />
+          <Property Name="verificado" Type="bool" Nullable="false" />
           <Property Name="idEstudiante" Type="int" Nullable="false" />
           <Property Name="idCatedra" Type="int" Nullable="false" />
         </EntityType>
@@ -54,9 +55,17 @@
             <PropertyRef Name="idCatedra" />
           </Key>
           <Property Name="idCatedra" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="idDocente" Type="int" />
+          <Property Name="idDocente" Type="int" Nullable="false" />
           <Property Name="idMateria" Type="int" Nullable="false" />
           <Property Name="idGrupo" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="datos_varios">
+          <Key>
+            <PropertyRef Name="idDato" />
+          </Key>
+          <Property Name="idDato" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombre" Type="text" Nullable="false" />
+          <Property Name="valor" Type="text" Nullable="false" />
         </EntityType>
         <EntityType Name="docentes">
           <Key>
@@ -117,6 +126,7 @@
           <Property Name="apellido1" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="apellido2" Type="varchar" MaxLength="20" Nullable="false" />
           <Property Name="nss" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="verificado" Type="bool" Nullable="false" />
         </EntityType>
         <EntityType Name="fichas">
           <Key>
@@ -176,9 +186,7 @@
             <PropertyRef Name="idHistorial_Calificacion_Semestral" />
           </Key>
           <Property Name="idHistorial_Calificacion_Semestral" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="nombreCampo" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="valorAnterior" Type="varchar" MaxLength="100" Nullable="false" />
-          <Property Name="valorNuevo" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="cambios" Type="text" Nullable="false" />
           <Property Name="idCalificacion_Semestral" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="localidades">
@@ -396,7 +404,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="catedras_ibfk_1">
-          <End Role="docentes" Type="Self.docentes" Multiplicity="0..1" />
+          <End Role="docentes" Type="Self.docentes" Multiplicity="1" />
           <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="docentes">
@@ -541,6 +549,7 @@
           <EntitySet Name="calificaciones_semestrales" EntityType="Self.calificaciones_semestrales" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="carreras" EntityType="Self.carreras" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="catedras" EntityType="Self.catedras" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="datos_varios" EntityType="Self.datos_varios" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="docentes" EntityType="Self.docentes" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="estudiantes" EntityType="Self.estudiantes" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="fichas" EntityType="Self.fichas" Schema="cbtislocal" store:Type="Tables" />
@@ -648,6 +657,7 @@
           <Property Name="tipoDeAcreditacion" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
           <Property Name="recursamiento" Type="Boolean" Nullable="false" />
           <Property Name="firmado" Type="Boolean" Nullable="false" />
+          <Property Name="verificado" Type="Boolean" Nullable="false" />
           <Property Name="idEstudiante" Type="Int32" Nullable="false" />
           <Property Name="idCatedra" Type="Int32" Nullable="false" />
           <NavigationProperty Name="estudiantes" Relationship="Self.calificaciones_semestrales_ibfk_1" FromRole="calificaciones_semestrales" ToRole="estudiantes" />
@@ -671,13 +681,21 @@
             <PropertyRef Name="idCatedra" />
           </Key>
           <Property Name="idCatedra" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="idDocente" Type="Int32" />
+          <Property Name="idDocente" Type="Int32" Nullable="false" />
           <Property Name="idMateria" Type="Int32" Nullable="false" />
           <Property Name="idGrupo" Type="Int32" Nullable="false" />
           <NavigationProperty Name="calificaciones_semestrales" Relationship="Self.calificaciones_semestrales_ibfk_2" FromRole="catedras" ToRole="calificaciones_semestrales" />
           <NavigationProperty Name="docentes" Relationship="Self.catedras_ibfk_1" FromRole="catedras" ToRole="docentes" />
           <NavigationProperty Name="materias" Relationship="Self.catedras_ibfk_2" FromRole="catedras" ToRole="materias" />
           <NavigationProperty Name="grupos" Relationship="Self.catedras_ibfk_3" FromRole="catedras" ToRole="grupos" />
+        </EntityType>
+        <EntityType Name="datos_varios">
+          <Key>
+            <PropertyRef Name="idDato" />
+          </Key>
+          <Property Name="idDato" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombre" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="valor" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
         <EntityType Name="docentes">
           <Key>
@@ -739,6 +757,7 @@
           <Property Name="apellido1" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="apellido2" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nss" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="verificado" Type="Boolean" Nullable="false" />
           <NavigationProperty Name="calificaciones_semestrales" Relationship="Self.calificaciones_semestrales_ibfk_1" FromRole="estudiantes" ToRole="calificaciones_semestrales" />
           <NavigationProperty Name="grupos_estudiantes" Relationship="Self.grupos_estudiantes_ibfk_2" FromRole="estudiantes" ToRole="grupos_estudiantes" />
         </EntityType>
@@ -805,9 +824,7 @@
             <PropertyRef Name="idHistorial_Calificacion_Semestral" />
           </Key>
           <Property Name="idHistorial_Calificacion_Semestral" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="nombreCampo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="valorAnterior" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
-          <Property Name="valorNuevo" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="cambios" Type="String" MaxLength="65535" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="idCalificacion_Semestral" Type="Int32" Nullable="false" />
           <NavigationProperty Name="calificaciones_semestrales" Relationship="Self.historial_calificaciones_semestrales_ibfk_1" FromRole="historial_calificaciones_semestrales" ToRole="calificaciones_semestrales" />
         </EntityType>
@@ -1081,7 +1098,7 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="catedras_ibfk_1">
-          <End Role="docentes" Type="Self.docentes" Multiplicity="0..1" />
+          <End Role="docentes" Type="Self.docentes" Multiplicity="1" />
           <End Role="catedras" Type="Self.catedras" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="docentes">
@@ -1178,6 +1195,7 @@
           <EntitySet Name="calificaciones_semestrales" EntityType="Self.calificaciones_semestrales" />
           <EntitySet Name="carreras" EntityType="Self.carreras" />
           <EntitySet Name="catedras" EntityType="Self.catedras" />
+          <EntitySet Name="datos_varios" EntityType="Self.datos_varios" />
           <EntitySet Name="docentes" EntityType="Self.docentes" />
           <EntitySet Name="estudiantes" EntityType="Self.estudiantes" />
           <EntitySet Name="fichas" EntityType="Self.fichas" />
@@ -1286,6 +1304,7 @@
                 <ScalarProperty Name="tipoDeAcreditacion" ColumnName="tipoDeAcreditacion" />
                 <ScalarProperty Name="recursamiento" ColumnName="recursamiento" />
                 <ScalarProperty Name="firmado" ColumnName="firmado" />
+                <ScalarProperty Name="verificado" ColumnName="verificado" />
                 <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
                 <ScalarProperty Name="idCatedra" ColumnName="idCatedra" />
               </MappingFragment>
@@ -1309,6 +1328,15 @@
                 <ScalarProperty Name="idDocente" ColumnName="idDocente" />
                 <ScalarProperty Name="idMateria" ColumnName="idMateria" />
                 <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="datos_varios">
+            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.datos_varios">
+              <MappingFragment StoreEntitySet="datos_varios">
+                <ScalarProperty Name="idDato" ColumnName="idDato" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="valor" ColumnName="valor" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1371,6 +1399,7 @@
                 <ScalarProperty Name="apellido1" ColumnName="apellido1" />
                 <ScalarProperty Name="apellido2" ColumnName="apellido2" />
                 <ScalarProperty Name="nss" ColumnName="nss" />
+                <ScalarProperty Name="verificado" ColumnName="verificado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
@@ -1434,9 +1463,7 @@
             <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.historial_calificaciones_semestrales">
               <MappingFragment StoreEntitySet="historial_calificaciones_semestrales">
                 <ScalarProperty Name="idHistorial_Calificacion_Semestral" ColumnName="idHistorial_Calificacion_Semestral" />
-                <ScalarProperty Name="nombreCampo" ColumnName="nombreCampo" />
-                <ScalarProperty Name="valorAnterior" ColumnName="valorAnterior" />
-                <ScalarProperty Name="valorNuevo" ColumnName="valorNuevo" />
+                <ScalarProperty Name="cambios" ColumnName="cambios" />
                 <ScalarProperty Name="idCalificacion_Semestral" ColumnName="idCalificacion_Semestral" />
               </MappingFragment>
             </EntityTypeMapping>

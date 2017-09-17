@@ -20,7 +20,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         }
     
         public int idCatedra { get; set; }
-        public Nullable<int> idDocente { get; set; }
+        public int idDocente { get; set; }
         public int idMateria { get; set; }
         public int idGrupo { get; set; }
     
@@ -28,12 +28,5 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public virtual docentes docentes { get; set; }
         public virtual materias materias { get; set; }
         public virtual grupos grupos { get; set; }
-        
-
-        // Métodos míos
-        public override string ToString()
-        {
-            return materias.ToString() + " (" + docentes.ToString() + ")";
-        }
     }
 }

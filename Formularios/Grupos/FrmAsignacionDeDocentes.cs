@@ -65,13 +65,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
                 if (dr == DialogResult.Yes)
                 {
-                    ResultadoOperacion resultadoOperacion = 
-                        controladorGrupos.
-                        registrarCatedras(
-                            controladorGrupos.
-                            crearListaCatedrasGrupo(grupo));
-
-                    ControladorVisual.mostrarMensaje(resultadoOperacion);
+                    ControladorAcreditacion.inicializarCatedras(grupo);
 
                     catedras = controladorGrupos.seleccionarCatedrasPorGrupo(grupo);
                 }

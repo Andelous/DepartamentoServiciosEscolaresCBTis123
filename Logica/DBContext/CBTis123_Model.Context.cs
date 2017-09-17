@@ -30,6 +30,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public DbSet<calificaciones_semestrales> calificaciones_semestrales { get; set; }
         public DbSet<carreras> carreras { get; set; }
         public DbSet<catedras> catedras { get; set; }
+        public DbSet<datos_varios> datos_varios { get; set; }
         public DbSet<docentes> docentes { get; set; }
         public DbSet<estudiantes> estudiantes { get; set; }
         public DbSet<fichas> fichas { get; set; }

@@ -249,7 +249,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             this.lblAdvertencia.AutoSize = true;
             this.lblAdvertencia.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lblAdvertencia.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(192)))), ((int)(((byte)(0)))), ((int)(((byte)(0)))));
-            this.lblAdvertencia.Location = new System.Drawing.Point(233, 11);
+            this.lblAdvertencia.Location = new System.Drawing.Point(196, 84);
             this.lblAdvertencia.Name = "lblAdvertencia";
             this.lblAdvertencia.Size = new System.Drawing.Size(210, 18);
             this.lblAdvertencia.TabIndex = 35;

@@ -34,7 +34,7 @@
             // 
             // cmdImportar
             // 
-            this.cmdImportar.Location = new System.Drawing.Point(837, 516);
+            this.cmdImportar.Location = new System.Drawing.Point(835, 516);
             this.cmdImportar.Name = "cmdImportar";
             this.cmdImportar.Size = new System.Drawing.Size(146, 33);
             this.cmdImportar.TabIndex = 0;
@@ -59,6 +59,7 @@
             this.ClientSize = new System.Drawing.Size(1008, 561);
             this.Controls.Add(this.cmdImportar);
             this.Controls.Add(this.webSiseems);
+            this.MinimumSize = new System.Drawing.Size(1024, 600);
             this.Name = "FrmImportarCalificaciones";
             this.Text = "FrmImportarCalificaciones";
             this.Load += new System.EventHandler(this.FrmImportarCalificaciones_Load);
