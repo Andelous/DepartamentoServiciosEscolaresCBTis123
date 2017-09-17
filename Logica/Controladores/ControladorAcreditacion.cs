@@ -175,7 +175,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
 
         // UPDATES
-        public static ResultadoOperacion actualizarCalificaciones(IList<calificaciones_semestrales> listaCalificaciones)
+        public static ResultadoOperacion actualizarCalificaciones(IList<calificaciones_semestrales> listaCalificaciones, string razon)
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
@@ -197,7 +197,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
                     // Obtenemos las calificaciones que hay en la DB
                     calificaciones_semestrales cUpdated = dbContext.calificaciones_semestrales.SingleOrDefault(
-                        c1 => c1.idCalificacion_Semestral == c.idCalificacion_Semestral
+                        c1 => c1.idCatedra == c.idCatedra && c1.idEstudiante == c.idEstudiante
                     );
 
                     // Si hay algún cambio en cualquiera de los campos, 
@@ -212,8 +212,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Asistencias parcial 1", 
                                 cUpdated.asistenciasParcial1.ToString(),
                                 c.asistenciasParcial1.ToString(),
-                                "Captura manual de datos",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
                             )
                         );
 
@@ -228,8 +228,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Asistencias parcial 2",
                                 cUpdated.asistenciasParcial2.ToString(),
                                 c.asistenciasParcial2.ToString(),
-                                "Captura manual de datos",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
                             )
                         );
 
@@ -244,8 +244,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Asistencias parcial 3",
                                 cUpdated.asistenciasParcial3.ToString(),
                                 c.asistenciasParcial3.ToString(),
-                                "Captura manual de datos",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
                             )
                         );
 
@@ -262,8 +262,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Calificación parcial 1",
                                 cUpdated.calificacionParcial1.ToString(),
                                 c.calificacionParcial1.ToString(),
-                                "Captura manual de datos",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
                             )
                         );
 
@@ -278,8 +278,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Calificación parcial 2",
                                 cUpdated.calificacionParcial2.ToString(),
                                 c.calificacionParcial2.ToString(),
-                                "Captura manual de datos",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
                             )
                         );
 
@@ -294,8 +294,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Calificación parcial 3",
                                 cUpdated.calificacionParcial3.ToString(),
                                 c.calificacionParcial3.ToString(),
-                                "Captura manual de datos",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
                             )
                         );
 
@@ -312,8 +312,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Firmado",
                                 cUpdated.firmado.ToString(),
                                 c.firmado.ToString(),
-                                "Captura manual de datos",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
                             )
                         );
 
@@ -328,12 +328,44 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 "Tipo de acreditación",
                                 cUpdated.tipoDeAcreditacion,
                                 c.tipoDeAcreditacion,
-                                "Captura manual de datos",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
                             )
                         );
 
                         cUpdated.tipoDeAcreditacion = c.tipoDeAcreditacion;
+                        cambios = true;
+                    }
+
+                    if (cUpdated.recursamiento != c.recursamiento)
+                    {
+                        logCambios.Append(
+                            crearLogCambios(
+                                "Firmado",
+                                cUpdated.recursamiento.ToString(),
+                                c.recursamiento.ToString(),
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
+                            )
+                        );
+
+                        cUpdated.recursamiento = c.recursamiento;
+                        cambios = true;
+                    }
+
+                    if (cUpdated.verificado != c.verificado)
+                    {
+                        logCambios.Append(
+                            crearLogCambios(
+                                "Tipo de acreditación",
+                                cUpdated.verificado.ToString(),
+                                c.verificado.ToString(),
+                                razon,
+                                ControladorSesion.usuarioActivo.idUsuario
+                            )
+                        );
+
+                        cUpdated.verificado = c.verificado;
                         cambios = true;
                     }
 
@@ -342,13 +374,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     // lo creamos y agregmos los cambios del StringBuilder.
                     // Si ya existe, simplemente agregamos los
                     // cambios al final de la cadena.
-                    historial_calificaciones_semestrales historial = dbContext.historial_calificaciones_semestrales.SingleOrDefault(h => h.idCalificacion_Semestral == c.idCalificacion_Semestral);
+                    historial_calificaciones_semestrales historial = dbContext.historial_calificaciones_semestrales.SingleOrDefault(h => h.idCalificacion_Semestral == cUpdated.idCalificacion_Semestral);
 
                     if (historial == null)
                     {
                         historial = new historial_calificaciones_semestrales()
                         {
-                            idCalificacion_Semestral = c.idCalificacion_Semestral,
+                            idCalificacion_Semestral = cUpdated.idCalificacion_Semestral,
                             cambios = logCambios.ToString()
                         };
 
@@ -378,7 +410,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 ?
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
-                    "No se guardó ninguna calificación",
+                    "No se guardó ninguna calificación - " + razon,
                     null,
                     innerRO)
                 :
@@ -386,13 +418,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
-                    "Calificaciones actualizadas - " + calificacionesModificadas.ToString(),
+                    "Calificaciones actualizadas - " + razon,
                     null,
                     innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
-                    "No se han actualizado las calificaciones",
+                    "No se han actualizado las calificaciones - " + razon,
                     "CalAct " + calificacionesModificadas.ToString(),
                     innerRO);
         }
@@ -402,16 +434,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             // Código necesario para los métodos que 
             // utilicen la base de datos
             CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
-
-            // Inicializamos variables para el método
-            int calificacionesModificadas = 0;
-            ResultadoOperacion innerRO = null;
-
             bool cambios = false;
 
             try
             {
-                // Iteramos sobre las calificaciones que nos pasaron
+                // Iteramos sobre las calificaciones que nos pasaron para registrar a los estudiantes
                 foreach (calificaciones_semestrales c in listaCalificaciones)
                 {
                     // Si su estudiante no existe, lo agregamos a la base de datos
@@ -429,15 +456,24 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         estudianteC.nss = "";
                         estudianteC.verificado = false;
 
-                        dbContext.estudiantes.Add(estudianteC);
-                        dbContext.SaveChanges();
-
-                        c.idEstudiante = estudianteC.idEstudiante;
+                        c.estudiantes = dbContext.estudiantes.Add(estudianteC);
+                        cambios = true;
                     }
+                }
 
-                    // Inicializamos el log de cambios,
-                    // y seleccionamos las calificaciones que hay en la DB
-                    StringBuilder logCambios = new StringBuilder();
+                // Si hubo cambios en la base de datos los guardamos
+                if (cambios)
+                {
+                    dbContext.SaveChanges();
+                }
+
+                cambios = false;
+
+                // Iteramos sobre las calificaciones que nos pasaron
+                // y si no existe alguna, creamos una temporal antes de 
+                // que registremos los verdaderos valores
+                foreach (calificaciones_semestrales c in listaCalificaciones)
+                {
                     calificaciones_semestrales cUpdated = dbContext.calificaciones_semestrales.SingleOrDefault(
                         c1 => c1.idCatedra == c.idCatedra && c1.idEstudiante == c.idEstudiante
                     );
@@ -451,218 +487,24 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                             idEstudiante = c.idEstudiante,
                             recursamiento = true
                         };
- 
+
                         dbContext.calificaciones_semestrales.Add(cUpdated);
-                        dbContext.SaveChanges();
-                    }
-
-                    // Comparamos cada uno de los valores que podrían cambiar desde el SISEEMS
-                    // Primero, las asistencias.
-                    if (ControladorMiscelaneo.compararNullableDouble(cUpdated.asistenciasParcial1, c.asistenciasParcial1) != 0)
-                    {
-                        logCambios.Append(
-                            crearLogCambios(
-                                "Asistencias parcial 1",
-                                cUpdated.asistenciasParcial1.ToString(),
-                                c.asistenciasParcial1.ToString(),
-                                "Importación de SISEEMS",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
-                            )
-                        );
-
-                        cUpdated.asistenciasParcial1 = c.asistenciasParcial1;
                         cambios = true;
-                    }
-
-                    if (ControladorMiscelaneo.compararNullableDouble(cUpdated.asistenciasParcial2, c.asistenciasParcial2) != 0)
-                    {
-                        logCambios.Append(
-                            crearLogCambios(
-                                "Asistencias parcial 2",
-                                cUpdated.asistenciasParcial2.ToString(),
-                                c.asistenciasParcial2.ToString(),
-                                "Importación de SISEEMS",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
-                            )
-                        );
-
-                        cUpdated.asistenciasParcial2 = c.asistenciasParcial2;
-                        cambios = true;
-                    }
-
-                    if (ControladorMiscelaneo.compararNullableDouble(cUpdated.asistenciasParcial3, c.asistenciasParcial3) != 0)
-                    {
-                        logCambios.Append(
-                            crearLogCambios(
-                                "Asistencias parcial 3",
-                                cUpdated.asistenciasParcial3.ToString(),
-                                c.asistenciasParcial3.ToString(),
-                                "Importación de SISEEMS",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
-                            )
-                        );
-
-                        cUpdated.asistenciasParcial3 = c.asistenciasParcial3;
-                        cambios = true;
-                    }
-
-
-                    // SEGUNDO, las calificaciones.
-                    if (ControladorMiscelaneo.compararNullableDouble(cUpdated.calificacionParcial1, c.calificacionParcial1) != 0)
-                    {
-                        logCambios.Append(
-                            crearLogCambios(
-                                "Calificación parcial 1",
-                                cUpdated.calificacionParcial1.ToString(),
-                                c.calificacionParcial1.ToString(),
-                                "Importación de SISEEMS",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
-                            )
-                        );
-
-                        cUpdated.calificacionParcial1 = c.calificacionParcial1;
-                        cambios = true;
-                    }
-
-                    if (ControladorMiscelaneo.compararNullableDouble(cUpdated.calificacionParcial2, c.calificacionParcial2) != 0)
-                    {
-                        logCambios.Append(
-                            crearLogCambios(
-                                "Calificación parcial 2",
-                                cUpdated.calificacionParcial2.ToString(),
-                                c.calificacionParcial2.ToString(),
-                                "Importación de SISEEMS",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
-                            )
-                        );
-
-                        cUpdated.calificacionParcial2 = c.calificacionParcial2;
-                        cambios = true;
-                    }
-
-                    if (ControladorMiscelaneo.compararNullableDouble(cUpdated.calificacionParcial3, c.calificacionParcial3) != 0)
-                    {
-                        logCambios.Append(
-                            crearLogCambios(
-                                "Calificación parcial 3",
-                                cUpdated.calificacionParcial3.ToString(),
-                                c.calificacionParcial3.ToString(),
-                                "Importación de SISEEMS",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
-                            )
-                        );
-
-                        cUpdated.calificacionParcial3 = c.calificacionParcial3;
-                        cambios = true;
-                    }
-
-
-                    // TERCERO, los valores de firmado y TA
-                    if (cUpdated.firmado != c.firmado)
-                    {
-                        logCambios.Append(
-                            crearLogCambios(
-                                "Firmado",
-                                cUpdated.firmado.ToString(),
-                                c.firmado.ToString(),
-                                "Importación de SISEEMS",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
-                            )
-                        );
-
-                        cUpdated.firmado = c.firmado;
-                        cambios = true;
-                    }
-
-                    if (cUpdated.recursamiento != c.recursamiento)
-                    {
-                        logCambios.Append(
-                            crearLogCambios(
-                                "Firmado",
-                                cUpdated.recursamiento.ToString(),
-                                c.recursamiento.ToString(),
-                                "Importación de SISEEMS",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
-                            )
-                        );
-
-                        cUpdated.recursamiento = c.recursamiento;
-                        cambios = true;
-                    }
-
-                    if (cUpdated.tipoDeAcreditacion != c.tipoDeAcreditacion)
-                    {
-                        logCambios.Append(
-                            crearLogCambios(
-                                "Tipo de acreditación",
-                                cUpdated.tipoDeAcreditacion,
-                                c.tipoDeAcreditacion,
-                                "Importación de SISEEMS",
-                                ControladorSingleton.controladorSesion.usuarioActivo.idUsuario
-                            )
-                        );
-
-                        cUpdated.tipoDeAcreditacion = c.tipoDeAcreditacion;
-                        cambios = true;
-                    }
-
-                    // Igual que en el método anterior, verificamos su historial.
-                    // Si no tienen, entonces se crea con el log de cambios.
-                    // Y si ya tiene, se anexa al final de la cadena de cambios.
-                    historial_calificaciones_semestrales historial = dbContext.historial_calificaciones_semestrales.SingleOrDefault(h => h.idCalificacion_Semestral == cUpdated.idCalificacion_Semestral);
-
-                    if (historial == null)
-                    {
-                        historial = new historial_calificaciones_semestrales()
-                        {
-                            idCalificacion_Semestral = cUpdated.idCalificacion_Semestral,
-                            cambios = logCambios.ToString()
-                        };
-
-                        dbContext.historial_calificaciones_semestrales.Add(historial);
-                    }
-                    else
-                    {
-                        historial.cambios += logCambios.ToString();
                     }
                 }
 
-                // Si hubo cambios, lo guardamos.
                 if (cambios)
                 {
-                    calificacionesModificadas = dbContext.SaveChanges();
+                    dbContext.SaveChanges();
                 }
+
+                // Finalmente registramos el bonche de calificaciones
+                return actualizarCalificaciones(listaCalificaciones, "Importación de SISEEMS");
             }
             catch (Exception e)
             {
-                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
+                return ControladorExcepciones.crearResultadoOperacionException(e);
             }
-
-            int listaCalificacionesCount = listaCalificaciones.Count;
-
-            return
-                !cambios ?
-                new ResultadoOperacion(
-                    EstadoOperacion.NingunResultado,
-                    "No se guardó ninguna calificación" + "\n" +
-                    "Para la cátedra: " + clase,
-                    null,
-                    innerRO)
-                :
-                calificacionesModificadas > 0 ?
-                new ResultadoOperacion(
-                    EstadoOperacion.Correcto,
-                    "Calificaciones importadas desde el SISEEMS - " + calificacionesModificadas.ToString() + "\n" +
-                    "Para la cátedra: " + clase,
-                    null,
-                    innerRO)
-                :
-                new ResultadoOperacion(
-                    EstadoOperacion.ErrorAplicacion,
-                    "No se han importado todas las calificaciones,\no más de las debidas fueron actualizadas" + "\n" +
-                    "Para la cátedra: " + clase,
-                    "CalAct " + calificacionesModificadas.ToString(),
-                    innerRO);
         }
 
         // Métodos misceláneos
@@ -711,7 +553,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             inicializarCatedras(new grupos() { idGrupo = grupo.idGrupo });
         }
 
-            public static void inicializarCalificaciones(catedras catedra)
+        public static void inicializarCalificaciones(catedras catedra)
         {
             // Código necesario para los métodos que 
             // utilicen la base de datos
@@ -901,7 +743,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return sb.ToString();
         }
 
-        public static IList<estudiantes> estudiantesPresentesEnTodasListas(IList<calificaciones_semestrales>[] arrListasCalificaciones)
+        public static IList<estudiantes> seleccionarEstudiantesRecursamiento(IList<calificaciones_semestrales>[] arrListasCalificaciones)
         {
             // Creamos la lista que contendrá los estudiantes que existen en todas las listas...
             IList<estudiantes> listaEstudiantes = new List<estudiantes>();

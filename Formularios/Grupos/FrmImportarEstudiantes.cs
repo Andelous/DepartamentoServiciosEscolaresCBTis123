@@ -18,13 +18,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
     {
         // Propiedades
         // Controladores
-        private ControladorSesion controladorSesion
-        {
-            get
-            {
-                return ControladorSingleton.controladorSesion;
-            }
-        }
         private ControladorEstudiantes controladorEstudiantes
         {
             get
@@ -105,7 +98,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             comboGrupos.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
 
             txtEspecialidad.Text = grupo.especialidadObj.ToString();
-            txtGrado.Text = grupo.semestre.ToString() + "° Semestre";
+            txtGrado.Text = grupo.semestre.ToString() + "° Semestre \"" + grupo.letra + "\"";
             txtSemestre.Text = grupo.semestreObj.ToString();
 
             listaEstudiantesActuales = controladorEstudiantes.seleccionarEstudiantesPorGrupo(grupo).OrderBy(est => est.ToString()).ToList();

@@ -169,12 +169,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
             dgvGrupos.Columns["semestreObj"].Visible = false;
             dgvGrupos.Columns["especialidadObj"].HeaderText = "Especialidad";
 
-            //int diLetra = dgvGrupos.Columns["letra"].DisplayIndex;
-            //int diTurno = dgvGrupos.Columns["turno"].DisplayIndex;
-            //int diEspecialidad = dgvGrupos.Columns["especialidadObj"].DisplayIndex;
-
-            //MessageBox.Show("Test " + diLetra + " " + diTurno + " " + diEspecialidad);
-
             dgvGrupos.Columns["turno"].DisplayIndex = 4;
             dgvGrupos.Columns["especialidadObj"].DisplayIndex = 5;
             dgvGrupos.Columns["letra"].DisplayIndex = 8;

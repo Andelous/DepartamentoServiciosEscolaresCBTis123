@@ -174,10 +174,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
                 comboGrupo.DataSource = listaGrupos;
 
-                if (listaGrupos.Count < 1)
+                if (listaGrupos.Count == 0)
                 {
                     comboGrupo.DataSource = null;
                     comboAsignatura.DataSource = null;
+                    cmdImportar.Enabled = false;
                     configurarDGVCalificaciones(null);
                 }
             }
@@ -185,6 +186,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             {
                 comboGrupo.DataSource = null;
                 comboAsignatura.DataSource = null;
+                cmdImportar.Enabled = false;
                 configurarDGVCalificaciones(null);
             }
         }
@@ -202,6 +204,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             else
             {
                 comboAsignatura.DataSource = null;
+                cmdImportar.Enabled = false;
                 configurarDGVCalificaciones(null);
             }
         }
@@ -209,6 +212,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         public void cargarAlumnos(object sender, EventArgs e)
         {
             catedras asignatura = asignaturaSeleccionada;
+
             if (asignatura != null)
             {
                 List<calificaciones_semestrales> listaCalificaciones = ControladorAcreditacion.seleccionarCalificaciones(asignatura);
@@ -226,36 +230,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         {
             List<calificaciones_semestrales> calif = calificacionesDeDGV;
 
-            /*
-             * 
-             * Código únicamente para pruebas
-             * 
-             */
-
-            //foreach (calificaciones c in calif)
-            //{
-            //    DialogResult dr = MessageBox.Show(
-            //        "P1 - " + c.calificacionParcial1 + "\n" +
-            //        "A1 - " + c.asistenciasParcial1 + "\n" +
-            //        "TA - " + c.tipoDeAcreditacion + "\n" +
-            //        "Re - " + c.recursamiento.ToString() + "\n",
-
-            //        "Hola desde guardar",
-            //        MessageBoxButtons.OKCancel);
-
-            //    if (dr == DialogResult.Cancel)
-            //    {
-            //        break;
-            //    }
-            //}
-
-            /*
-             * 
-             * Termina código únicamente para pruebas
-             * 
-             */
-
-            ResultadoOperacion resultadoOperacion = ControladorAcreditacion.actualizarCalificaciones(calif);
+            ResultadoOperacion resultadoOperacion = ControladorAcreditacion.actualizarCalificaciones(calif, "Captura manual");
             ControladorVisual.mostrarMensaje(resultadoOperacion);
         }
 
@@ -335,6 +310,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         // Métodos visuales
         private void configurarDGVCalificaciones(BindingList<calificaciones_semestrales> listaCalificacionesBinding)
         {
+            cmdImportar.Enabled = listaCalificacionesBinding != null;
+
             // Si la colección es originalmente nula, o vacía, salimos.
             if (listaCalificacionesBinding == null || listaCalificacionesBinding.Count < 1)
             {
@@ -351,9 +328,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 listaCalificacionesBinding.
                 OrderBy(
                     c => 
-                    c.estudiantes.apellido1 + 
-                    c.estudiantes.apellido2 + 
-                    c.estudiantes.nombres).
+                    c.estudiantes.ToString()).
                 ToList()
             );
 
@@ -363,36 +338,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             // Ahora, obtenemos la colección de columnas...
             DataGridViewColumnCollection columnas = dgvCalificaciones.Columns;
 
-
-
-
-
-            /*
-             * 
-             * Código únicamente para pruebas
-             * 
-             */
-
-            //StringBuilder nombres = new StringBuilder("");
-            //int count = 0;
-            //foreach (DataGridViewColumn col in dgvCalificaciones.Columns)
-            //{
-            //    nombres.AppendLine(count + " - " + col.Name);
-            //    count++;
-            //}
-
-            //MessageBox.Show(nombres.ToString());
-
-            /*
-             * 
-             * Termina código únicamente para pruebas
-             * 
-             */
-
-
-
-
-
             // Iteramos sobre todas las columnas para hacerlas invisibles
             foreach (DataGridViewColumn c in columnas)
             {
@@ -400,23 +345,23 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             }
 
             // Itero sobre las filas para agregar algunas cosas
-            int i = 0;
             foreach (DataGridViewRow row in dgvCalificaciones.Rows)
             {
+                calificaciones_semestrales cActual = (calificaciones_semestrales)row.DataBoundItem;
+
                 // Primero, el número de lista
                 row.HeaderCell.Value = String.Format("{0}", row.Index + 1);
 
                 // Segundo, el color de fondo para mostrar a los de recursamiento
-                if (((calificaciones_semestrales)row.DataBoundItem).recursamiento)
+                if (cActual.recursamiento)
                 {
                     row.DefaultCellStyle.BackColor = Color.LightGreen;
                 }
 
                 // Tercero, seleccionamos el tipo de acreditación
                 // A NP NA RV R
-                DataGridViewComboBoxCell cell = (DataGridViewComboBoxCell)row.Cells["tipoDeAcreditacion1"];
-                cell.Value = listaCalificacionesBinding[i].tipoDeAcreditacion;
-                i++;
+                DataGridViewCell cell = row.Cells["tipoDeAcreditacion1"];
+                cell.Value = cActual.tipoDeAcreditacion;
             }
 
             // Muestro únicamente las que me interesan
@@ -429,12 +374,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             columnas["asistenciasParcial3"].Visible = true;
             columnas["tipoDeAcreditacion"].Visible = false;
             columnas["tipoDeAcreditacion1"].Visible = true;
-            columnas["recursamiento"].Visible = true;
+            //columnas["recursamiento"].Visible = true;
             columnas["firmado"].Visible = true;
             columnas["estudiantes"].Visible = true;
             columnas["promedio"].Visible = true;
             columnas["asistenciasTotales"].Visible = true;
-            columnas["verificado"].Visible = true;
+            //columnas["verificado"].Visible = true;
 
             // Cambio el título
             columnas["nControl"].HeaderText = "Núm. control";
@@ -486,6 +431,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             columnas["recursamiento"].DefaultCellStyle.ForeColor = Color.LightGray;
 
+            columnas["nControl"].Width = 100;
+            columnas["estudiantes"].Width = 220;
+            columnas["tipoDeAcreditacion1"].Width = 100;
+            columnas["firmado"].Width = 40;
+
             // Botones que sólo funcionan si hay DataSource
             configurarBotones(true);
         }
@@ -506,7 +456,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         private void configurarBotones(bool b)
         {
             cmdGuardar.Enabled = b;
-            cmdImportar.Enabled = b;
+            //cmdImportar.Enabled = b;
             cmdReestablecer.Enabled = b;
             cmdVerHistorial.Enabled = b;
         }

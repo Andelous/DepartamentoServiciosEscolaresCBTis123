@@ -14,23 +14,24 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public class ControladorSesion
     {
-        public Usuario usuarioActivo { get; set; }
+        public static Usuario usuarioActivo { get; set; }
 
-        public DAOUsuarios daoUsuarios { get; set; }
+        public static DAOUsuarios daoUsuarios
+        {
+            get
+            {
+                return DAOSingleton.daoUsuarios;
+            }
+        }
 
-        public bool isSesionIniciada {
+        public static bool isSesionIniciada {
             get
             {
                 return usuarioActivo != null;
             }
         }
 
-        public ControladorSesion()
-        {
-            daoUsuarios = new DAOUsuarios();
-        }
-
-        public ResultadoOperacion iniciarSesion(string usuario, string contrasena)
+        public static ResultadoOperacion iniciarSesion(string usuario, string contrasena)
         {
             // Si hay algún error durante la ejecución de la operación
             // se devolverá el respectivo resultado de operación.
@@ -63,7 +64,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "Login");
         }
 
-        public void cerrarSesion()
+        public static void cerrarSesion()
         {
             usuarioActivo = null;
         }

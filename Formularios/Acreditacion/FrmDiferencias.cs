@@ -65,7 +65,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 {
                     calificaciones_semestrales c = calificaciones[count];
 
-                    c.tipoDeAcreditacion = row.Cells["tipoDeAcreditacion1"].Value.ToString();
+                    c.tipoDeAcreditacion = row.Cells["tipoDeAcreditacion1"].Value != null ? row.Cells["tipoDeAcreditacion1"].Value.ToString() : null;
 
                     count++;
 
@@ -236,36 +236,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             // Ahora, obtenemos la colección de columnas...
             DataGridViewColumnCollection columnas = dgvCalificacionesActuales.Columns;
 
-
-
-
-
-            /*
-             * 
-             * Código únicamente para pruebas
-             * 
-             */
-
-            //StringBuilder nombres = new StringBuilder("");
-            //int count = 0;
-            //foreach (DataGridViewColumn col in dgvCalificacionesActuales.Columns)
-            //{
-            //    nombres.AppendLine(count + " - " + col.Name);
-            //    count++;
-            //}
-
-            //MessageBox.Show(nombres.ToString());
-
-            /*
-             * 
-             * Termina código únicamente para pruebas
-             * 
-             */
-
-
-
-
-
             // Iteramos sobre todas las columnas para hacerlas invisibles
             foreach (DataGridViewColumn c in columnas)
             {
@@ -377,36 +347,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             // Ahora, obtenemos la colección de columnas...
             DataGridViewColumnCollection columnas = dgvCalificacionesSiseems.Columns;
-
-
-
-
-
-            /*
-             * 
-             * Código únicamente para pruebas
-             * 
-             */
-
-            //StringBuilder nombres = new StringBuilder("");
-            //int count = 0;
-            //foreach (DataGridViewColumn col in dgvCalificacionesSiseems.Columns)
-            //{
-            //    nombres.AppendLine(count + " - " + col.Name);
-            //    count++;
-            //}
-
-            //MessageBox.Show(nombres.ToString());
-
-            /*
-             * 
-             * Termina código únicamente para pruebas
-             * 
-             */
-
-
-
-
 
             // Iteramos sobre todas las columnas para hacerlas invisibles
             // y de sólo lectura

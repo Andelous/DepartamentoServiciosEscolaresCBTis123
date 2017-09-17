@@ -15,24 +15,23 @@ namespace DepartamentoServiciosEscolaresCBTis123
 {
     public partial class FrmLogin : Form
     {
-        private ControladorSesion controladorSesion
-        {
-            get
-            {
-                return ControladorSingleton.controladorSesion;
-            }
-        }
-
+        // Métodos de inicialziación
         public FrmLogin()
         {
             InitializeComponent();
         }
 
+        private void FrmLogin_Load(object sender, EventArgs e)
+        {
+
+        }
+
+        // Métodos de eventos
         private void cmdIngresar_Click(object sender, EventArgs e)
         {
             if (ControladorMiscelaneo.validarVersion() == true)
             {
-                ResultadoOperacion inicioDeSesion = controladorSesion.iniciarSesion(txtUsuario.Text, txtContrasena.Text);
+                ResultadoOperacion inicioDeSesion = ControladorSesion.iniciarSesion(txtUsuario.Text, txtContrasena.Text);
 
                 switch (inicioDeSesion.estadoOperacion)
                 {
@@ -62,7 +61,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
         public new void Show()
         {
             base.Show();
-            controladorSesion.cerrarSesion();
+            ControladorSesion.cerrarSesion();
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -73,11 +72,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void cmdOpciones_Click(object sender, EventArgs e)
         {
             new FrmOpciones().Show();
-        }
-
-        private void FrmLogin_Load(object sender, EventArgs e)
-        {
-            //ControladorMiscelaneo.validarVersion();
         }
     }
 }

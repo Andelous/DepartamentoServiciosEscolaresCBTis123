@@ -26,15 +26,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         {
             get
             {
-                int i = 0;
-
-                for (i = 0; i < radiosCatedras.Length; i++)
+                for (int i = 0; i < radiosCatedras.Length; i++)
                 {
                     if (radiosCatedras[i].Checked)
-                        break;
+                        return i;
                 }
 
-                return i;
+                return -1;
             }
         }
         private catedras catedraActual
@@ -78,7 +76,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         private void inicializarPanelIzq()
         {
             // Ahora, creamos el panel lateral...
-            bool flag = false;
             for (int i = 0; i < radiosCatedras.Length; i++)
             {
                 RadioButton rb = new RadioButton();
@@ -87,7 +84,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 rb.Text = catedras[i].ToString();
 
                 // Check el primer radio
-                if (!flag) { flag = !flag; rb.Checked = flag; }
+                if (i == 0)
+                {
+                    rb.Checked = true;
+                    rb.Font = new Font(rb.Font, FontStyle.Bold);
+                }
+
                 // Prueba para iluminar la posición 5...
                 //if (i == 5) { calificacionesCatedras[i] = new List<calificaciones_semestrales>(); calificacionesCatedras[i].Add(null); }
 
@@ -95,6 +97,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                 rb.AutoSize = false;
                 rb.Width = pnlIzquierdo.Width;
                 rb.Height = (int)(rb.Height * 1.5);
+
+                // Evento
+                rb.CheckedChanged += cambio;
 
                 radiosCatedras[i] = rb;
             }
@@ -121,37 +126,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
             List<calificaciones_semestrales> calificacionesSiseems = ControladorAcreditacion.crearListaCalificaciones(tabla, catedraActual.idCatedra, catedraActual);
 
-            /*
-             * 
-             * Código únicamente para pruebas
-             * 
-             */
-
-            //foreach (calificaciones c in calificacionesSiseems)
-            //{
-            //    DialogResult dr = MessageBox.Show(
-            //        "P1 - " + c.calificacionParcial1 + "\n" +
-            //        "P2 - " + c.calificacionParcial2 + "\n" +
-            //        "AT - " + c.asistenciasTotales + "\n" +
-            //        "TA - " + c.tipoDeAcreditacion + "\n" +
-            //        "Re - " + c.recursamiento.ToString() + "\n" +
-            //        "Fi - " + c.firmado.ToString() + "\n" +
-            //        "Es - " + c.estudiantes.ToString(),
-
-            //        "Hola desde importar",
-            //        MessageBoxButtons.OKCancel);
-
-            //    if (dr == DialogResult.Cancel)
-            //    {
-            //        break;
-            //    }
-            //}
-
-            /*
-             * 
-             * Termina código únicamente para pruebas
-             * 
-             */
             List<calificaciones_semestrales> calificacionesActuales = catedraActual.calificaciones_semestrales.ToList();
 
             new FrmDiferencias(calificacionesActuales, calificacionesSiseems, radioSeleccionado).ShowDialog();
@@ -160,11 +134,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
         private void cmdGuardar_Click(object sender, EventArgs e)
         {
             // Obtenemos los estudiantes de todo el grupo
-            IList<estudiantes> listaEstudiantesGrupo = ControladorAcreditacion.estudiantesPresentesEnTodasListas(calificacionesCatedras);
-            MessageBox.Show(listaEstudiantesGrupo.Count.ToString());
+            IList<estudiantes> listaEstudiantes = ControladorAcreditacion.seleccionarEstudiantesRecursamiento(calificacionesCatedras);
+
             // Los registramos en la base de datos
-            ResultadoOperacion resultadoOperacion = ControladorGrupos_Estudiantes.insertarEstudiantes(listaEstudiantesGrupo, grupo);
-            ControladorVisual.mostrarMensaje(resultadoOperacion);
+            ResultadoOperacion resultadoOperacion = ControladorGrupos_Estudiantes.insertarEstudiantes(listaEstudiantes, grupo);
+            //ControladorVisual.mostrarMensaje(resultadoOperacion);
 
             // Si el estudiante de la calificacion no existe en los alumnos del grupo, se agrega
             // automáticamente como recursamiento.
@@ -172,12 +146,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             {
                 foreach (calificaciones_semestrales cs in listaCs)
                 {
-                    estudiantes est = listaEstudiantesGrupo.FirstOrDefault(e1 => e1.ncontrol == cs.nControl);
+                    estudiantes est = listaEstudiantes.FirstOrDefault(e1 => e1.ncontrol == cs.nControl);
 
                     if (est == null)
                     {
                         cs.recursamiento = true;
+                        cs.verificado = false;
                         MessageBox.Show(cs.estudiantes.ToString());
+                    }
+                    else
+                    {
+                        cs.verificado = true;
                     }
                 }
             }
@@ -191,6 +170,20 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
                     actualizarCalificacionesDesdeSiseems(listaCs, catedras[count++].ToString());
 
                 ControladorVisual.mostrarMensaje(resultadoOperacion1);
+            }
+        }
+
+        private void cambio(object sender, EventArgs e)
+        {
+            RadioButton rb = (RadioButton)sender;
+
+            if (rb.Checked)
+            {
+                rb.Font = new Font(rb.Font, FontStyle.Bold);
+            }
+            else
+            {
+                rb.Font = new Font(rb.Font, FontStyle.Regular);
             }
         }
 

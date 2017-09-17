@@ -163,7 +163,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         public static bool? validarVersion()
         {
-            //MessageBox.Show(Assembly.GetExecutingAssembly().GetName().Version.ToString().Substring(0, 3));
             bool? valor = isAplicacionActualizada();
 
             switch (valor)

@@ -12,7 +12,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
 
         public override string ToString()
         {
-            return nombrecompleto;
+            return apellido1.Trim() + " " + apellido2.Trim() + " " + nombres;
         }
     }
 }
