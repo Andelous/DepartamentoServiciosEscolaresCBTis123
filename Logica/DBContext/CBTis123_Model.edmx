@@ -366,6 +366,12 @@
           <Property Name="nombrecorto" Type="varchar" MaxLength="15" Nullable="false" />
           <Property Name="nombrecorto2" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="nombrecorto3" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="fechai_p1" Type="date" />
+          <Property Name="fechaf_p1" Type="date" />
+          <Property Name="fechai_p2" Type="date" />
+          <Property Name="fechaf_p2" Type="date" />
+          <Property Name="fechai_p3" Type="date" />
+          <Property Name="fechaf_p3" Type="date" />
         </EntityType>
         <EntityType Name="usuarios">
           <Key>
@@ -1011,6 +1017,12 @@
           <Property Name="nombrecorto" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nombrecorto2" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="nombrecorto3" Type="String" MaxLength="16" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechai_p1" Type="DateTime" />
+          <Property Name="fechaf_p1" Type="DateTime" />
+          <Property Name="fechai_p2" Type="DateTime" />
+          <Property Name="fechaf_p2" Type="DateTime" />
+          <Property Name="fechai_p3" Type="DateTime" />
+          <Property Name="fechaf_p3" Type="DateTime" />
           <NavigationProperty Name="grupos" Relationship="Self.grupos_ibfk_1" FromRole="semestres" ToRole="grupos" />
         </EntityType>
         <EntityType Name="usuarios">
@@ -1653,6 +1665,12 @@
                 <ScalarProperty Name="nombrecorto" ColumnName="nombrecorto" />
                 <ScalarProperty Name="nombrecorto2" ColumnName="nombrecorto2" />
                 <ScalarProperty Name="nombrecorto3" ColumnName="nombrecorto3" />
+                <ScalarProperty Name="fechai_p1" ColumnName="fechai_p1" />
+                <ScalarProperty Name="fechaf_p1" ColumnName="fechaf_p1" />
+                <ScalarProperty Name="fechai_p2" ColumnName="fechai_p2" />
+                <ScalarProperty Name="fechaf_p2" ColumnName="fechaf_p2" />
+                <ScalarProperty Name="fechai_p3" ColumnName="fechai_p3" />
+                <ScalarProperty Name="fechaf_p3" ColumnName="fechaf_p3" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

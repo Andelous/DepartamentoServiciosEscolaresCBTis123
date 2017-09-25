@@ -24,6 +24,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string nombrecorto { get; set; }
         public string nombrecorto2 { get; set; }
         public string nombrecorto3 { get; set; }
+        public Nullable<System.DateTime> fechai_p1 { get; set; }
+        public Nullable<System.DateTime> fechaf_p1 { get; set; }
+        public Nullable<System.DateTime> fechai_p2 { get; set; }
+        public Nullable<System.DateTime> fechaf_p2 { get; set; }
+        public Nullable<System.DateTime> fechai_p3 { get; set; }
+        public Nullable<System.DateTime> fechaf_p3 { get; set; }
     
         public virtual ICollection<grupos> grupos { get; set; }
     }

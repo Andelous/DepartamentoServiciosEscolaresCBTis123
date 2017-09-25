@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using System;
 using System.Collections.Generic;
@@ -177,6 +178,11 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void button9_Click(object sender, EventArgs e)
         {
             MessageBox.Show((new estudiantes()).idEstudiante.ToString());
+        }
+
+        private void button10_Click(object sender, EventArgs e)
+        {
+            MessageBox.Show(new DAOMisc().seleccionarFechaServidor().ToString());
         }
     }
 }

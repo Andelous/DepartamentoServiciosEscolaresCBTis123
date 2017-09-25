@@ -104,7 +104,7 @@
             this.txtAsistencias3.BackColor = System.Drawing.Color.White;
             this.txtAsistencias3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAsistencias3.ForeColor = System.Drawing.Color.DarkRed;
-            this.txtAsistencias3.Location = new System.Drawing.Point(534, 101);
+            this.txtAsistencias3.Location = new System.Drawing.Point(528, 114);
             this.txtAsistencias3.Name = "txtAsistencias3";
             this.txtAsistencias3.ReadOnly = true;
             this.txtAsistencias3.Size = new System.Drawing.Size(35, 20);
@@ -114,7 +114,7 @@
             // 
             this.lblAsistencias3.AutoSize = true;
             this.lblAsistencias3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAsistencias3.Location = new System.Drawing.Point(459, 104);
+            this.lblAsistencias3.Location = new System.Drawing.Point(453, 117);
             this.lblAsistencias3.Name = "lblAsistencias3";
             this.lblAsistencias3.Size = new System.Drawing.Size(69, 13);
             this.lblAsistencias3.TabIndex = 20;
@@ -125,7 +125,7 @@
             this.txtAsistencias2.BackColor = System.Drawing.Color.White;
             this.txtAsistencias2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAsistencias2.ForeColor = System.Drawing.Color.DarkRed;
-            this.txtAsistencias2.Location = new System.Drawing.Point(534, 75);
+            this.txtAsistencias2.Location = new System.Drawing.Point(528, 88);
             this.txtAsistencias2.Name = "txtAsistencias2";
             this.txtAsistencias2.ReadOnly = true;
             this.txtAsistencias2.Size = new System.Drawing.Size(35, 20);
@@ -135,7 +135,7 @@
             // 
             this.lblAsistencias2.AutoSize = true;
             this.lblAsistencias2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAsistencias2.Location = new System.Drawing.Point(459, 78);
+            this.lblAsistencias2.Location = new System.Drawing.Point(453, 91);
             this.lblAsistencias2.Name = "lblAsistencias2";
             this.lblAsistencias2.Size = new System.Drawing.Size(69, 13);
             this.lblAsistencias2.TabIndex = 18;
@@ -146,7 +146,7 @@
             this.txtAsistencias1.BackColor = System.Drawing.Color.White;
             this.txtAsistencias1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtAsistencias1.ForeColor = System.Drawing.Color.DarkRed;
-            this.txtAsistencias1.Location = new System.Drawing.Point(534, 49);
+            this.txtAsistencias1.Location = new System.Drawing.Point(528, 62);
             this.txtAsistencias1.Name = "txtAsistencias1";
             this.txtAsistencias1.ReadOnly = true;
             this.txtAsistencias1.Size = new System.Drawing.Size(35, 20);
@@ -156,7 +156,7 @@
             // 
             this.lblAsistencias1.AutoSize = true;
             this.lblAsistencias1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblAsistencias1.Location = new System.Drawing.Point(459, 52);
+            this.lblAsistencias1.Location = new System.Drawing.Point(453, 65);
             this.lblAsistencias1.Name = "lblAsistencias1";
             this.lblAsistencias1.Size = new System.Drawing.Size(69, 13);
             this.lblAsistencias1.TabIndex = 16;
@@ -167,7 +167,7 @@
             this.txtParcial3.BackColor = System.Drawing.Color.White;
             this.txtParcial3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtParcial3.ForeColor = System.Drawing.Color.DarkRed;
-            this.txtParcial3.Location = new System.Drawing.Point(377, 101);
+            this.txtParcial3.Location = new System.Drawing.Point(371, 114);
             this.txtParcial3.Name = "txtParcial3";
             this.txtParcial3.ReadOnly = true;
             this.txtParcial3.Size = new System.Drawing.Size(35, 20);
@@ -177,7 +177,7 @@
             // 
             this.lblParcial3.AutoSize = true;
             this.lblParcial3.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblParcial3.Location = new System.Drawing.Point(323, 104);
+            this.lblParcial3.Location = new System.Drawing.Point(317, 117);
             this.lblParcial3.Name = "lblParcial3";
             this.lblParcial3.Size = new System.Drawing.Size(48, 13);
             this.lblParcial3.TabIndex = 14;
@@ -188,7 +188,7 @@
             this.txtParcial2.BackColor = System.Drawing.Color.White;
             this.txtParcial2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtParcial2.ForeColor = System.Drawing.Color.DarkRed;
-            this.txtParcial2.Location = new System.Drawing.Point(377, 75);
+            this.txtParcial2.Location = new System.Drawing.Point(371, 88);
             this.txtParcial2.Name = "txtParcial2";
             this.txtParcial2.ReadOnly = true;
             this.txtParcial2.Size = new System.Drawing.Size(35, 20);
@@ -198,7 +198,7 @@
             // 
             this.lblParcial2.AutoSize = true;
             this.lblParcial2.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblParcial2.Location = new System.Drawing.Point(323, 78);
+            this.lblParcial2.Location = new System.Drawing.Point(317, 91);
             this.lblParcial2.Name = "lblParcial2";
             this.lblParcial2.Size = new System.Drawing.Size(48, 13);
             this.lblParcial2.TabIndex = 12;
@@ -209,7 +209,7 @@
             this.txtParcial1.BackColor = System.Drawing.Color.White;
             this.txtParcial1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.txtParcial1.ForeColor = System.Drawing.Color.DarkRed;
-            this.txtParcial1.Location = new System.Drawing.Point(377, 49);
+            this.txtParcial1.Location = new System.Drawing.Point(371, 62);
             this.txtParcial1.Name = "txtParcial1";
             this.txtParcial1.ReadOnly = true;
             this.txtParcial1.Size = new System.Drawing.Size(35, 20);
@@ -219,7 +219,7 @@
             // 
             this.lblParcial1.AutoSize = true;
             this.lblParcial1.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.lblParcial1.Location = new System.Drawing.Point(323, 52);
+            this.lblParcial1.Location = new System.Drawing.Point(317, 65);
             this.lblParcial1.Name = "lblParcial1";
             this.lblParcial1.Size = new System.Drawing.Size(48, 13);
             this.lblParcial1.TabIndex = 10;
@@ -229,7 +229,7 @@
             // 
             this.lblSubtitulo.AutoSize = true;
             this.lblSubtitulo.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.lblSubtitulo.Location = new System.Drawing.Point(327, 12);
+            this.lblSubtitulo.Location = new System.Drawing.Point(321, 36);
             this.lblSubtitulo.Name = "lblSubtitulo";
             this.lblSubtitulo.Size = new System.Drawing.Size(236, 17);
             this.lblSubtitulo.TabIndex = 9;

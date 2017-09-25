@@ -1,4 +1,5 @@
-﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
+﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using HtmlAgilityPack;
 using ResultadosOperacion;
 using System;
@@ -14,27 +15,44 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
     {
         static ControladorMiscelaneo()
         {
+            // Versión de la aplicación...
             versionActual = typeof(ControladorMiscelaneo).Assembly.GetName().Version.ToString().Substring(0, 3);
+            seleccionarVersionMasReciente();
 
-            CBTis123_Entities db = Vinculo_DB.generarContexto();
-            datos_varios version = null;
-
+            // Fecha de hoy en el servidor
             try
             {
-                version = db.datos_varios.Single(dv => dv.nombre == "version");
-            }
-            catch (Exception e)
-            {
-                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
-                version = new datos_varios();
-                version.valor = null;
-            }
+                DAOMisc dao = new DAOMisc();
 
-            versionMasReciente = version.valor;
+                DateTime dt = dao.seleccionarFechaServidor();
+                _dtServidor = dt;
+            }
+            catch (Exception)
+            {
+                _dtServidor = _dtTest;
+            }
         }
 
         private static string versionActual { get; set; }
         private static string versionMasReciente { get; set; }
+
+        private static DateTime _dtTest = new DateTime(2010, 1, 1);
+        public static DateTime dtTest
+        {
+            get
+            {
+                return _dtTest;
+            }
+        }
+
+        private static DateTime _dtServidor;
+        public static DateTime dtServidor
+        {
+            get
+            {
+                return _dtServidor;
+            }
+        }
 
         public static string[][] crearTablaDeHtml(string cadenaHtml)
         {
@@ -111,7 +129,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 tablaDeCadenas[i][j] = celdas[j].InnerHtml;
                                 break;
                         }
-                        
+
 
 
                         //tablaDeCadenas[i][j] = celdas[j].InnerHtml;
@@ -156,7 +174,14 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         public static bool? isAplicacionActualizada()
         {
             if (versionMasReciente == null)
+            {
+                seleccionarVersionMasReciente();
+            }
+
+            if (versionMasReciente == null)
+            {
                 return null;
+            }
 
             return versionActual == versionMasReciente;
         }
@@ -173,7 +198,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     ResultadoOperacion ro2 =
                     new ResultadoOperacion(
                         EstadoOperacion.NingunResultado,
-                        "No es posible utilizar la aplicación ya que no cuenta con la última versión. " + 
+                        "No es posible utilizar la aplicación ya que no cuenta con la última versión. " +
                         "(Versión actual " + versionActual + " | Versión más reciente " + versionMasReciente + ")",
                         "VerAct " + versionActual
                     );
@@ -193,6 +218,25 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
 
             return valor;
+        }
+
+        private static void seleccionarVersionMasReciente()
+        {
+            CBTis123_Entities db = Vinculo_DB.generarContexto();
+            datos_varios version = null;
+
+            try
+            {
+                version = db.datos_varios.Single(dv => dv.nombre == "version");
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+                version = new datos_varios();
+                version.valor = null;
+            }
+
+            versionMasReciente = version.valor;
         }
     }
 }

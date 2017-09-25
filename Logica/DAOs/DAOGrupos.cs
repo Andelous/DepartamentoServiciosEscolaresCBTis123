@@ -14,7 +14,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         public Grupo seleccionarGrupo(int idGrupo)
         {
-            string query = "SELECT * FROM grupos G, semestres S, carreras C " +
+            string query = "SELECT *, C.nombre AS carrera_nombre FROM grupos G, semestres S, carreras C " +
                 "WHERE G.idGrupo = " + idGrupo + " AND G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
                 "ORDER BY semestre, turno, especialidad, letra;";
 

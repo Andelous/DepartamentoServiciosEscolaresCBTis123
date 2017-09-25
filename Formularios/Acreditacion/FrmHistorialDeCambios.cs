@@ -29,6 +29,18 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void FrmHistorialDeCambios_Load(object sender, EventArgs e)
         {
+            List<HistorialCalificacionSemestral> historial = ControladorAcreditacion.seleccionarHistorial(calificacion);
+            
+            if (historial.Count > 0)
+            {
+                configurarDGVHistorial(historial);
+            }
+            else
+            {
+                MessageBox.Show("No existen cambios para esta calificación", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                Close();
+            }
+
             txtParcial1.Text = calificacion.calificacionParcial1.ToString();
             txtParcial2.Text = calificacion.calificacionParcial2.ToString();
             txtParcial3.Text = calificacion.calificacionParcial3.ToString();
@@ -42,17 +54,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
             txtMateria.Text = calificacion.catedras.materias.ToString();
             txtSemestre.Text = calificacion.catedras.grupos.semestres.ToString();
 
-            List<HistorialCalificacionSemestral> historial = ControladorAcreditacion.seleccionarHistorial(calificacion);
-            
-            if (historial.Count > 0)
-            {
-                configurarDGVHistorial(historial);
-            }
-            else
-            {
-                MessageBox.Show("No existen cambios para esta calificación", "Información", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                Close();
-            }
+            lblTitulo.Text = "Historial de cambios - " + calificacion.estudiantes.ToString();
         }
 
         private void configurarDGVHistorial(List<HistorialCalificacionSemestral> historial)
