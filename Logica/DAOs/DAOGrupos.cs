@@ -27,7 +27,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         public List<Grupo> seleccionarGrupos()
         {
-            string query = "SELECT * FROM grupos G, semestres S, carreras C " +
+            string query = "SELECT *, C.nombre AS carrera_nombre FROM grupos G, semestres S, carreras C " +
                 "WHERE G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
                 "ORDER BY semestre, turno, especialidad, letra;";
 
@@ -38,7 +38,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
 
         public List<Grupo> seleccionarGruposPorSemestre(Semestre s)
         {
-            string query = "SELECT * FROM grupos G, semestres S, carreras C " +
+            string query = "SELECT *, C.nombre AS carrera_nombre FROM grupos G, semestres S, carreras C " +
                 "WHERE G.idSemestre = " + s.idSemestre + " AND " +
                 "G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
                 "ORDER BY semestre, turno, especialidad, letra;";
@@ -138,7 +138,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                 Carrera c = 
                     DAOCarreras.crearCarrera(
                         Convert.ToInt32(dr["idCarrera"]),
-                        dr[20].ToString(),
+                        dr["carrera_nombre"].ToString(),
                         dr["abreviatura"].ToString(),
                         dr["acuerdo"].ToString(),
                         dr["bachilleratociencias"].ToString());
