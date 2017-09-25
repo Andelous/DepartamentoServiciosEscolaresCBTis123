@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using ResultadosOperacion;
@@ -31,11 +32,11 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        private Semestre semestreSeleccionado
+        private semestres semestreSeleccionado
         {
             get
             {
-                return (Semestre)dgvSemestres.SelectedRows[0].DataBoundItem;
+                return (semestres)dgvSemestres.SelectedRows[0].DataBoundItem;
             }
         }
 
@@ -114,11 +115,20 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             dgvSemestres.DataSource = controladorSemestres.seleccionarSemestres();
 
-            dgvSemestres.Columns["idSemestre"].Visible = false;
+            foreach (DataGridViewColumn col in dgvSemestres.Columns)
+            {
+                col.Visible = false;
+            }
+
             dgvSemestres.Columns["nombre"].HeaderText = "Nombre";
             dgvSemestres.Columns["nombrecorto"].HeaderText = "Nombre corto";
             dgvSemestres.Columns["nombrecorto2"].HeaderText = "Nombre corto (2)";
             dgvSemestres.Columns["nombrecorto3"].HeaderText = "Nombre corto (3)";
+
+            dgvSemestres.Columns["nombre"].Visible = true;
+            dgvSemestres.Columns["nombrecorto"].Visible = true;
+            dgvSemestres.Columns["nombrecorto2"].Visible = true;
+            dgvSemestres.Columns["nombrecorto3"].Visible = true;
 
             if (dgvSemestres.SelectedRows.Count < 1)
             {

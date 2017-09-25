@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using MySql.Data.MySqlClient;
@@ -34,15 +35,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         // Métodos de manipulación del modelo.
         // Selección
-        public List<Semestre> seleccionarSemestres()
+        public List<semestres> seleccionarSemestres()
         {
-            List<Semestre> listaSemestres = new List<Semestre>();
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
+            List<semestres> listaSemestres = new List<semestres>();
 
             // Si hay algún error durante la ejecución de la operación
             // se mostrará el respectivo resultado de operación.
             try
             {
-                listaSemestres = daoSemestres.seleccionarSemestres();
+                listaSemestres = dbContext.semestres.ToList();
             }
             catch (MySqlException e)
             {
@@ -97,10 +99,16 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         // Registro
         public ResultadoOperacion registrarSemestre(
-            string nombre, 
+            string nombre,
             string nombreCorto, 
             string nombreCorto2, 
-            string nombreCorto3
+            string nombreCorto3,
+            DateTime fechai_p1,
+            DateTime fechaf_p1,
+            DateTime fechai_p2,
+            DateTime fechaf_p2,
+            DateTime fechai_p3,
+            DateTime fechaf_p3
         ) {
             // Verificamos que los datos introducidos
             // sean válidos para la base de datos.
@@ -116,17 +124,22 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "No utilice caracteres especiales o inválidos");
             }
 
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
             ResultadoOperacion innerRO = null;
 
-            Semestre s = 
-                DAOSemestres.
-                crearSemestre(
-                    -1,
-                    nombre,
-                    nombreCorto,
-                    nombreCorto2,
-                    nombreCorto3
-                );
+            semestres s = new semestres()
+            {
+                nombre = nombre,
+                nombrecorto = nombreCorto,
+                nombrecorto2 = nombreCorto2,
+                nombrecorto3 = nombreCorto3,
+                fechaf_p1 = fechaf_p1,
+                fechaf_p2 = fechaf_p2,
+                fechaf_p3 = fechaf_p3,
+                fechai_p1 = fechai_p1,
+                fechai_p2 = fechai_p2,
+                fechai_p3 = fechai_p3
+            };
 
             int registrado = 0;
 
@@ -134,7 +147,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             // se devolverá el respectivo resultado de operación.
             try
             {
-                registrado = daoSemestres.insertarSemestre(s);
+                dbContext.semestres.Add(s);
+                registrado = dbContext.SaveChanges();
             }
             catch (MySqlException e)
             {
@@ -147,17 +161,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
             // Si no hubo problema, se devolverá el resultado correspondiente.
             return 
-                registrado == 1 ?
+                registrado > 0 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
                     "Semestre registrado")
-                :
-                registrado > 1 ?
-                new ResultadoOperacion(
-                    EstadoOperacion.ErrorAplicacion,
-                    "Se han registrado dos o más semestres",
-                    "SemReg " + registrado.ToString(),
-                    innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
@@ -290,6 +297,54 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     innerRO);
         }
 
+        public ResultadoOperacion eliminarSemestre(semestres s)
+        {
+            CBTis123_Entities db = Vinculo_DB.generarContexto();
+
+            // Validamos que no tenga grupos dependientes
+            if (db.grupos.Where(g => g.idSemestre == s.idSemestre).Count() > 0)
+            {
+                return
+                    new ResultadoOperacion(
+                        EstadoOperacion.ErrorDependenciaDeDatos,
+                        "El semestre contiene grupos");
+            }
+
+            ResultadoOperacion innerRO = null;
+
+            int eliminado = 0;
+
+            // Si hay algún error durante la ejecución de la operación
+            // se devolverá el respectivo resultado de operación.
+            try
+            {
+                s = db.semestres.Single(s1 => s1.idSemestre == s.idSemestre);
+                db.semestres.Remove(s);
+
+                eliminado = db.SaveChanges();
+            }
+            catch (MySqlException e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+            }
+            catch (Exception e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
+            }
+
+            // Si no hubo problema, se devolverá el resultado correspondiente.
+            return
+                eliminado > 0 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Semestre eliminado")
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.NingunResultado,
+                    "Semestre no eliminado",
+                    null,
+                    innerRO);
+        }
 
         // Métodos misceláneos
         public bool validarSemestre(Semestre s)

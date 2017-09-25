@@ -16,27 +16,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         static ControladorMiscelaneo()
         {
             // Versión de la aplicación...
-            versionActual = typeof(ControladorMiscelaneo).Assembly.GetName().Version.ToString().Substring(0, 3);
+            versionLocal = typeof(ControladorMiscelaneo).Assembly.GetName().Version.ToString().Substring(0, 3);
             seleccionarVersionMasReciente();
 
             // Fecha de hoy en el servidor
-            try
-            {
-                DAOMisc dao = new DAOMisc();
-
-                DateTime dt = dao.seleccionarFechaServidor();
-                _dtServidor = dt;
-            }
-            catch (Exception)
-            {
-                _dtServidor = _dtTest;
-            }
+            seleccionarFechaServidor();
         }
 
-        private static string versionActual { get; set; }
-        private static string versionMasReciente { get; set; }
+        private static string versionLocal { get; set; }
+        private static string versionServidor { get; set; }
 
-        private static DateTime _dtTest = new DateTime(2010, 1, 1);
+        private static DateTime _dtTest = new DateTime(2010, 1, 10);
         public static DateTime dtTest
         {
             get
@@ -173,17 +163,15 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         public static bool? isAplicacionActualizada()
         {
-            if (versionMasReciente == null)
-            {
-                seleccionarVersionMasReciente();
-            }
+            seleccionarVersionMasReciente();
+            seleccionarFechaServidor();
 
-            if (versionMasReciente == null)
+            if (versionServidor == null)
             {
                 return null;
             }
 
-            return versionActual == versionMasReciente;
+            return versionLocal == versionServidor;
         }
 
         public static bool? validarVersion()
@@ -199,8 +187,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     new ResultadoOperacion(
                         EstadoOperacion.NingunResultado,
                         "No es posible utilizar la aplicación ya que no cuenta con la última versión. " +
-                        "(Versión actual " + versionActual + " | Versión más reciente " + versionMasReciente + ")",
-                        "VerAct " + versionActual
+                        "(Versión actual " + versionLocal + " | Versión más reciente " + versionServidor + ")",
+                        "VerAct " + versionLocal
                     );
 
                     ControladorVisual.mostrarMensaje(ro2);
@@ -210,7 +198,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     new ResultadoOperacion(
                         EstadoOperacion.ErrorAplicacion,
                         "No fue posible verificar la versión de la aplicación. Verifique la conexión al servidor.",
-                        "VerAct " + versionActual
+                        "VerAct " + versionLocal
                     );
 
                     ControladorVisual.mostrarMensaje(ro3);
@@ -236,7 +224,22 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 version.valor = null;
             }
 
-            versionMasReciente = version.valor;
+            versionServidor = version.valor;
+        }
+
+        private static void seleccionarFechaServidor()
+        {
+            try
+            {
+                DAOMisc dao = new DAOMisc();
+
+                DateTime dt = dao.seleccionarFechaServidor();
+                _dtServidor = dt;
+            }
+            catch (Exception)
+            {
+                _dtServidor = _dtTest;
+            }
         }
     }
 }
