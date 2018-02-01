@@ -1,6 +1,8 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
+using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using HtmlAgilityPack;
+using Microsoft.Office.Interop.Excel;
 using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
@@ -206,6 +208,228 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
 
             return valor;
+        }
+
+        public static void mostrarExcel(string[][] listaDatos)
+        {
+            Application xls = new Application();
+
+            if (xls == null)
+            {
+                System.Windows.Forms.MessageBox.Show(
+                    "No se pudo iniciar Excel. Verifique su instalación de Office.",
+                    "Advertencia",
+                    System.Windows.Forms.MessageBoxButtons.OK,
+                    System.Windows.Forms.MessageBoxIcon.Warning);
+            }
+            else
+            {
+                xls.Visible = true;
+
+                Workbook wb = xls.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
+                Worksheet ws = (Worksheet)wb.Worksheets[1];
+
+                for (int i = 0; i < listaDatos.Length; i++)
+                {
+                    for (int j = 0; j < listaDatos[i].Length; j++)
+                    {
+
+                        ws.Cells[i + 1, j + 1] = listaDatos[i][j];
+                    }
+                }
+            }
+        }
+
+        public static string[][] matricularSemestre(semestres s)
+        {
+            // Preparamos el contexto
+            CBTis123_Entities db = Vinculo_DB.generarContexto();
+
+            // Lista que contendrá todos los grupos.
+            List<grupos> listaGruposOriginal = new List<grupos>();
+            // Arreglo de listas que contendrán 
+            // los grupos clasificados por grado
+            List<grupos>[] arrGruposPorGrado = new List<grupos>[8];
+
+            for (int i = 0; i < arrGruposPorGrado.Length; i++)
+            {
+                arrGruposPorGrado[i] = new List<grupos>();
+            }
+            
+            // Arreglo de la matrícula de todos los grupos.
+            string[][] matriculaSemestral = null;
+
+            try
+            {
+                // Obtenemos todos los grupos
+                listaGruposOriginal = db.grupos.Where(
+                    g => g.idSemestre == s.idSemestre
+                ).ToList();
+                
+                // El 8 es por los 4 posibles grados que puede
+                // haber simultáneamente en un semestre.
+                // Uno es una línea de espacio. El otro es una
+                // línea para información general del grado
+                matriculaSemestral = new string[listaGruposOriginal.Count + 9][];
+
+                // Los clasificamos según el grado, a la posición del arreglo
+                foreach (grupos g in listaGruposOriginal)
+                {
+                    arrGruposPorGrado[g.semestre - 1].Add(g);
+                }
+
+                // Contador de posición en la matrícula [i][]
+                int i = 0;
+
+                // Iteramos sobre todos los grados.
+                foreach (List<grupos> lista in arrGruposPorGrado)
+                {
+                    if (lista.Count == 0)
+                        continue;
+
+                    // Primero, los ordenamos según la matrícula oficial
+                    List<grupos> listaAux = lista.OrderBy(
+                        g => g.especialidad
+                    ).ThenBy(
+                        g => g.turno
+                    ).ThenBy(
+                        g => g.letra
+                    ).ToList();
+
+                    // Luego declaramos los datos extra
+                    int gruposM = 0;
+                    int gruposV = 0;
+
+                    int hombresM = 0;
+                    int hombresV = 0;
+
+                    int mujeresM = 0;
+                    int mujeresV = 0;
+
+                    int totalM = 0;
+                    int totalV = 0;
+
+                    // Iteramos sobre todos los grupos de un grado específico.
+                    // El resultado de la matriculación de ese grupo será añadido
+                    // al arreglo de la matrícula semestral.
+                    foreach (grupos g in listaAux)
+                    {
+                        string[] matriculaGrupo = matricularGrupo(g);
+                        matriculaSemestral[i] = matriculaGrupo;
+                        i++;
+
+                        // Se realizan cálculos extra para los datos extra
+                        if (g.turno.ToUpper() == "M")
+                        {
+                            gruposM++;
+                            hombresM += Convert.ToInt32(matriculaGrupo[4]);
+                            mujeresM += Convert.ToInt32(matriculaGrupo[5]);
+                            totalM += Convert.ToInt32(matriculaGrupo[6]);
+                        }
+
+                        if (g.turno.ToUpper() == "V")
+                        {
+                            gruposV++;
+                            hombresV += Convert.ToInt32(matriculaGrupo[4]);
+                            mujeresV += Convert.ToInt32(matriculaGrupo[5]);
+                            totalV += Convert.ToInt32(matriculaGrupo[6]);
+                        }
+                    }
+
+                    // Se deja un espacio al final de todos los grupos de tal grado.
+                    // Se rellena con datos extras.
+
+                    matriculaSemestral[i] = new string[7];
+
+                    matriculaSemestral[i][2] = listaAux.Count.ToString() + " grupos";
+                    matriculaSemestral[i][3] = gruposM.ToString();
+                    matriculaSemestral[i][4] = hombresM.ToString();
+                    matriculaSemestral[i][5] = mujeresM.ToString();
+                    matriculaSemestral[i][6] = totalM.ToString();
+                    
+                    i++;
+
+
+                    matriculaSemestral[i] = new string[8];
+                    
+                    matriculaSemestral[i][3] = gruposV.ToString();
+                    matriculaSemestral[i][4] = hombresV.ToString();
+                    matriculaSemestral[i][5] = mujeresV.ToString();
+                    matriculaSemestral[i][6] = totalV.ToString();
+                    matriculaSemestral[i][7] = (totalM + totalV).ToString();
+
+                    i++;
+
+                    matriculaSemestral[i] = new string[1];
+                    i++;
+                }
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(
+                    ControladorExcepciones.crearResultadoOperacionException(e)
+                );
+            }
+
+            return matriculaSemestral;
+        }
+
+        public static string[] matricularGrupo(grupos g)
+        {
+            // Fila de matrícula
+            string[] matriculaGrupo = new string[7];
+
+            // Contador de posición
+            int i = 0;
+            
+            matriculaGrupo[i++] = g.especialidadCompleta;
+            matriculaGrupo[i++] = g.semestre + g.letra;
+            matriculaGrupo[i++] = g.ToString();
+            matriculaGrupo[i++] = g.turnoCompleto;
+
+            // Seleccionamos los alumnos del grupo
+            List<Estudiante> listaEstudiantes = new List<Estudiante>();
+
+            try
+            {
+                // Usamos el DAO, porque es un poco
+                // más fácil que con el modelo de ADO.
+                Grupo g1 = new Grupo();
+                g1.idGrupo = g.idGrupo;
+
+                listaEstudiantes = 
+                    ControladorSingleton.
+                    controladorEstudiantes.
+                    seleccionarEstudiantesPorGrupo(g1);
+
+
+                // Realizamos la cuenta de cuántos
+                // hombres y cuántas mujeres
+                int hombres = 0;
+                int mujeres = 0;
+
+                foreach (Estudiante e in listaEstudiantes)
+                {
+                    string sexo = e.curp[10].ToString().ToUpper();
+
+                    if (sexo == "H")
+                        hombres++;
+
+                    if (sexo == "M")
+                        mujeres++;
+                }
+
+                matriculaGrupo[i++] = hombres.ToString();
+                matriculaGrupo[i++] = mujeres.ToString();
+                matriculaGrupo[i++] = (hombres + mujeres).ToString();
+            }
+            catch (Exception e)
+            {
+                matriculaGrupo[i++] = "Error al contabilizar estudiantes";
+                matriculaGrupo[i++] = e.Message;
+            }
+
+            return matriculaGrupo;
         }
 
         private static void seleccionarVersionMasReciente()

@@ -42,7 +42,32 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
 
                 switch (esp)
                 {
+                    case "ADMRH":
+                        esp = "Administración de Recursos Humanos";
+                        break;
+                    case "ELE":
+                        esp = "Electromecánica";
+                        break;
+                    case "LOG":
+                        esp = "Logística";
+                        break;
+                    case "MAU":
+                        esp = "Mantenimiento Automotriz";
+                        break;
+                    case "MEC":
+                        esp = "Mecatrónica";
+                        break;
+                    case "PRO":
+                        esp = "Programación";
+                        break;
+                    case "SMEC":
+                        esp = "Soporte y Mantenimiento de Equipo de Cómputo";
+                        break;
+                    case "BGRAL":
+                        esp = "Bachillerato General";
+                        break;
                     default:
+                        esp = "Desconocida";
                         break;
                 }
 

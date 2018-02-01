@@ -33,6 +33,7 @@
             this.cmdEliminarSemestre = new System.Windows.Forms.Button();
             this.cmdNuevoSemestre = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
+            this.cmdMatricula = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dgvSemestres)).BeginInit();
             this.SuspendLayout();
             // 
@@ -86,22 +87,33 @@
             this.label1.AutoSize = true;
             this.label1.Location = new System.Drawing.Point(12, 44);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(90, 22);
+            this.label1.Size = new System.Drawing.Size(86, 20);
             this.label1.TabIndex = 5;
             this.label1.Text = "Semestres";
             // 
+            // cmdMatricula
+            // 
+            this.cmdMatricula.Location = new System.Drawing.Point(186, 397);
+            this.cmdMatricula.Name = "cmdMatricula";
+            this.cmdMatricula.Size = new System.Drawing.Size(168, 34);
+            this.cmdMatricula.TabIndex = 6;
+            this.cmdMatricula.Text = "Ver matrícula";
+            this.cmdMatricula.UseVisualStyleBackColor = true;
+            this.cmdMatricula.Click += new System.EventHandler(this.cmdMatricula_Click);
+            // 
             // FrmSemestres
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
+            this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(632, 442);
+            this.ClientSize = new System.Drawing.Size(632, 443);
+            this.Controls.Add(this.cmdMatricula);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cmdNuevoSemestre);
             this.Controls.Add(this.cmdEliminarSemestre);
             this.Controls.Add(this.cmdEditarSemestre);
             this.Controls.Add(this.dgvSemestres);
-            this.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MinimumSize = new System.Drawing.Size(648, 481);
             this.Name = "FrmSemestres";
@@ -122,5 +134,6 @@
         private System.Windows.Forms.Button cmdEliminarSemestre;
         private System.Windows.Forms.Button cmdNuevoSemestre;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button cmdMatricula;
     }
 }

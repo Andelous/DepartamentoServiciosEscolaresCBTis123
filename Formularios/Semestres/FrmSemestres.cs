@@ -98,6 +98,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
             );
             cmdEditarSemestre.Location = p2;
 
+            Point p5 = new Point(
+                cmdMatricula.Location.X,
+                Height - 85
+            );
+            cmdMatricula.Location = p5;
+
             Point p3 = new Point(
                 //cmdAgregarGrupos.Location.X,
                 Height - 85
@@ -134,12 +140,20 @@ namespace DepartamentoServiciosEscolaresCBTis123
             {
                 cmdEditarSemestre.Enabled = false;
                 cmdEliminarSemestre.Enabled = false;
+                cmdMatricula.Enabled = false;
             }
             else
             {
                 cmdEditarSemestre.Enabled = true;
                 cmdEliminarSemestre.Enabled = true;
+                cmdMatricula.Enabled = true;
             }
+        }
+
+        private void cmdMatricula_Click(object sender, EventArgs e)
+        {
+            string[][] matricula = ControladorMiscelaneo.matricularSemestre(semestreSeleccionado);
+            ControladorMiscelaneo.mostrarExcel(matricula);
         }
     }
 }

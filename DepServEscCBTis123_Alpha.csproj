@@ -43,6 +43,11 @@
     <Reference Include="HtmlAgilityPack, Version=1.6.15.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
       <HintPath>..\packages\HtmlAgilityPack.1.6.15\lib\Net45\HtmlAgilityPack.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Office.Interop.Excel, Version=15.0.0.0, Culture=neutral, PublicKeyToken=71e9bce111e9429c, processorArchitecture=MSIL">
+      <EmbedInteropTypes>True</EmbedInteropTypes>
+      <HintPath>..\packages\Microsoft.Office.Interop.Excel.15.0.4795.1000\lib\net20\Microsoft.Office.Interop.Excel.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="MySql.Data, Version=6.9.11.0, Culture=neutral, PublicKeyToken=c5687fc88969c44d, processorArchitecture=MSIL">
       <HintPath>..\packages\MySql.Data.6.9.11\lib\net45\MySql.Data.dll</HintPath>
     </Reference>
@@ -148,6 +153,12 @@
     </Compile>
     <Compile Include="Formularios\Grupos\FrmModificarGrupo.Designer.cs">
       <DependentUpon>FrmModificarGrupo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Formularios\Semestres\FrmMatricula.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Formularios\Semestres\FrmMatricula.Designer.cs">
+      <DependentUpon>FrmMatricula.cs</DependentUpon>
     </Compile>
     <Compile Include="Formularios\Semestres\FrmModificarSemestre.cs">
       <SubType>Form</SubType>
@@ -384,6 +395,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Grupos\FrmModificarGrupo.resx">
       <DependentUpon>FrmModificarGrupo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Formularios\Semestres\FrmMatricula.resx">
+      <DependentUpon>FrmMatricula.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Semestres\FrmModificarSemestre.resx">
       <DependentUpon>FrmModificarSemestre.cs</DependentUpon>
