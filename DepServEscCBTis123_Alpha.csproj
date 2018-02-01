@@ -154,12 +154,6 @@
     <Compile Include="Formularios\Grupos\FrmModificarGrupo.Designer.cs">
       <DependentUpon>FrmModificarGrupo.cs</DependentUpon>
     </Compile>
-    <Compile Include="Formularios\Semestres\FrmMatricula.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Formularios\Semestres\FrmMatricula.Designer.cs">
-      <DependentUpon>FrmMatricula.cs</DependentUpon>
-    </Compile>
     <Compile Include="Formularios\Semestres\FrmModificarSemestre.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -395,9 +389,6 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Grupos\FrmModificarGrupo.resx">
       <DependentUpon>FrmModificarGrupo.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Formularios\Semestres\FrmMatricula.resx">
-      <DependentUpon>FrmMatricula.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Formularios\Semestres\FrmModificarSemestre.resx">
       <DependentUpon>FrmModificarSemestre.cs</DependentUpon>
