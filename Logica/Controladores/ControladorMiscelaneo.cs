@@ -259,6 +259,15 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             // Arreglo de la matrícula de todos los grupos.
             string[][] matriculaSemestral = null;
 
+            int totalHombresM = 0;
+            int totalHombresV = 0;
+
+            int totalMujeresM = 0;
+            int totalMujeresV = 0;
+
+            int totalGruposM = 0;
+            int totalGruposV = 0;
+
             try
             {
                 // Obtenemos todos los grupos
@@ -266,11 +275,12 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     g => g.idSemestre == s.idSemestre
                 ).ToList();
                 
-                // El 8 es por los 4 posibles grados que puede
+                // El 13 es por los 4 posibles grados que puede
                 // haber simultáneamente en un semestre.
                 // Uno es una línea de espacio. El otro es una
                 // línea para información general del grado
-                matriculaSemestral = new string[listaGruposOriginal.Count + 9][];
+                // También, por las 4 líneas finales de totales.
+                matriculaSemestral = new string[listaGruposOriginal.Count + 13][];
 
                 // Los clasificamos según el grado, a la posición del arreglo
                 foreach (grupos g in listaGruposOriginal)
@@ -362,7 +372,49 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
                     matriculaSemestral[i] = new string[1];
                     i++;
+
+                    totalHombresM += hombresM;
+                    totalHombresV += hombresV;
+
+                    totalMujeresM += mujeresM;
+                    totalMujeresV += mujeresV;
+
+                    totalGruposM += gruposM;
+                    totalGruposV += gruposV;
                 }
+
+                int totalAlumnosM = totalHombresM + totalMujeresM;
+                int totalAlumnosV = totalHombresV + totalMujeresV;
+
+                string[] lineaTotal1 = new string[8];
+                string[] lineaTotal2 = new string[8];
+                string[] lineaTotal3 = new string[8];
+
+                lineaTotal1[1] = "Totales";
+                lineaTotal1[2] = "TM";
+                lineaTotal1[3] = totalGruposM.ToString();
+                lineaTotal1[4] = totalHombresM.ToString();
+                lineaTotal1[5] = totalMujeresM.ToString();
+                lineaTotal1[6] = totalAlumnosM.ToString();
+                lineaTotal2[7] = (totalAlumnosM + totalAlumnosV).ToString();
+
+                lineaTotal2[2] = "TV";
+                lineaTotal2[3] = totalGruposV.ToString();
+                lineaTotal2[4] = totalHombresV.ToString();
+                lineaTotal2[5] = totalMujeresV.ToString();
+                lineaTotal2[6] = totalAlumnosV.ToString();
+
+                lineaTotal3[3] = (totalGruposM + totalGruposV).ToString();
+                lineaTotal3[4] = (totalHombresM + totalHombresV).ToString();
+                lineaTotal3[5] = (totalMujeresM + totalMujeresV).ToString();
+                lineaTotal3[6] = (totalAlumnosM + totalAlumnosV).ToString();
+
+                int pos = matriculaSemestral.Length - 1;
+
+                matriculaSemestral[pos - 3] = new string[0];
+                matriculaSemestral[pos - 2] = lineaTotal1;
+                matriculaSemestral[pos - 1] = lineaTotal2;
+                matriculaSemestral[pos] = lineaTotal3;
             }
             catch (Exception e)
             {
