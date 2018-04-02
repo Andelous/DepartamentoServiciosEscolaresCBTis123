@@ -12,7 +12,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
     using System;
     using System.Collections.Generic;
     
-    public partial class prefichas2016
+    public partial class prefichas2018
     {
         public int idPreficha { get; set; }
         public string nombres { get; set; }
@@ -24,6 +24,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string genero { get; set; }
         public string estadonac { get; set; }
         public string municipionac { get; set; }
+        public string estadovive { get; set; }
+        public string municipiovive { get; set; }
         public string localidad { get; set; }
         public string colonia { get; set; }
         public string calle { get; set; }
@@ -33,12 +35,18 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string numlocal { get; set; }
         public string celulare { get; set; }
         public string celularr { get; set; }
+        public string responsable { get; set; }
         public string correoe { get; set; }
         public string secundaria { get; set; }
         public string clavesecundaria { get; set; }
         public string modalidad { get; set; }
+        public string nss { get; set; }
+        public string bachillerato { get; set; }
+        public string avance { get; set; }
         public string primera { get; set; }
         public string segunda { get; set; }
         public string tercera { get; set; }
+        public int aula { get; set; }
+        public string especialidad { get; set; }
     }
 }

@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="CBTis123_Entities_Namespace.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+      <Schema Namespace="CBTis123_Model_Namespace.Store" Provider="MySql.Data.MySqlClient" ProviderManifestToken="5.7" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="academias">
           <Key>
             <PropertyRef Name="idAcademia" />
@@ -172,6 +172,7 @@
           <Property Name="letra" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="turno" Type="varchar" MaxLength="1" Nullable="false" />
           <Property Name="especialidad" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="idCarrera" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="grupos_estudiantes">
           <Key>
@@ -357,6 +358,45 @@
           <Property Name="aula" Type="int" Nullable="false" />
           <Property Name="especialidad" Type="varchar" MaxLength="6" Nullable="false" />
         </EntityType>
+        <EntityType Name="prefichas2018">
+          <Key>
+            <PropertyRef Name="idPreficha" />
+          </Key>
+          <Property Name="idPreficha" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombres" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="apellidop" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="apellidom" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="fechanac" Type="date" Nullable="false" />
+          <Property Name="curp" Type="varchar" MaxLength="18" Nullable="false" />
+          <Property Name="estadoc" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="genero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="estadonac" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="municipionac" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="estadovive" Type="varchar" MaxLength="2" Nullable="false" />
+          <Property Name="municipiovive" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="localidad" Type="varchar" MaxLength="4" Nullable="false" />
+          <Property Name="colonia" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="calle" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="numero" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="codigop" Type="varchar" MaxLength="5" Nullable="false" />
+          <Property Name="ladalocal" Type="varchar" MaxLength="3" Nullable="false" />
+          <Property Name="numlocal" Type="varchar" MaxLength="8" Nullable="false" />
+          <Property Name="celulare" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="celularr" Type="varchar" MaxLength="10" Nullable="false" />
+          <Property Name="responsable" Type="varchar" MaxLength="45" Nullable="false" />
+          <Property Name="correoe" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="secundaria" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="clavesecundaria" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="modalidad" Type="varchar" MaxLength="20" Nullable="false" />
+          <Property Name="nss" Type="varchar" MaxLength="11" Nullable="false" />
+          <Property Name="bachillerato" Type="varchar" MaxLength="7" Nullable="false" />
+          <Property Name="avance" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="primera" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="segunda" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="tercera" Type="varchar" MaxLength="6" Nullable="false" />
+          <Property Name="aula" Type="int" Nullable="false" />
+          <Property Name="especialidad" Type="varchar" MaxLength="6" Nullable="false" />
+        </EntityType>
         <EntityType Name="semestres">
           <Key>
             <PropertyRef Name="idSemestre" />
@@ -444,6 +484,18 @@
             </Principal>
             <Dependent Role="catedras">
               <PropertyRef Name="idGrupo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_idCarrera">
+          <End Role="carreras" Type="Self.carreras" Multiplicity="1" />
+          <End Role="grupos" Type="Self.grupos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carreras">
+              <PropertyRef Name="idCarrera" />
+            </Principal>
+            <Dependent Role="grupos">
+              <PropertyRef Name="idCarrera" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -549,7 +601,7 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <EntityContainer Name="CBTis123_Entities_NamespaceStoreContainer">
+        <EntityContainer Name="CBTis123_Model_NamespaceStoreContainer">
           <EntitySet Name="academias" EntityType="Self.academias" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="areascampos" EntityType="Self.areascampos" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="calificaciones_semestrales" EntityType="Self.calificaciones_semestrales" Schema="cbtislocal" store:Type="Tables" />
@@ -571,6 +623,7 @@
           <EntitySet Name="prefichas" EntityType="Self.prefichas" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="prefichas2016" EntityType="Self.prefichas2016" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="prefichas2017" EntityType="Self.prefichas2017" Schema="cbtislocal" store:Type="Tables" />
+          <EntitySet Name="prefichas2018" EntityType="Self.prefichas2018" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="semestres" EntityType="Self.semestres" Schema="cbtislocal" store:Type="Tables" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" Schema="cbtislocal" store:Type="Tables" />
           <AssociationSet Name="calificaciones_semestrales_ibfk_1" Association="Self.calificaciones_semestrales_ibfk_1">
@@ -592,6 +645,10 @@
           <AssociationSet Name="catedras_ibfk_3" Association="Self.catedras_ibfk_3">
             <End Role="grupos" EntitySet="grupos" />
             <End Role="catedras" EntitySet="catedras" />
+          </AssociationSet>
+          <AssociationSet Name="fk_idCarrera" Association="Self.fk_idCarrera">
+            <End Role="carreras" EntitySet="carreras" />
+            <End Role="grupos" EntitySet="grupos" />
           </AssociationSet>
           <AssociationSet Name="grupos_estudiantes_ibfk_1" Association="Self.grupos_estudiantes_ibfk_1">
             <End Role="grupos" EntitySet="grupos" />
@@ -630,7 +687,7 @@
     </edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
-      <Schema Namespace="CBTis123_Entities_Namespace" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+      <Schema Namespace="CBTis123_Model_Namespace" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
         <EntityType Name="academias">
           <Key>
             <PropertyRef Name="idAcademia" />
@@ -679,6 +736,7 @@
           <Property Name="abreviatura" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="acuerdo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="bachilleratociencias" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="grupos" Relationship="Self.fk_idCarrera" FromRole="carreras" ToRole="grupos" />
           <NavigationProperty Name="materias" Relationship="Self.materias_ibfk_3" FromRole="carreras" ToRole="materias" />
           <NavigationProperty Name="modulos" Relationship="Self.modulos_ibfk_1" FromRole="carreras" ToRole="modulos" />
         </EntityType>
@@ -811,6 +869,8 @@
           <Property Name="letra" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="turno" Type="String" MaxLength="1" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="especialidad" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="idCarrera" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="carreras" Relationship="Self.fk_idCarrera" FromRole="grupos" ToRole="carreras" />
           <NavigationProperty Name="catedras" Relationship="Self.catedras_ibfk_3" FromRole="grupos" ToRole="catedras" />
           <NavigationProperty Name="grupos_estudiantes" Relationship="Self.grupos_estudiantes_ibfk_1" FromRole="grupos" ToRole="grupos_estudiantes" />
           <NavigationProperty Name="semestres" Relationship="Self.grupos_ibfk_1" FromRole="grupos" ToRole="semestres" />
@@ -1008,6 +1068,45 @@
           <Property Name="aula" Type="Int32" Nullable="false" />
           <Property Name="especialidad" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
         </EntityType>
+        <EntityType Name="prefichas2018">
+          <Key>
+            <PropertyRef Name="idPreficha" />
+          </Key>
+          <Property Name="idPreficha" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombres" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidop" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="apellidom" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="fechanac" Type="DateTime" Nullable="false" />
+          <Property Name="curp" Type="String" MaxLength="18" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadoc" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="genero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadonac" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="municipionac" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estadovive" Type="String" MaxLength="2" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="municipiovive" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="localidad" Type="String" MaxLength="4" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="colonia" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="calle" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numero" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="codigop" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ladalocal" Type="String" MaxLength="3" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="numlocal" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celulare" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="celularr" Type="String" MaxLength="10" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="responsable" Type="String" MaxLength="45" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="correoe" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="secundaria" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="clavesecundaria" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="modalidad" Type="String" MaxLength="20" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="nss" Type="String" MaxLength="11" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="bachillerato" Type="String" MaxLength="7" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="avance" Type="String" MaxLength="12" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="primera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="segunda" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="tercera" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="aula" Type="Int32" Nullable="false" />
+          <Property Name="especialidad" Type="String" MaxLength="6" FixedLength="false" Unicode="false" Nullable="false" />
+        </EntityType>
         <EntityType Name="semestres">
           <Key>
             <PropertyRef Name="idSemestre" />
@@ -1082,6 +1181,18 @@
             </Principal>
             <Dependent Role="historial_calificaciones_semestrales">
               <PropertyRef Name="idCalificacion_Semestral" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="fk_idCarrera">
+          <End Role="carreras" Type="Self.carreras" Multiplicity="1" />
+          <End Role="grupos" Type="Self.grupos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="carreras">
+              <PropertyRef Name="idCarrera" />
+            </Principal>
+            <Dependent Role="grupos">
+              <PropertyRef Name="idCarrera" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -1223,6 +1334,7 @@
           <EntitySet Name="prefichas" EntityType="Self.prefichas" />
           <EntitySet Name="prefichas2016" EntityType="Self.prefichas2016" />
           <EntitySet Name="prefichas2017" EntityType="Self.prefichas2017" />
+          <EntitySet Name="prefichas2018" EntityType="Self.prefichas2018" />
           <EntitySet Name="semestres" EntityType="Self.semestres" />
           <EntitySet Name="usuarios" EntityType="Self.usuarios" />
           <AssociationSet Name="materias_ibfk_2" Association="Self.materias_ibfk_2">
@@ -1240,6 +1352,10 @@
           <AssociationSet Name="historial_calificaciones_semestrales_ibfk_1" Association="Self.historial_calificaciones_semestrales_ibfk_1">
             <End Role="calificaciones_semestrales" EntitySet="calificaciones_semestrales" />
             <End Role="historial_calificaciones_semestrales" EntitySet="historial_calificaciones_semestrales" />
+          </AssociationSet>
+          <AssociationSet Name="fk_idCarrera" Association="Self.fk_idCarrera">
+            <End Role="carreras" EntitySet="carreras" />
+            <End Role="grupos" EntitySet="grupos" />
           </AssociationSet>
           <AssociationSet Name="materias_ibfk_3" Association="Self.materias_ibfk_3">
             <End Role="carreras" EntitySet="carreras" />
@@ -1283,9 +1399,9 @@
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
-        <EntityContainerMapping StorageEntityContainer="CBTis123_Entities_NamespaceStoreContainer" CdmEntityContainer="CBTis123_Entities">
+        <EntityContainerMapping StorageEntityContainer="CBTis123_Model_NamespaceStoreContainer" CdmEntityContainer="CBTis123_Entities">
           <EntitySetMapping Name="academias">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.academias">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.academias">
               <MappingFragment StoreEntitySet="academias">
                 <ScalarProperty Name="idAcademia" ColumnName="idAcademia" />
                 <ScalarProperty Name="Nombre" ColumnName="Nombre" />
@@ -1295,7 +1411,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="areascampos">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.areascampos">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.areascampos">
               <MappingFragment StoreEntitySet="areascampos">
                 <ScalarProperty Name="idAreacampo" ColumnName="idAreacampo" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -1304,7 +1420,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="calificaciones_semestrales">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.calificaciones_semestrales">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.calificaciones_semestrales">
               <MappingFragment StoreEntitySet="calificaciones_semestrales">
                 <ScalarProperty Name="idCalificacion_Semestral" ColumnName="idCalificacion_Semestral" />
                 <ScalarProperty Name="calificacionParcial1" ColumnName="calificacionParcial1" />
@@ -1323,7 +1439,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="carreras">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.carreras">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.carreras">
               <MappingFragment StoreEntitySet="carreras">
                 <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -1334,7 +1450,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="catedras">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.catedras">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.catedras">
               <MappingFragment StoreEntitySet="catedras">
                 <ScalarProperty Name="idCatedra" ColumnName="idCatedra" />
                 <ScalarProperty Name="idDocente" ColumnName="idDocente" />
@@ -1344,7 +1460,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="datos_varios">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.datos_varios">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.datos_varios">
               <MappingFragment StoreEntitySet="datos_varios">
                 <ScalarProperty Name="idDato" ColumnName="idDato" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -1353,7 +1469,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="docentes">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.docentes">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.docentes">
               <MappingFragment StoreEntitySet="docentes">
                 <ScalarProperty Name="idDocente" ColumnName="idDocente" />
                 <ScalarProperty Name="genero" ColumnName="genero" />
@@ -1401,7 +1517,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="estudiantes">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.estudiantes">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.estudiantes">
               <MappingFragment StoreEntitySet="estudiantes">
                 <ScalarProperty Name="idEstudiante" ColumnName="idEstudiante" />
                 <ScalarProperty Name="ncontrol" ColumnName="ncontrol" />
@@ -1416,7 +1532,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="fichas">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.fichas">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.fichas">
               <MappingFragment StoreEntitySet="fichas">
                 <ScalarProperty Name="idFicha" ColumnName="idFicha" />
                 <ScalarProperty Name="preficha" ColumnName="preficha" />
@@ -1451,7 +1567,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="grupos">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.grupos">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.grupos">
               <MappingFragment StoreEntitySet="grupos">
                 <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
                 <ScalarProperty Name="idSemestre" ColumnName="idSemestre" />
@@ -1459,11 +1575,12 @@
                 <ScalarProperty Name="letra" ColumnName="letra" />
                 <ScalarProperty Name="turno" ColumnName="turno" />
                 <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+                <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="grupos_estudiantes">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.grupos_estudiantes">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.grupos_estudiantes">
               <MappingFragment StoreEntitySet="grupos_estudiantes">
                 <ScalarProperty Name="idGrupo_Estudiante" ColumnName="idGrupo_Estudiante" />
                 <ScalarProperty Name="idGrupo" ColumnName="idGrupo" />
@@ -1472,7 +1589,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="historial_calificaciones_semestrales">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.historial_calificaciones_semestrales">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.historial_calificaciones_semestrales">
               <MappingFragment StoreEntitySet="historial_calificaciones_semestrales">
                 <ScalarProperty Name="idHistorial_Calificacion_Semestral" ColumnName="idHistorial_Calificacion_Semestral" />
                 <ScalarProperty Name="cambios" ColumnName="cambios" />
@@ -1481,7 +1598,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="localidades">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.localidades">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.localidades">
               <MappingFragment StoreEntitySet="localidades">
                 <ScalarProperty Name="idLocalidad" ColumnName="idLocalidad" />
                 <ScalarProperty Name="claveMunicipio" ColumnName="claveMunicipio" />
@@ -1491,7 +1608,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="materias">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.materias">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.materias">
               <MappingFragment StoreEntitySet="materias">
                 <ScalarProperty Name="idMateria" ColumnName="idMateria" />
                 <ScalarProperty Name="idAreacampo" ColumnName="idAreacampo" />
@@ -1510,7 +1627,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="modulos">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.modulos">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.modulos">
               <MappingFragment StoreEntitySet="modulos">
                 <ScalarProperty Name="idModulo" ColumnName="idModulo" />
                 <ScalarProperty Name="idCarrera" ColumnName="idCarrera" />
@@ -1520,7 +1637,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="municipios">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.municipios">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.municipios">
               <MappingFragment StoreEntitySet="municipios">
                 <ScalarProperty Name="idMunicipio" ColumnName="idMunicipio" />
                 <ScalarProperty Name="claveEntidad" ColumnName="claveEntidad" />
@@ -1530,7 +1647,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="planea_d16_2017">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.planea_d16_2017">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.planea_d16_2017">
               <MappingFragment StoreEntitySet="planea_d16_2017">
                 <ScalarProperty Name="idPlanea_d16_2017" ColumnName="idPlanea_d16_2017" />
                 <ScalarProperty Name="ncontrol" ColumnName="ncontrol" />
@@ -1544,7 +1661,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="planea_mate16_d1_2017">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.planea_mate16_d1_2017">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.planea_mate16_d1_2017">
               <MappingFragment StoreEntitySet="planea_mate16_d1_2017">
                 <ScalarProperty Name="id" ColumnName="id" />
                 <ScalarProperty Name="ncontrol" ColumnName="ncontrol" />
@@ -1558,7 +1675,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="prefichas">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.prefichas">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.prefichas">
               <MappingFragment StoreEntitySet="prefichas">
                 <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
                 <ScalarProperty Name="nombres" ColumnName="nombres" />
@@ -1590,7 +1707,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="prefichas2016">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.prefichas2016">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.prefichas2016">
               <MappingFragment StoreEntitySet="prefichas2016">
                 <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
                 <ScalarProperty Name="nombres" ColumnName="nombres" />
@@ -1622,7 +1739,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="prefichas2017">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.prefichas2017">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.prefichas2017">
               <MappingFragment StoreEntitySet="prefichas2017">
                 <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
                 <ScalarProperty Name="nombres" ColumnName="nombres" />
@@ -1657,8 +1774,48 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="prefichas2018">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.prefichas2018">
+              <MappingFragment StoreEntitySet="prefichas2018">
+                <ScalarProperty Name="idPreficha" ColumnName="idPreficha" />
+                <ScalarProperty Name="nombres" ColumnName="nombres" />
+                <ScalarProperty Name="apellidop" ColumnName="apellidop" />
+                <ScalarProperty Name="apellidom" ColumnName="apellidom" />
+                <ScalarProperty Name="fechanac" ColumnName="fechanac" />
+                <ScalarProperty Name="curp" ColumnName="curp" />
+                <ScalarProperty Name="estadoc" ColumnName="estadoc" />
+                <ScalarProperty Name="genero" ColumnName="genero" />
+                <ScalarProperty Name="estadonac" ColumnName="estadonac" />
+                <ScalarProperty Name="municipionac" ColumnName="municipionac" />
+                <ScalarProperty Name="estadovive" ColumnName="estadovive" />
+                <ScalarProperty Name="municipiovive" ColumnName="municipiovive" />
+                <ScalarProperty Name="localidad" ColumnName="localidad" />
+                <ScalarProperty Name="colonia" ColumnName="colonia" />
+                <ScalarProperty Name="calle" ColumnName="calle" />
+                <ScalarProperty Name="numero" ColumnName="numero" />
+                <ScalarProperty Name="codigop" ColumnName="codigop" />
+                <ScalarProperty Name="ladalocal" ColumnName="ladalocal" />
+                <ScalarProperty Name="numlocal" ColumnName="numlocal" />
+                <ScalarProperty Name="celulare" ColumnName="celulare" />
+                <ScalarProperty Name="celularr" ColumnName="celularr" />
+                <ScalarProperty Name="responsable" ColumnName="responsable" />
+                <ScalarProperty Name="correoe" ColumnName="correoe" />
+                <ScalarProperty Name="secundaria" ColumnName="secundaria" />
+                <ScalarProperty Name="clavesecundaria" ColumnName="clavesecundaria" />
+                <ScalarProperty Name="modalidad" ColumnName="modalidad" />
+                <ScalarProperty Name="nss" ColumnName="nss" />
+                <ScalarProperty Name="bachillerato" ColumnName="bachillerato" />
+                <ScalarProperty Name="avance" ColumnName="avance" />
+                <ScalarProperty Name="primera" ColumnName="primera" />
+                <ScalarProperty Name="segunda" ColumnName="segunda" />
+                <ScalarProperty Name="tercera" ColumnName="tercera" />
+                <ScalarProperty Name="aula" ColumnName="aula" />
+                <ScalarProperty Name="especialidad" ColumnName="especialidad" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
           <EntitySetMapping Name="semestres">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.semestres">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.semestres">
               <MappingFragment StoreEntitySet="semestres">
                 <ScalarProperty Name="idSemestre" ColumnName="idSemestre" />
                 <ScalarProperty Name="nombre" ColumnName="nombre" />
@@ -1675,7 +1832,7 @@
             </EntityTypeMapping>
           </EntitySetMapping>
           <EntitySetMapping Name="usuarios">
-            <EntityTypeMapping TypeName="CBTis123_Entities_Namespace.usuarios">
+            <EntityTypeMapping TypeName="CBTis123_Model_Namespace.usuarios">
               <MappingFragment StoreEntitySet="usuarios">
                 <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
                 <ScalarProperty Name="usuario" ColumnName="usuario" />
@@ -1703,7 +1860,7 @@
         <DesignerProperty Name="ValidateOnBuild" Value="true" />
         <DesignerProperty Name="EnablePluralization" Value="false" />
         <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
-        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
         <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
       </DesignerInfoPropertySet>
     </Options>
