@@ -42,29 +42,33 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmModificarSemestre_Load(object sender, EventArgs e)
         {
+            nudAnoiP1.Maximum = DateTime.Today.Year + 1;
+            nudAnofP1.Maximum = DateTime.Today.Year + 1;
+            nudAnoiP2.Maximum = DateTime.Today.Year + 1;
+            nudAnofP2.Maximum = DateTime.Today.Year + 1;
+            nudAnoiP3.Maximum = DateTime.Today.Year + 1;
+            nudAnofP3.Maximum = DateTime.Today.Year + 1;
+
             txtNombre.Text = semestre.nombre;
             txtNombreCorto.Text = semestre.nombrecorto;
             txtNombreCorto2.Text = semestre.nombrecorto2;
             txtNombreCorto3.Text = semestre.nombrecorto3;
-
-            if (semestre.fechai_p1.HasValue && semestre.fechaf_p1.HasValue)
-            {
-                configurarNuds(semestre.fechai_p1.Value, semestre.fechaf_p1.Value, "P1");
-            }
-
-            if (semestre.fechai_p2.HasValue && semestre.fechaf_p2.HasValue)
-            {
-                configurarNuds(semestre.fechai_p2.Value, semestre.fechaf_p2.Value, "P2");
-            }
-
-            if (semestre.fechai_p3.HasValue && semestre.fechaf_p3.HasValue)
-            {
-                configurarNuds(semestre.fechai_p3.Value, semestre.fechaf_p3.Value, "P3");
-            }
+            
+            configurarNuds(semestre.fechai_p1.Value, semestre.fechaf_p1.Value, "P1");
+            configurarNuds(semestre.fechai_p2.Value, semestre.fechaf_p2.Value, "P2");
+            configurarNuds(semestre.fechai_p3.Value, semestre.fechaf_p3.Value, "P3");
         }
 
         private void cmdModificar_Click(object sender, EventArgs e)
         {
+            DateTime fechai_p1 = new DateTime((int)nudAnoiP1.Value, (int)nudMesiP1.Value, (int)nudDiaiP1.Value);
+            DateTime fechai_p2 = new DateTime((int)nudAnoiP2.Value, (int)nudMesiP2.Value, (int)nudDiaiP2.Value);
+            DateTime fechai_p3 = new DateTime((int)nudAnoiP3.Value, (int)nudMesiP3.Value, (int)nudDiaiP3.Value);
+
+            DateTime fechaf_p1 = new DateTime((int)nudAnofP1.Value, (int)nudMesfP1.Value, (int)nudDiafP1.Value);
+            DateTime fechaf_p2 = new DateTime((int)nudAnofP2.Value, (int)nudMesfP2.Value, (int)nudDiafP2.Value);
+            DateTime fechaf_p3 = new DateTime((int)nudAnofP3.Value, (int)nudMesfP3.Value, (int)nudDiafP3.Value);
+
             ResultadoOperacion resultadoOperacion = 
                 controladorSemestres.
                 modificarSemestre(
@@ -72,8 +76,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     txtNombre.Text,
                     txtNombreCorto.Text,
                     txtNombreCorto2.Text,
-                    txtNombreCorto3.Text
-                );
+                    txtNombreCorto3.Text,
+                    fechai_p1,
+                    fechaf_p1,
+                    fechai_p2,
+                    fechaf_p2,
+                    fechai_p3,
+                    fechaf_p3);
 
             ControladorVisual.mostrarMensaje(resultadoOperacion);
 
@@ -133,14 +142,14 @@ namespace DepartamentoServiciosEscolaresCBTis123
             NumericUpDown anoI = (NumericUpDown)Controls["nudAnoi" + p];
             NumericUpDown anoF = (NumericUpDown)Controls["nudAnof" + p];
 
-            diaI.Value = fechaI.Day;
-            diaF.Value = fechaF.Day;
+            anoI.Value = fechaI.Year;
+            anoF.Value = fechaF.Year;
 
             mesI.Value = fechaI.Month;
             mesF.Value = fechaF.Month;
 
-            anoI.Value = fechaI.Year;
-            anoF.Value = fechaF.Year;
+            diaI.Value = fechaI.Day;
+            diaF.Value = fechaF.Day;
         }
     }
 }

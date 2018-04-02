@@ -56,7 +56,7 @@
             this.txtNombreCorto3 = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
             this.cmdCancelar = new System.Windows.Forms.Button();
-            this.cmdRegistrar = new System.Windows.Forms.Button();
+            this.cmdModificar = new System.Windows.Forms.Button();
             this.txtNombreCorto2 = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
             this.txtNombreCorto = new System.Windows.Forms.TextBox();
@@ -580,15 +580,17 @@
             this.cmdCancelar.TabIndex = 44;
             this.cmdCancelar.Text = "Cancelar";
             this.cmdCancelar.UseVisualStyleBackColor = true;
+            this.cmdCancelar.Click += new System.EventHandler(this.cmdCancelar_Click);
             // 
-            // cmdRegistrar
+            // cmdModificar
             // 
-            this.cmdRegistrar.Location = new System.Drawing.Point(16, 378);
-            this.cmdRegistrar.Name = "cmdRegistrar";
-            this.cmdRegistrar.Size = new System.Drawing.Size(187, 35);
-            this.cmdRegistrar.TabIndex = 43;
-            this.cmdRegistrar.Text = "Registrar";
-            this.cmdRegistrar.UseVisualStyleBackColor = true;
+            this.cmdModificar.Location = new System.Drawing.Point(16, 378);
+            this.cmdModificar.Name = "cmdModificar";
+            this.cmdModificar.Size = new System.Drawing.Size(187, 35);
+            this.cmdModificar.TabIndex = 43;
+            this.cmdModificar.Text = "Modificar";
+            this.cmdModificar.UseVisualStyleBackColor = true;
+            this.cmdModificar.Click += new System.EventHandler(this.cmdModificar_Click);
             // 
             // txtNombreCorto2
             // 
@@ -684,7 +686,7 @@
             this.Controls.Add(this.txtNombreCorto3);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.cmdCancelar);
-            this.Controls.Add(this.cmdRegistrar);
+            this.Controls.Add(this.cmdModificar);
             this.Controls.Add(this.txtNombreCorto2);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.txtNombreCorto);
@@ -754,7 +756,7 @@
         private System.Windows.Forms.TextBox txtNombreCorto3;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Button cmdCancelar;
-        private System.Windows.Forms.Button cmdRegistrar;
+        private System.Windows.Forms.Button cmdModificar;
         private System.Windows.Forms.TextBox txtNombreCorto2;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TextBox txtNombreCorto;

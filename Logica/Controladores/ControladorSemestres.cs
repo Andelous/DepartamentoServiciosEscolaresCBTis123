@@ -116,12 +116,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 !ValidadorDeTexto.esValido(nombre) ||
                 !ValidadorDeTexto.esValido(nombreCorto) ||
                 !ValidadorDeTexto.esValido(nombreCorto2) ||
-                !ValidadorDeTexto.esValido(nombreCorto3)
+                !ValidadorDeTexto.esValido(nombreCorto3) ||
+                fechaf_p1 < fechai_p1 ||
+                fechai_p2 <= fechaf_p1 ||
+                fechaf_p2 < fechai_p2 ||
+                fechai_p3 <= fechaf_p2 ||
+                fechaf_p3 < fechai_p3
             ) {
                 // Devolvemos un error si es que no son válidos.
                 return new ResultadoOperacion(
                     EstadoOperacion.ErrorDatosIncorrectos,
-                    "No utilice caracteres especiales o inválidos");
+                    "No utilice caracteres especiales o inválidos. Verifique sus fechas.");
             }
 
             CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
@@ -179,7 +184,13 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             string nombre, 
             string nombreCorto, 
             string nombreCorto2, 
-            string nombreCorto3
+            string nombreCorto3,
+            DateTime fechai_p1,
+            DateTime fechaf_p1,
+            DateTime fechai_p2,
+            DateTime fechaf_p2,
+            DateTime fechai_p3,
+            DateTime fechaf_p3
         ) {
             // Verificamos que los datos introducidos
             // sean válidos para la base de datos.
@@ -187,25 +198,22 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 !ValidadorDeTexto.esValido(nombre) ||
                 !ValidadorDeTexto.esValido(nombreCorto) ||
                 !ValidadorDeTexto.esValido(nombreCorto2) ||
-                !ValidadorDeTexto.esValido(nombreCorto3)
-            ) {
+                !ValidadorDeTexto.esValido(nombreCorto3) ||
+                fechaf_p1 < fechai_p1 ||
+                fechai_p2 <= fechaf_p1 ||
+                fechaf_p2 < fechai_p2 ||
+                fechai_p3 <= fechaf_p2 ||
+                fechaf_p3 < fechai_p3
+            )
+            {
                 // Devolvemos un error si es que no son válidos.
                 return new ResultadoOperacion(
                     EstadoOperacion.ErrorDatosIncorrectos,
-                    "No utilice caracteres especiales o inválidos");
+                    "No utilice caracteres especiales o inválidos. Verifique sus fechas.");
             }
 
+            CBTis123_Entities dbContext = Vinculo_DB.generarContexto();
             ResultadoOperacion innerRO = null;
-
-            Semestre s =
-                DAOSemestres.
-                crearSemestre(
-                    idSemestre,
-                    nombre,
-                    nombreCorto,
-                    nombreCorto2,
-                    nombreCorto3
-                );
 
             int modificado = 0;
 
@@ -213,7 +221,20 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             // se devolverá el respectivo resultado de operación.
             try
             {
-                modificado = daoSemestres.modificarSemestre(s);
+                semestres s = dbContext.semestres.Single(s1 => s1.idSemestre == idSemestre);
+
+                s.nombre = nombre;
+                s.nombrecorto = nombreCorto;
+                s.nombrecorto2 = nombreCorto2;
+                s.nombrecorto3 = nombreCorto3;
+                s.fechaf_p1 = fechaf_p1;
+                s.fechaf_p2 = fechaf_p2;
+                s.fechaf_p3 = fechaf_p3;
+                s.fechai_p1 = fechai_p1;
+                s.fechai_p2 = fechai_p2;
+                s.fechai_p3 = fechai_p3;
+
+                modificado = dbContext.SaveChanges();
             }
             catch (MySqlException e)
             {
@@ -225,18 +246,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             }
 
             // Si no hubo problema, se devolverá el resultado correspondiente.
-            return 
-                modificado == 1 ?
+            return
+                modificado > 0 ?
                 new ResultadoOperacion(
                     EstadoOperacion.Correcto,
                     "Semestre modificado")
-                :
-                modificado > 1 ?
-                new ResultadoOperacion(
-                    EstadoOperacion.ErrorAplicacion,
-                    "Se han modificado dos o más semestres",
-                    "SemMod " + modificado.ToString(),
-                    innerRO)
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.NingunResultado,
