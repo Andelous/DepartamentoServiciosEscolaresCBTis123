@@ -17,14 +17,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         {
             if (obj != null)
             {
-                if (obj.GetType() == typeof(usuarios))
+                if (obj.GetType() == GetType())
                 {
                     usuarios u = (usuarios)obj;
 
-                    if (u.idUsuario == idUsuario)
-                    {
-                        return true;
-                    }
+                    return u.idUsuario == idUsuario;
                 }
             }
 

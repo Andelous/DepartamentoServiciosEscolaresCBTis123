@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using ResultadosOperacion;
 using System;
@@ -31,18 +32,18 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        private Semestre semestreSeleccionado
+        private semestres semestreSeleccionado
         {
             get
             {
-                return (Semestre)comboSemestres.SelectedItem;
+                return (semestres)comboSemestres.SelectedItem;
             }
         }
-        private Grupo grupoSeleccionado
+        private grupos grupoSeleccionado
         {
             get
             {
-                return (Grupo)dgvGrupos.SelectedRows[0].DataBoundItem;
+                return (grupos)dgvGrupos.SelectedRows[0].DataBoundItem;
             }
         }
 
@@ -54,7 +55,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmGrupos_Load(object sender, EventArgs e)
         {
-            List<Semestre> listaSemestres = controladorGrupos.seleccionarSemestres();
+            /*List<Semestre> listaSemestres = controladorGrupos.seleccionarSemestres();
+            comboSemestres.DataSource = listaSemestres;*/
+
+            List<semestres> listaSemestres = ControladorSingleton.controladorSemestres.seleccionarSemestres();
             comboSemestres.DataSource = listaSemestres;
 
             comboSemestres.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
@@ -63,7 +67,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
         // Métodos lógicos
         private void mostrarGrupos(object sender, EventArgs e)
         {
-            List<Grupo> listaGrupos = controladorGrupos.seleccionarGrupos(semestreSeleccionado);
+            /*List<Grupo> listaGrupos = controladorGrupos.seleccionarGrupos(semestreSeleccionado);
+            configurarDGVGrupos(listaGrupos);*/
+
+            List<grupos> listaGrupos = controladorGrupos.seleccionarGrupos(semestreSeleccionado);
             configurarDGVGrupos(listaGrupos);
         }
 
@@ -106,7 +113,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdImportarEstudiantes_Click(object sender, EventArgs e)
         {
-            new FrmImportarEstudiantes(grupoSeleccionado).ShowDialog();
+            //new FrmImportarEstudiantes(grupoSeleccionado).ShowDialog();
         }
 
         // Métodos para controlar algo visual
@@ -152,26 +159,38 @@ namespace DepartamentoServiciosEscolaresCBTis123
             cmdImportarEstudiantes.Location = p6;
         }
 
-        private void configurarDGVGrupos(List<Grupo> listaGrupos)
+        private void configurarDGVGrupos(List<grupos> listaGrupos)
         {
             dgvGrupos.DataSource = listaGrupos;
 
-            dgvGrupos.Columns["nombreCompleto"].HeaderText = "Nombre completo";
-            dgvGrupos.Columns["idGrupo"].Visible = false;
-            dgvGrupos.Columns["idSemestre"].Visible = false;
-            dgvGrupos.Columns["semestre"].HeaderText = "Grado";
-            dgvGrupos.Columns["semestre"].Width = 40;
-            dgvGrupos.Columns["letra"].HeaderText = "Letra";
-            dgvGrupos.Columns["letra"].Width = 40;
-            dgvGrupos.Columns["turno"].HeaderText = "Turno";
-            dgvGrupos.Columns["especialidad"].Visible = false;
-            dgvGrupos.Columns["semestreObj"].HeaderText = "Semestre";
-            dgvGrupos.Columns["semestreObj"].Visible = false;
-            dgvGrupos.Columns["especialidadObj"].HeaderText = "Especialidad";
+            foreach (DataGridViewColumn columna in dgvGrupos.Columns)
+            {
+                columna.Visible = false;
+            }
 
-            dgvGrupos.Columns["turno"].DisplayIndex = 4;
-            dgvGrupos.Columns["especialidadObj"].DisplayIndex = 5;
-            dgvGrupos.Columns["letra"].DisplayIndex = 8;
+            dgvGrupos.Columns["nombreCompleto"].Visible = true;
+            dgvGrupos.Columns["semestre"].Visible = true;
+            dgvGrupos.Columns["letra"].Visible = true;
+            dgvGrupos.Columns["turnoCompleto"].Visible = true;
+            dgvGrupos.Columns["carreras"].Visible = true;
+
+            dgvGrupos.Columns["nombreCompleto"].HeaderText = "Nombre completo";
+            dgvGrupos.Columns["semestre"].HeaderText = "Grado";
+            dgvGrupos.Columns["letra"].HeaderText = "Letra";
+            dgvGrupos.Columns["turnoCompleto"].HeaderText = "Turno";
+            dgvGrupos.Columns["carreras"].HeaderText = "Especialidad";
+
+            dgvGrupos.Columns["nombreCompleto"].Width = 140;
+            dgvGrupos.Columns["semestre"].Width = 40;
+            dgvGrupos.Columns["letra"].Width = 40;
+
+            int pos = 1;
+
+            dgvGrupos.Columns["nombreCompleto"].DisplayIndex = pos++;
+            dgvGrupos.Columns["semestre"].DisplayIndex = pos++;
+            dgvGrupos.Columns["letra"].DisplayIndex = pos++;
+            dgvGrupos.Columns["turnoCompleto"].DisplayIndex = pos++;
+            dgvGrupos.Columns["carreras"].DisplayIndex = pos++;
 
             lblGrupos.Text = "Grupos (" + listaGrupos.Count + " resultados)";
 

@@ -8,6 +8,6 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
 {
     public partial class grupos_estudiantes
     {
-
+        
     }
 }

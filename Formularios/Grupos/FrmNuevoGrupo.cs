@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using ResultadosOperacion;
 using System;
@@ -30,9 +31,9 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        private Semestre semestreDefault { get; set; }
+        private semestres semestreDefault { get; set; }
 
-        private Semestre semestreSeleccionado
+        private semestres semestreSeleccionado
         {
             set
             {
@@ -40,10 +41,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
             get
             {
-                return (Semestre)comboSemestres.SelectedItem;
+                return (semestres)comboSemestres.SelectedItem;
             }
         }
-        private Carrera especialidadSeleccionada
+        private carreras especialidadSeleccionada
         {
             set
             {
@@ -51,7 +52,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
             get
             {
-                return (Carrera)comboEspecialidad.SelectedItem;
+                return (carreras)comboEspecialidad.SelectedItem;
             }
         }
         private int gradoSeleccionado
@@ -77,7 +78,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        public FrmNuevoGrupo(Semestre semestreDefault)
+        public FrmNuevoGrupo(semestres semestreDefault)
         {
             InitializeComponent();
 
@@ -86,8 +87,11 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmNuevoGrupo_Load(object sender, EventArgs e)
         {
-            comboSemestres.DataSource = controladorGrupos.seleccionarSemestres();
-            comboEspecialidad.DataSource = controladorGrupos.seleccionarCarreras();
+            comboSemestres.DataSource = ControladorSingleton.controladorSemestres.seleccionarSemestres();
+            comboEspecialidad.DataSource = controladorGrupos.seleccionarCarrerasADO();
+
+            MessageBox.Show(semestreDefault.idSemestre.ToString());
+            MessageBox.Show(semestreSeleccionado.idSemestre.ToString());
 
             semestreSeleccionado = semestreDefault;
 

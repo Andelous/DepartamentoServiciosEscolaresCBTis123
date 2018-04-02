@@ -11,7 +11,22 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         // Métodos míos
         public override string ToString()
         {
-            return nombre + " (" + abreviatura + ")";
+            return nombre + " (" + abreviatura + ", " + acuerdo + ")";
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj != null)
+            {
+                if (obj.GetType() == GetType())
+                {
+                    carreras c = (carreras)obj;
+
+                    return c.idCarrera == idCarrera;
+                }
+            }
+
+            return false;
         }
     }
 }

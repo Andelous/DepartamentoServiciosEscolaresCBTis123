@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using ResultadosOperacion;
 using System;
@@ -34,13 +35,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
         }
         
         // Elementos lógicos
-        private Grupo grupo { get; set; }
-        private List<Catedra> catedras { get; set; }
+        private grupos grupo { get; set; }
+        private List<catedras> catedras { get; set; }
         private List<TextBox> txtsCatedras { get; set; }
         private List<ComboBox> combosDocentes { get; set; }
 
         // Métodos de inicialización
-        public FrmAsignacionDeDocentes(Grupo grupo)
+        public FrmAsignacionDeDocentes(grupos grupo)
         {
             InitializeComponent();
 
@@ -75,12 +76,12 @@ namespace DepartamentoServiciosEscolaresCBTis123
             lblGrupo.Text = grupo.ToString();
 
             // Mostramos las propiedades del grupo en los Txts de arriba
-            txtSemestre.Text = grupo.semestreObj.ToString();
-            txtEspecialidad.Text = grupo.especialidadObj.ToString();
+            txtSemestre.Text = grupo.semestres.ToString();
+            txtEspecialidad.Text = grupo.carreras.ToString();
             txtGrado.Text = grupo.semestre.ToString() + "° Semestre | Turno: " + grupo.turno;
 
             // Agregamos el DataSource del comboDocente MODELO
-            comboDocentes.DataSource = controladorGrupos.seleccionarDocentes();
+            comboDocentes.DataSource = ControladorSingleton.controladorDocentes.seleccionarDocentes();
 
             // Creamos la lista de Txts y Combos de las cátedras.
             txtsCatedras = new List<TextBox>();
@@ -96,11 +97,11 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 // Creamos el textbox decidiendo qué tipo de cátedra es.
                 TextBox txtNuevo =
                     ControladorVisual.clonarTextBox(
-                        catedras[i].materiaObj.componenteF.Contains("omplementari") ?
+                        catedras[i].materias.componenteF.Contains("omplementari") ?
                         txtComplementarioM :
-                        catedras[i].materiaObj.idCarrera != 16 ?
+                        catedras[i].materias.idCarrera != 16 ?
                         txtEspecialidadM :
-                        catedras[i].materiaObj.propedeutica.Length >= 4 ?
+                        catedras[i].materias.propedeutica.Length >= 4 ?
                         txtPropedeuticoM : txtBasicoM
                     );
                 // Creamos el combo de la cátedra.
@@ -128,9 +129,9 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 comboNuevo.Location = new Point(302, 136 + i * 48);
 
                 // Mostramos el nombre de la materia en el TextBox correspondiente.
-                txtNuevo.Text = catedras[i].materiaObj.ToString();
+                txtNuevo.Text = catedras[i].materias.ToString();
                 // Agregamos una nueva lista al combo de la cátedra
-                comboNuevo.DataSource = ((List<Docente>)comboDocentes.DataSource).ToList();
+                comboNuevo.DataSource = ((List<docentes>)comboDocentes.DataSource).ToList();
 
                 // Agregamos el evento que mostrará qué docente está seleccionado para
                 // qué materia. SÓLO DEBUGGING
@@ -157,7 +158,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             for (int i = 0; i < combosDocentes.Count; i++)
             {
                 // Hacemos que el docente seleccionado sea el correspondiente de la cátedra
-                combosDocentes[i].SelectedItem = catedras[i].docenteObj;
+                combosDocentes[i].SelectedItem = catedras[i].docentes;
             }
         }
 
@@ -184,8 +185,8 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             for (int i = 0; i < catedras.Count; i++)
             {
-                catedras[i].docenteObj = (Docente)combosDocentes[i].SelectedItem;
-                catedras[i].idDocente = catedras[i].docenteObj.idDocente;
+                catedras[i].docentes = (docentes)combosDocentes[i].SelectedItem;
+                catedras[i].idDocente = catedras[i].docentes.idDocente;
             }
 
             ResultadoOperacion resultadoOperacion = controladorGrupos.modificarListaDeCatedras(catedras);

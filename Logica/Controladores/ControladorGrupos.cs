@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using MySql.Data.MySqlClient;
@@ -90,6 +91,38 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaGrupos;
         }
 
+        public List<grupos> seleccionarGrupos(semestres s)
+        {
+            // Creamos lista vacía en caso de Excepcion
+            List<grupos> listaGrupos = new List<grupos>();
+
+            // Intentamos realizar la operación. Si hubo algún error,
+            // el controlador visual mostrará el mensaje correspondiente.
+            try
+            {
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
+
+                listaGrupos =
+                    db.grupos.Where(g => g.idSemestre == s.idSemestre).
+                    OrderBy(g => g.semestre).
+                    ThenBy(g => g.turno).
+                    ThenBy(g => g.especialidad).
+                    ThenBy(g => g.letra).
+                    ToList();
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            // Devolvemos resultado
+            return listaGrupos;
+        }
+
         public Grupo seleccionarGrupo(int idGrupo)
         {
             // Creamos un grupo nulo para devolverlo luego
@@ -114,7 +147,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return g;
         }
 
-        public List<Carrera> seleccionarCarreras(string acuerdo = "653")
+        public List<Carrera> seleccionarCarreras(string acuerdo = "2013")
         {
             // Creamos lista vacía en caso de Excepcion
             List<Carrera> listaCarreras = new List<Carrera>();
@@ -137,18 +170,18 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaCarreras;
         }
 
-        public List<Docente> seleccionarDocentes()
+        public List<carreras> seleccionarCarrerasADO()
         {
-            List<Docente> listaDocentes = new List<Docente>();
+            // Creamos lista vacía en caso de Excepcion
+            List<carreras> listaCarreras = new List<carreras>();
 
-            // Realizamos la operación, y damos manejo a las excepciones
+            // Intentamos realizar la operación. Si hubo algún error,
+            // el controlador visual mostrará el mensaje correspondiente.
             try
             {
-                listaDocentes = controladorDocentes.seleccionarDocentes();
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
 
-                Docente d = controladorDocentes.seleccionarDocente(100);
-
-                listaDocentes.Add(d);
+                listaCarreras = db.carreras.Where(c => c.acuerdo == "2013").ToList();
             }
             catch (MySqlException e)
             {
@@ -159,7 +192,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
             }
 
-            return listaDocentes;
+            return listaCarreras;
         }
 
         public List<Catedra> seleccionarCatedrasPorGrupo(Grupo g)
@@ -169,6 +202,28 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             try
             {
                 listaCatedras = daoCatedras.seleccionarCatedrasPorGrupo(g);
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            return listaCatedras;
+        }
+
+        public List<catedras> seleccionarCatedrasPorGrupo(grupos g)
+        {
+            List<catedras> listaCatedras = new List<catedras>();
+
+            try
+            {
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
+
+                listaCatedras = db.catedras.Where(c => c.idGrupo == g.idGrupo).ToList();
             }
             catch (MySqlException e)
             {
@@ -268,6 +323,76 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     "Se han registrado dos o más grupos",
                     "GroupReg " + registrado.ToString(),
                     innerRO)
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Grupo no registrado",
+                    null,
+                    innerRO);
+        }
+
+        // Registro
+        public ResultadoOperacion registrarGrupo(
+            int idSemestre,
+            int semestre,
+            string letra,
+            string turno,
+            string especialidad,
+            semestres semestreObj,
+            carreras especialidadObj
+        ) {
+            // Verificamos que los datos introducidos
+            // sean válidos para la base de datos.
+            if (
+                !ValidadorDeTexto.esValido(letra) ||
+                !ValidadorDeTexto.esValido(turno) ||
+                !ValidadorDeTexto.esValido(especialidad)
+            ) {
+                // Devolvemos un error si es que no son válidos.
+                return new ResultadoOperacion(
+                    EstadoOperacion.ErrorDatosIncorrectos,
+                    "No utilice caracteres especiales o inválidos");
+            }
+            
+            ResultadoOperacion innerRO = null;
+
+            grupos g = new grupos
+            {
+                especialidad = especialidadObj.abreviatura,
+                idCarrera = especialidadObj.idCarrera,
+                idSemestre = semestreObj.idSemestre,
+                letra = letra,
+                semestre = semestre,
+                turno = turno[0].ToString().ToUpper()
+            };
+
+            int registrado = 0;
+
+            // Si hay algún error durante la ejecución de la operación
+            // se devolverá el respectivo resultado de operación.
+            try
+            {
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
+
+                db.grupos.Add(g);
+
+                registrado = db.SaveChanges();
+            }
+            catch (MySqlException e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+            }
+            catch (Exception e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
+            }
+
+            // Si no hubo problema, se devolverá el resultado correspondiente.
+            return
+                registrado > 0 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Grupo registrado")
                 :
                 new ResultadoOperacion(
                     EstadoOperacion.ErrorAplicacion,
@@ -395,6 +520,75 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     innerRO);
         }
 
+        public ResultadoOperacion modificarGrupo(
+            int idGrupo,
+            int idSemestre,
+            int semestre,
+            string letra,
+            string turno,
+            string especialidad,
+            semestres semestreObj,
+            carreras especialidadObj
+        )
+        {
+            // Verificamos que los datos introducidos
+            // sean válidos para la base de datos.
+            if (
+                !ValidadorDeTexto.esValido(letra) ||
+                !ValidadorDeTexto.esValido(turno) ||
+                !ValidadorDeTexto.esValido(especialidad)
+            )
+            {
+                // Devolvemos un error si es que no son válidos.
+                return new ResultadoOperacion(
+                    EstadoOperacion.ErrorDatosIncorrectos,
+                    "No utilice caracteres especiales o inválidos");
+            }
+
+            ResultadoOperacion innerRO = null;
+
+            int modificado = 0;
+
+            // Si hay algún error durante la ejecución de la operación
+            // se devolverá el respectivo resultado de operación.
+            try
+            {
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
+
+                grupos g = db.grupos.Single(g1 => g1.idGrupo == idGrupo);
+
+                g.especialidad = especialidadObj.abreviatura;
+                g.idCarrera = especialidadObj.idCarrera;
+                g.idSemestre = semestreObj.idSemestre;
+                g.letra = letra;
+                g.semestre = semestre;
+                g.turno = turno[0].ToString().ToUpper();
+
+                modificado = db.SaveChanges();
+            }
+            catch (MySqlException e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+            }
+            catch (Exception e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
+            }
+
+            // Si no hubo problema, se devolverá el resultado correspondiente.
+            return
+                modificado > 0 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Grupo modificado")
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Grupo no modificado",
+                    null,
+                    innerRO);
+        }
+
         public ResultadoOperacion modificarListaDeCatedras(List<Catedra> listaCatedras)
         {
             ResultadoOperacion innerRO = null;
@@ -440,7 +634,56 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     innerRO);
         }
 
+        public ResultadoOperacion modificarListaDeCatedras(List<catedras> listaCatedras)
+        {
+            ResultadoOperacion innerRO = null;
+            int modificadas = 0;
+
+            // Realizamos la operación, y si hay algún error, se mostrará al usuario.
+            try
+            {
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
+
+                foreach (catedras c in listaCatedras)
+                {
+                    catedras c1 = db.catedras.Single(c2 => c2.idCatedra == c.idCatedra);
+
+                    c1.idDocente = c.idDocente;
+                    c1.idGrupo = c.idGrupo;
+                    c1.idMateria = c.idMateria;
+                }
+
+                modificadas = db.SaveChanges();
+            }
+            catch (MySqlException e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionMySqlException(e);
+            }
+            catch (Exception e)
+            {
+                innerRO = ControladorExcepciones.crearResultadoOperacionException(e);
+            }
+
+            // Devolvemos los resultados.
+            return
+                modificadas > 0 ?
+                new ResultadoOperacion(
+                    EstadoOperacion.Correcto,
+                    "Catedras guardadas")
+                :
+                new ResultadoOperacion(
+                    EstadoOperacion.ErrorAplicacion,
+                    "Error al modificar una o todas las cátedras",
+                    "CatMod " + modificadas,
+                    innerRO);
+        }
+
         // Eliminación
+        public ResultadoOperacion eliminarGrupo(grupos g)
+        {
+            return eliminarGrupo(new Grupo { idGrupo = g.idGrupo });
+        }
+
         public ResultadoOperacion eliminarGrupo(Grupo g)
         {
             // Validamos que no tenga alumnos dependientes

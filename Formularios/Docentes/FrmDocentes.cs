@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using ResultadosOperacion;
 using System;
@@ -115,7 +116,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             cmdEliminarDocente.Location = p3;
         }
 
-        private void configurarDGVDocentes(List<Docente> lista)
+        private void configurarDGVDocentes(List<docentes> lista)
         {
             dgvDocentes.DataSource = lista;
 

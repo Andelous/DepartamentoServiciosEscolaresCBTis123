@@ -38,7 +38,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         {
             get
             {
-                string esp = especialidad;
+                /*string esp = especialidad;
 
                 switch (esp)
                 {
@@ -69,9 +69,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
                     default:
                         esp = "Desconocida";
                         break;
-                }
+                }*/
 
-                return esp;
+                return carreras.nombre;
             }
         }
 
@@ -79,6 +79,21 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public override string ToString()
         {
             return nombreCompleto;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (obj != null)
+            {
+                if (obj.GetType() == GetType())
+                {
+                    grupos g = (grupos)obj;
+
+                    return g.idGrupo == idGrupo;
+                }
+            }
+
+            return false;
         }
     }
 }

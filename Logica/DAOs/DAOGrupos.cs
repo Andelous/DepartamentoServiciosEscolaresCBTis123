@@ -15,7 +15,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         public Grupo seleccionarGrupo(int idGrupo)
         {
             string query = "SELECT *, C.nombre AS carrera_nombre FROM grupos G, semestres S, carreras C " +
-                "WHERE G.idGrupo = " + idGrupo + " AND G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
+                "WHERE G.idGrupo = " + idGrupo + " AND G.idSemestre = S.idSemestre AND G.idCarrera = C.idCarrera " +
                 "ORDER BY semestre, turno, especialidad, letra;";
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);
@@ -28,7 +28,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         public List<Grupo> seleccionarGrupos()
         {
             string query = "SELECT *, C.nombre AS carrera_nombre FROM grupos G, semestres S, carreras C " +
-                "WHERE G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
+                "WHERE G.idSemestre = S.idSemestre AND G.idCarrera = C.idCarrera " +
                 "ORDER BY semestre, turno, especialidad, letra;";
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);
@@ -40,7 +40,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
         {
             string query = "SELECT *, C.nombre AS carrera_nombre FROM grupos G, semestres S, carreras C " +
                 "WHERE G.idSemestre = " + s.idSemestre + " AND " +
-                "G.idSemestre = S.idSemestre AND G.especialidad = C.abreviatura AND C.acuerdo = '653' " +
+                "G.idSemestre = S.idSemestre AND G.idCarrera = C.idCarrera " +
                 "ORDER BY semestre, turno, especialidad, letra;";
 
             MySqlDataReader dr = dataSource.ejecutarConsulta(query);

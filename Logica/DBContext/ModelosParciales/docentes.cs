@@ -22,5 +22,20 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         {
             return nombrecompleto;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj != null)
+            {
+                if (obj.GetType() == GetType())
+                {
+                    docentes d = (docentes)obj;
+
+                    return d.idDocente == idDocente;
+                }
+            }
+
+            return false;
+        }
     }
 }

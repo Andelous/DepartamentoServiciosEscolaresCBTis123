@@ -13,5 +13,20 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         {
             return nombre + " " + abreviatura;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj != null)
+            {
+                if (obj.GetType() == GetType())
+                {
+                    materias m = (materias)obj;
+
+                    return m.idMateria == idMateria;
+                }
+            }
+
+            return false;
+        }
     }
 }

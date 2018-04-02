@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using MySql.Data.MySqlClient;
@@ -28,15 +29,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 
         // Métodos de manipulación del modelo
         // Selección
-        public List<Docente> seleccionarDocentes()
+        public List<docentes> seleccionarDocentes()
         {
-            List<Docente> listaDocentes = new List<Docente>();
+            List<docentes> listaDocentes = new List<docentes>();
 
             // Intentamos realizar la operación. Si hubo algún error,
             // el controlador visual mostrará el mensaje correspondiente.
             try
             {
-                listaDocentes = daoDocentes.seleccionarDocentes();
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
+                
+                listaDocentes = db.docentes.ToList();
             }
             catch (MySqlException e)
             {
@@ -51,15 +54,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaDocentes;
         }
 
-        public List<Docente> seleccionarDocentes(string s)
+        public List<docentes> seleccionarDocentes(string s)
         {
-            List<Docente> listaDocentes = new List<Docente>();
+            List<docentes> listaDocentes = new List<docentes>();
 
             // Intentamos realizar la operación. Si hubo algún error,
             // el controlador visual mostrará el mensaje correspondiente.
             try
             {
-                listaDocentes = daoDocentes.seleccionarDocentesPorCoincidencia(s);
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
+
+                listaDocentes = db.docentes.Where(d => d.nombrecompleto.Contains(s)).ToList();
             }
             catch (MySqlException e)
             {

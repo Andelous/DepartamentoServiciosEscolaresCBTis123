@@ -14,5 +14,20 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         {
             return apellido1.Trim() + " " + apellido2.Trim() + " " + nombres;
         }
+
+        public override bool Equals(object obj)
+        {
+            if (obj != null)
+            {
+                if (obj.GetType() == GetType())
+                {
+                    estudiantes e = (estudiantes)obj;
+
+                    return e.idEstudiante == idEstudiante;
+                }
+            }
+
+            return false;
+        }
     }
 }

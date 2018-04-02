@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using ResultadosOperacion;
 using System;
@@ -30,10 +31,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        private Grupo grupo { get; set; }
-        private Semestre semestreDefault { get; set; }
+        private grupos grupo { get; set; }
+        private semestres semestreDefault { get; set; }
 
-        private Semestre semestreSeleccionado
+        private semestres semestreSeleccionado
         {
             set
             {
@@ -41,10 +42,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
             get
             {
-                return (Semestre)comboSemestres.SelectedItem;
+                return (semestres)comboSemestres.SelectedItem;
             }
         }
-        private Carrera especialidadSeleccionada
+        private carreras especialidadSeleccionada
         {
             set
             {
@@ -52,7 +53,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
             get
             {
-                return (Carrera)comboEspecialidad.SelectedItem;
+                return (carreras)comboEspecialidad.SelectedItem;
             }
         }
         private int gradoSeleccionado
@@ -78,7 +79,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        public FrmModificarGrupo(Grupo grupo, Semestre semestreDefault)
+        public FrmModificarGrupo(grupos grupo, semestres semestreDefault)
         {
             InitializeComponent();
 
@@ -88,13 +89,13 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmModificarGrupo_Load(object sender, EventArgs e)
         {
-            comboSemestres.DataSource = controladorGrupos.seleccionarSemestres();
-            comboEspecialidad.DataSource = controladorGrupos.seleccionarCarreras();
+            comboSemestres.DataSource = ControladorSingleton.controladorSemestres.seleccionarSemestres();
+            comboEspecialidad.DataSource = controladorGrupos.seleccionarCarrerasADO();
 
-            semestreSeleccionado = grupo.semestreObj;
-            especialidadSeleccionada = grupo.especialidadObj;
+            semestreSeleccionado = grupo.semestres;
+            especialidadSeleccionada = grupo.carreras;
             gradoSeleccionado = grupo.semestre;
-            turnoSeleccionado = grupo.turno;
+            turnoSeleccionado = grupo.turnoCompleto;
 
             txtLetra.Text = grupo.letra;
         }
