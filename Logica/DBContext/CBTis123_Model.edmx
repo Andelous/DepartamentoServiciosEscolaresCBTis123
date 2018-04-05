@@ -49,6 +49,7 @@
           <Property Name="abreviatura" Type="varchar" MaxLength="8" Nullable="false" />
           <Property Name="acuerdo" Type="varchar" MaxLength="5" Nullable="false" />
           <Property Name="bachilleratociencias" Type="varchar" MaxLength="40" Nullable="false" />
+          <Property Name="estado" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="catedras">
           <Key>
@@ -736,6 +737,7 @@
           <Property Name="abreviatura" Type="String" MaxLength="8" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="acuerdo" Type="String" MaxLength="5" FixedLength="false" Unicode="false" Nullable="false" />
           <Property Name="bachilleratociencias" Type="String" MaxLength="40" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estado" Type="Int32" Nullable="false" />
           <NavigationProperty Name="grupos" Relationship="Self.fk_idCarrera" FromRole="carreras" ToRole="grupos" />
           <NavigationProperty Name="materias" Relationship="Self.materias_ibfk_3" FromRole="carreras" ToRole="materias" />
           <NavigationProperty Name="modulos" Relationship="Self.modulos_ibfk_1" FromRole="carreras" ToRole="modulos" />
@@ -1446,6 +1448,7 @@
                 <ScalarProperty Name="abreviatura" ColumnName="abreviatura" />
                 <ScalarProperty Name="acuerdo" ColumnName="acuerdo" />
                 <ScalarProperty Name="bachilleratociencias" ColumnName="bachilleratociencias" />
+                <ScalarProperty Name="estado" ColumnName="estado" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

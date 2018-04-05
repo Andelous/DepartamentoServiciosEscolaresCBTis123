@@ -64,7 +64,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             {
                 CBTis123_Entities db = Vinculo_DB.generarContexto();
 
-                listaDocentes = db.docentes.Where(d => d.nombrecompleto.Contains(s)).ToList();
+                listaDocentes =
+                    db.docentes.Where(
+                        d => d.nombres.Contains(s) ||
+                        d.apellidom.Contains(s) ||
+                        d.apellidop.Contains(s) ||
+                        (
+                            d.nombres.Trim() + " " +
+                            d.apellidop.Trim() + " " +
+                            d.apellidom.Trim()
+                        ).Contains(s) ||
+                        d.curp.Contains(s)).ToList();
             }
             catch (MySqlException e)
             {
@@ -459,6 +469,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         }
 
         // Eliminación
+        public ResultadoOperacion eliminarDocente(docentes d)
+        {
+            return eliminarDocente(new Docente() { idDocente = d.idDocente });
+        }
+
         public ResultadoOperacion eliminarDocente(Docente d)
         {
             ResultadoOperacion innerRO = null;

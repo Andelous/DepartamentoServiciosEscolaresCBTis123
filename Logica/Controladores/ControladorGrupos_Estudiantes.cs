@@ -107,5 +107,10 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     null,
                     innerRO);
         }
+
+        public static ResultadoOperacion actualizarGrupos_Estudiantes(List<estudiantes> listaEstudiantes, grupos g)
+        {
+            return actualizarGrupos_Estudiantes(ControladorSingleton.controladorEstudiantes.convertirLista(listaEstudiantes), new Grupo() { idGrupo = g.idGrupo } );
+        }
     }
 }

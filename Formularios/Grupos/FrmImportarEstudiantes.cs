@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using ResultadosOperacion;
 using System;
@@ -29,56 +30,56 @@ namespace DepartamentoServiciosEscolaresCBTis123
         // Lógicas
         private bool ultimoCambioBusqueda { get; set; }
 
-        private List<Estudiante> estudiantesSeleccionados
+        private List<estudiantes> estudiantesSeleccionados
         {
             get
             {
-                List<Estudiante> listaEstudiantes = new List<Estudiante>();
+                List<estudiantes> listaEstudiantes = new List<estudiantes>();
 
                 foreach (DataGridViewRow r in dgvEstudiantes.SelectedRows)
                 {
-                    listaEstudiantes.Add((Estudiante)r.DataBoundItem);
+                    listaEstudiantes.Add((estudiantes)r.DataBoundItem);
                 }
 
                 return listaEstudiantes;
             }
         }
-        private List<Estudiante> estudiantesActualesSeleccionados
+        private List<estudiantes> estudiantesActualesSeleccionados
         {
             get
             {
-                List<Estudiante> listaEstudiantes = new List<Estudiante>();
+                List<estudiantes> listaEstudiantes = new List<estudiantes>();
 
                 foreach (DataGridViewRow r in dgvEstudiantesActuales.SelectedRows)
                 {
-                    listaEstudiantes.Add((Estudiante)r.DataBoundItem);
+                    listaEstudiantes.Add((estudiantes)r.DataBoundItem);
                 }
 
                 return listaEstudiantes;
             }
         }
-        private Semestre semestreSeleccionado
+        private semestres semestreSeleccionado
         {
             get
             {
-                return (Semestre)comboSemestres.SelectedItem;
+                return (semestres)comboSemestres.SelectedItem;
             }
         }
-        private Grupo grupoSeleccionado
+        private grupos grupoSeleccionado
         {
             get
             {
-                return (Grupo)comboGrupos.SelectedItem;
+                return (grupos)comboGrupos.SelectedItem;
             }
         }
 
-        private Grupo grupo { get; set; }
+        private grupos grupo { get; set; }
 
-        private IList<Estudiante> listaEstudiantesActuales { get; set; }
+        private List<estudiantes> listaEstudiantesActuales { get; set; }
 
 
         // Métodos de inicialización
-        public FrmImportarEstudiantes(Grupo grupo)
+        public FrmImportarEstudiantes(grupos grupo)
         {
             InitializeComponent();
 
@@ -89,17 +90,17 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void FrmImportarEstudiantes_Load(object sender, EventArgs e)
         {
-            List<Semestre> listaSemestres = controladorEstudiantes.seleccionarSemestres();
+            List<semestres> listaSemestres = ControladorSingleton.controladorSemestres.seleccionarSemestres();
             comboSemestres.DataSource = listaSemestres;
 
-            comboSemestres.SelectedItem = grupo.semestreObj;
+            comboSemestres.SelectedItem = grupo.semestres;
 
             comboSemestres.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
             comboGrupos.MouseWheel += new MouseEventHandler(ControladorVisual.evitarScroll);
 
-            txtEspecialidad.Text = grupo.especialidadObj.ToString();
+            txtEspecialidad.Text = grupo.carreras.ToString();
             txtGrado.Text = grupo.semestre.ToString() + "° Semestre \"" + grupo.letra + "\"";
-            txtSemestre.Text = grupo.semestreObj.ToString();
+            txtSemestre.Text = grupo.semestres.ToString();
 
             listaEstudiantesActuales = controladorEstudiantes.seleccionarEstudiantesPorGrupo(grupo).OrderBy(est => est.ToString()).ToList();
             configurarDGVEstudiantesActuales(listaEstudiantesActuales);
@@ -116,8 +117,9 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
             else
             {
-                List<Grupo> listaGrupos =
-                    controladorEstudiantes.
+                List<grupos> listaGrupos =
+                    ControladorSingleton.
+                    controladorGrupos.
                     seleccionarGrupos(semestreSeleccionado);
 
                 if (listaGrupos.Count > 0)
@@ -169,7 +171,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                 {
                     configurarDGVEstudiantes(
                         controladorEstudiantes.
-                        seleccionarEstudiantesParametros(
+                        seleccionarEstudiantesParametrosADO(
                             txtBusqueda.Text,
                             chkNombreCompleto.Checked,
                             chkNombres.Checked,
@@ -178,7 +180,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
                             chkCurp.Checked,
                             chkNss.Checked,
                             chkNcontrol.Checked,
-                            grupoSeleccionado));
+                            new Grupo() { idGrupo = grupoSeleccionado.idGrupo }));
                 }
                 // Si lo último no fue una búsqueda,
                 // se actualiza a la lista de grupo.
@@ -236,7 +238,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdAgregarSeleccion_Click(object sender, EventArgs e)
         {
-            foreach (Estudiante est in estudiantesSeleccionados)
+            foreach (estudiantes est in estudiantesSeleccionados)
             {
                 if (listaEstudiantesActuales.FirstOrDefault(est1 => est1.idEstudiante == est.idEstudiante) == null)
                 {
@@ -250,8 +252,8 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdAgregarTodos_Click(object sender, EventArgs e)
         {
-            IList<Estudiante> estudiantesDataSource = (List<Estudiante>)dgvEstudiantes.DataSource;
-            foreach (Estudiante est in estudiantesDataSource)
+            IList<estudiantes> estudiantesDataSource = (List<estudiantes>)dgvEstudiantes.DataSource;
+            foreach (estudiantes est in estudiantesDataSource)
             {
                 if (listaEstudiantesActuales.FirstOrDefault(est1 => est1.idEstudiante == est.idEstudiante) == null)
                 {
@@ -265,9 +267,9 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdEliminarSeleccion_Click(object sender, EventArgs e)
         {
-            foreach (Estudiante est in estudiantesActualesSeleccionados)
+            foreach (estudiantes est in estudiantesActualesSeleccionados)
             {
-                Estudiante estAux = listaEstudiantesActuales.FirstOrDefault(est1 => est1.idEstudiante == est.idEstudiante);
+                estudiantes estAux = listaEstudiantesActuales.FirstOrDefault(est1 => est1.idEstudiante == est.idEstudiante);
                 listaEstudiantesActuales.Remove(estAux);
             }
 
@@ -276,16 +278,26 @@ namespace DepartamentoServiciosEscolaresCBTis123
         }
 
         // Métodos visuales
-        private void configurarDGVEstudiantes(IList<Estudiante> listaEstudiantes)
+        private void configurarDGVEstudiantes(IList<estudiantes> listaEstudiantes)
         {
             lblEstudiantes.Text = "Estudiantes - (" + listaEstudiantes.Count + " resultados)";
             dgvEstudiantes.DataSource = listaEstudiantes;
 
-            dgvEstudiantes.Columns["idEstudiante"].Visible = false;
+            foreach (DataGridViewColumn col in dgvEstudiantes.Columns)
+            {
+                col.Visible = false;
+            }
+
+            dgvEstudiantes.Columns["ncontrol"].Visible = true;
+            dgvEstudiantes.Columns["curp"].Visible = true;
+            dgvEstudiantes.Columns["nss"].Visible = true;
+            dgvEstudiantes.Columns["nombres"].Visible = true;
+            dgvEstudiantes.Columns["apellido1"].Visible = true;
+            dgvEstudiantes.Columns["apellido2"].Visible = true;
+
             dgvEstudiantes.Columns["ncontrol"].HeaderText = "No. de control";
             dgvEstudiantes.Columns["curp"].HeaderText = "CURP";
             dgvEstudiantes.Columns["nss"].HeaderText = "NSS";
-            dgvEstudiantes.Columns["nombrecompleto"].Visible = false;
             dgvEstudiantes.Columns["nombres"].HeaderText = "Nombre(s)";
             dgvEstudiantes.Columns["apellido1"].HeaderText = "Apellido p.";
             dgvEstudiantes.Columns["apellido2"].HeaderText = "Apellido m.";
@@ -302,15 +314,25 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        private void configurarDGVEstudiantesActuales(IList<Estudiante> listaEstudiantes)
+        private void configurarDGVEstudiantesActuales(IList<estudiantes> listaEstudiantes)
         {
             dgvEstudiantesActuales.DataSource = listaEstudiantes;
 
-            dgvEstudiantesActuales.Columns["idEstudiante"].Visible = false;
+            foreach (DataGridViewColumn col in dgvEstudiantesActuales.Columns)
+            {
+                col.Visible = false;
+            }
+
+            dgvEstudiantesActuales.Columns["ncontrol"].Visible = true;
+            dgvEstudiantesActuales.Columns["curp"].Visible = true;
+            dgvEstudiantesActuales.Columns["nss"].Visible = true;
+            dgvEstudiantesActuales.Columns["nombres"].Visible = true;
+            dgvEstudiantesActuales.Columns["apellido1"].Visible = true;
+            dgvEstudiantesActuales.Columns["apellido2"].Visible = true;
+
             dgvEstudiantesActuales.Columns["ncontrol"].HeaderText = "No. de control";
             dgvEstudiantesActuales.Columns["curp"].HeaderText = "CURP";
             dgvEstudiantesActuales.Columns["nss"].HeaderText = "NSS";
-            dgvEstudiantesActuales.Columns["nombrecompleto"].Visible = false;
             dgvEstudiantesActuales.Columns["nombres"].HeaderText = "Nombre(s)";
             dgvEstudiantesActuales.Columns["apellido1"].HeaderText = "Apellido p.";
             dgvEstudiantesActuales.Columns["apellido2"].HeaderText = "Apellido m.";

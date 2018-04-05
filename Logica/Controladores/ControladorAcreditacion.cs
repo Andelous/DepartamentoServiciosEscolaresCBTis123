@@ -50,7 +50,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     g.idSemestre == periodo.idSemestre &&
                     g.turno == turno &&
                     g.semestre == semestre &&
-                    g.especialidad == carrera.abreviatura
+                    g.idCarrera == carrera.idCarrera
                 ).ToList();
             }
             catch (Exception e)

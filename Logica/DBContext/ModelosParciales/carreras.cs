@@ -11,7 +11,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         // Métodos míos
         public override string ToString()
         {
-            return nombre + " (" + abreviatura + ", " + acuerdo + ")";
+            return acuerdo + " - " + nombre + " (" + abreviatura + ")";
         }
 
         public override bool Equals(object obj)

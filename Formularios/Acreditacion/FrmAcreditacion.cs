@@ -131,7 +131,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Formularios.Acreditacion
 
         private void FrmAcreditacion_Load(object sender, EventArgs e)
         {
-            comboCarrera.DataSource = ControladorSingleton.dbContext.carreras.Where(c => c.acuerdo == "653").ToList();
+            comboCarrera.DataSource = ControladorSingleton.dbContext.carreras.Where(c => (c.estado == 1 || c.estado == 0) && c.abreviatura != "BGRAL" && c.abreviatura != "Todas").ToList();
             comboPeriodo.DataSource = ControladorSingleton.dbContext.semestres.ToList().OrderByDescending(s => s.idSemestre).ToList();
         }
 

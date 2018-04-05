@@ -47,7 +47,7 @@
             // 
             this.cmdCancelar.Location = new System.Drawing.Point(12, 353);
             this.cmdCancelar.Name = "cmdCancelar";
-            this.cmdCancelar.Size = new System.Drawing.Size(282, 35);
+            this.cmdCancelar.Size = new System.Drawing.Size(438, 35);
             this.cmdCancelar.TabIndex = 38;
             this.cmdCancelar.Text = "Cancelar";
             this.cmdCancelar.UseVisualStyleBackColor = true;
@@ -57,7 +57,7 @@
             // 
             this.cmdModificar.Location = new System.Drawing.Point(12, 312);
             this.cmdModificar.Name = "cmdModificar";
-            this.cmdModificar.Size = new System.Drawing.Size(282, 35);
+            this.cmdModificar.Size = new System.Drawing.Size(438, 35);
             this.cmdModificar.TabIndex = 37;
             this.cmdModificar.Text = "Modificar";
             this.cmdModificar.UseVisualStyleBackColor = true;
@@ -79,7 +79,7 @@
             "SMEC"});
             this.comboEspecialidad.Location = new System.Drawing.Point(12, 255);
             this.comboEspecialidad.Name = "comboEspecialidad";
-            this.comboEspecialidad.Size = new System.Drawing.Size(282, 30);
+            this.comboEspecialidad.Size = new System.Drawing.Size(438, 30);
             this.comboEspecialidad.TabIndex = 36;
             // 
             // label6
@@ -100,7 +100,7 @@
             "Vespertino"});
             this.comboTurno.Location = new System.Drawing.Point(12, 197);
             this.comboTurno.Name = "comboTurno";
-            this.comboTurno.Size = new System.Drawing.Size(282, 30);
+            this.comboTurno.Size = new System.Drawing.Size(438, 30);
             this.comboTurno.TabIndex = 34;
             // 
             // label5
@@ -114,7 +114,7 @@
             // 
             // txtLetra
             // 
-            this.txtLetra.Location = new System.Drawing.Point(219, 139);
+            this.txtLetra.Location = new System.Drawing.Point(375, 140);
             this.txtLetra.MaxLength = 1;
             this.txtLetra.Name = "txtLetra";
             this.txtLetra.Size = new System.Drawing.Size(75, 29);
@@ -124,7 +124,7 @@
             // label4
             // 
             this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(215, 114);
+            this.label4.Location = new System.Drawing.Point(371, 115);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(49, 22);
             this.label4.TabIndex = 31;
@@ -143,7 +143,7 @@
             "6 - Sexto semestre"});
             this.comboGrado.Location = new System.Drawing.Point(12, 139);
             this.comboGrado.Name = "comboGrado";
-            this.comboGrado.Size = new System.Drawing.Size(201, 30);
+            this.comboGrado.Size = new System.Drawing.Size(357, 30);
             this.comboGrado.TabIndex = 30;
             // 
             // label3
@@ -179,7 +179,7 @@
             this.comboSemestres.FormattingEnabled = true;
             this.comboSemestres.Location = new System.Drawing.Point(12, 71);
             this.comboSemestres.Name = "comboSemestres";
-            this.comboSemestres.Size = new System.Drawing.Size(282, 30);
+            this.comboSemestres.Size = new System.Drawing.Size(438, 30);
             this.comboSemestres.TabIndex = 26;
             // 
             // FrmModificarGrupo
@@ -187,7 +187,7 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(306, 400);
+            this.ClientSize = new System.Drawing.Size(462, 400);
             this.Controls.Add(this.cmdCancelar);
             this.Controls.Add(this.cmdModificar);
             this.Controls.Add(this.comboEspecialidad);

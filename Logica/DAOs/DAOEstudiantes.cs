@@ -267,7 +267,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             string nombres,
             string apellido1,
             string apellido2,
-            string nss
+            string nss,
+            bool verificado
         ) {
             Estudiante e = new Estudiante();
 
@@ -279,6 +280,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
             e.nombreCompleto = nombrecompleto;
             e.nombres = nombres;
             e.nss = nss;
+            e.verificado = verificado;
 
             return e;
         }
@@ -297,7 +299,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DAOs
                     dr["nombres"].ToString(),
                     dr["apellido1"].ToString(),
                     dr["apellido2"].ToString(),
-                    dr["nss"].ToString()
+                    dr["nss"].ToString(),
+                    dr.GetBoolean("verificado")
                 );
 
                 listaEstudiantes.Add(e);

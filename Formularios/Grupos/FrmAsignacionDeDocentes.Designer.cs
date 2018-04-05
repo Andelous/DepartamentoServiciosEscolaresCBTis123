@@ -97,7 +97,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label1.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label1.Location = new System.Drawing.Point(110, 98);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(77, 22);
@@ -107,7 +107,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label2.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label2.Location = new System.Drawing.Point(15, 11);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(183, 22);
@@ -177,7 +177,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             // label3
             // 
             this.label3.AutoSize = true;
-            this.label3.Font = new System.Drawing.Font("Open Sans Semibold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Font = new System.Drawing.Font("Open Sans SemiBold", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.label3.Location = new System.Drawing.Point(409, 98);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(74, 22);
@@ -193,7 +193,6 @@ namespace DepartamentoServiciosEscolaresCBTis123
             this.comboDocentes.Size = new System.Drawing.Size(286, 26);
             this.comboDocentes.TabIndex = 6;
             this.comboDocentes.SelectedIndexChanged += new System.EventHandler(this.comboDocentes_SelectedIndexChanged);
-            this.comboDocentes.MouseWheel += new System.Windows.Forms.MouseEventHandler(ControladorVisual.evitarScroll);
             // 
             // label4
             // 
@@ -206,7 +205,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             // 
             // cmdGuardar
             // 
-            this.cmdGuardar.Font = new System.Drawing.Font("Open Sans Semibold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdGuardar.Font = new System.Drawing.Font("Open Sans SemiBold", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.cmdGuardar.Location = new System.Drawing.Point(76, 130);
             this.cmdGuardar.Name = "cmdGuardar";
             this.cmdGuardar.Size = new System.Drawing.Size(446, 30);
@@ -249,6 +248,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
             this.Font = new System.Drawing.Font("Open Sans", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.MaximizeBox = false;
             this.Name = "FrmAsignacionDeDocentes";
             this.StartPosition = System.Windows.Forms.FormStartPosition.Manual;
             this.Text = "Asignación de docentes - Control Escolar CBTis 123";

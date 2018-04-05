@@ -1,5 +1,6 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.Controladores;
 using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using ResultadosOperacion;
 using System;
@@ -32,10 +33,10 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        private Docente d;
+        private docentes d;
 
         // Métodos de inicialización
-        public FrmModificarDocente(Docente d)
+        public FrmModificarDocente(docentes d)
         {
             InitializeComponent();
 

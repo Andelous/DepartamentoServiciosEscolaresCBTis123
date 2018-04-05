@@ -170,7 +170,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaCarreras;
         }
 
-        public List<carreras> seleccionarCarrerasADO()
+        public List<carreras> seleccionarCarrerasADO(int estado = 0)
         {
             // Creamos lista vacía en caso de Excepcion
             List<carreras> listaCarreras = new List<carreras>();
@@ -181,7 +181,11 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             {
                 CBTis123_Entities db = Vinculo_DB.generarContexto();
 
-                listaCarreras = db.carreras.Where(c => c.acuerdo == "2013").ToList();
+                listaCarreras = 
+                    db.carreras.Where(
+                        c => c.estado == estado &&
+                        c.abreviatura != "BGRAL" &&
+                        c.abreviatura != "Todas").ToList();
             }
             catch (MySqlException e)
             {

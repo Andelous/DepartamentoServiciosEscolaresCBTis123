@@ -113,7 +113,7 @@ namespace DepartamentoServiciosEscolaresCBTis123
 
         private void cmdImportarEstudiantes_Click(object sender, EventArgs e)
         {
-            //new FrmImportarEstudiantes(grupoSeleccionado).ShowDialog();
+            new FrmImportarEstudiantes(grupoSeleccionado).ShowDialog();
         }
 
         // Métodos para controlar algo visual

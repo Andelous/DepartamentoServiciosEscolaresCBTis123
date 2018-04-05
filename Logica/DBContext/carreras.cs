@@ -27,6 +27,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.DBContext
         public string abreviatura { get; set; }
         public string acuerdo { get; set; }
         public string bachilleratociencias { get; set; }
+        public int estado { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<grupos> grupos { get; set; }

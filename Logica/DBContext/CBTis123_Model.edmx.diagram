@@ -4,7 +4,7 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="f256d30c4cf6463aa35d67a50c2e95cc" Name="Diagram1">
+      <Diagram DiagramId="58ab50bcd73f4a3980152a29fb24785f" Name="Diagram1">
         <EntityTypeShape EntityType="CBTis123_Model_Namespace.academias" Width="1.5" PointX="0.75" PointY="4" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Model_Namespace.areascampos" Width="1.5" PointX="3" PointY="15.625" IsExpanded="true" />
         <EntityTypeShape EntityType="CBTis123_Model_Namespace.calificaciones_semestrales" Width="1.5" PointX="9.75" PointY="12.625" IsExpanded="true" />

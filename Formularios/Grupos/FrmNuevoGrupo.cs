@@ -78,6 +78,14 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
+        private Button[] cmdCarreras
+        {
+            get
+            {
+                return new Button[] { cmdActivas, cmdEnLiquidacion, cmdLiquidadas };
+            }
+        }
+
         public FrmNuevoGrupo(semestres semestreDefault)
         {
             InitializeComponent();
@@ -122,6 +130,41 @@ namespace DepartamentoServiciosEscolaresCBTis123
         private void cmdCancelar_Click(object sender, EventArgs e)
         {
             Close();
+        }
+
+        private void carrerasCambiadas (object sender, EventArgs e)
+        {
+            Button cmd = (Button)sender;
+            List<carreras> lista = new List<carreras>();
+
+            switch (cmd.Name)
+            {
+                case "cmdActivas":
+                    lista = controladorGrupos.seleccionarCarrerasADO(0);
+                    cmdRegistrar.Enabled = true;
+                    break;
+                case "cmdEnLiquidacion":
+                    lista = controladorGrupos.seleccionarCarrerasADO(1);
+                    cmdRegistrar.Enabled = true;
+                    break;
+                case "cmdLiquidadas":
+                    lista = controladorGrupos.seleccionarCarrerasADO(2);
+                    cmdRegistrar.Enabled = false;
+                    break;
+                default:
+                    break;
+            }
+
+            foreach (Button cmdC in cmdCarreras)
+            {
+                cmdC.Font = new Font(cmdC.Font, FontStyle.Regular);
+                cmdC.ForeColor = Color.Black;
+            }
+
+            cmd.Font = new Font(cmd.Font, FontStyle.Bold);
+            cmd.ForeColor = Color.DarkBlue;
+
+            comboEspecialidad.DataSource = lista;
         }
     }
 }

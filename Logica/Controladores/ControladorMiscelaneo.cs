@@ -229,12 +229,17 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                 Workbook wb = xls.Workbooks.Add(XlWBATemplate.xlWBATWorksheet);
                 Worksheet ws = (Worksheet)wb.Worksheets[1];
 
-                for (int i = 0; i < listaDatos.Length; i++)
+                if (listaDatos != null)
                 {
-                    for (int j = 0; j < listaDatos[i].Length; j++)
+                    for (int i = 0; i < listaDatos.Length; i++)
                     {
-
-                        ws.Cells[i + 1, j + 1] = listaDatos[i][j];
+                        if (listaDatos[i] != null)
+                        {
+                            for (int j = 0; j < listaDatos[i].Length; j++)
+                            {
+                                ws.Cells[i + 1, j + 1] = listaDatos[i][j];
+                            }
+                        }
                     }
                 }
             }

@@ -17,6 +17,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
         public string apellido1 { get; set; }
         public string apellido2 { get; set; }
         public string nss { get; set; }
+        public bool verificado { get; set; }
 
         public override string ToString()
         {

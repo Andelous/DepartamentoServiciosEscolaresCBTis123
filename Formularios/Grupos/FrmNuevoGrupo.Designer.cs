@@ -41,6 +41,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.cmdCancelar = new System.Windows.Forms.Button();
             this.cmdRegistrar = new System.Windows.Forms.Button();
+            this.cmdActivas = new System.Windows.Forms.Button();
+            this.cmdEnLiquidacion = new System.Windows.Forms.Button();
+            this.cmdLiquidadas = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // comboSemestres
@@ -181,15 +184,49 @@
             this.cmdRegistrar.UseVisualStyleBackColor = true;
             this.cmdRegistrar.Click += new System.EventHandler(this.cmdRegistrar_Click);
             // 
+            // cmdActivas
+            // 
+            this.cmdActivas.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdActivas.ForeColor = System.Drawing.Color.DarkBlue;
+            this.cmdActivas.Location = new System.Drawing.Point(125, 233);
+            this.cmdActivas.Name = "cmdActivas";
+            this.cmdActivas.Size = new System.Drawing.Size(110, 23);
+            this.cmdActivas.TabIndex = 26;
+            this.cmdActivas.Text = "Activas";
+            this.cmdActivas.UseVisualStyleBackColor = true;
+            this.cmdActivas.Click += new System.EventHandler(this.carrerasCambiadas);
+            // 
+            // cmdEnLiquidacion
+            // 
+            this.cmdEnLiquidacion.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdEnLiquidacion.Location = new System.Drawing.Point(233, 233);
+            this.cmdEnLiquidacion.Name = "cmdEnLiquidacion";
+            this.cmdEnLiquidacion.Size = new System.Drawing.Size(110, 23);
+            this.cmdEnLiquidacion.TabIndex = 27;
+            this.cmdEnLiquidacion.Text = "En liquidación";
+            this.cmdEnLiquidacion.UseVisualStyleBackColor = true;
+            this.cmdEnLiquidacion.Click += new System.EventHandler(this.carrerasCambiadas);
+            // 
+            // cmdLiquidadas
+            // 
+            this.cmdLiquidadas.Font = new System.Drawing.Font("Open Sans", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdLiquidadas.Location = new System.Drawing.Point(341, 233);
+            this.cmdLiquidadas.Name = "cmdLiquidadas";
+            this.cmdLiquidadas.Size = new System.Drawing.Size(110, 23);
+            this.cmdLiquidadas.TabIndex = 28;
+            this.cmdLiquidadas.Text = "Liquidadas";
+            this.cmdLiquidadas.UseVisualStyleBackColor = true;
+            this.cmdLiquidadas.Click += new System.EventHandler(this.carrerasCambiadas);
+            // 
             // FrmNuevoGrupo
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 22F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(462, 400);
+            this.Controls.Add(this.comboEspecialidad);
             this.Controls.Add(this.cmdCancelar);
             this.Controls.Add(this.cmdRegistrar);
-            this.Controls.Add(this.comboEspecialidad);
             this.Controls.Add(this.label6);
             this.Controls.Add(this.comboTurno);
             this.Controls.Add(this.label5);
@@ -200,6 +237,9 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.comboSemestres);
+            this.Controls.Add(this.cmdActivas);
+            this.Controls.Add(this.cmdEnLiquidacion);
+            this.Controls.Add(this.cmdLiquidadas);
             this.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -229,5 +269,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Button cmdCancelar;
         private System.Windows.Forms.Button cmdRegistrar;
+        private System.Windows.Forms.Button cmdActivas;
+        private System.Windows.Forms.Button cmdEnLiquidacion;
+        private System.Windows.Forms.Button cmdLiquidadas;
     }
 }

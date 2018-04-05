@@ -60,7 +60,8 @@ namespace DepartamentoServiciosEscolaresCBTis123
                     txtApellidoMaterno.Text,
                     txtCurp.Text,
                     txtNumeroDeControl.Text,
-                    estudiante.nss);
+                    estudiante.nss,
+                    estudiante.verificado);
 
             ControladorVisual.mostrarMensaje(resultadoOperacion);
 

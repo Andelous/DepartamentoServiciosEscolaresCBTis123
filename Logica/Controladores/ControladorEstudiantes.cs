@@ -1,4 +1,5 @@
 ﻿using DepartamentoServiciosEscolaresCBTis123.Logica.DAOs;
+using DepartamentoServiciosEscolaresCBTis123.Logica.DBContext;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Modelos;
 using DepartamentoServiciosEscolaresCBTis123.Logica.Utilerias;
 using MySql.Data.MySqlClient;
@@ -53,6 +54,24 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return controladorGrupos.seleccionarGrupos(s);
         }
 
+        public List<estudiantes> seleccionarEstudiantesADO()
+        {
+            List<estudiantes> listaEstudiantes = new List<estudiantes>();
+
+            try
+            {
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
+
+                listaEstudiantes = db.estudiantes.ToList();
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
+            return listaEstudiantes;
+        }
+
         public List<Estudiante> seleccionarEstudiantes()
         {
             List<Estudiante> listaEstudiantes = new List<Estudiante>();
@@ -70,6 +89,38 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             {
                 ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
             }
+
+            return listaEstudiantes;
+        }
+
+        public List<estudiantes> seleccionarEstudiantesPorGrupo(grupos g)
+        {
+            if (g == null) return seleccionarEstudiantesADO();
+
+            List<estudiantes> listaEstudiantes = new List<estudiantes>();
+
+            // Si algo sale mal, se lo notificaremos al usuario.
+            try
+            {
+                CBTis123_Entities db = Vinculo_DB.generarContexto();
+                g = db.grupos.Single(g1 => g1.idGrupo == g.idGrupo);
+
+                List<grupos_estudiantes> listaGE = g.grupos_estudiantes.ToList();
+
+                foreach (grupos_estudiantes ge in listaGE)
+                {
+                    listaEstudiantes.Add(ge.estudiantes);
+                }
+            }
+            catch (MySqlException e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionMySqlException(e));
+            }
+            catch (Exception e)
+            {
+                ControladorVisual.mostrarMensaje(ControladorExcepciones.crearResultadoOperacionException(e));
+            }
+
 
             return listaEstudiantes;
         }
@@ -153,6 +204,33 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             return listaEstudiantes;
         }
 
+        public List<estudiantes> seleccionarEstudiantesParametrosADO(
+            string coincidencia,
+            bool nombrecompleto,
+            bool nombres,
+            bool apellidoPaterno,
+            bool apellidoMaterno,
+            bool curp,
+            bool nss,
+            bool numeroDeControl,
+            Grupo g
+        ) {
+            List<Estudiante> listaEstudiantesOriginal = seleccionarEstudiantesParametros(
+                coincidencia,
+                nombrecompleto,
+                nombres,
+                apellidoPaterno,
+                apellidoMaterno,
+                curp,
+                nss,
+                numeroDeControl,
+                g
+            );
+            List<estudiantes> listaEstudiantesADO = convertirLista(listaEstudiantesOriginal);
+
+            return listaEstudiantesADO;
+        }
+
         // Inserción
         public ResultadoOperacion registrarEstudiante(
             string nombres,
@@ -192,7 +270,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     nombres.Trim(),
                     apellidoPaterno.Trim(),
                     apellidoMaterno.Trim(),
-                    nss
+                    nss,
+                    false
                 );
 
             int registrado = 0;
@@ -242,7 +321,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
             string apellidoMaterno,
             string curp,
             string numeroDeControl,
-            string nss
+            string nss,
+            bool verificado
         ) {
             // Verificamos que los datos introducidos
             // sean válidos para la base de datos.
@@ -274,7 +354,8 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     nombres.Trim(),
                     apellidoPaterno.Trim(),
                     apellidoMaterno.Trim(),
-                    nss
+                    nss,
+                    verificado
                 );
 
             int modificado = 0;
@@ -368,6 +449,56 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
         }
 
         // Misceláneos
+
+        public List<estudiantes> convertirLista(List<Estudiante> listaOriginal)
+        {
+            List<estudiantes> listaNueva = new List<estudiantes>();
+
+            foreach (Estudiante estudiante in listaOriginal)
+            {
+                listaNueva.Add(
+                    new estudiantes()
+                    {
+                        apellido1 = estudiante.apellido1,
+                        apellido2 = estudiante.apellido2,
+                        curp = estudiante.curp,
+                        idEstudiante = estudiante.idEstudiante,
+                        ncontrol = estudiante.ncontrol,
+                        nombrecompleto = estudiante.nombreCompleto,
+                        nombres = estudiante.nombres,
+                        nss = estudiante.nss,
+                        verificado = estudiante.verificado
+                    }
+                );
+            }
+
+            return listaNueva;
+        }
+
+        public List<Estudiante> convertirLista(List<estudiantes> listaOriginal)
+        {
+            List<Estudiante> listaNueva = new List<Estudiante>();
+
+            foreach (estudiantes estudiante in listaOriginal)
+            {
+                listaNueva.Add(
+                    new Estudiante()
+                    {
+                        apellido1 = estudiante.apellido1,
+                        apellido2 = estudiante.apellido2,
+                        curp = estudiante.curp,
+                        idEstudiante = estudiante.idEstudiante,
+                        ncontrol = estudiante.ncontrol,
+                        nombres = estudiante.nombres,
+                        nss = estudiante.nss,
+                        verificado = estudiante.verificado,
+                        nombreCompleto = estudiante.nombrecompleto
+                    }
+                );
+            }
+
+            return listaNueva;
+        }
     }
 }
  

@@ -17,7 +17,7 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Modelos
 
         public override string ToString()
         {
-            return nombre + " (" + abreviatura + ")";
+            return acuerdo + " - " + nombre + " (" + abreviatura + ")";
         }
 
         public override bool Equals(object obj)

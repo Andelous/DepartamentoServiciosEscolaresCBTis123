@@ -26,11 +26,11 @@ namespace DepartamentoServiciosEscolaresCBTis123
             }
         }
 
-        private Docente docenteSeleccionado
+        private docentes docenteSeleccionado
         {
             get
             {
-                return (Docente)dgvDocentes.SelectedRows[0].DataBoundItem;
+                return (docentes)dgvDocentes.SelectedRows[0].DataBoundItem;
             }
         }
 
