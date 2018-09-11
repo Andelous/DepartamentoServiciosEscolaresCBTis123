@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmPrincipal));
             this.label1 = new System.Windows.Forms.Label();
             this.lblNombre = new System.Windows.Forms.Label();
             this.cmdCerrarSesion = new System.Windows.Forms.Button();
@@ -36,13 +37,20 @@
             this.cmdEstudiantes = new System.Windows.Forms.Button();
             this.cmdDocentes = new System.Windows.Forms.Button();
             this.cmdAcreditacion = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
             // 
             // label1
             // 
             this.label1.AutoSize = true;
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.label1.Location = new System.Drawing.Point(12, 9);
+            this.label1.Location = new System.Drawing.Point(12, 100);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(91, 20);
             this.label1.TabIndex = 0;
@@ -51,7 +59,8 @@
             // lblNombre
             // 
             this.lblNombre.AutoSize = true;
-            this.lblNombre.Location = new System.Drawing.Point(108, 9);
+            this.lblNombre.ForeColor = System.Drawing.SystemColors.HotTrack;
+            this.lblNombre.Location = new System.Drawing.Point(109, 100);
             this.lblNombre.Name = "lblNombre";
             this.lblNombre.Size = new System.Drawing.Size(65, 20);
             this.lblNombre.TabIndex = 1;
@@ -59,9 +68,11 @@
             // 
             // cmdCerrarSesion
             // 
-            this.cmdCerrarSesion.Location = new System.Drawing.Point(490, 12);
+            this.cmdCerrarSesion.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdCerrarSesion.ForeColor = System.Drawing.Color.DarkRed;
+            this.cmdCerrarSesion.Location = new System.Drawing.Point(12, 401);
             this.cmdCerrarSesion.Name = "cmdCerrarSesion";
-            this.cmdCerrarSesion.Size = new System.Drawing.Size(167, 32);
+            this.cmdCerrarSesion.Size = new System.Drawing.Size(244, 32);
             this.cmdCerrarSesion.TabIndex = 2;
             this.cmdCerrarSesion.Text = "Cerrar sesión";
             this.cmdCerrarSesion.UseVisualStyleBackColor = true;
@@ -69,7 +80,7 @@
             // 
             // cmdSemestres
             // 
-            this.cmdSemestres.Location = new System.Drawing.Point(103, 115);
+            this.cmdSemestres.Location = new System.Drawing.Point(12, 139);
             this.cmdSemestres.Name = "cmdSemestres";
             this.cmdSemestres.Size = new System.Drawing.Size(119, 35);
             this.cmdSemestres.TabIndex = 3;
@@ -79,7 +90,7 @@
             // 
             // cmdGrupos
             // 
-            this.cmdGrupos.Location = new System.Drawing.Point(228, 115);
+            this.cmdGrupos.Location = new System.Drawing.Point(12, 180);
             this.cmdGrupos.Name = "cmdGrupos";
             this.cmdGrupos.Size = new System.Drawing.Size(119, 35);
             this.cmdGrupos.TabIndex = 4;
@@ -89,7 +100,7 @@
             // 
             // cmdEstudiantes
             // 
-            this.cmdEstudiantes.Location = new System.Drawing.Point(353, 115);
+            this.cmdEstudiantes.Location = new System.Drawing.Point(137, 180);
             this.cmdEstudiantes.Name = "cmdEstudiantes";
             this.cmdEstudiantes.Size = new System.Drawing.Size(119, 35);
             this.cmdEstudiantes.TabIndex = 5;
@@ -99,7 +110,7 @@
             // 
             // cmdDocentes
             // 
-            this.cmdDocentes.Location = new System.Drawing.Point(103, 156);
+            this.cmdDocentes.Location = new System.Drawing.Point(137, 139);
             this.cmdDocentes.Name = "cmdDocentes";
             this.cmdDocentes.Size = new System.Drawing.Size(119, 35);
             this.cmdDocentes.TabIndex = 6;
@@ -109,20 +120,63 @@
             // 
             // cmdAcreditacion
             // 
-            this.cmdAcreditacion.Location = new System.Drawing.Point(228, 156);
+            this.cmdAcreditacion.Location = new System.Drawing.Point(12, 231);
             this.cmdAcreditacion.Name = "cmdAcreditacion";
-            this.cmdAcreditacion.Size = new System.Drawing.Size(119, 35);
+            this.cmdAcreditacion.Size = new System.Drawing.Size(244, 35);
             this.cmdAcreditacion.TabIndex = 8;
             this.cmdAcreditacion.Text = "Acreditación";
             this.cmdAcreditacion.UseVisualStyleBackColor = true;
             this.cmdAcreditacion.Click += new System.EventHandler(this.cmdAcreditacion_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(239, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(492, 72);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox1.TabIndex = 9;
+            this.pictureBox1.TabStop = false;
+            // 
+            // pictureBox2
+            // 
+            this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
+            this.pictureBox2.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(228, 72);
+            this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
+            this.pictureBox2.TabIndex = 10;
+            this.pictureBox2.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Open Sans SemiBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(419, 388);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(174, 33);
+            this.label3.TabIndex = 23;
+            this.label3.Text = "CBTis No. 123";
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox3.Image")));
+            this.pictureBox3.Location = new System.Drawing.Point(402, 123);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(205, 236);
+            this.pictureBox3.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox3.TabIndex = 22;
+            this.pictureBox3.TabStop = false;
             // 
             // FrmPrincipal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(9F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
-            this.ClientSize = new System.Drawing.Size(669, 366);
+            this.ClientSize = new System.Drawing.Size(744, 445);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.pictureBox3);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cmdAcreditacion);
             this.Controls.Add(this.cmdDocentes);
             this.Controls.Add(this.cmdEstudiantes);
@@ -131,6 +185,7 @@
             this.Controls.Add(this.cmdCerrarSesion);
             this.Controls.Add(this.lblNombre);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.pictureBox2);
             this.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(4);
@@ -141,6 +196,9 @@
             this.Text = "Menú principal - Control Escolar CBTis 123";
             this.FormClosed += new System.Windows.Forms.FormClosedEventHandler(this.FrmPrincipal_FormClosed);
             this.Load += new System.EventHandler(this.FrmPrincipal_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -156,5 +214,9 @@
         private System.Windows.Forms.Button cmdEstudiantes;
         private System.Windows.Forms.Button cmdDocentes;
         private System.Windows.Forms.Button cmdAcreditacion;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }

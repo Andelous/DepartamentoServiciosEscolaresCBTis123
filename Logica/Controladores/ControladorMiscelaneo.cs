@@ -6,8 +6,11 @@ using Microsoft.Office.Interop.Excel;
 using ResultadosOperacion;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -15,6 +18,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
 {
     public static class ControladorMiscelaneo
     {
+        [DllImport("user32.dll")]
+        static extern int GetWindowThreadProcessId(int hWnd, out int lpdwProcessId);
+
         static ControladorMiscelaneo()
         {
             // Versión de la aplicación...
@@ -80,6 +86,9 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                     // contendrá tantos datos como celdas haya habido
                     tablaDeCadenas[i] = new string[celdas.Count];
 
+                    // BKP tabla con 14 columnas
+                    // tablaDeCadenas[i] = new string[celdas.Count - 1];
+
                     for (int j = 0; j < celdas.Count; j++)
                     {
                         // Decisión de en qué parte de los TD estamos.
@@ -121,6 +130,53 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                                 tablaDeCadenas[i][j] = celdas[j].InnerHtml;
                                 break;
                         }
+
+                        /* BKP tabla con 14 columnas...
+                        // Decisión de en qué parte de los TD estamos.
+                        switch (j)
+                        {
+                            // Texto plano
+                            case 0:
+                            case 1:
+                            case 2:
+                                tablaDeCadenas[i][j] = celdas[j].InnerHtml;
+                                break;
+
+                            // Inputs tipo texto <input type="text">
+                            case 3:
+                            case 4:
+                            case 5:
+                            case 6:
+                            case 7:
+                            case 8:
+                            case 9:
+                                HtmlNode input = celdas[j].SelectSingleNode("./input");
+                                tablaDeCadenas[i][j] = input.GetAttributeValue("value", null);
+                                break;
+                            case 11:
+                                HtmlNode input1 = celdas[j].SelectSingleNode("./input");
+                                tablaDeCadenas[i][j - 1] = input1.GetAttributeValue("value", null);
+                                break;
+
+                            // <select> y <option>
+                            case 12:
+                                HtmlNode option = celdas[j].SelectSingleNode(".//option[@selected]");
+                                tablaDeCadenas[i][j - 1] = option.GetAttributeValue("value", null);
+                                break;
+
+                            // <input type="checkbox">
+                            case 13:
+                                HtmlNode checkbox = celdas[j].SelectSingleNode("./input[@checked]");
+                                tablaDeCadenas[i][j - 1] = (checkbox != null).ToString();
+                                break;
+
+                            case 10:
+                                break;
+
+                            default:
+                                tablaDeCadenas[i][j - 1] = celdas[j].InnerHtml;
+                                break;
+                        }*/
 
 
 
@@ -242,7 +298,94 @@ namespace DepartamentoServiciosEscolaresCBTis123.Logica.Controladores
                         }
                     }
                 }
+
+
+                wb.Close();
             }
+
+            int id;
+            GetWindowThreadProcessId(xls.Hwnd, out id);
+            Process p = Process.GetProcessById(id);
+            p.Kill();
+        }
+
+        public static string[][][] leerExcel(string archivo)
+        {
+            // Creamos objetos necesarios.
+            Application xlApp = new Application();
+            Workbooks workbooks = xlApp.Workbooks;
+            Workbook xlWorkbook = workbooks.Open(archivo);
+            Sheets sheets = xlWorkbook.Sheets;
+
+            int sheetCount = sheets.Count;
+            string[][][] arr = new string[sheetCount][][];
+
+            for (int k = 1; k <= sheetCount; k++)
+            {
+                Worksheet xlWorksheet = sheets[k];
+                Range xlRange = xlWorksheet.UsedRange;
+
+                Range rows = xlRange.Rows;
+                Range columns = xlRange.Columns;
+
+                int rowCount = rows.Count;
+                int colCount = columns.Count;
+
+                arr[k - 1] = new string[rowCount][];
+
+                // Iteramos sobre las columnas y filas para guardarlas en el arreglo.
+                for (int i = 1; i <= rowCount; i++)
+                {
+                    arr[k - 1][i - 1] = new string[colCount];
+                    for (int j = 1; j <= colCount; j++)
+                    {
+                        var celda = (xlRange.Cells[i, j]);
+
+                        // Guardar el valor en el arreglo
+                        if (celda != null && celda.Value2 != null)
+                            arr[k - 1][i - 1][j - 1] = celda.Value2.ToString();
+
+                        Marshal.ReleaseComObject(celda);
+                    }
+                }
+                // rule of thumb for releasing com objects:
+                // never use two dots, all COM objects must be referenced and released individually
+                // ex: [somthing].[something].[something] is bad
+
+                // release com objects to fully kill excel process from running in the background
+                Marshal.ReleaseComObject(columns);
+                Marshal.ReleaseComObject(rows);
+                Marshal.ReleaseComObject(xlRange);
+                Marshal.ReleaseComObject(xlWorksheet);
+
+                // Limpieza
+                GC.Collect();
+                GC.WaitForPendingFinalizers();
+            }
+
+            // Cerramos y liberamos
+            Marshal.ReleaseComObject(sheets);
+
+            xlWorkbook.Close(0);
+            Marshal.ReleaseComObject(xlWorkbook);
+
+            workbooks.Close();
+            Marshal.ReleaseComObject(workbooks);
+
+            int id;
+            GetWindowThreadProcessId(xlApp.Hwnd, out id);
+
+            xlApp.Quit();
+            Marshal.ReleaseComObject(xlApp);
+
+            Process p = Process.GetProcessById(id);
+            p.Kill();
+
+            // Limpieza
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+
+            return arr;
         }
 
         public static string[][] matricularSemestre(semestres s)

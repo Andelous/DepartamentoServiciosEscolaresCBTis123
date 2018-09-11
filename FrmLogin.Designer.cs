@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmLogin));
             this.cmdIngresar = new System.Windows.Forms.Button();
             this.txtContrasena = new System.Windows.Forms.TextBox();
             this.txtUsuario = new System.Windows.Forms.TextBox();
@@ -35,11 +36,15 @@
             this.label2 = new System.Windows.Forms.Label();
             this.button1 = new System.Windows.Forms.Button();
             this.cmdOpciones = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.label3 = new System.Windows.Forms.Label();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // cmdIngresar
             // 
-            this.cmdIngresar.Location = new System.Drawing.Point(339, 306);
+            this.cmdIngresar.Font = new System.Drawing.Font("Open Sans", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.cmdIngresar.Location = new System.Drawing.Point(338, 261);
             this.cmdIngresar.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.cmdIngresar.Name = "cmdIngresar";
             this.cmdIngresar.Size = new System.Drawing.Size(267, 38);
@@ -91,7 +96,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(83, 62);
+            this.button1.Location = new System.Drawing.Point(611, 352);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(75, 23);
             this.button1.TabIndex = 18;
@@ -101,13 +106,33 @@
             // 
             // cmdOpciones
             // 
-            this.cmdOpciones.Location = new System.Drawing.Point(111, 306);
+            this.cmdOpciones.Location = new System.Drawing.Point(338, 308);
             this.cmdOpciones.Name = "cmdOpciones";
-            this.cmdOpciones.Size = new System.Drawing.Size(178, 38);
+            this.cmdOpciones.Size = new System.Drawing.Size(267, 38);
             this.cmdOpciones.TabIndex = 19;
             this.cmdOpciones.Text = "Opciones";
             this.cmdOpciones.UseVisualStyleBackColor = true;
             this.cmdOpciones.Click += new System.EventHandler(this.cmdOpciones_Click);
+            // 
+            // pictureBox1
+            // 
+            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
+            this.pictureBox1.Location = new System.Drawing.Point(48, 27);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(205, 236);
+            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.pictureBox1.TabIndex = 20;
+            this.pictureBox1.TabStop = false;
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Font = new System.Drawing.Font("Open Sans SemiBold", 18F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.label3.Location = new System.Drawing.Point(65, 292);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(174, 33);
+            this.label3.TabIndex = 21;
+            this.label3.Text = "CBTis No. 123";
             // 
             // FrmLogin
             // 
@@ -115,6 +140,8 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.White;
             this.ClientSize = new System.Drawing.Size(618, 358);
+            this.Controls.Add(this.label3);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.cmdOpciones);
             this.Controls.Add(this.button1);
             this.Controls.Add(this.label2);
@@ -131,6 +158,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Login - Control Escolar CBTis 123";
             this.Load += new System.EventHandler(this.FrmLogin_Load);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -145,6 +173,8 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button cmdOpciones;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.Label label3;
     }
 }
 

@@ -184,6 +184,28 @@ namespace DepartamentoServiciosEscolaresCBTis123
         {
             MessageBox.Show(new DAOMisc().seleccionarFechaServidor().ToString());
         }
+
+        private void cmdLeerExcel_Click(object sender, EventArgs e)
+        {
+            string dir = @"C:\Users\angel\Dropbox\Documentos\Important Stuff\Pwd.xlsx";
+
+            string[][][] arr = ControladorMiscelaneo.leerExcel(dir);
+
+            foreach (string[][] arr1 in arr)
+            {
+                string str = "";
+                for (int i = 0; i < arr1.Length; i++)
+                {
+                    for (int j = 0; j < arr1[i].Length; j++)
+                    {
+                        str += arr1[i][j] + "  --|--  ";
+                    }
+                    str += "\n\n";
+                }
+
+                MessageBox.Show(str);
+            }
+        }
     }
 }
 
